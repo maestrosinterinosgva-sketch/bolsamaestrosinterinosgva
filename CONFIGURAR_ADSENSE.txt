@@ -1,0 +1,38 @@
+========================================================================
+  💰 GUÍA DE MONETIZACIÓN CON GOOGLE ADSENSE
+========================================================================
+
+¡Todo el sistema publicitario y legal ya ha sido configurado en tu web!
+
+------------------------------------------------------------------------
+1. ¿QUÉ SE HA INSTALADO Y PREPARADO?
+------------------------------------------------------------------------
+✅ 3 Espacios publicitarios responsive estratégicos:
+   • Bloque 1 (Superior): Entre las estadísticas generales y el buscador.
+   • Bloque 2 (Central): Justo debajo de los datos del interino (el de mayor visibilidad).
+   • Bloque 3 (Inferior): Al final de la tabla de adjudicaciones.
+✅ Archivo obligatorio "ads.txt" listo en la carpeta raíz.
+✅ Página legal completa "privacidad.html" (Aviso Legal, RGPD, AdSense y Cookies).
+✅ Banner flotante de consentimiento de cookies obligatorio en la Unión Europea.
+✅ Enlaces legales en el pie de página ("Aviso Legal y Privacidad", "Política de Cookies", "Gestionar Cookies").
+✅ Paquete "interinos_web.zip" actualizado automáticamente con todos los archivos legales.
+
+------------------------------------------------------------------------
+2. PASO A PASO PARA ACTIVAR TUS ANUNCIOS:
+------------------------------------------------------------------------
+1. Entra en https://adsense.google.com con tu cuenta de Google.
+2. Pulsa en "Empezar" e introduce la dirección de tu web (ej: www.tu-dominio.com).
+3. Google te asignará tu ID de editor personal (tiene el formato: ca-pub-1234567890123456).
+4. Para activar tus anuncios reales, solo tienes que hacer 2 cosas muy sencillas:
+   
+   A) En el archivo "ads.txt":
+      Abre el archivo con el Bloc de notas y cambia "pub-XXXXXXXXXXXXXXXX" 
+      por tu número (ej: google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0).
+
+   B) En el archivo "index.html":
+      Busca "ca-pub-XXXXXXXXXXXXXXXX" y reemplázalo por tu ID (ca-pub-1234567890123456).
+
+5. Vuelve al panel de Google AdSense y pulsa "Solicitar revisión".
+   En unos días, Google validará tu web y los anuncios empezarán a mostrarse
+   y a generar ingresos automáticamente cada vez que los docentes visiten tu web.
+========================================================================

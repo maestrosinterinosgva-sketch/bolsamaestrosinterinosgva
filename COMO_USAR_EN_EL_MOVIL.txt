@@ -1,0 +1,34 @@
+========================================================================
+  📱 CÓMO ABRIR LA APLICACIÓN EN CUALQUIER MÓVIL, TABLET O iPAD
+========================================================================
+
+Tienes dos opciones muy sencillas:
+
+OPCIÓN 1: EN TU CASA O COLEGIO (POR WI-FI)
+------------------------------------------------------------------------
+1. Conecta tu teléfono o tablet a la MISMA RED WI-FI que tu ordenador.
+2. Abre el navegador de tu móvil (Safari en iPhone/iPad, Chrome en Android).
+3. Escribe en la barra de direcciones:
+   
+   👉  http://192.168.18.231:8000
+   
+4. ¡Listo! Ya puedes buscar tu posición, adjudicados por detrás y ver los 5 datos clave.
+   
+⭐ TRUCO PARA TENERLA COMO UNA APP:
+• En iPhone (Safari): Pulsa el icono de "Compartir" (el cuadrado con la flecha) 
+  y elige "Añadir a pantalla de inicio".
+• En Android (Chrome): Pulsa los 3 puntos (⋮) de la esquina superior derecha 
+  y elige "Añadir a pantalla principal" o "Instalar aplicación".
+  ¡Aparecerá el icono oficial en tu pantalla de inicio como una App normal!
+
+
+OPCIÓN 2: EN CUALQUIER LUGAR DEL MUNDO (CON DATOS 4G/5G)
+------------------------------------------------------------------------
+La aplicación es 100% autónoma y estática (HTML + CSS + JS).
+Puedes publicarla gratis en menos de 1 minuto en:
+- GitHub Pages
+- Vercel (arrastrando la carpeta a vercel.com)
+- Netlify (arrastrando la carpeta a netlify.com)
+Y tendrás un enlace público permanente accesible desde cualquier dispositivo 
+del mundo sin necesidad de tener el ordenador encendido.
+========================================================================

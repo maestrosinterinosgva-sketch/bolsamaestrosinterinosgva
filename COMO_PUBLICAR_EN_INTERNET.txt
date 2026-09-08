@@ -1,0 +1,49 @@
+========================================================================
+  🌐 CÓMO PUBLICAR LA WEB EN INTERNET (100% GRATIS Y EN 1 MINUTO)
+========================================================================
+
+Ya tienes preparado en esta carpeta el archivo comprimido listo para publicar:
+📁 interinos_web.zip (solo pesa 1 MB y contiene toda la web y los datos).
+
+Elige la opción que prefieras:
+
+------------------------------------------------------------------------
+OPCIÓN 1: NETLIFY DROP (LA MÁS FÁCIL DEL MUNDO - 30 SEGUNDOS)
+------------------------------------------------------------------------
+1. Abre tu navegador y entra en:
+   👉 https://app.netlify.com/drop
+
+2. Arrastra el archivo "interinos_web.zip" (o la carpeta) y suéltalo dentro 
+   del recuadro punteado en la página web.
+
+3. ¡Listo! En 5 segundos tu web estará publicada con una dirección propia
+   (ejemplo: https://interinos-maestros.netlify.app).
+
+4. Puedes cambiarle el nombre en "Site configuration -> Change site name" 
+   para ponerle el nombre que quieras (ej: adjudicaciones-maestros.netlify.app).
+
+¡Ese enlace lo puedes abrir desde cualquier móvil con 4G/5G, compartirlo por 
+WhatsApp o Telegram con quien quieras, y funciona 24 horas al día sin 
+necesidad de tener tu ordenador encendido!
+
+
+------------------------------------------------------------------------
+OPCIÓN 2: GITHUB PAGES (PERMANENTE Y MUY POPULAR)
+------------------------------------------------------------------------
+1. Entra en https://github.com e inicia sesión (o crea una cuenta gratuita).
+2. Crea un repositorio nuevo llamado por ejemplo "interinos" (público).
+3. Haz clic en "uploading an existing file" (subir un archivo existente).
+4. Arrastra los archivos de la web (index.html, carpetas css, js, data, icons, etc.).
+5. Ve a "Settings" -> pestaña "Pages" (en el menú de la izquierda).
+6. En "Branch", selecciona "main" y pulsa "Save".
+7. En 1 minuto tu web estará online en:
+   👉 https://tu-usuario.github.io/interinos/
+
+
+------------------------------------------------------------------------
+OPCIÓN 3: VERCEL
+------------------------------------------------------------------------
+1. Entra en https://vercel.com y regístrate con tu correo o cuenta de Google/GitHub.
+2. Pulsa en "Add New Project" y sube la carpeta.
+3. Te dará un enlace permanente https://interinos.vercel.app al instante.
+========================================================================

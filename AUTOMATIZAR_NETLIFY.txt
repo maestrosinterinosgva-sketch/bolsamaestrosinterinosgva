@@ -1,0 +1,35 @@
+========================================================================
+  🚀 CÓMO AUTOMATIZAR LAS ACTUALIZACIONES EN NETLIFY AL 100%
+========================================================================
+
+Al tener la web en Netlify, puedes elegir entre dos formas de automatización:
+
+------------------------------------------------------------------------
+OPCIÓN 1: VINCULAR NETLIFY CON GITHUB (100% AUTOMÁTICO EN LA NUBE)
+------------------------------------------------------------------------
+Esta es la mejor opción porque NO requiere que tu ordenador esté encendido.
+
+¿Cómo se configura en 2 minutos?
+1. Sube tu carpeta a un repositorio gratuito en https://github.com
+2. Entra en tu panel de Netlify (https://app.netlify.com).
+3. Entra en tu sitio web -> Ve a "Site configuration" -> "Build & deploy".
+4. Pulsa en "Link repository" (Vincular repositorio) y elige tu repositorio de GitHub.
+5. ¡Listo! A partir de ese momento:
+   - El robot de GitHub (.github/workflows/auto_actualizar_adjudicaciones.yml)
+     comprueba la web de Conselleria los martes y jueves.
+   - Si hay nuevo PDF, lo procesa y guarda los cambios.
+   - Netlify detecta los cambios y republica tu web en 15 segundos automáticamente.
+   - Tú no tienes que hacer absolutamente nada.
+
+
+------------------------------------------------------------------------
+OPCIÓN 2: SI SUBES POR NETLIFY DROP (SEMI-AUTOMÁTICO EN 10 SEGUNDOS)
+------------------------------------------------------------------------
+Si prefieres no usar GitHub y seguir con Netlify Drop:
+1. Cuando salga el nuevo PDF, haces doble clic en "ACTUALIZAR_CON_NUEVO_PDF.bat" 
+   o pegas el enlace del PDF.
+2. En 2 segundos se regenera tu archivo "interinos_web.zip".
+3. Entras en tu panel de Netlify -> pestaña "Deploys" -> arrastras "interinos_web.zip" 
+   al recuadro punteado.
+4. Tu web en internet se actualiza al instante.
+========================================================================

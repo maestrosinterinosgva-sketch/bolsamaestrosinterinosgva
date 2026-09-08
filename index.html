@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolsa de Interinos - Localizador y Adjudicaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Interinos">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  
+  <!-- Google tag (gtag.js) - Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM4D94ZE4M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SM4D94ZE4M');
+  </script>
+
+  <!-- Google AdSense Oficial -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7842650272336816" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-content">
+        <div class="header-badge">
+          <span class="pulse-dot"></span>
+          <span id="headerAdjDate">Adjudicación 08/09/2026 &bull; Maestros Generalitat Valenciana</span>
+        </div>
+        <h1>🎯 Localizador de Interinos</h1>
+        <p class="subtitle">Encuentra tu posición en la bolsa, personas desactivadas, no participantes y cuántos puestos te faltan para ser nombrado/a.</p>
+      </div>
+    </header>
+
+    <!-- Global Stats Bar -->
+    <section class="global-stats-bar" id="globalStatsBar">
+      <div class="stat-pill">
+        <span class="pill-label">Total en Bolsa:</span>
+        <span class="pill-val" id="globTotalBolsa">17.329</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Convocados hoy:</span>
+        <span class="pill-val" id="globTotalAdj">11.956</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Plazas adjudicadas:</span>
+        <span class="pill-val highlight-green" id="globTotalPlazas">1.471</span>
+      </div>
+      <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes</button>
+      <button class="btn-sm btn-device" id="btnDeviceConnect">📱 Abrir en el Móvil</button>
+    </section>
+
+    <!-- Espacio Publicitario Superior (Google AdSense Slot 1) -->
+    <div class="ad-banner-container" id="adTopBanner">
+      <div class="ad-label">PUBLICIDAD</div>
+      <div class="ad-slot-box">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7842650272336816"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <div class="ad-placeholder-text">Espacio Publicitario Google AdSense</div>
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <section class="search-section card">
+      <div class="search-grid">
+        <div class="search-input-group">
+          <label for="searchInput">
+            <span class="label-icon">🔍</span>
+            <strong>Introduce Nombre o Apellidos:</strong>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="searchInput" placeholder="Ej: GARCIA MARTINEZ, BLANCA, PEREZ..." autocomplete="off">
+            <button id="btnClearSearch" class="btn-clear" title="Limpiar">&times;</button>
+          </div>
+          <div id="autocompleteList" class="autocomplete-dropdown hidden"></div>
+        </div>
+
+        <div class="specialty-selector-group">
+          <label for="specialtySelect">
+            <span class="label-icon">📚</span>
+            <strong>Especialidad a consultar:</strong>
+          </label>
+          <div class="select-wrapper">
+            <select id="specialtySelect">
+              <option value="INF">Infantil (INF)</option>
+              <option value="PRI" selected>Primaria (PRI)</option>
+              <option value="PT">Pedagogía Terapéutica (PT)</option>
+              <option value="AL">Audición y Lenguaje (AL)</option>
+              <option value="EF">Educación Física (EF)</option>
+              <option value="MUS">Música (MUS)</option>
+              <option value="ING">Inglés (ING)</option>
+              <option value="FRA">Francés (FRA)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick specialty badges -->
+      <div class="specialty-pills" id="specialtyPills">
+        <button class="spec-btn" data-spec="INF">INF <span class="spec-count">7.481</span></button>
+        <button class="spec-btn active" data-spec="PRI">PRI <span class="spec-count">10.793</span></button>
+        <button class="spec-btn" data-spec="PT">PT <span class="spec-count">3.452</span></button>
+        <button class="spec-btn" data-spec="AL">AL <span class="spec-count">2.263</span></button>
+        <button class="spec-btn" data-spec="EF">EF <span class="spec-count">2.065</span></button>
+        <button class="spec-btn" data-spec="MUS">MUS <span class="spec-count">1.019</span></button>
+        <button class="spec-btn" data-spec="ING">ING <span class="spec-count">2.484</span></button>
+        <button class="spec-btn" data-spec="FRA">FRA <span class="spec-count">95</span></button>
+      </div>
+    </section>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state card">
+      <div class="empty-icon">🔎</div>
+      <h3>Comienza escribiendo tu nombre o apellidos en el buscador</h3>
+      <p>Aparecerán automáticamente las coincidencias de la lista oficial de interinos para que elijas tu perfil.</p>
+      <div class="example-searches">
+        <span>Prueba con ejemplos reales:</span>
+        <button class="btn-tag" data-name="OLAYA SERRA, BLANCA">Blanca Olaya</button>
+        <button class="btn-tag" data-name="ARCE RAMOS, LUCIA">Lucia Arce</button>
+        <button class="btn-tag" data-name="MONTON MOROTE, NOELIA">Noelia Monton</button>
+        <button class="btn-tag" data-name="GARCIA MARTINEZ, EVA">Eva Garcia</button>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <main id="resultsSection" class="results-section hidden">
+      <!-- User Profile Header Card -->
+      <div class="user-card card">
+        <div class="user-card-main">
+          <div class="user-info">
+            <div class="user-meta-tags">
+              <span class="tag tag-bolsa">Nº Adjudicación: <strong id="userAdjOrder">-</strong></span>
+              <span class="tag tag-services" id="userBolsaTag">Bolsa Inicial: <strong id="userBolsaNum">-</strong></span>
+              <span class="tag tag-services" id="userServices">-</span>
+              <span class="tag tag-status" id="userStatusBadge">-</span>
+            </div>
+            <h2 id="userName" class="user-title">-</h2>
+            <div class="user-specs-list" id="userSpecsList">
+              <!-- Specialties badges -->
+            </div>
+          </div>
+          <div class="user-pos-badge">
+            <div class="pos-badge-label">Posición en <span id="posSpecLabel">Primaria</span></div>
+            <div class="pos-badge-number" id="userSpecPos">-</div>
+            <div class="pos-badge-total">de <span id="userSpecTotal">-</span> en bolsa</div>
+          </div>
+        </div>
+
+        <!-- Adjudication Notice if Adjudicated -->
+        <div id="adjudicadoBox" class="adjudicado-banner hidden">
+          <div class="adj-icon">🎉</div>
+          <div class="adj-details">
+            <div class="adj-title">¡Plaza Adjudicada en esta convocatoria!</div>
+            <div class="adj-grid">
+              <div><strong>Centro:</strong> <span id="adjCentro">-</span></div>
+              <div><strong>Especialidad de la plaza:</strong> <span id="adjEspecialidad">-</span></div>
+              <div><strong>Tipo:</strong> <span id="adjTipoVacante">-</span></div>
+              <div><strong>Jornada:</strong> <span id="adjJornada">-</span></div>
+              <div><strong>Código Plaza:</strong> <span id="adjCodigoPlaza">-</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Espacio Publicitario Central (Google AdSense Slot 2) -->
+      <div class="ad-banner-container" id="adMiddleBanner">
+        <div class="ad-label">PUBLICIDAD</div>
+        <div class="ad-slot-box">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7842650272336816"
+               data-ad-slot="2345678901"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <div class="ad-placeholder-text">Espacio Publicitario Google AdSense</div>
+        </div>
+      </div>
+
+      <!-- Panel de los 5 Datos Clave de Adjudicación -->
+      <section class="card panel-5-datos">
+        <div class="panel-5-header">
+          <div class="panel-5-badge">📌 DATOS CLAVE DE ADJUDICACIÓN</div>
+          <h2 class="panel-5-title">Informe Oficial para <span id="summary5UserName">-</span> en <span id="summary5SpecName">Primaria</span></h2>
+        </div>
+
+        <div class="grid-5-datos">
+          <!-- Dato 1 -->
+          <div class="dato-card">
+            <div class="dato-header">
+              <span class="badge-num">1</span>
+              <span class="dato-title">POSICIÓN EN LA ESPECIALIDAD SELECCIONADA</span>
+            </div>
+            <div class="dato-num" id="valPosicionActual">-</div>
+            <div class="dato-sub" id="subPosicionActual">Puesto según especialidad consultada</div>
+          </div>
+
+          <!-- Dato 2 -->
+          <div class="dato-card">
+            <div class="dato-header">
+              <span class="badge-num">2</span>
+              <span class="dato-title">TOTAL INTERINOS POR DELANTE EN LA ESPECIALIDAD</span>
+            </div>
+            <div class="dato-num" id="valTotalPorDelante">-</div>
+            <div class="dato-sub" id="subTotalPorDelante">Aspirantes que van antes que tú en esta área</div>
+          </div>
+
+          <!-- Dato 3 -->
+          <div class="dato-card highlight-depurada">
+            <div class="dato-header">
+              <span class="badge-num">3</span>
+              <span class="dato-title">POSICIÓN SEGÚN ESPECIALIDAD (QUITANDO ADJUDICADOS Y DESACTIVADOS)</span>
+            </div>
+            <div class="dato-num highlight-blue-num" id="valPosicionDepurada">-</div>
+            <div class="dato-sub" id="subPosicionDepurada">Puesto neto depurado en bolsa activa</div>
+          </div>
+
+          <!-- Dato 4 -->
+          <div class="dato-card">
+            <div class="dato-header">
+              <span class="badge-num">4</span>
+              <span class="dato-title">ÚLTIMO ADJUDICADO DE LA BOLSA EN ESTA ESPECIALIDAD</span>
+            </div>
+            <div class="dato-num-medium" id="valUltimoAdjudicado">-</div>
+            <div class="dato-sub" id="subUltimoAdjudicado">Corte de la convocatoria de hoy</div>
+          </div>
+
+          <!-- Dato 5 -->
+          <div class="dato-card highlight-diff">
+            <div class="dato-header">
+              <span class="badge-num">5</span>
+              <span class="dato-title">PUESTOS DE DIFERENCIA CON EL ÚLTIMO ADJUDICADO</span>
+            </div>
+            <div class="dato-num" id="valDiferenciaCorte">-</div>
+            <div class="dato-sub" id="subDiferenciaCorte">Bien sea por delante o por detrás</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI Metrics Row -->
+      <div class="kpi-grid">
+        <!-- KPI 1: Puestos que faltan -->
+        <div class="kpi-card highlight-kpi">
+          <div class="kpi-icon">🎯</div>
+          <div class="kpi-content">
+            <div class="kpi-title">Puestos que te faltan</div>
+            <div class="kpi-value" id="kpiPuestosFaltan">-</div>
+            <div class="kpi-desc" id="kpiPuestosFaltanDesc">Personas activas compitiendo por delante</div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Desactivadas por delante -->
+        <div class="kpi-card">
+          <div class="kpi-icon icon-amber">⏸️</div>
+          <div class="kpi-content">
+            <div class="kpi-title">Desactivadas por delante</div>
+            <div class="kpi-value" id="kpiDesactivadas">-</div>
+            <div class="kpi-desc" id="kpiDesactivadasPct">No compiten por plaza actualmente</div>
+          </div>
+        </div>
+
+        <!-- KPI 3: No han participado -->
+        <div class="kpi-card">
+          <div class="kpi-icon icon-rose">🚫</div>
+          <div class="kpi-content">
+            <div class="kpi-title">No han participado</div>
+            <div class="kpi-value" id="kpiNoParticipat">-</div>
+            <div class="kpi-desc">Convocados que no pidieron plaza</div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Adjudicadas hoy por delante -->
+        <div class="kpi-card">
+          <div class="kpi-icon icon-emerald">✅</div>
+          <div class="kpi-content">
+            <div class="kpi-title">Adjudicadas por delante</div>
+            <div class="kpi-value" id="kpiAdjudicadas">-</div>
+            <div class="kpi-desc" id="kpiAdjudicadasDesc">Ya han obtenido nombramiento</div>
+          </div>
+        </div>
+
+        <!-- KPI 5: Adjudicados por detrás -->
+        <div class="kpi-card highlight-behind" id="cardKpiBehind" style="cursor: pointer;" title="Haz clic para ver la lista de adjudicados por detrás">
+          <div class="kpi-icon icon-purple">📌</div>
+          <div class="kpi-content">
+            <div class="kpi-title">Adjudicados por detrás</div>
+            <div class="kpi-value" id="kpiAdjudicadasBehind">-</div>
+            <div class="kpi-desc" id="kpiAdjudicadasBehindDesc">Con número posterior al tuyo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specialty Cutoff Box -->
+      <div class="cutoff-card card">
+        <div class="cutoff-header">
+          <div class="cutoff-title">
+            <span class="icon">📍</span>
+            <strong>Corte del Último Adjudicado en <span id="cutoffSpecName">-</span> hoy:</strong>
+          </div>
+          <div class="cutoff-badge" id="cutoffDistanceBadge">-</div>
+        </div>
+        <div class="cutoff-body">
+          <div class="cutoff-detail"><strong>Docente:</strong> <span id="cutoffName">-</span></div>
+          <div class="cutoff-detail"><strong>Nº Bolsa:</strong> <span id="cutoffBolsa">-</span></div>
+          <div class="cutoff-detail"><strong>Nº Convocatoria:</strong> <span id="cutoffOrdenAdj">-</span></div>
+          <div class="cutoff-detail"><strong>Destino:</strong> <span id="cutoffCentro">-</span></div>
+        </div>
+      </div>
+
+      <!-- Distribution Visual Bar -->
+      <div class="distribution-card card">
+        <div class="dist-header">
+          <h3>Composición de las personas por delante de ti (<span id="distTotalAhead">-</span> personas)</h3>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-segment seg-adjudicados" id="barAdjudicados" title="Adjudicados hoy"></div>
+          <div class="progress-segment seg-activos" id="barActivos" title="Activos en espera"></div>
+          <div class="progress-segment seg-desactivados" id="barDesactivados" title="Desactivados"></div>
+          <div class="progress-segment seg-no-participat" id="barNoParticipat" title="No han participado"></div>
+          <div class="progress-segment seg-no-convocats" id="barNoConvocats" title="Otros / No convocados"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="legend-item"><span class="dot dot-adjudicados"></span> Adjudicados: <strong id="legendAdjVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-activos"></span> Activos en espera: <strong id="legendActVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-desactivados"></span> Desactivados: <strong id="legendDesVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-no-participat"></span> No participaron: <strong id="legendNoPartVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-no-convocats"></span> Otros en bolsa: <strong id="legendOtrosVal">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Table of People (Ahead or Behind) -->
+      <div class="table-card card">
+        <!-- Main Table View Switcher -->
+        <div class="table-view-switcher">
+          <button class="view-switch-btn active" id="btnViewAhead">
+            ⬅️ Aspirantes por Delante (<span id="countViewAhead">-</span>)
+          </button>
+          <button class="view-switch-btn" id="btnViewBehind">
+            ➡️ Adjudicados por Detrás (<span id="countViewBehind">-</span>)
+          </button>
+        </div>
+
+        <div class="table-header">
+          <div class="table-title-wrap">
+            <h3 id="tableMainTitle">Listado de aspirantes por delante en <span id="tableSpecName">Primaria</span></h3>
+            <span class="table-subtitle" id="tableSubtitle">Mostrando aspirantes antes de tu posición</span>
+          </div>
+          <div class="table-actions">
+            <!-- Filtros para Vista Por Delante -->
+            <div class="table-filter-tabs" id="tableFiltersAhead">
+              <button class="btn-tab active" data-filter="all">Todos (<span id="countAll">-</span>)</button>
+              <button class="btn-tab" data-filter="activos">Activos (<span id="countActivos">-</span>)</button>
+              <button class="btn-tab" data-filter="desactivados">Desactivados (<span id="countDesactivados">-</span>)</button>
+              <button class="btn-tab" data-filter="no_participat">No participaron (<span id="countNoPart">-</span>)</button>
+              <button class="btn-tab" data-filter="adjudicados">Adjudicados (<span id="countAdjudicados">-</span>)</button>
+            </div>
+            <!-- Filtros para Vista Por Detrás -->
+            <div class="table-filter-tabs hidden" id="tableFiltersBehind">
+              <button class="btn-tab active" data-behind-filter="spec">En esta especialidad (<span id="countBehindSpec">-</span>)</button>
+              <button class="btn-tab" data-behind-filter="all_specs">En cualquier especialidad (<span id="countBehindAll">-</span>)</button>
+            </div>
+            <input type="text" id="tableSearch" class="input-table-search" placeholder="Filtrar en esta lista...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="interinos-table" id="aheadTable">
+            <thead id="tableHead">
+              <tr>
+                <th>Puesto Esp.</th>
+                <th>Nº Bolsa</th>
+                <th>Nombre y Apellidos</th>
+                <th>Servicios</th>
+                <th>Estado Adjudicación</th>
+                <th>Destino Adjudicado</th>
+              </tr>
+            </thead>
+            <tbody id="aheadTableBody">
+              <!-- Rows inserted dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-pagination">
+          <button id="btnPrevPage" class="btn-sm btn-outline" disabled>&laquo; Anterior</button>
+          <span id="pageInfo">Página 1 de 1</span>
+          <button id="btnNextPage" class="btn-sm btn-outline">Siguiente &raquo;</button>
+        </div>
+      </div>
+
+      <!-- Espacio Publicitario Inferior (Google AdSense Slot 3) -->
+      <div class="ad-banner-container" id="adBottomBanner">
+        <div class="ad-label">PUBLICIDAD</div>
+        <div class="ad-slot-box">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7842650272336816"
+               data-ad-slot="3456789012"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <div class="ad-placeholder-text">Espacio Publicitario Google AdSense</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal: Cortes por Especialidad -->
+    <div id="modalSummary" class="modal-overlay hidden">
+      <div class="modal-card card">
+        <div class="modal-header">
+          <h2>📊 Resumen de Adjudicación del 03/09/2026</h2>
+          <button id="btnCloseModal" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Especialidad</th>
+                <th>Total Bolsa</th>
+                <th>Plazas Hoy</th>
+                <th>Último Adjudicado</th>
+                <th>Nº Bolsa Corte</th>
+                <th>Desactivados</th>
+              </tr>
+            </thead>
+            <tbody id="modalSummaryBody">
+              <!-- Summary rows inserted dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Conectar desde Cualquier Dispositivo / Móvil -->
+    <div id="modalDeviceConnect" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>📱 Abrir en cualquier Móvil o Tablet</h2>
+          <button id="btnCloseDeviceModal" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body device-modal-body">
+          <div class="device-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>Conéctate a la misma red Wi-Fi</strong>
+              <p>Asegúrate de que tu móvil o tablet esté conectado a la misma red Wi-Fi que este ordenador.</p>
+            </div>
+          </div>
+
+          <div class="device-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>Entra desde tu navegador (Safari o Chrome) a este enlace:</strong>
+              <div class="wifi-url-box">
+                <code id="deviceWifiUrl">http://192.168.18.231:8000</code>
+                <button class="btn-copy" id="btnCopyWifiUrl" title="Copiar enlace">📋 Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="device-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong>Instálala como App en tu teléfono (1 segundo):</strong>
+              <p>• <strong>En iPhone / iPad (Safari):</strong> Pulsa el botón Compartir y elige <strong>"Añadir a pantalla de inicio"</strong>.</p>
+              <p>• <strong>En Android (Chrome):</strong> Pulsa el menú (⋮) y elige <strong>"Instalar aplicación"</strong> o <strong>"Añadir a pantalla principal"</strong>.</p>
+            </div>
+          </div>
+
+          <div class="cloud-info-box">
+            <h4>🌐 ¿Quieres usarlo fuera de casa en cualquier lugar (4G/5G)?</h4>
+            <p>La aplicación está lista para publicarse gratis en <strong>GitHub Pages</strong> o <strong>Vercel</strong> para tener una dirección web pública permanente accesible desde cualquier dispositivo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <p>Desarrollado para docentes interinos &bull; Datos oficiales de la Conselleria d'Educació (Generalitat Valenciana).</p>
+      <p class="footer-note">Cálculo basado en las personas activas reales por delante de cada posición en la especialidad seleccionada.</p>
+      <div class="footer-legal-links">
+        <a href="privacidad.html">Aviso Legal y Privacidad</a> &bull; 
+        <a href="privacidad.html#cookies">Política de Cookies</a> &bull; 
+        <button id="btnManageCookies" class="btn-cookie-link">Gestionar Cookies</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Banner de Consentimiento de Cookies (RGPD / Google AdSense) -->
+  <div id="cookieBanner" class="cookie-banner hidden">
+    <div class="cookie-banner-content">
+      <div class="cookie-text">
+        🍪 <strong>Aviso de Cookies:</strong> Utilizamos cookies técnicas y publicitarias (Google AdSense) para financiar y mantener esta herramienta gratuita. Puedes consultar todos los detalles en nuestra <a href="privacidad.html" target="_blank">Política de Privacidad y Cookies</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="btnAcceptCookies" class="btn-cookie btn-cookie-accept">Aceptar todas</button>
+        <button id="btnRejectCookies" class="btn-cookie btn-cookie-reject">Rechazar no esenciales</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/network_info.js?v=5"></script>
+  <script src="data/stats_summary.js?v=5"></script>
+  <script src="data/interinos_data.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
+</body>
+</html>
