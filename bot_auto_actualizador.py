@@ -108,11 +108,29 @@ def check_and_update():
             run_actualizacion()
             save_last_processed_info(pdf_url)
             print("[OK] ¡Proceso autónomo completado con éxito!")
+            push_to_github()
             return True
         except Exception as e:
             print(f"[-] Error al procesar {pdf_url}: {e}")
 
     return False
+
+def push_to_github():
+    print("[*] Publicando cambios automáticamente en GitHub Pages...")
+    import subprocess
+    git_cmd = r"c:\Users\herri\Desktop\destinos\tools\git\cmd\git.exe"
+    if not os.path.exists(git_cmd):
+        git_cmd = "git"
+    
+    try:
+        subprocess.run([git_cmd, "add", "index.html", "data/"], check=True)
+        subprocess.run([git_cmd, "commit", "-m", "Auto-update: Nueva adjudicación publicada por Conselleria GVA"], check=True)
+        subprocess.run([git_cmd, "push", "origin", "main"], check=True)
+        print("[OK] ¡Cambios subidos a GitHub con éxito! Estará visible online en ~60 segundos.")
+        return True
+    except Exception as e:
+        print(f"[-] Error al subir a GitHub: {e}")
+        return False
 
 if __name__ == "__main__":
     import time
