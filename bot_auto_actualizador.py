@@ -123,6 +123,8 @@ def push_to_github():
         git_cmd = "git"
     
     try:
+        subprocess.run([git_cmd, "config", "user.name", "github-actions[bot]"], check=False)
+        subprocess.run([git_cmd, "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
         subprocess.run([git_cmd, "add", "index.html", "data/"], check=True)
         subprocess.run([git_cmd, "commit", "-m", "Auto-update: Nueva adjudicación publicada por Conselleria GVA"], check=True)
         subprocess.run([git_cmd, "push", "origin", "main"], check=True)

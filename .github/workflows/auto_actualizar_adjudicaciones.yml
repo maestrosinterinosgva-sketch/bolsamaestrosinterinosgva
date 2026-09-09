@@ -2,9 +2,9 @@ name: Actualización Automática Semanal de Adjudicaciones
 
 on:
   schedule:
-    # Se ejecuta de Lunes a Viernes de 06:00 a 19:45 UTC (08:00 a 21:45 hora española)
-    # y comprueba la web de Conselleria cada minuto en continuo
-    - cron: '*/15 6-19 * * 1-5'
+    # Se ejecuta de Lunes a Viernes de 06:00 a 21:00 UTC (08:00 a 22:00/23:00 hora española)
+    # y comprueba la web de Conselleria cada 15 minutos
+    - cron: '*/15 6-21 * * 1-5'
   workflow_dispatch:
     inputs:
       pdf_url:
