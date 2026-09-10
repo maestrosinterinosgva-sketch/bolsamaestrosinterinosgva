@@ -127,10 +127,12 @@ def check_telegram_updates():
             send_telegram_message(token, chat_id, welcome)
             continue
 
+        web_url = os.environ.get("WEB_URL") or cfg.get("web_url") or "https://bolsa-de-maestros.pages.dev"
+
         if text.startswith("/status") or text.startswith("/web"):
             status_msg = (
                 "🌐 <b>Estado de la Web:</b>\n"
-                "• Enlace oficial: https://herrizpab-a11y.github.io/bolsamaestrosinterinosgva/\n"
+                f"• Enlace oficial: {web_url}\n"
                 "• Puedes enviarme un nuevo PDF en cualquier momento para actualizar."
             )
             send_telegram_message(token, chat_id, status_msg)
@@ -188,7 +190,7 @@ def check_telegram_updates():
                             convocados = stats.get("total_adjudicaciones_hoy", 0)
                             plazas = stats.get("total_plazas_adjudicadas", 0)
 
-                    # Subir a GitHub
+                    # Subir a repositorio
                     push_to_github()
 
                     success_msg = (
@@ -197,7 +199,7 @@ def check_telegram_updates():
                         f"👥 <b>Convocados analizados:</b> {convocados:,}\n"
                         f"🏫 <b>Plazas adjudicadas:</b> {plazas:,}\n\n"
                         f"🌐 <b>Ver web online:</b>\n"
-                        f"https://herrizpab-a11y.github.io/bolsamaestrosinterinosgva/"
+                        f"{web_url}"
                     )
                     send_telegram_message(token, chat_id, success_msg)
                     new_pdf_processed = True
@@ -207,6 +209,15 @@ def check_telegram_updates():
     # Guardar nuevo offset para no repetir mensajes
     with open(offset_file, "w") as f:
         f.write(str(offset))
+
+    # Confirmar a los servidores de Telegram que estos mensajes ya han sido procesados
+    if offset > 0:
+        try:
+            ack_url = f"https://api.telegram.org/bot{token}/getUpdates?offset={offset + 1}&limit=1"
+            with urllib.request.urlopen(ack_url, timeout=10) as ack_resp:
+                pass
+        except Exception:
+            pass
 
     return new_pdf_processed
 

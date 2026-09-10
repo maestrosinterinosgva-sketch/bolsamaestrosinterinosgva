@@ -158,13 +158,14 @@ def check_and_update():
                             fecha = st.get("fecha_adjudicacion", fecha)
                             convocados = st.get("total_adjudicaciones_hoy", 0)
                             plazas = st.get("total_plazas_adjudicadas", 0)
+                    web_url = os.environ.get("WEB_URL", "https://bolsa-de-maestros.pages.dev")
                     msg = (
                         f"🤖 <b>¡Nueva Adjudicación detectada y publicada!</b>\n\n"
                         f"📅 <b>Fecha:</b> {fecha}\n"
                         f"👥 <b>Convocados:</b> {convocados:,}\n"
                         f"🏫 <b>Plazas adjudicadas:</b> {plazas:,}\n\n"
                         f"🌐 <b>Ver web:</b>\n"
-                        f"https://herrizpab-a11y.github.io/bolsamaestrosinterinosgva/"
+                        f"{web_url}"
                     )
                     send_telegram_message(cfg["token"], cfg["chat_id"], msg)
             except Exception as e_tg:
@@ -177,22 +178,27 @@ def check_and_update():
     return False
 
 def push_to_github():
-    print("[*] Publicando cambios automáticamente en GitHub Pages...")
+    if os.environ.get("GITLAB_CI"):
+        print("[*] Ejecutándose dentro de GitLab CI; el pipeline gestionará el commit y push al finalizar.")
+        return True
+
+    print("[*] Publicando cambios automáticamente...")
     import subprocess
-    git_cmd = r"c:\Users\herri\Desktop\destinos\tools\git\cmd\git.exe"
+    git_cmd = r"tools\git\cmd\git.exe"
     if not os.path.exists(git_cmd):
         git_cmd = "git"
     
     try:
-        subprocess.run([git_cmd, "config", "user.name", "github-actions[bot]"], check=False)
-        subprocess.run([git_cmd, "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
+        subprocess.run([git_cmd, "config", "user.name", "Bot Adjudicaciones"], check=False)
+        subprocess.run([git_cmd, "config", "user.email", "bot@interinos.valencia"], check=False)
         subprocess.run([git_cmd, "add", "index.html", "data/", "interinos_web.zip"], check=True)
         subprocess.run([git_cmd, "commit", "-m", "Auto-update: Nueva adjudicación publicada por Conselleria GVA"], check=True)
-        subprocess.run([git_cmd, "push", "origin", "main"], check=True)
-        print("[OK] ¡Cambios subidos a GitHub con éxito! Estará visible online en ~60 segundos.")
+        subprocess.run([git_cmd, "push", "gitlab", "main"], check=False)
+        subprocess.run([git_cmd, "push", "origin", "main"], check=False)
+        print("[OK] ¡Cambios subidos con éxito! Estará visible online en ~30 segundos.")
         return True
     except Exception as e:
-        print(f"[-] Error al subir a GitHub: {e}")
+        print(f"[-] Error al subir cambios: {e}")
         return False
 
 if __name__ == "__main__":
