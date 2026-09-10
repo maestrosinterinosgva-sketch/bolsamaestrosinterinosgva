@@ -74,7 +74,7 @@ def search_for_new_pdf():
                             m = "https://ceice.gva.es" + m
                         found_urls.append((src["name"], m))
         except Exception as e:
-            # Si una fuente falla, continuamos con las demás
+            print(f"[-] Aviso al consultar {src['name']}: {e}")
             continue
 
     return found_urls
@@ -125,7 +125,7 @@ def push_to_github():
     try:
         subprocess.run([git_cmd, "config", "user.name", "github-actions[bot]"], check=False)
         subprocess.run([git_cmd, "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
-        subprocess.run([git_cmd, "add", "index.html", "data/"], check=True)
+        subprocess.run([git_cmd, "add", "index.html", "data/", "interinos_web.zip"], check=True)
         subprocess.run([git_cmd, "commit", "-m", "Auto-update: Nueva adjudicación publicada por Conselleria GVA"], check=True)
         subprocess.run([git_cmd, "push", "origin", "main"], check=True)
         print("[OK] ¡Cambios subidos a GitHub con éxito! Estará visible online en ~60 segundos.")
