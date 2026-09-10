@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 adjudicacion_descargada_auto.pdf
 *.tmp
+telegram_*.pdf
+data/telegram_config.json
+data/telegram_last_offset.txt
+2*.pdf
