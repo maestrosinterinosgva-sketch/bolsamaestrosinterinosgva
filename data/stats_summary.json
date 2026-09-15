@@ -1,139 +1,139 @@
 {
-  "fecha_adjudicacion": "10/09/2026",
+  "fecha_adjudicacion": "15/09/2026",
   "total_participantes_bolsa": 17336,
   "total_participantes_bolsa_inicial": 17336,
-  "total_adjudicaciones_hoy": 8753,
-  "total_plazas_adjudicadas": 451,
+  "total_adjudicaciones_hoy": 8270,
+  "total_plazas_adjudicadas": 309,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 4679,
+      "total_convocados_adj": 4486,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 120,
-      "total_adjudicados_general": 178,
-      "total_desactivados": 1190,
+      "total_plazas_hoy": 92,
+      "total_adjudicados_general": 128,
+      "total_desactivados": 1231,
       "total_no_participat": 5,
-      "total_activos_espera": 3306,
+      "total_activos_espera": 3122,
       "ultimo_adjudicado": {
-        "name": "ELICHE LOPEZ DE LA ISIDRA, ALBA",
-        "adj_order": 4418,
-        "bolsa_num": 12473,
-        "centro": "PUÇOL(03015208)CEIP PUÇOL"
+        "name": "ANTON MARTINEZ, MIRIAM",
+        "adj_order": 4001,
+        "bolsa_num": 12503,
+        "centro": "TEULADA(03008551)CEIP CAP D'OR"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
       "total_bolsa_inicial": 10793,
-      "total_convocados_adj": 4042,
+      "total_convocados_adj": 3715,
       "total_bolsa": 10793,
-      "total_plazas_hoy": 137,
-      "total_adjudicados_general": 321,
-      "total_desactivados": 1847,
+      "total_plazas_hoy": 100,
+      "total_adjudicados_general": 211,
+      "total_desactivados": 1892,
       "total_no_participat": 9,
-      "total_activos_espera": 1865,
+      "total_activos_espera": 1603,
       "ultimo_adjudicado": {
-        "name": "RAMON NAVARRO, ALEIX",
-        "adj_order": 6617,
-        "bolsa_num": 14847,
-        "centro": "REQUENA(46019362)CENTRO PÚBLICO FPA ANTIGUA ESCUELA ZORITA"
+        "name": "BORDES SENDRA, ANA",
+        "adj_order": 7321,
+        "bolsa_num": 16179,
+        "centro": "ORIHUELA(03007248)CEIP ANDRÉS MANJÓN"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 1231,
+      "total_convocados_adj": 1107,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 75,
-      "total_adjudicados_general": 119,
-      "total_desactivados": 498,
+      "total_plazas_hoy": 53,
+      "total_adjudicados_general": 84,
+      "total_desactivados": 515,
       "total_no_participat": 0,
-      "total_activos_espera": 614,
+      "total_activos_espera": 508,
       "ultimo_adjudicado": {
-        "name": "SEBASTIA BURGOS, LAURA",
-        "adj_order": 7231,
-        "bolsa_num": 15552,
-        "centro": "MORELLA(12001897)CEIP MARE DE DÉU DE LA VALLIVANA"
+        "name": "BALLESTER ROGER, IVAN",
+        "adj_order": 3755,
+        "bolsa_num": 12184,
+        "centro": "TORREVIEJA(03021971)CEIP NÚMERO 15"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 800,
+      "total_convocados_adj": 728,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 40,
-      "total_adjudicados_general": 70,
-      "total_desactivados": 347,
+      "total_plazas_hoy": 18,
+      "total_adjudicados_general": 47,
+      "total_desactivados": 355,
       "total_no_participat": 1,
-      "total_activos_espera": 382,
+      "total_activos_espera": 325,
       "ultimo_adjudicado": {
-        "name": "JOVER ROIG, CLARA",
-        "adj_order": 6399,
-        "bolsa_num": 14603,
-        "centro": "SAX(03010958)CEIP CRISTOBAL COLÓN"
+        "name": "GRANELL BARBERA, JOSE",
+        "adj_order": 3778,
+        "bolsa_num": 12220,
+        "centro": "TORREBLANCA(12005532)IES EL PRAT"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 828,
+      "total_convocados_adj": 765,
       "total_bolsa": 2065,
-      "total_plazas_hoy": 19,
-      "total_adjudicados_general": 62,
+      "total_plazas_hoy": 16,
+      "total_adjudicados_general": 36,
       "total_desactivados": 309,
       "total_no_participat": 2,
-      "total_activos_espera": 455,
+      "total_activos_espera": 418,
       "ultimo_adjudicado": {
-        "name": "PEREZ GONZALEZ, DANIEL",
-        "adj_order": 7017,
-        "bolsa_num": 15316,
-        "centro": "AYORA(46015733)IES FERNANDO III"
+        "name": "CARBONELL ORTS, LUIS FEDERICO",
+        "adj_order": 3524,
+        "bolsa_num": 11838,
+        "centro": "TEULADA(03008563)CEIP SAN VICENTE FERRER"
       }
     },
     "MUS": {
       "name": "Música",
       "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 357,
+      "total_convocados_adj": 330,
       "total_bolsa": 1019,
-      "total_plazas_hoy": 15,
-      "total_adjudicados_general": 27,
-      "total_desactivados": 196,
+      "total_plazas_hoy": 8,
+      "total_adjudicados_general": 13,
+      "total_desactivados": 195,
       "total_no_participat": 1,
-      "total_activos_espera": 133,
+      "total_activos_espera": 121,
       "ultimo_adjudicado": {
-        "name": "NICOLAS RUMBAU, FERNANDO",
-        "adj_order": 4239,
-        "bolsa_num": 12255,
-        "centro": "BENIFAIÓ(46001850)CEIP SANTA BÁRBARA"
+        "name": "LORENTE MARTINEZ, ELENA",
+        "adj_order": 3748,
+        "bolsa_num": 12174,
+        "centro": "TORREVIEJA(03011586)CEIP EL ACEQUIÓN"
       }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 875,
+      "total_convocados_adj": 799,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 45,
-      "total_adjudicados_general": 74,
-      "total_desactivados": 528,
+      "total_plazas_hoy": 22,
+      "total_adjudicados_general": 45,
+      "total_desactivados": 527,
       "total_no_participat": 3,
-      "total_activos_espera": 270,
+      "total_activos_espera": 224,
       "ultimo_adjudicado": {
-        "name": "MOLLEDO GOMEZ, IRUNE",
-        "adj_order": 4237,
-        "bolsa_num": 12253,
-        "centro": "ADOR - PALMA DE GANDIA(46018953)CEIP LA MURTERA"
+        "name": "PEÑARROCHA LAFUENTE, ANA",
+        "adj_order": 3787,
+        "bolsa_num": 12232,
+        "centro": "BENICÀSSIM(12000510)CEIP SANTA ÀGUEDA"
       }
     },
     "FRA": {
       "name": "Lengua Extranjera: Francés",
       "total_bolsa_inicial": 95,
-      "total_convocados_adj": 33,
+      "total_convocados_adj": 28,
       "total_bolsa": 95,
       "total_plazas_hoy": 0,
-      "total_adjudicados_general": 5,
-      "total_desactivados": 21,
+      "total_adjudicados_general": 0,
+      "total_desactivados": 22,
       "total_no_participat": 1,
-      "total_activos_espera": 6,
+      "total_activos_espera": 5,
       "ultimo_adjudicado": null
     }
   }
