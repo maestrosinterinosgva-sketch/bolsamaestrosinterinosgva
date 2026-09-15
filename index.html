@@ -410,7 +410,10 @@
               <button class="btn-tab active" data-behind-filter="spec">En esta especialidad (<span id="countBehindSpec">-</span>)</button>
               <button class="btn-tab" data-behind-filter="all_specs">En cualquier especialidad (<span id="countBehindAll">-</span>)</button>
             </div>
-            <input type="text" id="tableSearch" class="input-table-search" placeholder="Filtrar en esta lista...">
+            <div class="table-search-box">
+              <input type="text" id="tableSearch" class="input-table-search" placeholder="🔍 Buscar persona, centro, localidad o puesto...">
+              <button id="btnClearTableSearch" class="btn-clear-table-search hidden" title="Limpiar filtro">&times;</button>
+            </div>
           </div>
         </div>
 
@@ -555,9 +558,59 @@
     </div>
   </div>
 
+  <!-- Botón Flotante y Widget del Chat de Análisis de la Bolsa -->
+  <div class="chat-floating-container">
+    <button id="btnChatToggle" class="btn-chat-toggle" aria-label="Abrir Asistente de Análisis de la Bolsa" title="Preguntar al Asistente de la Bolsa">
+      <span class="chat-btn-icon">💬</span>
+      <span class="chat-btn-text">Preguntar a la Bolsa</span>
+      <span id="chatBadgeNotification" class="chat-pulse-badge">IA</span>
+    </button>
+
+    <!-- Ventana Emergente del Chat -->
+    <div id="chatWidget" class="chat-widget card hidden" role="dialog" aria-labelledby="chatWidgetTitle">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar-header">🤖</div>
+          <div>
+            <h3 id="chatWidgetTitle" class="chat-title">Asistente de la Bolsa</h3>
+            <span class="chat-status-indicator">
+              <span class="status-dot"></span> Datos oficiales del 15/09/2026
+            </span>
+          </div>
+        </div>
+        <div class="chat-header-actions">
+          <button id="btnChatClear" class="btn-chat-action" title="Limpiar conversación">🧹</button>
+          <button id="btnChatClose" class="btn-chat-action" title="Cerrar chat">&times;</button>
+        </div>
+      </div>
+
+      <!-- Barra de Preguntas Rápidas Fijas -->
+      <div class="chat-quick-bar">
+        <button class="chat-quick-chip-btn" data-query="resumen de hoy">📊 Resumen</button>
+        <button class="chat-quick-chip-btn" data-query="cortes de todas las especialidades">📍 Cortes</button>
+        <button class="chat-quick-chip-btn" data-query="centros con plazas hoy">🏫 Centros</button>
+        <button class="chat-quick-chip-btn" data-query="como voy">👤 Mi posición</button>
+      </div>
+
+      <!-- Contenedor de Mensajes -->
+      <div id="chatMessages" class="chat-messages">
+        <!-- Los mensajes se insertan dinámicamente -->
+      </div>
+
+      <!-- Formulario de Entrada -->
+      <form id="chatForm" class="chat-form">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Pregunta sobre plazas, cortes, colegios..." autocomplete="off">
+        <button type="submit" id="btnChatSend" class="btn-chat-send" title="Enviar pregunta">
+          <span>➤</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script src="data/network_info.js?v=6"></script>
   <script src="data/stats_summary.js?v=6"></script>
   <script src="data/interinos_data.js?v=6"></script>
   <script src="js/app.js?v=6"></script>
+  <script src="js/chat-analytics.js?v=6"></script>
 </body>
 </html>

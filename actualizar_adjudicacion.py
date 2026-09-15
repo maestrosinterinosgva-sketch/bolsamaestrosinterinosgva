@@ -49,6 +49,7 @@ def update_zip_package(output_zip="interinos_web.zip"):
         'manifest.json',
         'css/style.css',
         'js/app.js',
+        'js/chat-analytics.js',
         'data/interinos_data.js',
         'data/stats_summary.js',
         'data/network_info.js',

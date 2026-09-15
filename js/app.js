@@ -257,13 +257,28 @@ function setupEventListeners() {
     });
   });
 
-  // Buscador dentro de la tabla
+  // Buscador dentro de la tabla (Personas, Puestos y Centros)
   const tableSearch = document.getElementById("tableSearch");
+  const btnClearTableSearch = document.getElementById("btnClearTableSearch");
   if (tableSearch) {
     tableSearch.addEventListener("input", (e) => {
       currentTableSearch = normalizeText(e.target.value);
+      if (btnClearTableSearch) {
+        btnClearTableSearch.classList.toggle("hidden", !e.target.value.trim());
+      }
       currentPage = 1;
       renderCurrentTable();
+    });
+  }
+  if (btnClearTableSearch) {
+    btnClearTableSearch.addEventListener("click", () => {
+      if (tableSearch) {
+        tableSearch.value = "";
+        currentTableSearch = "";
+        btnClearTableSearch.classList.add("hidden");
+        currentPage = 1;
+        renderCurrentTable();
+      }
     });
   }
 
@@ -958,6 +973,41 @@ function renderCutoffInfo(specStats, user) {
   }
 }
 
+// Comprueba si un candidato coincide con la búsqueda por persona, puesto, centro o localidad
+function matchesTableSearch(p, query) {
+  if (!query) return true;
+
+  // 1. Nombre de aspirante y números de orden
+  if (p.norm_name && p.norm_name.includes(query)) return true;
+  if (p.name && normalizeText(p.name).includes(query)) return true;
+  if (String(p.adj_order || p.num || '').includes(query)) return true;
+  if (String(p.bolsa_num || '').includes(query)) return true;
+
+  // 2. Estado
+  if (p.status && normalizeText(p.status).includes(query)) return true;
+
+  // 3. Puesto y Centro adjudicado (nombre de centro, código oficial, localidad, tipo vacante, especialidad)
+  if (p.plaza) {
+    if (p.plaza.center && normalizeText(p.plaza.center).includes(query)) return true;
+    if (p.plaza.spec_name && normalizeText(p.plaza.spec_name).includes(query)) return true;
+    if (p.plaza.spec_acronym && normalizeText(p.plaza.spec_acronym).includes(query)) return true;
+    if (p.plaza.tipo_vacante && normalizeText(p.plaza.tipo_vacante).includes(query)) return true;
+    if (p.plaza.type && normalizeText(p.plaza.type).includes(query)) return true;
+    if (p.plaza.jornada && normalizeText(p.plaza.jornada).includes(query)) return true;
+    if (p.plaza.code && String(p.plaza.code).includes(query)) return true;
+    if (p.plaza.cod_plaza && String(p.plaza.cod_plaza).includes(query)) return true;
+  }
+
+  // 4. Especialidades del aspirante
+  if (Array.isArray(p.specialties)) {
+    for (const sp of p.specialties) {
+      if (normalizeText(sp).includes(query)) return true;
+    }
+  }
+
+  return false;
+}
+
 function renderCurrentTable() {
   const thead = document.getElementById("tableHead");
   const tbody = document.getElementById("aheadTableBody");
@@ -981,7 +1031,7 @@ function renderCurrentTable() {
     }
 
     if (currentTableSearch) {
-      filtered = filtered.filter(p => p.norm_name.includes(currentTableSearch) || String(p.adj_order || p.num).includes(currentTableSearch) || String(p.bolsa_num || '').includes(currentTableSearch));
+      filtered = filtered.filter(p => matchesTableSearch(p, currentTableSearch));
     }
 
     if (subtitle) subtitle.textContent = `Mostrando convocados antes de tu posición (${filtered.length.toLocaleString()} aspirantes)`;
@@ -1006,7 +1056,7 @@ function renderCurrentTable() {
 
     if (tbody) {
       if (pageItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 24px; color: var(--slate-400);">No hay aspirantes en este filtro.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 24px; color: var(--slate-400);">No hay aspirantes que coincidan con la búsqueda.</td></tr>`;
       } else {
         tbody.innerHTML = pageItems.map(p => `
           <tr>
@@ -1037,7 +1087,7 @@ function renderCurrentTable() {
     }
 
     if (currentTableSearch) {
-      filtered = filtered.filter(p => p.norm_name.includes(currentTableSearch) || String(p.adj_order || p.num).includes(currentTableSearch) || String(p.bolsa_num || '').includes(currentTableSearch));
+      filtered = filtered.filter(p => matchesTableSearch(p, currentTableSearch));
     }
 
     if (subtitle) subtitle.textContent = `Mostrando docentes con número posterior que han obtenido plaza hoy (${filtered.length.toLocaleString()} adjudicados)`;
