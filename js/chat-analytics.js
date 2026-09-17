@@ -524,23 +524,104 @@
       return null;
     },
 
-    // 7b. Informe de acreditaciones lingüísticas oficiales (B2, C1, C2)
-    getLanguagesReport(query) {
+    // Helper para extraer objeto persona de una consulta en texto libre
+    extractPerson(rawText, normQuery) {
+      const all = this.getAllInterinos();
+      const q = normQuery || normalize(rawText);
+      if (!q) return null;
+
+      const stopWords = new Set([
+        "cuantos", "cuantas", "quien", "quienes", "tienen", "tiene", "hay", "van", "va",
+        "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en", "por", "con", "sin", "para",
+        "delante", "detras", "antes", "despues", "puesto", "puestos", "posicion", "posiciones", "requisito", "requisitos",
+        "ingles", "idioma", "idiomas", "acreditacion", "acreditaciones", "b2", "c1", "c2", "nivel",
+        "pt", "pri", "inf", "al", "ef", "mus", "fra", "primaria", "infantil", "pedagogia", "terapeutica",
+        "audicion", "lenguaje", "musica", "fisica", "frances", "aleman", "italiano",
+        "esto", "no", "lo", "contesta", "contestas", "responde", "respondes", "dime", "saber", "que", "como", "donde", "cuando", "favor", "gracias"
+      ]);
+
+      // 1. Patrón regex para capturar el nombre tras preposiciones típicas
+      const pat = /(?:por\s+delante\s+de|delante\s+de|detras\s+de|antes\s+de|despues\s+de|respecto\s+a|separan\s+de|situacion\s+de|puesto\s+de|posicion\s+de|caso\s+de|para\s+|de\s+)([^?.,!;]+)/i;
+      const m = (rawText || "").match(pat) || q.match(pat);
+      if (m) {
+        let cand = normalize(m[1]);
+        const candWords = cand.split(" ").filter(w => !stopWords.has(w) && w.length >= 2);
+        if (candWords.length > 0) {
+          const p = this.findPersonObject(candWords.join(" "));
+          if (p) return p;
+        }
+      }
+
+      // 2. Extraer todas las palabras que no sean stopwords y buscar por tokens
+      const words = q.split(" ").filter(w => !stopWords.has(w) && w.length >= 2);
+      if (words.length >= 2) {
+        const p = this.findPersonObject(words.join(" "));
+        if (p) return p;
+      }
+      if (words.length === 1) {
+        const p = this.findPersonObject(words[0]);
+        if (p) return p;
+      }
+
+      return null;
+    },
+
+    // 7b. Informe de acreditaciones lingüísticas oficiales (B2, C1, C2) y requisito de inglés
+    getLanguagesReport(query, specParam = null, rawText = "") {
       const q = normalize(query);
       const all = this.getAllInterinos();
       const currentUser = this.getCurrentUser();
 
-      // ¿Pregunta el usuario por su propia acreditación?
-      if (q.includes("mi ") || q.includes("tengo ") || q.includes("mis idiomas") || q.includes("mi nivel") || q.includes("consta")) {
-        if (!currentUser) {
+      // 1. Detectar si hay una persona mencionada en la pregunta
+      let targetPerson = this.extractPerson(rawText, q);
+      const isAboutSelf = q.includes("mi ") || q.includes("tengo ") || q.includes("mis idiomas") || q.includes("mi nivel") || q.includes("consta") || q.includes("de mi") || q.includes("conmigo");
+      
+      if (!targetPerson && isAboutSelf && currentUser) {
+        targetPerson = currentUser;
+      }
+      if (!targetPerson && !isAboutSelf && (q.includes("delante") || q.includes("puesto") || q.includes("posicion") || q.includes("como voy") || q.includes("opciones"))) {
+        targetPerson = currentUser || lastReferencedPerson;
+      }
+      if (targetPerson) {
+        lastReferencedPerson = targetPerson;
+      }
+
+      // 2. Detectar especialidad aplicable
+      let targetSpec = specParam;
+      if (!targetSpec) {
+        for (const [syn, code] of Object.entries(SPEC_SYNONYMS)) {
+          if (code !== 'ING' && new RegExp(`\\b${syn}\\b`).test(q)) {
+            targetSpec = code;
+            break;
+          }
+        }
+      }
+      if (!targetSpec && targetPerson && targetPerson.specialties && targetPerson.specialties.length > 0) {
+        targetSpec = targetPerson.specialties[0];
+      }
+      if (!targetSpec) {
+        targetSpec = window.currentSpecialty || 'PRI';
+      }
+      const specName = SPECIALTIES[targetSpec] || targetSpec;
+
+      // 3. Consulta directa sobre acreditación del aspirante (si no pregunta por puestos por delante)
+      const isAheadOrPosQuery = q.includes("delante") || q.includes("detras") || q.includes("antes") || q.includes("puesto") || q.includes("posicion") || q.includes("cuantos") || q.includes("quien") || q.includes("quienes") || q.includes("opciones") || q.includes("como voy") || q.includes("requisito") || q.includes("orden") || q.includes("distancia") || q.includes("separan");
+
+      const isDirectAccreditationCheck = (
+        (isAboutSelf && !isAheadOrPosQuery) ||
+        (targetPerson && !isAheadOrPosQuery && (q.includes("tiene b2") || q.includes("tiene c1") || q.includes("tiene ingles") || q.includes("acreditacion de") || q.includes("idiomas de") || q.includes("nivel de")))
+      );
+
+      if (isDirectAccreditationCheck) {
+        if (!targetPerson) {
           return `
             <div class="chat-card-answer">
-              <p>🤔 Para decirte tu acreditación oficial de idiomas, introduce primero tu nombre o DNI en el buscador de la cabecera.</p>
+              <p>🤔 Para decirte la acreditación oficial de idiomas, introduce tu nombre o el del aspirante a consultar.</p>
             </div>
           `;
         }
-        if (currentUser.idiomas && Object.keys(currentUser.idiomas).length > 0) {
-          const badges = Object.entries(currentUser.idiomas).map(([lang, lvl]) => {
+        if (targetPerson.idiomas && Object.keys(targetPerson.idiomas).length > 0) {
+          const badges = Object.entries(targetPerson.idiomas).map(([lang, lvl]) => {
             const lName = lang === 'ingles' ? 'Inglés' : lang === 'frances' ? 'Francés' : lang === 'aleman' ? 'Alemán' : lang === 'italiano' ? 'Italiano' : lang;
             const flag = lang === 'ingles' ? '🇬🇧' : lang === 'frances' ? '🇫🇷' : lang === 'aleman' ? '🇩🇪' : lang === 'italiano' ? '🇮🇹' : '🌐';
             return `<span class="chat-badge chat-badge-green">${flag} ${lvl} ${lName}</span>`;
@@ -549,73 +630,170 @@
           return `
             <div class="chat-card-answer">
               <h4>🇬🇧 Acreditación Oficial Registrada</h4>
-              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
-              <p>Tienes oficialmente registrada en las resoluciones de Conselleria la siguiente acreditación lingüística:</p>
+              <p>👤 <strong>${escapeHtml(targetPerson.name)}:</strong></p>
+              <p>Consta oficialmente en las resoluciones definitivas de Conselleria d'Educació con la siguiente acreditación lingüística:</p>
               <div style="margin: 10px 0;">${badges}</div>
-              <p style="font-size:0.85rem; color:#64748b;">Esta acreditación te capacita para impartir áreas no lingüísticas en lengua extranjera (plurilingüismo) en colegios de la Comunitat Valenciana.</p>
+              <p style="font-size:0.85rem; color:#64748b;">Esta acreditación le capacita para impartir áreas no lingüísticas en lengua extranjera (plurilingüismo) en colegios de la Comunitat Valenciana.</p>
             </div>
           `;
         } else {
           return `
             <div class="chat-card-answer">
               <h4>ℹ️ Acreditación Lingüística</h4>
-              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
-              <p>No consta ninguna acreditación de lengua extranjera (B2, C1, C2) en los listados definitivos mensuales publicados por Conselleria para tu nombre.</p>
-              <p style="font-size:0.85rem; color:#64748b;">Si posees una certificación (Escuela Oficial de Idiomas, Cambridge, etc.) recuerda registrarla en el trámite mensual de acreditación de la Dirección Territorial para que sea computada oficialmente.</p>
+              <p>👤 <strong>${escapeHtml(targetPerson.name)}:</strong></p>
+              <p>No consta ninguna acreditación de lengua extranjera (B2, C1, C2) en los listados definitivos mensuales publicados por Conselleria para <strong>${escapeHtml(targetPerson.name)}</strong>.</p>
+              <p style="font-size:0.85rem; color:#64748b;">Si posee una certificación oficial (Escuela Oficial de Idiomas, Cambridge, etc.) debe registrarla en el trámite mensual de acreditación telemática de la Dirección Territorial.</p>
             </div>
           `;
         }
       }
 
-      // Si pregunta por su puesto o posición con inglés
-      if (currentUser && (q.includes("puesto") || q.includes("posicion") || q.includes("opciones") || q.includes("como voy") || q.includes("delante") || q.includes("requisito"))) {
-        const currentSpec = window.currentSpecialty || 'PRI';
-        const specName = SPECIALTIES[currentSpec] || currentSpec;
-        
-        const specMembers = all.filter(p => (p.in_adjudicacion || p.adj_order) && p.specialties && p.specialties.includes(currentSpec));
-        specMembers.sort((a, b) => (a.adj_order || 0) - (b.adj_order || 0));
-        
-        const userIdx = specMembers.findIndex(p => (currentUser.adj_order && p.adj_order === currentUser.adj_order) || p.name === currentUser.name);
-        
-        if (userIdx !== -1) {
-          const ahead = specMembers.slice(0, userIdx);
-          const aheadLimpios = ahead.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat");
-          const allLimpios = specMembers.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat");
-          
-          const hasIngles = (p) => Boolean((p.idiomas && p.idiomas.ingles) || (currentSpec !== 'ING' && p.specialties && p.specialties.includes('ING')));
-          
-          const aheadIngles = aheadLimpios.filter(hasIngles);
-          const allIngles = allLimpios.filter(hasIngles);
-          
-          const posDepurada = aheadLimpios.length + 1;
-          const posIngles = aheadIngles.length + 1;
-          const userHasIng = hasIngles(currentUser);
-          
-          let ingStatusText = userHasIng
-            ? `<span class="chat-badge chat-badge-green">Puesto #${posIngles} de ${allIngles.length}</span> (Tienes el requisito de inglés)`
-            : `<span class="chat-badge chat-badge-amber">Puesto teórico #${posIngles} de ${allIngles.length}</span> (No constas con requisito de inglés registrado)`;
+      // 4. Pregunta por aspirantes por delante o posición con requisito de inglés
+      if (isAheadOrPosQuery) {
+        if (!targetPerson) {
+          const specMembers = all.filter(p => (p.in_adjudicacion || p.adj_order) && p.specialties && p.specialties.includes(targetSpec));
+          const cleanMembers = specMembers.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat" && (!p.specialties_deactivated || !p.specialties_deactivated.includes(targetSpec)));
+          const cleanB2C1 = cleanMembers.filter(p => p.idiomas && p.idiomas.ingles);
+          const cleanAnyIng = cleanMembers.filter(p => (p.idiomas && p.idiomas.ingles) || (targetSpec !== 'ING' && p.specialties && p.specialties.includes('ING')));
 
           return `
             <div class="chat-card-answer">
-              <h4>🇬🇧 Posición con Requisito de Inglés (${specName})</h4>
-              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
+              <h4>🇬🇧 Aspirantes con Requisito de Inglés (${specName})</h4>
+              <p>🤔 Para calcular exactamente cuántas personas tienen el requisito de inglés <strong>por delante de alguien</strong>, indica el nombre del aspirante (ej: <em>"¿Cuántos tienen inglés por delante de Pablo Hernández Rizo?"</em>) o selecciona tu nombre en el buscador superior.</p>
+              <div class="chat-kpi-row" style="margin-top:10px;">
+                <div class="chat-kpi"><span class="kpi-num">${cleanMembers.length}</span><span class="kpi-lbl">Disponibles Totales</span></div>
+                <div class="chat-kpi highlight-blue"><span class="kpi-num">${cleanB2C1.length}</span><span class="kpi-lbl">Con B2/C1 Oficial</span></div>
+                <div class="chat-kpi"><span class="kpi-num">${cleanAnyIng.length}</span><span class="kpi-lbl">Con Requisito Inglés</span></div>
+              </div>
+              <p style="font-size:0.85rem; color:#64748b; margin-top:8px;">Actualmente en <strong>${specName}</strong> hay <strong>${cleanB2C1.length} aspirantes disponibles</strong> con acreditación oficial B2/C1 y <strong>${cleanAnyIng.length}</strong> sumando la especialidad de Inglés.</p>
+            </div>
+          `;
+        }
+
+        const specMembers = all.filter(p => (p.in_adjudicacion || p.adj_order) && p.specialties && p.specialties.includes(targetSpec));
+        specMembers.sort((a, b) => (a.adj_order || 0) - (b.adj_order || 0));
+
+        const userIdx = specMembers.findIndex(p => 
+          (targetPerson.adj_order && p.adj_order === targetPerson.adj_order) || 
+          (p.norm_name && targetPerson.norm_name && p.norm_name === targetPerson.norm_name) ||
+          p.name === targetPerson.name
+        );
+
+        if (userIdx !== -1) {
+          const ahead = specMembers.slice(0, userIdx);
+          const aheadLimpios = ahead.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat" && (!p.specialties_deactivated || !p.specialties_deactivated.includes(targetSpec)));
+          const allLimpios = specMembers.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat" && (!p.specialties_deactivated || !p.specialties_deactivated.includes(targetSpec)));
+
+          // 1. Con acreditación oficial B2/C1 de Conselleria
+          const hasOficialIngles = (p) => Boolean(p.idiomas && p.idiomas.ingles);
+          const aheadOficial = aheadLimpios.filter(hasOficialIngles);
+          const allOficial = allLimpios.filter(hasOficialIngles);
+
+          // 2. Con requisito amplio de inglés (acreditación oficial B2/C1 o especialidad ING)
+          const hasAnyIngles = (p) => Boolean((p.idiomas && p.idiomas.ingles) || (targetSpec !== 'ING' && p.specialties && p.specialties.includes('ING')));
+          const aheadAny = aheadLimpios.filter(hasAnyIngles);
+          const allAny = allLimpios.filter(hasAnyIngles);
+
+          const posDepurada = aheadLimpios.length + 1;
+          const posOficial = aheadOficial.length + 1;
+          const posAny = aheadAny.length + 1;
+
+          const targetHasOficial = hasOficialIngles(targetPerson);
+          const targetHasAny = hasAnyIngles(targetPerson);
+          const targetLangLvl = (targetPerson.idiomas && targetPerson.idiomas.ingles) ? targetPerson.idiomas.ingles : (targetHasAny ? 'Especialidad Inglés' : null);
+
+          // Tabla con los aspirantes por delante con B2/C1
+          let tableRowsHtml = '';
+          if (aheadOficial.length > 0) {
+            const rows = aheadOficial.map((p, idx) => {
+              const lvl = p.idiomas && p.idiomas.ingles ? p.idiomas.ingles : 'B2';
+              const badgeCls = lvl === 'C1' ? 'chat-badge-blue' : 'chat-badge-green';
+              return `
+                <tr>
+                  <td style="font-weight:700; color:#475569;">#${idx + 1}</td>
+                  <td><strong>${escapeHtml(p.name)}</strong></td>
+                  <td><span class="chat-badge ${badgeCls}">🇬🇧 ${escapeHtml(lvl)} Inglés</span></td>
+                  <td style="color:#64748b;">#${p.adj_order || '-'} <small>(Bolsa #${p.bolsa_num || '-'})</small></td>
+                </tr>
+              `;
+            }).join("");
+
+            tableRowsHtml = `
+              <div style="margin-top:12px;">
+                <p style="font-size:0.88rem; font-weight:700; color:#1e293b; margin-bottom:6px;">
+                  📋 Aspirantes con acreditación oficial de inglés por delante (${aheadOficial.length}):
+                </p>
+                <div class="chat-table-wrap" style="max-height: 220px; overflow-y: auto;">
+                  <table class="chat-data-table">
+                    <thead>
+                      <tr>
+                        <th style="width:30px;">#</th>
+                        <th>Nombre y Apellidos</th>
+                        <th>Nivel Oficial</th>
+                        <th>Convocatoria / Bolsa</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${rows}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `;
+          }
+
+          let explanationText = "";
+          if (targetHasOficial) {
+            explanationText = `
+              <p style="margin-top:8px;">
+                ✅ <strong>${escapeHtml(targetPerson.name)}</strong> tiene acreditación oficial <strong>🇬🇧 ${targetLangLvl} Inglés</strong> registrada en Conselleria.
+                Por tanto, en <strong>${specName}</strong> su puesto real para plazas con perfil lingüístico de inglés es el <strong>#${posOficial}</strong> de ${allOficial.length} disponibles, compitiendo contra solo <strong>${aheadOficial.length} personas</strong> por delante.
+              </p>
+            `;
+          } else if (targetHasAny) {
+            explanationText = `
+              <p style="margin-top:8px;">
+                ✅ <strong>${escapeHtml(targetPerson.name)}</strong> cuenta con la <strong>especialidad de Lengua Extranjera: Inglés</strong>. Para plazas con perfil de inglés en ${specName} su posición con requisito es el <strong>#${posAny}</strong> de ${allAny.length} disponibles, con <strong>${aheadAny.length} personas</strong> por delante.
+              </p>
+            `;
+          } else {
+            explanationText = `
+              <p style="margin-top:8px;">
+                ℹ️ <strong>${escapeHtml(targetPerson.name)}</strong> no consta con acreditación de inglés (B2/C1) ni especialidad de inglés en los registros oficiales de Conselleria.
+                Para plazas ordinarias de <strong>${specName}</strong> tiene por delante a <strong>${aheadLimpios.length} personas</strong> (puesto activo #${posDepurada} de ${allLimpios.length}).
+                Si obtuviera y acreditara el B2/C1 oficial de inglés, su posición teórica para plazas con perfil de inglés pasaría a ser el <strong>puesto #${posOficial}</strong> de ${allOficial.length + 1} disponibles (solo <strong>${aheadOficial.length} personas</strong> por delante).
+              </p>
+            `;
+          }
+
+          return `
+            <div class="chat-card-answer">
+              <h4>🇬🇧 Aspirantes de ${specName} con Requisito de Inglés por delante</h4>
+              <p>👤 <strong>${escapeHtml(targetPerson.name)}</strong> — Convocatoria <strong>#${targetPerson.adj_order || '-'}</strong> (Bolsa #${targetPerson.bolsa_num || '-'}):</p>
+              
+              <p style="font-size:0.95rem; line-height:1.45; margin:6px 0 10px 0;">
+                👉 En <strong>${specName}</strong> hay exactamente <strong>${aheadOficial.length} personas</strong> activas y disponibles por delante con <strong>acreditación oficial de Inglés (B2/C1)</strong> en Conselleria (y <strong>${aheadAny.length} personas</strong> si se contabiliza también a quienes tienen la especialidad de Inglés).
+              </p>
+
               <div class="chat-kpi-row">
                 <div class="chat-kpi"><span class="kpi-num">#${posDepurada}</span><span class="kpi-lbl">Puesto General Activo</span></div>
-                <div class="chat-kpi highlight-blue"><span class="kpi-num">#${posIngles}</span><span class="kpi-lbl">Puesto con Inglés</span></div>
-                <div class="chat-kpi"><span class="kpi-num">${allIngles.length}</span><span class="kpi-lbl">Total con Inglés</span></div>
+                <div class="chat-kpi highlight-blue"><span class="kpi-num">${aheadOficial.length}</span><span class="kpi-lbl">Con B2/C1 por Delante</span></div>
+                <div class="chat-kpi"><span class="kpi-num">${aheadAny.length}</span><span class="kpi-lbl">Total con Requisito</span></div>
+                <div class="chat-kpi highlight-blue"><span class="kpi-num">#${posOficial}</span><span class="kpi-lbl">Puesto Teórico B2/C1</span></div>
               </div>
-              <p style="margin-top:8px;">• ${ingStatusText}</p>
-              <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">
-                ${userHasIng 
-                  ? `Para plazas con perfil de inglés compites con solo <strong>${aheadIngles.length} personas</strong> por delante, frente a las ${aheadLimpios.length} de la lista ordinaria.`
-                  : `Para plazas con perfil de inglés hay <strong>${aheadIngles.length} personas</strong> disponibles antes que tú. Si obtuvieras el B2/C1, tu puesto en esas plazas pasaría a ser el #${posIngles}.`}
-              </p>
+
+              ${explanationText}
+              ${tableRowsHtml}
+
+              <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="chat-chip" onclick="if(window.filterByEnglishRequirement) window.filterByEnglishRequirement();">🇬🇧 Ver aspirantes con inglés en tabla</button>
+              </div>
             </div>
           `;
         }
       }
 
-      // Estadísticas globales de la bolsa
+      // 5. Estadísticas globales de la bolsa
       const accredited = all.filter(p => p.idiomas && Object.keys(p.idiomas).length > 0);
       const c1Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'C1')).length;
       const b2Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'B2')).length;
@@ -659,14 +837,16 @@
       if (match) return match;
 
       // Coincidencia por tokens (ej: "pablo hernandez rizo" -> encuentra "HERNANDEZ RIZO, PABLO")
-      const tokens = normQ.split(" ").filter(w => w.length > 2);
+      const tokens = normQ.split(" ").filter(w => w.length >= 2);
       if (tokens.length > 0) {
-        match = all.find(p => {
+        const matches = all.filter(p => {
           if (!p.norm_name) return false;
           const pNorm = p.norm_name.toLowerCase();
           return tokens.every(t => pNorm.includes(t));
         });
-        if (match) return match;
+        if (matches.length > 0) {
+          return matches.find(p => p.in_adjudicacion) || matches[0];
+        }
       }
       return null;
     },
@@ -847,10 +1027,19 @@
 
     // Detectar especialidad mencionada
     let mentionedSpec = null;
+    // Si la consulta contiene mención a requisito/idioma de inglés, comprobar primero especialidades base distintas de ING
+    const isLangReq = /\b(requisito|nivel|acreditac|b2|c1|c2|titulacion)\s+de\s+ingles\b|\bcon\s+ingles\b|\bingles\s+por\s+delante\b|\bdelante.*ingles\b|\bingles.*delante\b/i.test(q);
+    
     for (const [syn, code] of Object.entries(SPEC_SYNONYMS)) {
+      if (isLangReq && code === 'ING') continue;
       if (new RegExp(`\\b${syn}\\b`).test(q)) {
         mentionedSpec = code;
         break;
+      }
+    }
+    if (!mentionedSpec && (new RegExp(`\\bingles\\b`).test(q) || new RegExp(`\\bing\\b`).test(q))) {
+      if (!isLangReq) {
+        mentionedSpec = 'ING';
       }
     }
 
@@ -869,9 +1058,9 @@
       return AnalyticsEngine.getUserAnalysis();
     }
 
-    // 4b. Acreditaciones lingüísticas oficiales (Inglés, B2, C1, C2, Idiomas)
-    if (q.includes("ingles") || q.includes("idioma") || q.includes("idiomas") || q.includes("acreditac") || q.includes("b2") || q.includes("c1") || q.includes("c2") || q.includes("frances") || q.includes("aleman") || q.includes("italiano")) {
-      return AnalyticsEngine.getLanguagesReport(q);
+    // 4b. Acreditaciones lingüísticas oficiales (Inglés, B2, C1, C2, Idiomas, Requisito)
+    if (q.includes("ingles") || q.includes("idioma") || q.includes("idiomas") || q.includes("acreditac") || q.includes("b2") || q.includes("c1") || q.includes("c2") || q.includes("frances") || q.includes("aleman") || q.includes("italiano") || (q.includes("requisito") && !q.includes("requisitos generales"))) {
+      return AnalyticsEngine.getLanguagesReport(q, mentionedSpec, text);
     }
 
     // 5. Comparativa entre aspirantes o con la última plaza consultada

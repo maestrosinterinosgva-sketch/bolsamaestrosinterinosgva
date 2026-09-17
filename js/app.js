@@ -345,6 +345,16 @@ function setupEventListeners() {
     });
   });
 
+  // Acceso global para filtrar tabla por requisito de inglés desde el chat
+  window.filterByEnglishRequirement = function() {
+    const tabIngles = document.querySelector('#tableFiltersAhead .btn-tab[data-filter="ingles"]');
+    if (tabIngles) {
+      tabIngles.click();
+      const tableSec = document.getElementById('aheadTable') || document.getElementById('tableFiltersAhead');
+      if (tableSec) tableSec.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Buscador dentro de la tabla (Personas, Puestos y Centros)
   const tableSearch = document.getElementById("tableSearch");
   const btnClearTableSearch = document.getElementById("btnClearTableSearch");

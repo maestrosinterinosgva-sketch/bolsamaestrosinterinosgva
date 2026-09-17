@@ -268,6 +268,66 @@ class TestChatAndSearch(unittest.TestCase):
         ahead_begona_ingles = [p for p in ahead_begona_limpios if p.get("idiomas", {}).get("ingles")]
         self.assertEqual(len(ahead_begona_ingles) + 1, 15) # Puesto #15 de 18 con acreditación oficial de inglés
 
+    def test_chat_query_ahead_with_english_for_pablo(self):
+        # Simular la consulta exacta del usuario:
+        # "cuántos Pt tienen el requisito de inglés por delante de Pablo Hernández Rizo? esto no lo contesta"
+        raw_query = "cuántos Pt tienen el requisito de inglés por delante de Pablo Hernández Rizo? esto no lo contesta"
+        
+        # 1. Extracción de persona
+        stop_words = {
+            "cuantos", "cuantas", "quien", "quienes", "tienen", "tiene", "hay", "van", "va",
+            "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en", "por", "con", "sin", "para",
+            "delante", "detras", "antes", "despues", "puesto", "puestos", "posicion", "posiciones", "requisito", "requisitos",
+            "ingles", "idioma", "idiomas", "acreditacion", "acreditaciones", "b2", "c1", "c2", "nivel",
+            "pt", "pri", "inf", "al", "ef", "mus", "fra", "primaria", "infantil", "pedagogia", "terapeutica",
+            "esto", "no", "lo", "contesta"
+        }
+        
+        m = re.search(r'(?:por\s+delante\s+de|delante\s+de|detras\s+de|de\s+)([^?.,!;]+)', raw_query, re.I)
+        self.assertIsNotNone(m)
+        cand_str = m.group(1).strip()
+        cand_norm = normalize_text(cand_str).lower()
+        cand_tokens = [w for w in cand_norm.split() if w not in stop_words and len(w) >= 2]
+        
+        # Buscar en la lista de interinos
+        matches = [p for p in self.interinos if all(t in (p.get("norm_name") or "").lower() for t in cand_tokens)]
+        self.assertGreaterEqual(len(matches), 1)
+        pablo = matches[0]
+        self.assertIn("HERNANDEZ RIZO", pablo["name"])
+        
+        # 2. Detección de especialidad
+        spec = "PT"
+        self.assertIn(spec, raw_query.upper())
+        
+        # 3. Filtrar candidatos de PT por delante en lista limpia/disponible
+        spec_members = [p for p in self.interinos if (p.get("in_adjudicacion") or p.get("adj_order")) and spec in (p.get("specialties") or [])]
+        spec_members.sort(key=lambda x: x.get("adj_order") or 0)
+        
+        p_idx = next(i for i, p in enumerate(spec_members) if p["name"] == pablo["name"])
+        ahead_all = spec_members[:p_idx]
+        ahead_clean = [p for p in ahead_all if p.get("status") not in ["Adjudicat", "Desactivat"] and spec not in (p.get("specialties_deactivated") or [])]
+        
+        # Con B2/C1 oficial
+        ahead_b2c1 = [p for p in ahead_clean if p.get("idiomas", {}).get("ingles")]
+        # Con requisito amplio (B2/C1 o especialidad ING)
+        has_any_ing = lambda p: bool(p.get("idiomas", {}).get("ingles") or ("ING" in (p.get("specialties") or []) and spec != "ING"))
+        ahead_any_ing = [p for p in ahead_clean if has_any_ing(p)]
+        
+        self.assertEqual(len(ahead_clean), 410)
+        self.assertEqual(len(ahead_b2c1), 18)
+        self.assertEqual(len(ahead_any_ing), 49)
+        
+        # Posición teórica con B2/C1 y con requisito
+        self.assertEqual(len(ahead_b2c1) + 1, 19)
+        self.assertEqual(len(ahead_any_ing) + 1, 50)
+        
+        # Los dos primeros aspirantes con C1 por delante
+        c1_ahead = [p for p in ahead_b2c1 if p.get("idiomas", {}).get("ingles") == "C1"]
+        self.assertEqual(len(c1_ahead), 2)
+        c1_names = [p["name"] for p in c1_ahead]
+        self.assertTrue(any("NIETO SIGNES" in n for n in c1_names))
+        self.assertTrue(any("BERTO FUSTER" in n for n in c1_names))
+
 if __name__ == "__main__":
     unittest.main()
 
