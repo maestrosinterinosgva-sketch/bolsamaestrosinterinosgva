@@ -108,14 +108,14 @@ class TestChatAndSearch(unittest.TestCase):
         self.assertGreater(len(results), 0)
 
     def test_stats_summary_data_integrity(self):
-        # Verificar que las estadísticas del 15/09/2026 son coherentes
-        self.assertEqual(self.stats["fecha_adjudicacion"], "15/09/2026")
-        self.assertEqual(self.stats["total_adjudicaciones_hoy"], 8270)
-        self.assertEqual(self.stats["total_plazas_adjudicadas"], 309)
+        # Verificar que las estadísticas del 17/09/2026 son coherentes
+        self.assertEqual(self.stats["fecha_adjudicacion"], "17/09/2026")
+        self.assertEqual(self.stats["total_adjudicaciones_hoy"], 7959)
+        self.assertEqual(self.stats["total_plazas_adjudicadas"], 253)
         self.assertIn("INF", self.stats["especialidades"])
         self.assertIn("PRI", self.stats["especialidades"])
-        self.assertEqual(self.stats["especialidades"]["INF"]["total_plazas_hoy"], 92)
-        self.assertEqual(self.stats["especialidades"]["PRI"]["total_plazas_hoy"], 100)
+        self.assertEqual(self.stats["especialidades"]["INF"]["total_plazas_hoy"], 55)
+        self.assertEqual(self.stats["especialidades"]["PRI"]["total_plazas_hoy"], 80)
 
     def test_chat_target_extraction(self):
         # Verificar que extractCenterOrPlazaTarget limpia prefijos conversacionales
@@ -148,20 +148,38 @@ class TestChatAndSearch(unittest.TestCase):
         self.assertEqual(extract_target("a quién han dado la plaza de elda?"), "elda")
 
     def test_search_plazas_in_interinos_data(self):
-        # 'les arrels' debe encontrar exactamente al docente adjudicado
-        matches_arrels = [p for p in self.interinos if p.get("plaza") and "LES ARRELS" in p["plaza"]["center"].upper()]
-        self.assertEqual(len(matches_arrels), 1)
-        self.assertIn("GOMEZ AZNAR, ELENA", matches_arrels[0]["name"])
-        self.assertEqual(matches_arrels[0]["plaza"]["spec_acronym"], "PRI")
+        # 'torreta' en 17/09/2026 adjudica la plaza de PT en el IES LA TORRETA de Elda
+        matches_torreta = [p for p in self.interinos if p.get("plaza") and "TORRETA" in p["plaza"]["center"].upper()]
+        self.assertEqual(len(matches_torreta), 1)
+        self.assertIn("GARCIA CATALAN, ANA PILAR", matches_torreta[0]["name"])
+        self.assertEqual(matches_torreta[0]["plaza"]["spec_acronym"], "PT")
+        self.assertEqual(matches_torreta[0]["adj_order"], 1234)
+        self.assertEqual(matches_torreta[0]["bolsa_num"], 5668)
 
-        # 'elda' debe encontrar los colegios de Elda
+        # 'elda' debe encontrar los centros de Elda
         matches_elda = [p for p in self.interinos if p.get("plaza") and "ELDA" in p["plaza"]["center"].upper()]
         self.assertGreater(len(matches_elda), 0)
 
-        # 'torreta' no está en la bolsa de Maestros porque es centro de Secundaria/FP
-        matches_torreta = [p for p in self.interinos if p.get("plaza") and "TORRETA" in p["plaza"]["center"].upper()]
-        self.assertEqual(len(matches_torreta), 0)
+    def test_compare_persons_metrics(self):
+        # Comparar ANA PILAR GARCIA CATALAN (La Torreta) con PABLO HERNANDEZ RIZO
+        p_anapilar = next(p for p in self.interinos if "GARCIA CATALAN, ANA PILAR" in p["name"])
+        p_pablo = next(p for p in self.interinos if "HERNANDEZ RIZO, PABLO" in p["name"])
+        
+        diff_conv = abs(p_pablo["adj_order"] - p_anapilar["adj_order"])
+        diff_bolsa = abs(p_pablo["bolsa_num"] - p_anapilar["bolsa_num"])
+        self.assertEqual(diff_conv, 2292)
+        self.assertEqual(diff_bolsa, 6600)
+
+        # Aspirantes y plazas de PT en medio
+        min_ord = min(p_anapilar["adj_order"], p_pablo["adj_order"])
+        max_ord = max(p_anapilar["adj_order"], p_pablo["adj_order"])
+        between = [p for p in self.interinos if p.get("adj_order") and min_ord < p["adj_order"] < max_ord and "PT" in (p.get("specialties") or [])]
+        plazas_between = [p for p in between if p.get("plaza") and p["plaza"].get("spec_acronym") == "PT"]
+        
+        self.assertEqual(len(between), 676)
+        self.assertEqual(len(plazas_between), 37)
 
 if __name__ == "__main__":
     unittest.main()
+
 

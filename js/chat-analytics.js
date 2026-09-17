@@ -38,6 +38,10 @@
       .trim();
   }
 
+  // Estado de contexto conversacional en memoria (multi-turn memory)
+  let lastReferencedPerson = null;
+  let lastReferencedCenter = null;
+
   // --- MOTOR ANALÍTICO DE DATOS ---
   const AnalyticsEngine = {
     getStats() {
@@ -50,6 +54,14 @@
 
     getCurrentUser() {
       return window.currentUser || null;
+    },
+
+    getLastReferencedPerson() {
+      return lastReferencedPerson;
+    },
+
+    setLastReferencedPerson(p) {
+      lastReferencedPerson = p;
     },
 
     // 1. Resumen global de la última adjudicación
@@ -237,6 +249,8 @@
       // Si hay coincidencia exacta de 1 sola plaza adjudicada:
       if (matches.length === 1) {
         const m = matches[0];
+        lastReferencedPerson = m;
+        lastReferencedCenter = m.plaza ? m.plaza.center : null;
         const pl = m.plaza;
         return `
           <div class="chat-card-answer">
@@ -254,6 +268,7 @@
                 <div>📊 <strong>Posición en Bolsa:</strong> #${m.bolsa_num || '-'} (Orden de adjudicación #${m.adj_order || '-'})</div>
               </div>
             </div>
+            <p style="margin-top:8px; font-size:0.82rem; color:#64748b;">💡 <em>Puedes preguntarme: "¿Cuántos puestos le separan de [Mi Nombre]?" para ver la comparativa directa.</em></p>
           </div>
         `;
       }
@@ -265,6 +280,10 @@
         if (!grouped[c]) grouped[c] = [];
         grouped[c].push(m);
       });
+      if (matches.length > 0) {
+        lastReferencedPerson = matches[0];
+        lastReferencedCenter = matches[0].plaza ? matches[0].plaza.center : null;
+      }
 
       const totalCentros = Object.keys(grouped).length;
       let htmlRows = [];
@@ -495,6 +514,142 @@
         `;
       }
       return null;
+    },
+
+    // 8. Buscar un objeto persona por nombre o apellidos
+    findPersonObject(nameQuery) {
+      const all = this.getAllInterinos();
+      const normQ = normalize(nameQuery);
+      if (!normQ || normQ.length < 3) return null;
+
+      // Coincidencia directa
+      let match = all.find(p => p.norm_name && p.norm_name.toLowerCase().includes(normQ));
+      if (match) return match;
+
+      // Coincidencia por tokens (ej: "pablo hernandez rizo" -> encuentra "HERNANDEZ RIZO, PABLO")
+      const tokens = normQ.split(" ").filter(w => w.length > 2);
+      if (tokens.length > 0) {
+        match = all.find(p => {
+          if (!p.norm_name) return false;
+          const pNorm = p.norm_name.toLowerCase();
+          return tokens.every(t => pNorm.includes(t));
+        });
+        if (match) return match;
+      }
+      return null;
+    },
+
+    // 9. Comparativa detallada de puestos entre dos aspirantes
+    comparePersons(p1, p2) {
+      if (!p1 || !p2) {
+        return `
+          <div class="chat-card-answer">
+            <p>🤔 Para comparar puestos necesito dos aspirantes o que primero me preguntes por una plaza o persona.</p>
+            <p style="font-size:0.85rem; color:#64748b;">Ejemplo: <em>"¿Quién se ha llevado la plaza de la torreta?"</em> y luego <em>"¿Cuántos puestos le separan de Pablo Hernández Rizo?"</em>.</p>
+          </div>
+        `;
+      }
+
+      const all = this.getAllInterinos();
+      const stats = this.getStats();
+
+      const order1 = p1.adj_order || p1.num || 0;
+      const order2 = p2.adj_order || p2.num || 0;
+      const diffConv = Math.abs(order1 - order2);
+
+      const bolsa1 = p1.bolsa_num || 0;
+      const bolsa2 = p2.bolsa_num || 0;
+      const diffBolsa = Math.abs(bolsa1 - bolsa2);
+
+      // Especialidad común
+      const specs1 = p1.specialties || (p1.plaza ? [p1.plaza.spec_acronym] : []);
+      const specs2 = p2.specialties || (p2.plaza ? [p2.plaza.spec_acronym] : []);
+      const sharedSpecs = specs1.filter(s => specs2.includes(s));
+      const mainSpec = sharedSpecs[0] || specs2[0] || specs1[0] || 'PT';
+      const specName = SPECIALTIES[mainSpec] || mainSpec;
+
+      // Calcular aspirantes convocados y plazas adjudicadas entre ambos
+      let convocadosEntre = 0;
+      let plazasDadasEntre = 0;
+      if (order1 && order2) {
+        const minOrd = Math.min(order1, order2);
+        const maxOrd = Math.max(order1, order2);
+        const between = all.filter(p => p.adj_order && p.adj_order > minOrd && p.adj_order < maxOrd && (p.specialties || []).includes(mainSpec));
+        convocadosEntre = between.length;
+        plazasDadasEntre = between.filter(p => p.plaza && p.plaza.spec_acronym === mainSpec).length;
+      }
+
+      const plazaInfo1 = p1.plaza ? `Adjudicada (${escapeHtml(p1.plaza.center)})` : (p1.status || 'En espera');
+      const plazaInfo2 = p2.plaza ? `Adjudicada (${escapeHtml(p2.plaza.center)})` : (p2.status || 'En espera');
+
+      // Corte de la especialidad
+      let corteNote = "";
+      if (stats && stats.especialidades && stats.especialidades[mainSpec]) {
+        const ult = stats.especialidades[mainSpec].ultimo_adjudicado;
+        if (ult) {
+          const ultOrd = ult.adj_order || 0;
+          const diffP2 = order2 - ultOrd;
+          if (diffP2 <= 0) {
+            corteNote = `
+              <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:6px; margin-top:12px; font-size:0.88rem; color:#1e3a8a;">
+                🚀 <strong>Situación respecto al corte (${mainSpec}):</strong> El corte final de hoy llegó hasta el <strong>Nº #${ultOrd}</strong> (<em>${escapeHtml(ult.name)}</em>, bolsa #${ult.bolsa_num}). 
+                <strong>${escapeHtml(p2.name)} (#${order2})</strong> estaba <strong>${Math.abs(diffP2)} puestos por delante del corte</strong>. ¡Está en una posición privilegiada para las próximas convocatorias!
+              </div>
+            `;
+          } else {
+            corteNote = `
+              <div style="background:#f8fafc; border-left:4px solid #64748b; padding:10px 14px; border-radius:6px; margin-top:12px; font-size:0.88rem; color:#334155;">
+                📍 <strong>Corte de ${mainSpec}:</strong> El corte final de hoy quedó en el <strong>Nº #${ultOrd}</strong> (<em>${escapeHtml(ult.name)}</em>). <strong>${escapeHtml(p2.name)}</strong> se ha quedado a <strong>${diffP2} puestos</strong> del corte en esta convocatoria.
+              </div>
+            `;
+          }
+        }
+      }
+
+      return `
+        <div class="chat-card-answer">
+          <h4>⚖️ Comparativa de Posición en Bolsa</h4>
+          <p>Comparando a <strong>${escapeHtml(p1.name)}</strong> y <strong>${escapeHtml(p2.name)}</strong> en <strong>${specName}</strong>:</p>
+          <div class="chat-kpi-row">
+            <div class="chat-kpi"><span class="kpi-num">${diffConv.toLocaleString()}</span><span class="kpi-lbl">Puestos Convocatoria</span></div>
+            <div class="chat-kpi"><span class="kpi-num">${diffBolsa.toLocaleString()}</span><span class="kpi-lbl">Puestos Bolsa General</span></div>
+            <div class="chat-kpi highlight-blue"><span class="kpi-num">${convocadosEntre.toLocaleString()}</span><span class="kpi-lbl">Aspirantes ${mainSpec} en medio</span></div>
+          </div>
+          <div class="chat-table-wrap">
+            <table class="chat-data-table">
+              <thead>
+                <tr><th>Dato</th><th>${escapeHtml(p1.name.split(',')[0])}</th><th>${escapeHtml(p2.name.split(',')[0])}</th><th>Diferencia</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Nº Convocatoria</strong></td>
+                  <td>#${order1}</td>
+                  <td>#${order2}</td>
+                  <td><span class="chat-badge chat-badge-blue">${diffConv.toLocaleString()} puestos</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Nº Bolsa General</strong></td>
+                  <td>#${bolsa1}</td>
+                  <td>#${bolsa2}</td>
+                  <td><span class="chat-badge chat-badge-amber">${diffBolsa.toLocaleString()} puestos</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Plazas dadas en medio</strong></td>
+                  <td colspan="2" style="text-align:center;">${plazasDadasEntre} plazas asignadas de ${mainSpec}</td>
+                  <td><span class="chat-badge chat-badge-green">${plazasDadasEntre} plazas</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Estado hoy</strong></td>
+                  <td><small>${plazaInfo1}</small></td>
+                  <td><small>${plazaInfo2}</small></td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          ${corteNote}
+        </div>
+      `;
     }
   };
 
@@ -582,7 +737,60 @@
       return AnalyticsEngine.getUserAnalysis();
     }
 
-    // 5. Búsqueda explícita de persona
+    // 5. Comparativa entre aspirantes o con la última plaza consultada
+    // Ejemplos: "¿cuántos puestos le separan de Pablo Hernández Rizo?", "¿a cuántos puestos está de X?", "diferencia entre A y B"
+    const isComparison = (
+      q.includes("separan") || q.includes("separa") || q.includes("distancia") ||
+      (q.includes("diferencia") && (q.includes("con") || q.includes("entre") || q.includes("de") || q.includes("respecto"))) ||
+      (q.includes("cuantos puestos") && (q.includes("de") || q.includes("con") || q.includes("a") || q.includes("le") || q.includes("me"))) ||
+      (q.includes("a cuantos") && (q.includes("esta") || q.includes("queda")))
+    );
+
+    if (isComparison) {
+      // Patrón para dos nombres explícitos: "diferencia entre X e Y" / "separan a X de Y"
+      const patDouble = /(?:diferencia\s+(?:entre|de)|separan\s+a)\s+(.+?)\s+(?:y|e|de)\s+(.+)/i;
+      const mDouble = q.match(patDouble);
+      if (mDouble) {
+        const name1 = mDouble[1].replace(/[?.,]/g, "").trim();
+        const name2 = mDouble[2].replace(/[?.,]/g, "").trim();
+        const p1 = AnalyticsEngine.findPersonObject(name1);
+        const p2 = AnalyticsEngine.findPersonObject(name2);
+        if (p1 && p2) {
+          lastReferencedPerson = p2;
+          return AnalyticsEngine.comparePersons(p1, p2);
+        }
+      }
+
+      // Patrón para un nombre: "¿cuántos puestos le separan de Pablo Hernández Rizo?"
+      const patSingle = /(?:cuantos\s+puestos\s+(?:le|me|nos|los)?\s*separan\s+(?:de|a)?|a\s+cuantos\s+puestos\s+esta\s+de|diferencia\s+(?:con|respecto\s+a|frente\s+a))\s*(.+)/i;
+      const mSingle = q.match(patSingle);
+
+      let targetName = null;
+      if (mSingle) {
+        targetName = mSingle[1].replace(/[?.,]/g, "").trim();
+      } else {
+        targetName = q.replace(/(?:cuantos|puestos|le|me|nos|los|separa|separan|distancia|diferencia|con|de|a|esta|entre|frente)/g, " ").replace(/\s+/g, " ").trim();
+      }
+
+      if (targetName && targetName.length >= 3) {
+        const p2 = AnalyticsEngine.findPersonObject(targetName);
+        const p1 = lastReferencedPerson || AnalyticsEngine.getCurrentUser();
+        if (p2) {
+          if (!p1) {
+            return `
+              <div class="chat-card-answer">
+                <h4>👤 Aspirante localizado: ${escapeHtml(p2.name)}</h4>
+                <p>Nº Convocatoria: <strong>#${p2.adj_order || '-'}</strong> | Bolsa General: <strong>#${p2.bolsa_num || '-'}</strong> | Especialidad: <strong>${(p2.specialties || []).join(', ')}</strong></p>
+                <p style="margin-top:6px; font-size:0.88rem; color:#64748b;">Para comparar puestos, pregúntame antes por una plaza (ej: <em>"¿Quién se ha llevado la plaza de la torreta?"</em>) o selecciona tu nombre en la web.</p>
+              </div>
+            `;
+          }
+          return AnalyticsEngine.comparePersons(p1, p2);
+        }
+      }
+    }
+
+    // 6. Búsqueda explícita de persona
     if (q.startsWith("buscar a ") || q.startsWith("buscar ") || q.includes("situacion de ") || q.includes("analiza a ")) {
       return AnalyticsEngine.findPerson(text);
     }
