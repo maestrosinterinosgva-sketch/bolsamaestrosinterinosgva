@@ -158,7 +158,7 @@ def check_and_update():
                             fecha = st.get("fecha_adjudicacion", fecha)
                             convocados = st.get("total_adjudicaciones_hoy", 0)
                             plazas = st.get("total_plazas_adjudicadas", 0)
-                    web_url = os.environ.get("WEB_URL", "https://bolsa-de-maestros.pages.dev")
+                    web_url = os.environ.get("WEB_URL", "https://maestrosinterinosgva-sketch.github.io/bolsamaestrosinterinosgva/")
                     msg = (
                         f"🤖 <b>¡Nueva Adjudicación detectada y publicada!</b>\n\n"
                         f"📅 <b>Fecha:</b> {fecha}\n"

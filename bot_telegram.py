@@ -127,7 +127,7 @@ def check_telegram_updates():
             send_telegram_message(token, chat_id, welcome)
             continue
 
-        web_url = os.environ.get("WEB_URL") or cfg.get("web_url") or "https://bolsa-de-maestros.pages.dev"
+        web_url = os.environ.get("WEB_URL") or cfg.get("web_url") or "https://maestrosinterinosgva-sketch.github.io/bolsamaestrosinterinosgva/"
 
         if text.startswith("/status") or text.startswith("/web"):
             status_msg = (
