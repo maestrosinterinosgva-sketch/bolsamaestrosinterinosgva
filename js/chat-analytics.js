@@ -148,23 +148,31 @@
       `;
     },
 
-    // 3. Consulta de plazas y centros por localidad o especialidad
-    searchCentersAndPlaces(query) {
+    // 3. Consulta de plazas y centros por localidad, colegio o adjudicatario
+    searchCentersAndPlaces(query, rawText = "") {
       const all = this.getAllInterinos();
       const normQ = normalize(query);
+      const fullNorm = normalize(rawText || query);
 
       // Extraer si se menciona una especialidad
       let targetSpec = null;
       for (const [syn, code] of Object.entries(SPEC_SYNONYMS)) {
-        if (normQ.includes(syn)) {
+        if (new RegExp(`\\b${syn}\\b`).test(fullNorm)) {
           targetSpec = code;
           break;
         }
       }
 
       // Palabras clave de búsqueda filtrando palabras comunes
-      const stopWords = new Set(["que", "plazas", "puestos", "hay", "han", "dado", "en", "el", "la", "los", "las", "de", "del", "centros", "colegios", "pueblos", "adjudicado", "adjudicados", "donde", "para", "por"]);
-      const keywords = normQ.split(" ").filter(w => w.length > 2 && !stopWords.has(w) && !SPEC_SYNONYMS[w]);
+      const stopWords = new Set([
+        "que", "plazas", "plaza", "puestos", "puesto", "hay", "han", "dado", "dio", "en", "el", "la", "los", "las", "un", "una", "unos", "unas",
+        "de", "del", "centros", "centro", "colegios", "colegio", "pueblos", "pueblo", "municipios", "municipio", "adjudicado", "adjudicados",
+        "adjudicada", "adjudicadas", "donde", "para", "por", "quien", "quienes", "se", "ha", "llevado", "llevo", "tiene", "cogio", "entro",
+        "asignado", "tocado", "toco", "quedo", "ganado", "conseguido", "instituto", "institutos"
+      ]);
+
+      const rawWords = normQ.split(" ").filter(w => w.length > 1 && !stopWords.has(w) && !SPEC_SYNONYMS[w]);
+      const keywords = rawWords.length > 0 ? rawWords : normQ.split(" ").filter(w => w.length > 1 && !stopWords.has(w));
 
       const matches = all.filter(p => {
         if (!p.plaza) return false;
@@ -175,20 +183,82 @@
         const centerNorm = normalize(p.plaza.center || "");
         const typeNorm = normalize(p.plaza.type || p.plaza.tipo_vacante || "");
         const codeNorm = String(p.plaza.code || "");
+        const nameNorm = normalize(p.name || "");
 
-        return keywords.some(k => centerNorm.includes(k) || typeNorm.includes(k) || codeNorm.includes(k));
+        // Coincidencia exacta de frase o de palabras clave
+        if (centerNorm.includes(normQ) || nameNorm.includes(normQ)) return true;
+        return keywords.some(k => centerNorm.includes(k) || codeNorm.includes(k) || nameNorm.includes(k));
       });
 
+      // Si no hubo coincidencia en la bolsa de Maestros
       if (matches.length === 0) {
+        // Comprobar si el usuario preguntó por centros de Secundaria / FP (ej. La Torreta, institutos...)
+        const isSecOrFP = /\b(torreta|ies|instituto|secundaria|fp|cipfp)\b/i.test(fullNorm);
+        
+        let extraExplanation = "";
+        if (isSecOrFP) {
+          extraExplanation = `
+            <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:6px; margin:12px 0; font-size:0.88rem; color:#1e3a8a;">
+              <p style="margin-bottom:6px; font-weight:700;">📌 ¿Por qué no aparece en este listado?</p>
+              <ul style="margin:0 0 0 16px; padding:0; line-height:1.5;">
+                <li><strong>Centro de Secundaria o Formación Profesional:</strong> Centros como el <em>IES La Torreta</em> (Elda) o el <em>CIPFP La Torreta</em> (Elche) pertenecen a Secundaria y FP. Sus adjudicaciones se resuelven en el listado independiente de Secundaria/FP y no en esta bolsa de Maestros (Infantil y Primaria).</li>
+                <li><strong>Plaza Desierta:</strong> Si la plaza se ofertó en la convocatoria pero ningún aspirante la solicitó o cumplía los requisitos voluntarios, queda <em>desierta</em> y no se asigna a ningún interino.</li>
+              </ul>
+            </div>
+            <p style="font-size:0.85rem; color:#475569;">Puedes consultar las plazas que sí se han asignado hoy a Maestros en localidades cercanas:</p>
+            <div class="chat-quick-chips" style="margin-top:8px;">
+              <button class="chat-chip" data-query="plazas en elda">🏫 Plazas en Elda</button>
+              <button class="chat-chip" data-query="plazas en elx">🏫 Plazas en Elche</button>
+              <button class="chat-chip" data-query="plazas en torrevieja">🏫 Plazas en Torrevieja</button>
+              <button class="chat-chip" data-query="plazas en alicante">🏫 Plazas en Alicante</button>
+            </div>
+          `;
+        } else {
+          extraExplanation = `
+            <p style="margin-top:8px; font-size:0.85rem; color:#64748b;">Prueba a buscar por municipio (ej: <em>Valencia</em>, <em>Elche</em>, <em>Torrevieja</em>, <em>Alicante</em>) o por especialidad (ej: <em>plazas de Infantil</em>).</p>
+            <div class="chat-quick-chips" style="margin-top:8px;">
+              <button class="chat-chip" data-query="plazas en valencia">🏫 Valencia</button>
+              <button class="chat-chip" data-query="plazas en alicante">🏫 Alicante</button>
+              <button class="chat-chip" data-query="plazas en castellon">🏫 Castellón</button>
+              <button class="chat-chip" data-query="plazas de primaria">📚 Primaria</button>
+            </div>
+          `;
+        }
+
         return `
           <div class="chat-card-answer">
-            <p>🔍 No encontré centros o plazas adjudicadas que coincidan con <strong>"${query}"</strong> en esta lista.</p>
-            <p style="margin-top:6px; font-size:0.85rem; color:#64748b;">Prueba a buscar por una localidad (ej: <em>Torrevieja</em>, <em>Benicàssim</em>, <em>Valencia</em>, <em>Alicante</em>) o por especialidad (ej: <em>plazas de Infantil</em>).</p>
+            <h4>🔍 Búsqueda de Plazas y Centros</h4>
+            <p>No encontré ninguna plaza adjudicada hoy en la bolsa de Maestros que coincida con <strong>"${escapeHtml(query || rawText)}"</strong>.</p>
+            ${extraExplanation}
           </div>
         `;
       }
 
-      // Agrupar por centro
+      // Si hay coincidencia exacta de 1 sola plaza adjudicada:
+      if (matches.length === 1) {
+        const m = matches[0];
+        const pl = m.plaza;
+        return `
+          <div class="chat-card-answer">
+            <h4>🏫 Adjudicación en ${escapeHtml(pl.center || 'Centro asignado')}</h4>
+            <p>La plaza se la ha llevado:</p>
+            <div class="chat-cut-item" style="border-left: 4px solid #2563eb; background:#f8fafc; padding:12px;">
+              <div style="font-size:1.05rem; font-weight:800; color:#1e293b; margin-bottom:6px;">
+                👤 ${escapeHtml(m.name)}
+              </div>
+              <div style="font-size:0.88rem; line-height:1.55; color:#334155;">
+                <div>📚 <strong>Especialidad:</strong> ${escapeHtml(pl.spec_name || pl.spec_acronym)} <span class="chat-badge chat-badge-blue">${escapeHtml(pl.spec_acronym || '-')}</span></div>
+                <div>📋 <strong>Tipo de puesto:</strong> ${escapeHtml(pl.type || pl.tipo_vacante || 'Sustitución')}</div>
+                <div>⏱️ <strong>Jornada:</strong> ${escapeHtml(pl.jornada || 'Completa')}</div>
+                <div>🔢 <strong>Código de plaza:</strong> #${escapeHtml(pl.code || pl.cod_plaza || '-')}</div>
+                <div>📊 <strong>Posición en Bolsa:</strong> #${m.bolsa_num || '-'} (Orden de adjudicación #${m.adj_order || '-'})</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Agrupar por centro para múltiples resultados
       const grouped = {};
       matches.forEach(m => {
         const c = m.plaza.center || "Centro no especificado";
@@ -202,23 +272,27 @@
 
       for (const [centro, docs] of displayedCenters) {
         const docsList = docs.map(d => `
-          <li>
-            <strong>${d.name}</strong> 
-            <span class="chat-badge chat-badge-blue">${d.plaza.spec_acronym || ''}</span>
-            <small style="color:#64748b;">(${d.plaza.type || 'Sustitución'}, ${d.plaza.jornada || 'Completa'})</small>
+          <li style="padding:4px 0; border-bottom:1px solid #f1f5f9;">
+            <strong>${escapeHtml(d.name)}</strong> 
+            <span class="chat-badge chat-badge-blue">${escapeHtml(d.plaza.spec_acronym || '')}</span>
+            <small style="color:#64748b;">(${escapeHtml(d.plaza.type || d.plaza.tipo_vacante || 'Sustitución')}, ${escapeHtml(d.plaza.jornada || 'Completa')})</small>
+            <br><small style="color:#94a3b8;">Bolsa #${d.bolsa_num || '-'} · Código #${escapeHtml(d.plaza.code || '-')}</small>
           </li>
         `).join("");
 
         htmlRows.push(`
-          <div class="chat-center-card">
-            <div class="center-title">🏫 <strong>${centro}</strong> <span class="chat-badge chat-badge-green">${docs.length} ${docs.length === 1 ? 'plaza' : 'plazas'}</span></div>
-            <ul class="center-teachers-list">${docsList}</ul>
+          <div class="chat-center-card" style="margin-bottom:10px;">
+            <div class="center-title" style="font-size:0.86rem; margin-bottom:6px;">
+              🏫 <strong>${escapeHtml(centro)}</strong> 
+              <span class="chat-badge chat-badge-green">${docs.length} ${docs.length === 1 ? 'plaza' : 'plazas'}</span>
+            </div>
+            <ul class="center-teachers-list" style="padding-left:4px;">${docsList}</ul>
           </div>
         `);
       }
 
       const extraText = totalCentros > 15 
-        ? `<p style="margin-top:8px; font-size:0.8rem; color:#64748b;"><em>Mostrando 15 de ${totalCentros} centros coincidentes. Puedes afinar escribiendo el nombre exacto del colegio o municipio.</em></p>`
+        ? `<p style="margin-top:8px; font-size:0.8rem; color:#64748b;"><em>Mostrando 15 de ${totalCentros} centros coincidentes (${matches.length} plazas en total). Puedes afinar escribiendo el nombre exacto del colegio o municipio.</em></p>`
         : '';
 
       return `
@@ -424,6 +498,34 @@
     }
   };
 
+  // Función para extraer el nombre del centro, pueblo o término clave sin prefijos conversacionales
+  function extractCenterOrPlazaTarget(rawText) {
+    const q = normalize(rawText);
+    const patterns = [
+      /\b(dime|sabes|sabrias decirme|quiero saber|puedes decirme|consultar|ver|mostrar|por favor)\b/g,
+      /\b(a\s+quien|quien|quienes)\s+(se\s+)?(ha|han|fue)?\s*(llevado|quedado|adjudicado|dado|cogido|entrado|asignado|tocado|obtenido|ganado)\b/g,
+      /\b(a\s+quien|quien|quienes)\s+(tiene|esta|consiguio|gano|cogio|lleva|obtuvo)\b/g,
+      /\b(que|cuantas|cuantos)\s+(plazas?|puestos?)\s+(hay|se\s+han\s+dado|han\s+dado|se\s+han\s+repartido|quedan|tenemos|dieron|asignaron)\b/g,
+      /\b(hay|habido|habia|dieron|asignaron)\s+(plazas?|puestos?)\b/g,
+      /\b(que\s+se\s+ha\s+dado|que\s+han\s+dado|que\s+se\s+dio)\b/g,
+      /\b(la\s+plaza\s+de|el\s+puesto\s+de|las\s+plazas\s+de|los\s+puestos\s+de)\b/g,
+      /\b(la\s+plaza\s+en|el\s+puesto\s+en|las\s+plazas\s+en|los\s+puestos\s+en)\b/g,
+      /\b(la\s+plaza|el\s+puesto|las\s+plazas|los\s+puestos|plaza|plazas|puesto|puestos)\b/g,
+      /\b(colegios?|centros?|institutos?|pueblos?|municipios?|ciudades)\b/g,
+      /\b(en\s+el|en\s+la|en\s+los|en\s+las|del?|de\s+la|de\s+el|de\s+los|de\s+las|en)\b/g,
+      /\b(el|la|los|las|un|una|unos|unas)\b/g
+    ];
+    let cleaned = q;
+    for (const p of patterns) {
+      cleaned = cleaned.replace(p, " ");
+    }
+    // Quitar especialidades del target si están presentes para no interferir en la búsqueda del centro
+    for (const syn of Object.keys(SPEC_SYNONYMS)) {
+      cleaned = cleaned.replace(new RegExp(`\\b${syn}\\b`, 'g'), " ");
+    }
+    return cleaned.replace(/\s+/g, " ").trim();
+  }
+
   // --- INTERPRETACIÓN INTELIGENTE DEL MENSAJE DEL USUARIO ---
   function processUserMessage(rawText) {
     const text = rawText.trim();
@@ -433,25 +535,26 @@
       return "Por favor, escribe una pregunta sobre las adjudicaciones, especialidades, plazas o centros.";
     }
 
-    // Saludos y bienvenida
-    if (/^(hola|buenas|buenos dias|buenas tardes|que tal|hey|hello|hi|inicio|ayuda)/i.test(q)) {
+    // 0. Saludos y bienvenida
+    if (/^(hola|buenas|buenos dias|buenas tardes|que tal|hey|hello|hi|inicio|ayuda)\b/i.test(q)) {
       return `
         <div class="chat-card-answer">
           <p>👋 <strong>¡Hola! Soy tu Asistente de Análisis de la Bolsa de Maestros GVA.</strong></p>
           <p>Tengo indexados en tiempo real los <strong>17.336 interinos</strong> y la última adjudicación del <strong>15/09/2026</strong> (8.270 convocados y 309 plazas).</p>
           <p>Puedes preguntarme cosas como:</p>
           <ul style="margin: 6px 0 6px 20px; font-size: 0.88rem;">
-            <li>📊 <em>"¿Cuántas plazas se han dado hoy?"</em></li>
+            <li>📊 <em>"Resumen de hoy"</em></li>
             <li>📍 <em>"¿Dónde ha quedado el corte de Primaria o Infantil?"</em></li>
+            <li>🏫 <em>"¿Quién se ha llevado la plaza de [Centro/Pueblo]?"</em></li>
             <li>🏫 <em>"¿Qué plazas hay en Torrevieja o Alicante?"</em></li>
             <li>⏸️ <em>"¿Cuántos desactivados hay en la bolsa?"</em></li>
-            <li>👤 <em>"¿Cómo voy?" o "Analiza a [Mi Nombre]"</em></li>
+            <li>👤 <em>"¿Cómo voy?" o "Buscar a [Mi Nombre]"</em></li>
           </ul>
         </div>
       `;
     }
 
-    // Conceptos
+    // 1. Conceptos y dudas administrativas
     const concept = AnalyticsEngine.explainConcept(q);
     if (concept) return concept;
 
@@ -464,45 +567,57 @@
       }
     }
 
-    // 1. Cortes
-    if (q.includes("corte") || q.includes("cortes") || q.includes("ultimo adjudicado") || q.includes("quien entro") || q.includes("ultimo")) {
+    // 2. Cortes de bolsa
+    if (q.includes("corte") || q.includes("cortes") || q.includes("cortado") || q.includes("ultimo adjudicado") || q.includes("por donde va") || q.includes("hasta que numero") || q.includes("quien entro al final")) {
       return AnalyticsEngine.getCutsReport(mentionedSpec);
     }
 
-    // 2. Desactivados / No participantes
+    // 3. Desactivados / No participantes / Renuncias
     if (q.includes("desactivad") || q.includes("no particip") || q.includes("renuncia") || q.includes("en espera")) {
       return AnalyticsEngine.getDeactivatedReport(mentionedSpec);
     }
 
-    // 3. Situación del usuario
-    if (q.includes("como voy") || q.includes("mi puesto") || q.includes("mi posicion") || q.includes("mis opciones") || q.includes("mi situacion") || q.includes("a cuanto me quede")) {
+    // 4. Situación personalizada del usuario
+    if (q.includes("como voy") || q.includes("mi puesto") || q.includes("mi posicion") || q.includes("mis opciones") || q.includes("mi situacion") || q.includes("a cuanto me quede") || q.includes("cuanto me falta")) {
       return AnalyticsEngine.getUserAnalysis();
     }
 
-    // 4. Búsqueda explícita de persona
-    if (q.startsWith("buscar") || q.includes("docente") || q.includes("interino") || q.includes("situacion de") || q.includes("analiza a")) {
+    // 5. Búsqueda explícita de persona
+    if (q.startsWith("buscar a ") || q.startsWith("buscar ") || q.includes("situacion de ") || q.includes("analiza a ")) {
       return AnalyticsEngine.findPerson(text);
     }
 
-    // 5. Centros, colegios, pueblos, municipios
-    if (q.includes("colegio") || q.includes("centro") || q.includes("instituto") || q.includes("pueblo") || q.includes("municipio") || q.includes("localidad") || q.includes("donde")) {
-      return AnalyticsEngine.searchCentersAndPlaces(text);
-    }
-
-    // 6. Plazas / Resumen
-    if (q.includes("plaza") || q.includes("puesto") || q.includes("reparto") || q.includes("resumen") || q.includes("general") || q.includes("adjudicacion") || q.includes("total")) {
+    // 6. Resumen general / Balance global (solo cuando piden explícitamente resumen o balance global)
+    if (q === "resumen" || q === "resumen hoy" || q === "balance" || q.includes("resumen de hoy") || q.includes("resumen general") || q.includes("balance general") || q.includes("radiografia") || q.includes("total plazas") || q.includes("cuantas plazas en total") || q.includes("como ha ido la adjudicacion") || q.includes("estadisticas generales")) {
       if (mentionedSpec) {
         return AnalyticsEngine.getCutsReport(mentionedSpec);
       }
       return AnalyticsEngine.getGlobalSummary();
     }
 
-    // 7. Si solo menciona una especialidad
+    // 7. Preguntas sobre centros, colegios, municipios o quién se ha llevado una plaza
+    const isAskingPlazaOrCenter = (
+      q.includes("quien se ha llevado") || q.includes("quien se llevo") || q.includes("a quien han dado") ||
+      q.includes("quien tiene la plaza") || q.includes("quien tiene plaza") || q.includes("a quien le ha tocado") ||
+      q.includes("quien cogio") || q.includes("quien entro en") || q.includes("a quien asignaron") ||
+      q.includes("que plazas hay") || q.includes("hay plazas") || q.includes("hay plaza") || q.includes("plazas en") ||
+      q.includes("colegio") || q.includes("centro") || q.includes("instituto") || q.includes("ceip") || q.includes("ies") ||
+      q.includes("pueblo") || q.includes("municipio") || q.includes("localidad") || q.includes("donde")
+    );
+
+    const targetSearch = extractCenterOrPlazaTarget(text);
+
+    if (isAskingPlazaOrCenter || (targetSearch && targetSearch.length >= 3)) {
+      const searchTerm = targetSearch || text;
+      return AnalyticsEngine.searchCentersAndPlaces(searchTerm, text);
+    }
+
+    // 8. Si solo menciona una especialidad (ej: "infantil", "primaria")
     if (mentionedSpec) {
       return AnalyticsEngine.getCutsReport(mentionedSpec);
     }
 
-    // 8. Intentar buscar como nombre o centro antes de rendirse
+    // 9. Intentar buscar como nombre de persona en la lista completa antes de rendirse
     const all = AnalyticsEngine.getAllInterinos();
     const candidateMatches = all.filter(p => p.norm_name && p.norm_name.includes(q));
     if (candidateMatches.length > 0 && candidateMatches.length <= 5) {
@@ -511,7 +626,7 @@
 
     const centerMatches = all.filter(p => p.plaza && normalize(p.plaza.center || "").includes(q));
     if (centerMatches.length > 0) {
-      return AnalyticsEngine.searchCentersAndPlaces(text);
+      return AnalyticsEngine.searchCentersAndPlaces(text, text);
     }
 
     // Fallback con opciones sugeridas
