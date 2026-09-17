@@ -252,6 +252,14 @@
         lastReferencedPerson = m;
         lastReferencedCenter = m.plaza ? m.plaza.center : null;
         const pl = m.plaza;
+        let jBadge = "Jornada entera";
+        const jRaw = String(pl.jornada || '').toLowerCase();
+        if (jRaw.includes("parcial") || jRaw.includes("11,5") || jRaw.includes("11.5") || jRaw.includes("7,5") || jRaw.includes("7.5") || jRaw.includes("7,667") || jRaw.includes("9 hora") || (jRaw.includes("hora") && !jRaw.includes("23"))) {
+          jBadge = `<span class="chat-badge" style="background:#fff7ed; color:#9a3412; border:1px solid #fed7aa;">⏱️ Parcial (${escapeHtml(pl.jornada)})</span>`;
+        } else {
+          jBadge = `<span class="chat-badge chat-badge-green">⏳ Entera (${escapeHtml(pl.jornada || 'Completa')})</span>`;
+        }
+
         return `
           <div class="chat-card-answer">
             <h4>🏫 Adjudicación en ${escapeHtml(pl.center || 'Centro asignado')}</h4>
@@ -263,7 +271,7 @@
               <div style="font-size:0.88rem; line-height:1.55; color:#334155;">
                 <div>📚 <strong>Especialidad:</strong> ${escapeHtml(pl.spec_name || pl.spec_acronym)} <span class="chat-badge chat-badge-blue">${escapeHtml(pl.spec_acronym || '-')}</span></div>
                 <div>📋 <strong>Tipo de puesto:</strong> ${escapeHtml(pl.type || pl.tipo_vacante || 'Sustitución')}</div>
-                <div>⏱️ <strong>Jornada:</strong> ${escapeHtml(pl.jornada || 'Completa')}</div>
+                <div>⏱️ <strong>Jornada:</strong> ${jBadge}</div>
                 <div>🔢 <strong>Código de plaza:</strong> #${escapeHtml(pl.code || pl.cod_plaza || '-')}</div>
                 <div>📊 <strong>Posición en Bolsa:</strong> #${m.bolsa_num || '-'} (Orden de adjudicación #${m.adj_order || '-'})</div>
               </div>

@@ -46,6 +46,57 @@ function safeSetHTML(id, html) {
   if (el) el.innerHTML = (html !== undefined && html !== null) ? html : "-";
 }
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// Clasifica la jornada entre entera (completa, 23h, itinerante) o parcial (11,5h, 7,5h, tercio)
+function getJornadaType(plaza) {
+  if (!plaza || !plaza.jornada) return { type: 'DESCONOCIDA', label: 'No especificada', isParcial: false, raw: '' };
+  const jRaw = String(plaza.jornada).trim();
+  const j = jRaw.toLowerCase();
+
+  if (j.includes("parcial") || j.includes("11,5") || j.includes("11.5") || j.includes("7,5") || j.includes("7.5") || j.includes("7,667") || j.includes("7.667") || j.includes("9 hora") || (j.includes("hora") && !j.includes("23"))) {
+    return {
+      type: 'PARCIAL',
+      label: 'Jornada parcial',
+      shortLabel: 'Parcial',
+      isParcial: true,
+      raw: jRaw,
+      hours: jRaw
+    };
+  }
+
+  let sub = jRaw;
+  if (j === "itinerante") sub = "Itinerante";
+  else if (j.includes("23")) sub = "23 horas";
+  else if (j.includes("completa")) sub = "Completa";
+
+  return {
+    type: 'ENTERA',
+    label: 'Jornada entera',
+    shortLabel: 'Entera',
+    isParcial: false,
+    raw: jRaw,
+    hours: sub
+  };
+}
+
+function getJornadaBadgeHTML(plaza) {
+  if (!plaza || !plaza.jornada) return '';
+  const info = getJornadaType(plaza);
+  if (info.isParcial) {
+    return `<span class="badge-jornada badge-jornada-parcial" title="Jornada Parcial (${escapeHtml(info.raw)})">⏱️ Parcial (${escapeHtml(info.raw)})</span>`;
+  }
+  return `<span class="badge-jornada badge-jornada-entera" title="Jornada Entera (${escapeHtml(info.raw)})">⏳ Entera (${escapeHtml(info.hours)})</span>`;
+}
+
 
 // Inicialización segura
 document.addEventListener("DOMContentLoaded", async () => {
@@ -689,7 +740,8 @@ function renderUserData() {
       safeSetText("adjCentro", currentUser.plaza.center || "No especificado");
       safeSetText("adjEspecialidad", `${currentUser.plaza.spec_code} - ${currentUser.plaza.spec_name}`);
       safeSetText("adjTipoVacante", currentUser.plaza.type || "VACANT");
-      safeSetText("adjJornada", currentUser.plaza.jornada || "Completa");
+      const jInfo = getJornadaType(currentUser.plaza);
+      safeSetText("adjJornada", `${jInfo.label} (${jInfo.raw || 'Completa'})`);
       safeSetText("adjCodigoPlaza", currentUser.plaza.code || "-");
     } else {
       adjBox.classList.add("hidden");
@@ -996,6 +1048,10 @@ function matchesTableSearch(p, query) {
     if (p.plaza.jornada && normalizeText(p.plaza.jornada).includes(query)) return true;
     if (p.plaza.code && String(p.plaza.code).includes(query)) return true;
     if (p.plaza.cod_plaza && String(p.plaza.cod_plaza).includes(query)) return true;
+
+    const jInfo = getJornadaType(p.plaza);
+    if (jInfo.isParcial && ("PARCIAL".includes(query) || query.includes("PARCIAL"))) return true;
+    if (!jInfo.isParcial && ("ENTERA".includes(query) || "COMPLETA".includes(query) || query.includes("ENTERA") || query.includes("COMPLETA"))) return true;
   }
 
   // 4. Especialidades del aspirante
@@ -1013,17 +1069,18 @@ function renderCurrentTable() {
   const tbody = document.getElementById("aheadTableBody");
   const mainTitle = document.getElementById("tableMainTitle");
   const subtitle = document.getElementById("tableSubtitle");
+
   const specName = SPECIALTY_NAMES[currentSpecialty] || currentSpecialty;
 
-  if (currentTableView === 'ahead') {
+  if (currentTableView === "ahead") {
     // Vista: Aspirantes por Delante
     if (mainTitle) mainTitle.innerHTML = `Listado de aspirantes por delante en <span id="tableSpecName">${specName}</span>`;
-    
+
     let filtered = window.currentAheadList || [];
     if (currentTableFilter === "activos") {
-      filtered = filtered.filter(p => p.status === "Ha participat" || p.status === "No adjudicat");
+      filtered = filtered.filter(p => !p.status || p.status === "Actiu" || p.status === "En espera" || p.status === "Disponible");
     } else if (currentTableFilter === "desactivados") {
-      filtered = filtered.filter(p => p.status === "Desactivat" || (p.specialties_deactivated && p.specialties_deactivated.includes(currentSpecialty)));
+      filtered = filtered.filter(p => p.status === "Desactivat");
     } else if (currentTableFilter === "no_participat") {
       filtered = filtered.filter(p => p.status === "No ha participat");
     } else if (currentTableFilter === "adjudicados") {
@@ -1044,7 +1101,7 @@ function renderCurrentTable() {
           <th>Nombre y Apellidos</th>
           <th>Servicios / Bolsa</th>
           <th>Estado Adjudicación</th>
-          <th>Destino Adjudicado</th>
+          <th>Destino Adjudicado y Jornada</th>
         </tr>
       `;
     }
@@ -1062,10 +1119,23 @@ function renderCurrentTable() {
           <tr>
             <td><strong>#${p.spec_position}</strong></td>
             <td><strong>#${p.adj_order || p.num}</strong></td>
-            <td><strong>${p.name}</strong></td>
-            <td><small class="tag tag-services">${p.services || 'AMB SERVEIS'}</small>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
-            <td><span class="tag tag-status ${getStatusClass(p.status)}">${p.status}</span></td>
-            <td>${p.plaza ? `<small title="${p.plaza.center}"><strong>${p.plaza.spec_name}</strong> - ${p.plaza.center}</small>` : '<span style="color:var(--slate-400);">-</span>'}</td>
+            <td><strong>${escapeHtml(p.name)}</strong></td>
+            <td><small class="tag tag-services">${escapeHtml(p.services || 'AMB SERVEIS')}</small>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
+            <td><span class="tag tag-status ${getStatusClass(p.status)}">${escapeHtml(p.status)}</span></td>
+            <td>
+              ${p.plaza ? `
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <small style="line-height:1.35; font-size:0.85rem;" title="${escapeHtml(p.plaza.center)}">
+                    <strong>${escapeHtml(p.plaza.center)}</strong>
+                  </small>
+                  <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin-top:2px;">
+                    <span class="spec-badge-xs">${escapeHtml(p.plaza.spec_acronym || p.plaza.spec_code || '')}</span>
+                    ${getJornadaBadgeHTML(p.plaza)}
+                    <span class="tag-vacante-sm">${escapeHtml(p.plaza.type || 'VACANT')}</span>
+                  </div>
+                </div>
+              ` : '<span style="color:var(--slate-400);">-</span>'}
+            </td>
           </tr>
         `).join("");
       }
@@ -1101,7 +1171,7 @@ function renderCurrentTable() {
           <th>Nombre y Apellidos</th>
           <th>Especialidad Plaza</th>
           <th>Centro Adjudicado</th>
-          <th>Jornada / Vacante</th>
+          <th>Tipo de Jornada / Vacante</th>
         </tr>
       `;
     }
@@ -1120,10 +1190,17 @@ function renderCurrentTable() {
             <td><strong>#${p.spec_position}</strong></td>
             <td><strong>#${p.adj_order || p.num}</strong></td>
             <td><span class="tag-dist-behind">+${p.dist_adj || p.dist_bolsa} orden</span></td>
-            <td><strong>${p.name}</strong>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
-            <td><span class="spec-badge-xs">${p.plaza ? p.plaza.spec_code + ' - ' + p.plaza.spec_name : '-'}</span></td>
-            <td><small><strong>${p.plaza ? p.plaza.center : '-'}</strong></small></td>
-            <td><small>${p.plaza ? p.plaza.jornada + ' &bull; ' + p.plaza.type : '-'}</small></td>
+            <td><strong>${escapeHtml(p.name)}</strong>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
+            <td><span class="spec-badge-xs">${escapeHtml(p.plaza ? p.plaza.spec_code + ' - ' + p.plaza.spec_name : '-')}</span></td>
+            <td><small><strong>${escapeHtml(p.plaza ? p.plaza.center : '-')}</strong></small></td>
+            <td>
+              ${p.plaza ? `
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  ${getJornadaBadgeHTML(p.plaza)}
+                  <small style="color:var(--slate-500); font-size:0.75rem;">${escapeHtml(p.plaza.type || 'VACANT')}</small>
+                </div>
+              ` : '-'}
+            </td>
           </tr>
         `).join("");
       }

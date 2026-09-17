@@ -19,6 +19,14 @@ def normalize_text(text):
     t = t.replace('Y', 'I')
     return re.sub(r'\s+', ' ', t).strip()
 
+def classify_jornada(plaza):
+    if not plaza or not plaza.get("jornada"):
+        return "DESCONOCIDA"
+    j = plaza["jornada"].lower().strip()
+    if 'parcial' in j or '11,5' in j or '11.5' in j or '7,5' in j or '7.5' in j or '7,667' in j or '7.667' in j or '9 hora' in j or ('hora' in j and '23' not in j):
+        return "PARCIAL"
+    return "ENTERA"
+
 def matches_table_search(p, query):
     if not query:
         return True
@@ -56,6 +64,12 @@ def matches_table_search(p, query):
         if plaza.get("code") and q in str(plaza["code"]):
             return True
         if plaza.get("cod_plaza") and q in str(plaza["cod_plaza"]):
+            return True
+        
+        j_type = classify_jornada(plaza)
+        if j_type == "PARCIAL" and ("PARCIAL" in q or q in "PARCIAL"):
+            return True
+        if j_type == "ENTERA" and ("ENTERA" in q or "COMPLETA" in q or q in "ENTERA" or q in "COMPLETA"):
             return True
 
     # 4. Especialidades
@@ -179,7 +193,26 @@ class TestChatAndSearch(unittest.TestCase):
         self.assertEqual(len(between), 676)
         self.assertEqual(len(plazas_between), 37)
 
+    def test_jornada_classification_and_search(self):
+        # 235 plazas de jornada entera y 19 de jornada parcial
+        plazas = [p["plaza"] for p in self.interinos if p.get("plaza")]
+        enteras = [pl for pl in plazas if classify_jornada(pl) == "ENTERA"]
+        parciales = [pl for pl in plazas if classify_jornada(pl) == "PARCIAL"]
+        self.assertEqual(len(enteras), 235)
+        self.assertEqual(len(parciales), 19)
+
+        # Buscar por "parcial" en la tabla devuelve exactamente aspirantes con plaza a tiempo parcial
+        search_parcial = [p for p in self.interinos if matches_table_search(p, "parcial")]
+        self.assertEqual(len(search_parcial), 19)
+        for p in search_parcial:
+            self.assertEqual(classify_jornada(p["plaza"]), "PARCIAL")
+
+        # Buscar por "entera" devuelve aspirantes con jornada completa
+        search_entera = [p for p in self.interinos if matches_table_search(p, "entera")]
+        self.assertEqual(len(search_entera), 235)
+
 if __name__ == "__main__":
     unittest.main()
+
 
 
