@@ -1,0 +1,66 @@
+@echo off
+chcp 65001 > nul
+setlocal enabledelayedexpansion
+title Conectar y Subir a GitHub
+echo =======================================================
+echo    🚀 CONECTAR PROYECTO CON TU CUENTA DE GITHUB
+echo =======================================================
+echo.
+cd /d "%~dp0"
+
+set "GIT_EXE=%~dp0tools\git\cmd\git.exe"
+if not exist "%GIT_EXE%" (
+    where git >nul 2>nul
+    if %errorlevel% equ 0 (
+        set "GIT_EXE=git"
+    ) else (
+        echo [ERROR] No se encuentra git.
+        pause
+        exit /b 1
+    )
+)
+
+echo Introduce el enlace de tu repositorio de GitHub:
+echo (Ejemplo: https://github.com/tu-usuario/bolsa-maestros)
+echo.
+set /p "REPO_URL=👉 Enlace del repositorio: "
+if "!REPO_URL!"=="" (
+    echo [!] No has introducido ningún enlace.
+    pause
+    exit /b 1
+)
+
+echo.
+echo Introduce tu GitHub Personal Access Token (o pulsa Enter si el repo ya tiene acceso):
+set /p "GITHUB_TOKEN=👉 Token (ghp_...): "
+
+set "FINAL_URL=!REPO_URL!"
+if not "!GITHUB_TOKEN!"=="" (
+    :: Inyectar token en la URL https://TOKEN@github.com/...
+    set "CLEAN_URL=!REPO_URL:https://=!"
+    set "FINAL_URL=https://!GITHUB_TOKEN!@!CLEAN_URL!"
+)
+
+echo.
+echo [*] Conectando con GitHub...
+"%GIT_EXE%" remote remove origin >nul 2>nul
+"%GIT_EXE%" remote add origin !FINAL_URL!
+"%GIT_EXE%" branch -M main
+
+echo [*] Subiendo archivos y activando robot de comprobación...
+"%GIT_EXE%" push -u origin main --force
+
+if %errorlevel% equ 0 (
+    echo.
+    echo =======================================================
+    echo  🎉 ¡PROYECTO SUBIDO A GITHUB CON ÉXITO!
+    echo =======================================================
+    echo El robot en la nube ya está activo y revisará la web de
+    echo Conselleria automáticamente.
+) else (
+    echo.
+    echo [-] Hubo un problema al subir a GitHub. Revisa el enlace o el token.
+)
+
+echo.
+pause

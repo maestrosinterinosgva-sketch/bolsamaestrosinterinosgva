@@ -97,6 +97,30 @@ function getJornadaBadgeHTML(plaza) {
   return `<span class="badge-jornada badge-jornada-entera" title="Jornada Entera (${escapeHtml(info.raw)})">⏳ Entera (${escapeHtml(info.hours)})</span>`;
 }
 
+function getLanguagesBadgeHTML(idiomas) {
+  if (!idiomas || typeof idiomas !== 'object') return '';
+  const entries = Object.entries(idiomas);
+  if (entries.length === 0) return '';
+
+  return `<div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:3px;">` +
+    entries.map(([lang, lvl]) => {
+      const lvlUpper = String(lvl).toUpperCase();
+      let badgeClass = 'badge-lang-b2';
+      if (lvlUpper === 'C1') badgeClass = 'badge-lang-c1';
+      else if (lvlUpper === 'C2') badgeClass = 'badge-lang-c2';
+
+      let flag = '🌐';
+      let langName = lang;
+      if (lang === 'ingles') { flag = '🇬🇧'; langName = 'Inglés'; }
+      else if (lang === 'frances') { flag = '🇫🇷'; langName = 'Francés'; }
+      else if (lang === 'aleman') { flag = '🇩🇪'; langName = 'Alemán'; }
+      else if (lang === 'italiano') { flag = '🇮🇹'; langName = 'Italiano'; }
+
+      return `<span class="badge-lang ${badgeClass}" title="Acreditación Oficial: ${lvlUpper} en ${escapeHtml(langName)}">${flag} ${lvlUpper} ${escapeHtml(langName)}</span>`;
+    }).join('') +
+    `</div>`;
+}
+
 
 // Inicialización segura
 document.addEventListener("DOMContentLoaded", async () => {
@@ -732,6 +756,19 @@ function renderUserData() {
     }
   }
 
+  // Acreditación oficial de lenguas extranjeras (B2, C1, C2)
+  const langRow = document.getElementById("userLanguagesRow");
+  const langBadges = document.getElementById("userLanguagesBadges");
+  if (langRow && langBadges) {
+    if (currentUser.idiomas && Object.keys(currentUser.idiomas).length > 0) {
+      langRow.style.display = "flex";
+      langBadges.innerHTML = getLanguagesBadgeHTML(currentUser.idiomas);
+    } else {
+      langRow.style.display = "none";
+      langBadges.innerHTML = "";
+    }
+  }
+
   // Banner de Adjudicado
   const adjBox = document.getElementById("adjudicadoBox");
   if (adjBox) {
@@ -1061,6 +1098,15 @@ function matchesTableSearch(p, query) {
     }
   }
 
+  // 5. Idiomas acreditados oficialmente (C1, B2, C2, Inglés, Francés, Alemán, Italiano)
+  if (p.idiomas_str && normalizeText(p.idiomas_str).includes(query)) return true;
+  if (p.idiomas) {
+    for (const [lang, lvl] of Object.entries(p.idiomas)) {
+      if (normalizeText(lvl).includes(query)) return true;
+      if (normalizeText(lang).includes(query)) return true;
+    }
+  }
+
   return false;
 }
 
@@ -1119,7 +1165,10 @@ function renderCurrentTable() {
           <tr>
             <td><strong>#${p.spec_position}</strong></td>
             <td><strong>#${p.adj_order || p.num}</strong></td>
-            <td><strong>${escapeHtml(p.name)}</strong></td>
+            <td>
+              <strong>${escapeHtml(p.name)}</strong>
+              ${getLanguagesBadgeHTML(p.idiomas)}
+            </td>
             <td><small class="tag tag-services">${escapeHtml(p.services || 'AMB SERVEIS')}</small>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
             <td><span class="tag tag-status ${getStatusClass(p.status)}">${escapeHtml(p.status)}</span></td>
             <td>
@@ -1190,7 +1239,11 @@ function renderCurrentTable() {
             <td><strong>#${p.spec_position}</strong></td>
             <td><strong>#${p.adj_order || p.num}</strong></td>
             <td><span class="tag-dist-behind">+${p.dist_adj || p.dist_bolsa} orden</span></td>
-            <td><strong>${escapeHtml(p.name)}</strong>${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}</td>
+            <td>
+              <strong>${escapeHtml(p.name)}</strong>
+              ${getLanguagesBadgeHTML(p.idiomas)}
+              ${p.bolsa_num ? `<br><small style="color:var(--slate-500); font-size:0.75rem;">Bolsa #${p.bolsa_num}</small>` : ''}
+            </td>
             <td><span class="spec-badge-xs">${escapeHtml(p.plaza ? p.plaza.spec_code + ' - ' + p.plaza.spec_name : '-')}</span></td>
             <td><small><strong>${escapeHtml(p.plaza ? p.plaza.center : '-')}</strong></small></td>
             <td>

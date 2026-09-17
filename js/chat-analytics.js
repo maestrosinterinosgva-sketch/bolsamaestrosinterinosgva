@@ -524,6 +524,82 @@
       return null;
     },
 
+    // 7b. Informe de acreditaciones lingüísticas oficiales (B2, C1, C2)
+    getLanguagesReport(query) {
+      const q = normalize(query);
+      const all = this.getAllInterinos();
+      const currentUser = this.getCurrentUser();
+
+      // ¿Pregunta el usuario por su propia acreditación?
+      if (q.includes("mi ") || q.includes("tengo ") || q.includes("mis idiomas") || q.includes("mi nivel") || q.includes("consta")) {
+        if (!currentUser) {
+          return `
+            <div class="chat-card-answer">
+              <p>🤔 Para decirte tu acreditación oficial de idiomas, introduce primero tu nombre o DNI en el buscador de la cabecera.</p>
+            </div>
+          `;
+        }
+        if (currentUser.idiomas && Object.keys(currentUser.idiomas).length > 0) {
+          const badges = Object.entries(currentUser.idiomas).map(([lang, lvl]) => {
+            const lName = lang === 'ingles' ? 'Inglés' : lang === 'frances' ? 'Francés' : lang === 'aleman' ? 'Alemán' : lang === 'italiano' ? 'Italiano' : lang;
+            const flag = lang === 'ingles' ? '🇬🇧' : lang === 'frances' ? '🇫🇷' : lang === 'aleman' ? '🇩🇪' : lang === 'italiano' ? '🇮🇹' : '🌐';
+            return `<span class="chat-badge chat-badge-green">${flag} ${lvl} ${lName}</span>`;
+          }).join(" ");
+
+          return `
+            <div class="chat-card-answer">
+              <h4>🇬🇧 Acreditación Oficial Registrada</h4>
+              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
+              <p>Tienes oficialmente registrada en las resoluciones de Conselleria la siguiente acreditación lingüística:</p>
+              <div style="margin: 10px 0;">${badges}</div>
+              <p style="font-size:0.85rem; color:#64748b;">Esta acreditación te capacita para impartir áreas no lingüísticas en lengua extranjera (plurilingüismo) en colegios de la Comunitat Valenciana.</p>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="chat-card-answer">
+              <h4>ℹ️ Acreditación Lingüística</h4>
+              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
+              <p>No consta ninguna acreditación de lengua extranjera (B2, C1, C2) en los listados definitivos mensuales publicados por Conselleria para tu nombre.</p>
+              <p style="font-size:0.85rem; color:#64748b;">Si posees una certificación (Escuela Oficial de Idiomas, Cambridge, etc.) recuerda registrarla en el trámite mensual de acreditación de la Dirección Territorial para que sea computada oficialmente.</p>
+            </div>
+          `;
+        }
+      }
+
+      // Estadísticas globales de la bolsa
+      const accredited = all.filter(p => p.idiomas && Object.keys(p.idiomas).length > 0);
+      const c1Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'C1')).length;
+      const b2Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'B2')).length;
+      const c2Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'C2')).length;
+      const inAdjAccredited = all.filter(p => p.in_adjudicacion && p.idiomas && Object.keys(p.idiomas).length > 0).length;
+      const adjudicadosAccredited = all.filter(p => p.status === 'Adjudicat' && p.idiomas && Object.keys(p.idiomas).length > 0);
+
+      let topListHtml = adjudicadosAccredited.slice(0, 6).map(p => `
+        <li style="margin-bottom:6px;">
+          <strong>${escapeHtml(p.name)}</strong> (#${p.adj_order}) 
+          <span class="chat-badge chat-badge-blue">${escapeHtml(p.idiomas_str || '')}</span>
+          <br><small style="color:#64748b;">🏫 ${escapeHtml(p.plaza ? p.plaza.center : '-')}</small>
+        </li>
+      `).join("");
+
+      return `
+        <div class="chat-card-answer">
+          <h4>🇬🇧 Acreditaciones en Lenguas Extranjeras (GVA)</h4>
+          <p>Hemos cruzado los <strong>17.336 docentes de la bolsa</strong> con todas las resoluciones oficiales definitivas de Conselleria d'Educació (2012-2026):</p>
+          <div class="chat-kpi-row">
+            <div class="chat-kpi"><span class="kpi-num">${accredited.length}</span><span class="kpi-lbl">Acreditados en Bolsa</span></div>
+            <div class="chat-kpi highlight-blue"><span class="kpi-num">${c1Count}</span><span class="kpi-lbl">Con Nivel C1</span></div>
+            <div class="chat-kpi"><span class="kpi-num">${b2Count}</span><span class="kpi-lbl">Con Nivel B2</span></div>
+            <div class="chat-kpi"><span class="kpi-num">${adjudicadosAccredited.length}</span><span class="kpi-lbl">Adjudicados hoy</span></div>
+          </div>
+          <p style="margin-top:10px;"><strong>🏆 Docentes adjudicados hoy con plaza y acreditación:</strong></p>
+          <ul style="margin: 6px 0 8px 18px; font-size:0.88rem;">${topListHtml}</ul>
+          <p class="chat-tip">💡 <em>Puedes filtrar la tabla buscando <code>C1</code>, <code>B2</code> o <code>Inglés</code> para ver todos los aspirantes con acreditación lingüística.</em></p>
+        </div>
+      `;
+    },
+
     // 8. Buscar un objeto persona por nombre o apellidos
     findPersonObject(nameQuery) {
       const all = this.getAllInterinos();
@@ -743,6 +819,11 @@
     // 4. Situación personalizada del usuario
     if (q.includes("como voy") || q.includes("mi puesto") || q.includes("mi posicion") || q.includes("mis opciones") || q.includes("mi situacion") || q.includes("a cuanto me quede") || q.includes("cuanto me falta")) {
       return AnalyticsEngine.getUserAnalysis();
+    }
+
+    // 4b. Acreditaciones lingüísticas oficiales (Inglés, B2, C1, C2, Idiomas)
+    if (q.includes("ingles") || q.includes("idioma") || q.includes("idiomas") || q.includes("acreditac") || q.includes("b2") || q.includes("c1") || q.includes("c2") || q.includes("frances") || q.includes("aleman") || q.includes("italiano")) {
+      return AnalyticsEngine.getLanguagesReport(q);
     }
 
     // 5. Comparativa entre aspirantes o con la última plaza consultada

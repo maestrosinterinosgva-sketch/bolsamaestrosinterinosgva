@@ -7,3 +7,4 @@ telegram_*.pdf
 data/telegram_config.json
 data/telegram_last_offset.txt
 2*.pdf
+data/pdf_acreditaciones/

@@ -77,6 +77,14 @@ def matches_table_search(p, query):
         if q in normalize_text(sp):
             return True
 
+    # 5. Idiomas acreditados
+    if p.get("idiomas_str") and q in normalize_text(p["idiomas_str"]):
+        return True
+    if p.get("idiomas"):
+        for lang, lvl in p["idiomas"].items():
+            if q in normalize_text(lvl) or q in normalize_text(lang):
+                return True
+
     return False
 
 class TestChatAndSearch(unittest.TestCase):
@@ -210,6 +218,31 @@ class TestChatAndSearch(unittest.TestCase):
         # Buscar por "entera" devuelve aspirantes con jornada completa
         search_entera = [p for p in self.interinos if matches_table_search(p, "entera")]
         self.assertEqual(len(search_entera), 235)
+
+    def test_language_accreditation_and_search(self):
+        acred = [p for p in self.interinos if p.get("idiomas")]
+        self.assertEqual(len(acred), 490)
+
+        c1_aspirantes = [p for p in self.interinos if p.get("idiomas", {}).get("ingles") == "C1"]
+        b2_aspirantes = [p for p in self.interinos if p.get("idiomas", {}).get("ingles") == "B2"]
+        self.assertEqual(len(c1_aspirantes), 68)
+        self.assertEqual(len(b2_aspirantes), 415)
+
+        # Búsqueda por "c1" en la tabla
+        res_c1 = [p for p in self.interinos if matches_table_search(p, "c1")]
+        self.assertGreaterEqual(len(res_c1), 68)
+        for p in c1_aspirantes:
+            self.assertTrue(matches_table_search(p, "c1"))
+
+        # Búsqueda por "b2" en la tabla
+        res_b2 = [p for p in self.interinos if matches_table_search(p, "b2")]
+        self.assertGreaterEqual(len(res_b2), 415)
+        for p in b2_aspirantes:
+            self.assertTrue(matches_table_search(p, "b2"))
+
+        # Búsqueda por "ingles"
+        res_ing = [p for p in self.interinos if matches_table_search(p, "ingles")]
+        self.assertGreaterEqual(len(res_ing), 486)
 
 if __name__ == "__main__":
     unittest.main()
