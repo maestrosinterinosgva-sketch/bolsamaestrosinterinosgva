@@ -121,6 +121,19 @@ function getLanguagesBadgeHTML(idiomas) {
     `</div>`;
 }
 
+// Comprueba si un docente cumple el requisito lingüístico de inglés (B2, C1, C2 de resoluciones GVA o especialidad ING)
+function hasEnglishRequirement(p) {
+  if (!p) return false;
+  if (p.idiomas && p.idiomas.ingles) {
+    const lvl = String(p.idiomas.ingles).toUpperCase();
+    if (lvl === 'B2' || lvl === 'C1' || lvl === 'C2') return true;
+  }
+  if (typeof currentSpecialty !== 'undefined' && currentSpecialty !== 'ING' && Array.isArray(p.specialties) && p.specialties.includes('ING')) {
+    return true;
+  }
+  return false;
+}
+
 
 // Inicialización segura
 document.addEventListener("DOMContentLoaded", async () => {
@@ -820,6 +833,8 @@ function renderUserData() {
     safeSetText("subTotalPorDelante", "-");
     safeSetText("valPosicionDepurada", "-");
     safeSetText("subPosicionDepurada", "No disponible");
+    safeSetText("valPosicionIngles", "-");
+    safeSetText("subPosicionIngles", "No disponible");
     safeSetText("valUltimoAdjudicado", "-");
     safeSetText("subUltimoAdjudicado", "-");
     safeSetText("valDiferenciaCorte", "-");
@@ -889,6 +904,30 @@ function renderUserData() {
   );
   safeSetHTML("valPosicionDepurada", `Puesto <strong>#${posDepurada.toLocaleString()}</strong>`);
   safeSetHTML("subPosicionDepurada", `De <strong>${allLimpios.length.toLocaleString()}</strong> interinos disponibles sin plaza ni desactivados en esta convocatoria`);
+
+  // DATO 3B: POSICIÓN CON REQUISITO DE INGLÉS (QUITANDO ADJUDICADOS, DESACTIVADOS Y SIN INGLÉS)
+  const userHasEnglish = hasEnglishRequirement(currentUser);
+  const aheadIngles = aheadLimpios.filter(p => hasEnglishRequirement(p));
+  const allIngles = allLimpios.filter(p => hasEnglishRequirement(p));
+  const posIngles = aheadIngles.length + 1;
+  const allAcredB2C1 = allLimpios.filter(p => p.idiomas && p.idiomas.ingles);
+
+  if (userHasEnglish) {
+    const userLvl = (currentUser.idiomas && currentUser.idiomas.ingles) 
+      ? `🇬🇧 ${currentUser.idiomas.ingles}` 
+      : "🇬🇧 Especialista";
+    safeSetHTML("valPosicionIngles", `Puesto <strong>#${posIngles.toLocaleString()}</strong> <span class="badge-lang badge-lang-c1" style="font-size:0.75rem; vertical-align:middle; margin-left:6px;">${userLvl}</span>`);
+    const extraAcred = (currentSpecialty !== 'ING' && allIngles.length !== allAcredB2C1.length) 
+      ? ` (${allAcredB2C1.length} con B2/C1 oficial)` 
+      : "";
+    safeSetHTML("subPosicionIngles", `De <strong>${allIngles.length.toLocaleString()}</strong> interinos disponibles con requisito de inglés en esta convocatoria${extraAcred}`);
+  } else {
+    safeSetHTML("valPosicionIngles", `Puesto <strong>#${posIngles.toLocaleString()}*</strong> <span class="tag-deact-sm" style="background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; vertical-align:middle; margin-left:6px;">Sin requisito</span>`);
+    const extraAcred = (currentSpecialty !== 'ING' && allIngles.length !== allAcredB2C1.length) 
+      ? ` (${allAcredB2C1.length} con B2/C1 oficial)` 
+      : "";
+    safeSetHTML("subPosicionIngles", `De <strong>${allIngles.length.toLocaleString()}</strong> disponibles con inglés${extraAcred} (*puesto teórico si acreditaras B2/C1; hay ${aheadIngles.length.toLocaleString()} con inglés por delante)`);
+  }
 
   // DATO 4: ÚLTIMO ADJUDICADO DE LA BOLSA EN ESTA ESPECIALIDAD
   const adjudicadosEnSp = specMembers.filter(p => 
@@ -1000,6 +1039,7 @@ function renderUserData() {
 
   safeSetText("countAll", ahead.length);
   safeSetText("countActivos", activosAhead.length);
+  safeSetText("countIngles", ahead.filter(p => hasEnglishRequirement(p)).length);
   safeSetText("countDesactivados", desactivadosAhead.length);
   safeSetText("countNoPart", noParticipatAhead.length);
   safeSetText("countAdjudicados", adjudicadosAhead.length);
@@ -1125,6 +1165,8 @@ function renderCurrentTable() {
     let filtered = window.currentAheadList || [];
     if (currentTableFilter === "activos") {
       filtered = filtered.filter(p => !p.status || p.status === "Actiu" || p.status === "En espera" || p.status === "Disponible");
+    } else if (currentTableFilter === "ingles") {
+      filtered = filtered.filter(p => hasEnglishRequirement(p));
     } else if (currentTableFilter === "desactivados") {
       filtered = filtered.filter(p => p.status === "Desactivat");
     } else if (currentTableFilter === "no_participat") {

@@ -244,6 +244,30 @@ class TestChatAndSearch(unittest.TestCase):
         res_ing = [p for p in self.interinos if matches_table_search(p, "ingles")]
         self.assertGreaterEqual(len(res_ing), 486)
 
+    def test_position_with_english_requirement(self):
+        # 1. Comprobar especialidad PT para Pablo Hernández Rizo
+        sp = "PT"
+        members = [p for p in self.interinos if (p.get("in_adjudicacion") or p.get("adj_order")) and sp in (p.get("specialties") or [])]
+        members.sort(key=lambda x: x.get("adj_order") or 0)
+        
+        limpios = [p for p in members if p.get("status") not in ["Adjudicat", "Desactivat"] and sp not in (p.get("specialties_deactivated") or [])]
+        self.assertEqual(len(limpios), 463)
+
+        pablo_idx = next(i for i, p in enumerate(limpios) if "HERNANDEZ RIZO" in p["name"])
+        self.assertEqual(pablo_idx + 1, 411) # Exactamente Puesto #411 de 463
+
+        # 2. Filtrando con requisito de inglés (acreditación oficial B2/C1)
+        limpios_ingles_acred = [p for p in limpios if p.get("idiomas", {}).get("ingles")]
+        self.assertEqual(len(limpios_ingles_acred), 18)
+
+        # 3. Comprobar aspirante acreditada en PT (Begoña Berto Fuster, con C1)
+        begona = next(p for p in limpios if "BERTO FUSTER" in p["name"])
+        self.assertEqual(begona.get("idiomas", {}).get("ingles"), "C1")
+        
+        ahead_begona_limpios = [p for p in limpios if (p.get("adj_order") or 0) < (begona.get("adj_order") or 0)]
+        ahead_begona_ingles = [p for p in ahead_begona_limpios if p.get("idiomas", {}).get("ingles")]
+        self.assertEqual(len(ahead_begona_ingles) + 1, 15) # Puesto #15 de 18 con acreditación oficial de inglés
+
 if __name__ == "__main__":
     unittest.main()
 

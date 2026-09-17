@@ -270,6 +270,16 @@
             <div class="dato-sub" id="subPosicionDepurada">Puesto neto depurado en bolsa activa</div>
           </div>
 
+          <!-- Dato 3B: Con Requisito de Inglés -->
+          <div class="dato-card highlight-ingles">
+            <div class="dato-header">
+              <span class="badge-num" style="background:#0f766e;">🇬🇧</span>
+              <span class="dato-title">POSICIÓN CON REQUISITO DE INGLÉS (QUITANDO ADJUDICADOS, DESACTIVADOS Y SIN INGLÉS)</span>
+            </div>
+            <div class="dato-num highlight-blue-num" id="valPosicionIngles">-</div>
+            <div class="dato-sub" id="subPosicionIngles">Puesto neto depurado entre aspirantes con requisito de inglés</div>
+          </div>
+
           <!-- Dato 4 -->
           <div class="dato-card">
             <div class="dato-header">
@@ -405,6 +415,7 @@
             <div class="table-filter-tabs" id="tableFiltersAhead">
               <button class="btn-tab active" data-filter="all">Todos (<span id="countAll">-</span>)</button>
               <button class="btn-tab" data-filter="activos">Activos (<span id="countActivos">-</span>)</button>
+              <button class="btn-tab" data-filter="ingles">🇬🇧 Con Inglés (<span id="countIngles">-</span>)</button>
               <button class="btn-tab" data-filter="desactivados">Desactivados (<span id="countDesactivados">-</span>)</button>
               <button class="btn-tab" data-filter="no_participat">No participaron (<span id="countNoPart">-</span>)</button>
               <button class="btn-tab" data-filter="adjudicados">Adjudicados (<span id="countAdjudicados">-</span>)</button>

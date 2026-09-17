@@ -1259,6 +1259,29 @@ input[type="text"]:focus, select:focus {
   font-weight: 500;
 }
 
+/* Resaltado Dato 3B: Posición con Requisito de Inglés */
+.highlight-ingles {
+  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+  border-color: #5eead4;
+}
+
+.highlight-ingles .badge-num {
+  background: #0f766e;
+}
+
+.highlight-ingles .dato-title {
+  color: #115e59;
+}
+
+.highlight-ingles .dato-num {
+  color: #0f766e;
+}
+
+.highlight-ingles .dato-sub {
+  color: #134e4a;
+  font-weight: 500;
+}
+
 /* Resaltado Dato 5: Puestos de Diferencia */
 .highlight-diff {
   background: linear-gradient(135deg, #eff6ff, #dbeafe);

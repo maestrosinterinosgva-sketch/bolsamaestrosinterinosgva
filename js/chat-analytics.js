@@ -567,6 +567,54 @@
         }
       }
 
+      // Si pregunta por su puesto o posición con inglés
+      if (currentUser && (q.includes("puesto") || q.includes("posicion") || q.includes("opciones") || q.includes("como voy") || q.includes("delante") || q.includes("requisito"))) {
+        const currentSpec = window.currentSpecialty || 'PRI';
+        const specName = SPECIALTIES[currentSpec] || currentSpec;
+        
+        const specMembers = all.filter(p => (p.in_adjudicacion || p.adj_order) && p.specialties && p.specialties.includes(currentSpec));
+        specMembers.sort((a, b) => (a.adj_order || 0) - (b.adj_order || 0));
+        
+        const userIdx = specMembers.findIndex(p => (currentUser.adj_order && p.adj_order === currentUser.adj_order) || p.name === currentUser.name);
+        
+        if (userIdx !== -1) {
+          const ahead = specMembers.slice(0, userIdx);
+          const aheadLimpios = ahead.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat");
+          const allLimpios = specMembers.filter(p => p.status !== "Adjudicat" && p.status !== "Desactivat");
+          
+          const hasIngles = (p) => Boolean((p.idiomas && p.idiomas.ingles) || (currentSpec !== 'ING' && p.specialties && p.specialties.includes('ING')));
+          
+          const aheadIngles = aheadLimpios.filter(hasIngles);
+          const allIngles = allLimpios.filter(hasIngles);
+          
+          const posDepurada = aheadLimpios.length + 1;
+          const posIngles = aheadIngles.length + 1;
+          const userHasIng = hasIngles(currentUser);
+          
+          let ingStatusText = userHasIng
+            ? `<span class="chat-badge chat-badge-green">Puesto #${posIngles} de ${allIngles.length}</span> (Tienes el requisito de inglés)`
+            : `<span class="chat-badge chat-badge-amber">Puesto teórico #${posIngles} de ${allIngles.length}</span> (No constas con requisito de inglés registrado)`;
+
+          return `
+            <div class="chat-card-answer">
+              <h4>🇬🇧 Posición con Requisito de Inglés (${specName})</h4>
+              <p>👤 <strong>${escapeHtml(currentUser.name)}:</strong></p>
+              <div class="chat-kpi-row">
+                <div class="chat-kpi"><span class="kpi-num">#${posDepurada}</span><span class="kpi-lbl">Puesto General Activo</span></div>
+                <div class="chat-kpi highlight-blue"><span class="kpi-num">#${posIngles}</span><span class="kpi-lbl">Puesto con Inglés</span></div>
+                <div class="chat-kpi"><span class="kpi-num">${allIngles.length}</span><span class="kpi-lbl">Total con Inglés</span></div>
+              </div>
+              <p style="margin-top:8px;">• ${ingStatusText}</p>
+              <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">
+                ${userHasIng 
+                  ? `Para plazas con perfil de inglés compites con solo <strong>${aheadIngles.length} personas</strong> por delante, frente a las ${aheadLimpios.length} de la lista ordinaria.`
+                  : `Para plazas con perfil de inglés hay <strong>${aheadIngles.length} personas</strong> disponibles antes que tú. Si obtuvieras el B2/C1, tu puesto en esas plazas pasaría a ser el #${posIngles}.`}
+              </p>
+            </div>
+          `;
+        }
+      }
+
       // Estadísticas globales de la bolsa
       const accredited = all.filter(p => p.idiomas && Object.keys(p.idiomas).length > 0);
       const c1Count = all.filter(p => p.idiomas && Object.values(p.idiomas).some(lvl => lvl === 'C1')).length;
