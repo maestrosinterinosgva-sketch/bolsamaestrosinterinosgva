@@ -49,13 +49,14 @@ if not "%~1"=="" (
 )
 
 echo.
-echo [*] Sincronizando con la nube (GitLab / Cloudflare Pages)...
+echo [*] Sincronizando con la nube (GitHub / GitLab / Web)...
 set "GIT_EXE=%~dp0tools\git\cmd\git.exe"
 if exist "%GIT_EXE%" (
     "%GIT_EXE%" add data/ index.html interinos_web.zip >nul 2>nul
     "%GIT_EXE%" commit -m "Actualización manual de adjudicaciones [skip ci]" >nul 2>nul
+    "%GIT_EXE%" push origin main >nul 2>nul
     "%GIT_EXE%" push gitlab main >nul 2>nul
-    echo [OK] Cambios sincronizados con la web online.
+    echo [OK] Cambios sincronizados con la web online de tus compañeros.
 )
 
 echo.
