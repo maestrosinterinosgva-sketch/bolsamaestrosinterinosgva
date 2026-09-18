@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /privacidad.html
+Disallow: /data/
+Disallow: /tests/
+Disallow: /tools/
+
+Sitemap: https://bolsamaestrosinterinosgva.es/sitemap.xml
