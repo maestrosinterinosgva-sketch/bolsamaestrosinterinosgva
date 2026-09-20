@@ -467,6 +467,32 @@ function setupEventListeners() {
     }
   });
 
+  // Medición de clics en botones de Wood & Print Partners (Google Analytics 4)
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest('a[href*="woodandprintpartners"]');
+    if (!link) return;
+
+    let ubicacion = 'otra';
+    if (link.closest('.main-header')) {
+      ubicacion = 'cabecera';
+    } else if (link.closest('#woodAndPrintPromo')) {
+      ubicacion = 'tarjeta_destacada';
+    } else if (link.closest('.main-footer')) {
+      ubicacion = 'pie_pagina';
+    } else if (link.closest('#chatWidget') || link.closest('.chat-card-answer')) {
+      ubicacion = 'chat_ia';
+    }
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'click_woodandprint', {
+        'event_category': 'promocion',
+        'event_label': ubicacion,
+        'ubicacion_boton': ubicacion,
+        'destino': 'instagram'
+      });
+    }
+  });
+
   // Inicializar banner de consentimiento de cookies y AdSense
   initCookieConsent();
 }
