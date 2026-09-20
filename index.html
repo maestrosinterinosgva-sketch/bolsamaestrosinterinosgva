@@ -112,6 +112,23 @@
     gtag('js', new Date());
 
     gtag('config', 'G-SM4D94ZE4M');
+
+    // Medición instantánea de clics en enlaces de Wood & Print Partners
+    document.addEventListener('click', function(e) {
+      var link = e.target && e.target.closest ? e.target.closest('a[href*="woodandprintpartners"]') : null;
+      if (!link) return;
+      var loc = 'otra';
+      if (link.closest('.main-header')) loc = 'cabecera';
+      else if (link.closest('#woodAndPrintPromo')) loc = 'tarjeta_destacada';
+      else if (link.closest('.main-footer')) loc = 'pie_pagina';
+      else if (link.closest('#chatWidget') || link.closest('.chat-card-answer')) loc = 'chat_ia';
+      gtag('event', 'click_woodandprint', {
+        'event_category': 'promocion',
+        'event_label': loc,
+        'ubicacion_boton': loc,
+        'destino': 'instagram'
+      });
+    });
   </script>
 
   <!-- Google AdSense Oficial -->
