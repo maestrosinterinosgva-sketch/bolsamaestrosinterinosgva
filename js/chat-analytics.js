@@ -1016,7 +1016,47 @@
             <li>🏫 <em>"¿Qué plazas hay en Torrevieja o Alicante?"</em></li>
             <li>⏸️ <em>"¿Cuántos desactivados hay en la bolsa?"</em></li>
             <li>👤 <em>"¿Cómo voy?" o "Buscar a [Mi Nombre]"</em></li>
+            <li>🎁 <em>"Regalos para alumnos" o "¿Qué es Wood & Print?"</em></li>
           </ul>
+        </div>
+      `;
+    }
+
+    // 0b. Información y encargos de Wood & Print Partners (Regalos 3D y grabado láser para alumnos)
+    const isWoodPromo = (
+      q.includes("wood") || q.includes("print") || q.includes("llavero") || q.includes("llaveros") ||
+      q.includes("grabado laser") || (q.includes("laser") && (q.includes("madera") || q.includes("grabado"))) ||
+      q.includes("impresion 3d") || q.includes("impresora 3d") || q.includes("figuras 3d") ||
+      (q.includes("3d") && (q.includes("regalo") || q.includes("figura") || q.includes("llavero") || q.includes("nombre"))) ||
+      (q.includes("regalo") && (q.includes("alumno") || q.includes("alumnos") || q.includes("clase") || q.includes("aula") || q.includes("fin de curso") || q.includes("graduacion"))) ||
+      (q.includes("detalle") && (q.includes("alumno") || q.includes("alumnos") || q.includes("clase") || q.includes("aula") || q.includes("fin de curso") || q.includes("graduacion"))) ||
+      (q.includes("recuerdo") && (q.includes("alumno") || q.includes("alumnos") || q.includes("fin de curso") || q.includes("graduacion"))) ||
+      q.includes("marcapaginas") || q.includes("medallas graduacion") || q.includes("woodandprint")
+    );
+
+    if (isWoodPromo) {
+      return `
+        <div class="chat-card-answer" style="border-left: 4px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);">
+          <h4 style="color:#78350f; display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+            <span>🪵</span> Wood & Print Partners — Regalos y Proyectos para Alumnos
+          </h4>
+          <p style="font-size:0.9rem; color:#451a03; line-height:1.45; margin-bottom:8px;">
+            ¡Sí! Colaboramos con <strong>Wood & Print Partners</strong>, un proyecto especializado en detalles personalizados ideales para docentes, tutorías y colegios:
+          </p>
+          <ul style="margin: 6px 0 10px 18px; font-size: 0.85rem; color:#78350f; line-height:1.45;">
+            <li>🏷️ <strong>Llaveros 3D personalizados:</strong> hechos a medida con el nombre de cada alumno/a, tipografía escolar y variedad de colores.</li>
+            <li>🪵 <strong>Grabado láser en madera:</strong> marcapáginas motivacionales, medallas de graduación, diplomas y recuerdos de fin de curso.</li>
+            <li>🎓 <strong>Figuras y elementos de aula:</strong> mascotas de clase, gamificación y proyectos educativos en 3D.</li>
+          </ul>
+          <p style="font-size:0.83rem; color:#92400e; margin-bottom:12px;">
+            📦 Hacen encargos a medida tanto para aulas individuales como para promociones completas de colegios e institutos.
+          </p>
+          <div style="margin-top:10px;">
+            <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" class="btn-instagram" style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff !important; padding:8px 16px; border-radius:24px; text-decoration:none; font-weight:700; font-size:0.85rem; box-shadow:0 3px 8px rgba(220,39,67,0.3);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              <span>Ver catálogo y contactar en Instagram (@woodandprintpartners) &rarr;</span>
+            </a>
+          </div>
         </div>
       `;
     }
