@@ -107,9 +107,20 @@ def main():
     
     # 2. Parsear nuevo PDF de adjudicaciones
     adjudicaciones = parse_adjudicaciones(adjudicaciones_pdf)
+    if not adjudicaciones or len(adjudicaciones) < 50:
+        raise ValueError(
+            f"El archivo '{adjudicaciones_pdf}' contiene solo {len(adjudicaciones) if adjudicaciones else 0} registros de adjudicación. "
+            f"No es un listado de adjudicación válido (lis_mae) o se trata de un documento de plazas ofertadas. "
+            f"Se cancela la actualización para proteger la base de datos de la web."
+        )
     
     # 3. Construir dataset combinado y estadísticas
     combined, stats = build_combined_dataset(participants, adjudicaciones, fecha_adj=fecha)
+
+    if stats.get('total_plazas_adjudicadas', 0) == 0:
+        raise ValueError(
+            "El archivo procesado arroja 0 plazas adjudicadas. Se cancela la actualización para proteger la base de datos de la web."
+        )
 
     # 4. Actualizar automáticamente el archivo ZIP para Netlify / Web
     update_zip_package()

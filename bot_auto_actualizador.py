@@ -20,12 +20,23 @@ if sys.stdout.encoding != 'utf-8':
     except Exception:
         pass
 
+# Palabras clave que indican que es un listado de puestos/plazas y NO de adjudicaciones
+DISALLOWED_KEYWORDS = ["pue_prov", "pue_def", "puesto", "ofert", "llocs_oferits", "convocatoria", "vacante", "provisional"]
+
+def is_valid_adjudicacion_candidate(url_or_path):
+    name = os.path.basename(url_or_path).lower()
+    # Descartar taxativamente si es un documento de plazas u oferta
+    if any(bad in name for bad in DISALLOWED_KEYWORDS):
+        return False
+    # Debe ser expresamente un listado de adjudicación de maestros
+    return ("lis_mae" in name or "adj_int_mae" in name)
+
 # Fuentes públicas donde se anuncian las adjudicaciones continuas de maestros
 SOURCES_TO_CHECK = [
     {
         "name": "Portal de Resoluciones Oficiales GVA",
         "url": "https://ceice.gva.es/es/web/rrhh-educacion/resolucion",
-        "patterns": [r'href="([^"]*lis_mae[^"]*\.pdf)"', r'href="([^"]*adjudica[^"]*mae[^"]*\.pdf)"']
+        "patterns": [r'href="([^"]*lis_mae[^"]*\.pdf)"']
     },
     {
         "name": "Portal de Resolucions GVA (Valencià)",
@@ -40,7 +51,7 @@ SOURCES_TO_CHECK = [
     {
         "name": "ANPE Sindicato Docente (Espejo alternativo)",
         "url": "https://anpecomunidadvalenciana.es/interinos",
-        "patterns": [r'href="([^"]*(?:openFile\.php\?link=.*lis_mae|lis_mae)[^"]*\.pdf)"', r'href="([^"]*adjudica[^"]*mae[^"]*\.pdf)"']
+        "patterns": [r'href="([^"]*(?:openFile\.php\?link=.*lis_mae|lis_mae)[^"]*\.pdf)"']
     },
     {
         "name": "STEPV Sindicato Docente (Espejo alternativo)",
@@ -78,7 +89,8 @@ def search_for_new_pdf():
                     matches = re.findall(pat, html, re.IGNORECASE)
                     for m in matches:
                         full_url = urllib.parse.urljoin(src["url"], m)
-                        found_urls.append((src["name"], full_url))
+                        if is_valid_adjudicacion_candidate(full_url):
+                            found_urls.append((src["name"], full_url))
         except Exception as e:
             print(f"[-] Aviso al consultar {src['name']}: {e}")
             continue

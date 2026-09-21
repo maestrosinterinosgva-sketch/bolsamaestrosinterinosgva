@@ -56,6 +56,10 @@ jobs:
             python bot_auto_actualizador.py
           fi
 
+      - name: Validar integridad de los datos calculados
+        run: |
+          python -m unittest discover -s tests
+
       - name: Guardar y publicar cambios en la web
         run: |
           git config --global user.name "Bot Adjudicaciones"

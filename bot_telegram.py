@@ -145,10 +145,33 @@ def check_telegram_updates():
             file_id = doc.get("file_id")
 
             if file_name.lower().endswith(".pdf") or "pdf" in mime_type.lower():
-                print(f"[!] PDF recibido desde Telegram: {file_name} (ID: {file_id})")
+                fn_lower = file_name.lower()
+                
+                # Descartar taxativamente si es un documento de plazas u oferta
+                if any(bad in fn_lower for bad in ["pue_prov", "pue_def", "puesto", "ofert", "llocs_oferits", "convocatoria", "vacante"]):
+                    print(f"[!] PDF descartado (Plazas Ofertadas): {file_name}")
+                    send_telegram_message(
+                        token, chat_id,
+                        f"⚠️ <b>Documento de Plazas Ofertadas detectado:</b> <code>{file_name}</code>\n\n"
+                        f"Este bot solo procesa <b>Adjudicaciones de Maestros</b> con nombres de aspirantes nombrados (archivos <code>lis_mae.pdf</code>).\n\n"
+                        f"Para consultar las plazas ofertadas y calcular distancias a los colegios, utiliza el <b>Calculador de Destinos</b>:\n"
+                        f"👉 https://destinos.bolsamaestrosinterinosgva.es/"
+                    )
+                    continue
+
+                if not ("lis_mae" in fn_lower or "adjudica" in fn_lower or "adj" in fn_lower):
+                    print(f"[!] PDF descartado (No es adjudicación lis_mae): {file_name}")
+                    send_telegram_message(
+                        token, chat_id,
+                        f"⚠️ <b>Archivo no reconocido como Adjudicación:</b> <code>{file_name}</code>\n\n"
+                        f"Para actualizar la bolsa de interinos debes enviar el listado oficial de adjudicaciones de Conselleria (ej: <code>YYMMDD_lis_mae.pdf</code>)."
+                    )
+                    continue
+
+                print(f"[!] PDF de adjudicación recibido desde Telegram: {file_name} (ID: {file_id})")
                 send_telegram_message(
                     token, chat_id,
-                    f"⏳ <b>PDF recibido:</b> <code>{file_name}</code>\n"
+                    f"⏳ <b>Adjudicación recibida:</b> <code>{file_name}</code>\n"
                     f"Iniciando descarga y recálculo de la bolsa de interinos..."
                 )
 
