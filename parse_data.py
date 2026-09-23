@@ -358,6 +358,18 @@ def build_combined_dataset(participants, adjudicaciones, fecha_adj="03/09/2026",
                 }
                 participants.append(new_p)
 
+    # Cargar mapa oficial de acreditaciones de idiomas (B2, C1, C2)
+    acred_map_file = os.path.join(output_dir, "acreditaciones_map.json")
+    if not os.path.exists(acred_map_file):
+        acred_map_file = os.path.join(os.path.dirname(__file__), "data", "acreditaciones_map.json")
+    acred_map = {}
+    if os.path.exists(acred_map_file):
+        try:
+            with open(acred_map_file, "r", encoding="utf-8") as f:
+                acred_map = json.load(f)
+        except Exception as e:
+            print(f"[!] Error al cargar acreditaciones_map.json: {e}")
+
     for p in participants:
         if "in_adjudicacion" not in p:
             p["in_adjudicacion"] = False
@@ -366,6 +378,9 @@ def build_combined_dataset(participants, adjudicaciones, fecha_adj="03/09/2026",
             p["plaza"] = None
         p["norm_name"] = normalize_text(p["name"])
         p["num"] = p["adj_order"] if p["adj_order"] is not None else (p.get("bolsa_num") or 99999)
+        if p["name"] in acred_map:
+            p["idiomas"] = acred_map[p["name"]]["idiomas"]
+            p["idiomas_str"] = acred_map[p["name"]].get("idiomas_str", "")
 
     print(f"Total consolidated: {len(participants)} (Matched in adjudicaciones: {matched_adj})")
 

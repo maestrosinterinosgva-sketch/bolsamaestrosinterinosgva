@@ -190,8 +190,8 @@ def check_and_update():
     return False
 
 def push_to_github():
-    if os.environ.get("GITLAB_CI"):
-        print("[*] Ejecutándose dentro de GitLab CI; el pipeline gestionará el commit y push al finalizar.")
+    if os.environ.get("GITHUB_ACTIONS") or os.environ.get("GITLAB_CI"):
+        print("[*] Ejecutándose en CI (GitHub Actions / GitLab); el pipeline validará los tests antes de publicar.")
         return True
 
     print("[*] Publicando cambios automáticamente...")
