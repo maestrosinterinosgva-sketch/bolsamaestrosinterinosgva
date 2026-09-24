@@ -1,127 +1,127 @@
 {
-  "fecha_adjudicacion": "22/09/2026",
-  "total_participantes_bolsa": 17334,
-  "total_participantes_bolsa_inicial": 17334,
-  "total_adjudicaciones_hoy": 7700,
-  "total_plazas_adjudicadas": 239,
+  "fecha_adjudicacion": "24/09/2026",
+  "total_participantes_bolsa": 17333,
+  "total_participantes_bolsa_inicial": 17333,
+  "total_adjudicaciones_hoy": 7463,
+  "total_plazas_adjudicadas": 160,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 4266,
+      "total_convocados_adj": 4181,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 54,
-      "total_adjudicados_general": 87,
-      "total_desactivados": 1126,
+      "total_plazas_hoy": 49,
+      "total_adjudicados_general": 69,
+      "total_desactivados": 1139,
       "total_no_participat": 5,
-      "total_activos_espera": 3048,
+      "total_activos_espera": 2968,
       "ultimo_adjudicado": {
-        "name": "COLLADO VILLAR, SONIA",
-        "adj_order": 3469,
-        "bolsa_num": 12510,
-        "centro": "ORIHUELA(03007248)CEIP ANDRÉS MANJÓN"
+        "name": "LOPEZ MOLINA, AINOHA",
+        "adj_order": 3250,
+        "bolsa_num": 12518,
+        "centro": "ADEMUZ(46000021)NUESTRA SEÑORA DEL ROSARIO"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
-      "total_bolsa_inicial": 10794,
-      "total_convocados_adj": 3326,
-      "total_bolsa": 10794,
-      "total_plazas_hoy": 80,
-      "total_adjudicados_general": 176,
-      "total_desactivados": 1676,
+      "total_bolsa_inicial": 10793,
+      "total_convocados_adj": 3159,
+      "total_bolsa": 10793,
+      "total_plazas_hoy": 39,
+      "total_adjudicados_general": 120,
+      "total_desactivados": 1698,
       "total_no_participat": 9,
-      "total_activos_espera": 1465,
+      "total_activos_espera": 1332,
       "ultimo_adjudicado": {
-        "name": "MORGADO RIBES, GERARD",
-        "adj_order": 5170,
-        "bolsa_num": 14369,
-        "centro": "CASTELLÓ DE LA PLANA(12001277)CEIP BERNAT ARTOLA"
+        "name": "MALEK VIGIL, LEILA",
+        "adj_order": 6656,
+        "bolsa_num": 16337,
+        "centro": "ALACANT(03011173)CEIP RAMON LLULL"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 949,
+      "total_convocados_adj": 886,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 37,
-      "total_adjudicados_general": 65,
-      "total_desactivados": 440,
+      "total_plazas_hoy": 29,
+      "total_adjudicados_general": 42,
+      "total_desactivados": 436,
       "total_no_participat": 0,
-      "total_activos_espera": 444,
+      "total_activos_espera": 408,
       "ultimo_adjudicado": {
-        "name": "HERNANDEZ RIZO, PABLO",
-        "adj_order": 3297,
-        "bolsa_num": 12268,
-        "centro": "ELX(03012050)IES MONTSERRAT ROIG"
+        "name": "LOPEZ GIMENEZ, JUAN CARLOS",
+        "adj_order": 4967,
+        "bolsa_num": 14401,
+        "centro": "GUARDAMAR DEL SEGURA(03005951)CEIP REYES CATÓLICOS"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 630,
+      "total_convocados_adj": 595,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 22,
-      "total_adjudicados_general": 37,
-      "total_desactivados": 309,
+      "total_plazas_hoy": 24,
+      "total_adjudicados_general": 33,
+      "total_desactivados": 306,
       "total_no_participat": 1,
-      "total_activos_espera": 283,
+      "total_activos_espera": 255,
       "ultimo_adjudicado": {
-        "name": "VICENTE MULERO, JUAN CARLOS",
-        "adj_order": 3229,
-        "bolsa_num": 12126,
-        "centro": "CALLOSA DE SEGURA(03003450)CEIP PRIMO DE RIVERA"
+        "name": "ORTS FERNANDEZ, IRIS",
+        "adj_order": 3008,
+        "bolsa_num": 12110,
+        "centro": "TORRENT(46008790)CEE PÚB. LA ENCARNACIÓN"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 690,
+      "total_convocados_adj": 659,
       "total_bolsa": 2065,
       "total_plazas_hoy": 10,
-      "total_adjudicados_general": 35,
-      "total_desactivados": 280,
+      "total_adjudicados_general": 23,
+      "total_desactivados": 285,
       "total_no_participat": 2,
-      "total_activos_espera": 373,
+      "total_activos_espera": 349,
       "ultimo_adjudicado": {
-        "name": "MAS MARQUEZ, JAVIER",
-        "adj_order": 2662,
-        "bolsa_num": 10923,
-        "centro": "REQUENA(46007153)CEIP SERRANO CLAVERO"
+        "name": "MACIAN PEREZ, JAVIER",
+        "adj_order": 5882,
+        "bolsa_num": 15476,
+        "centro": "CASTELLÓ DE LA PLANA(12004205)IES VICENT CASTELL I DOMÉNECH"
       }
     },
     "MUS": {
       "name": "Música",
       "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 300,
+      "total_convocados_adj": 280,
       "total_bolsa": 1019,
-      "total_plazas_hoy": 15,
-      "total_adjudicados_general": 20,
-      "total_desactivados": 183,
+      "total_plazas_hoy": 2,
+      "total_adjudicados_general": 5,
+      "total_desactivados": 190,
       "total_no_participat": 1,
-      "total_activos_espera": 96,
+      "total_activos_espera": 84,
       "ultimo_adjudicado": {
-        "name": "NAVARRO SIRERA, GEMMA",
-        "adj_order": 3284,
-        "bolsa_num": 12246,
-        "centro": "MUTXAMEL(03006530)CEIP EL SALVADOR"
+        "name": "GARRIGUES CHORRO, MIREIA",
+        "adj_order": 2128,
+        "bolsa_num": 9836,
+        "centro": "CAÑADA (LA)(46006291)CEIP EL PARQUE"
       }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 705,
+      "total_convocados_adj": 665,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 21,
-      "total_adjudicados_general": 41,
-      "total_desactivados": 484,
+      "total_plazas_hoy": 7,
+      "total_adjudicados_general": 22,
+      "total_desactivados": 482,
       "total_no_participat": 3,
-      "total_activos_espera": 177,
+      "total_activos_espera": 158,
       "ultimo_adjudicado": {
-        "name": "MONFORTE CASTRO, ELISA",
-        "adj_order": 3276,
-        "bolsa_num": 12231,
-        "centro": "GRAU DE CASTELLÓ(12000856)CEIP LA MARINA"
+        "name": "BOU JUAN, LORENA",
+        "adj_order": 2965,
+        "bolsa_num": 12030,
+        "centro": "BENIDORM(03012761)CEIP SERRA D'AITANA"
       }
     },
     "FRA": {
@@ -131,9 +131,9 @@
       "total_bolsa": 95,
       "total_plazas_hoy": 0,
       "total_adjudicados_general": 0,
-      "total_desactivados": 22,
+      "total_desactivados": 21,
       "total_no_participat": 1,
-      "total_activos_espera": 4,
+      "total_activos_espera": 5,
       "ultimo_adjudicado": null
     }
   }
