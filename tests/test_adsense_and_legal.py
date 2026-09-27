@@ -64,5 +64,25 @@ class TestAdSenseAndLegalCompliance(unittest.TestCase):
         self.assertIn("G-SM4D94ZE4M", priv_content)
         self.assertIn("Google Analytics 4", priv_content)
 
+    def test_new_editorial_pages_and_sitemap(self):
+        """Verificar que las páginas editoriales para AdSense y sitemap.xml existen y son válidas"""
+        pages = ["guia-adjudicaciones.html", "especialidades.html", "sobre-el-proyecto.html"]
+        for p in pages:
+            file_path = os.path.join(self.base_dir, p)
+            self.assertTrue(os.path.exists(file_path), f"{p} debe existir")
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            self.assertIn("ca-pub-7842650272336816", content)
+            self.assertIn("G-SM4D94ZE4M", content)
+            self.assertIn("Localizador de Interinos GVA", content)
+
+        # Verificar sitemap.xml
+        sitemap_path = os.path.join(self.base_dir, "sitemap.xml")
+        self.assertTrue(os.path.exists(sitemap_path))
+        with open(sitemap_path, "r", encoding="utf-8") as f:
+            sitemap_content = f.read()
+        for p in pages:
+            self.assertIn(p, sitemap_content)
+
 if __name__ == "__main__":
     unittest.main()

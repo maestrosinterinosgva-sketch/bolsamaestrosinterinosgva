@@ -44,8 +44,13 @@ def download_pdf_if_url(target):
 def update_zip_package(output_zip="interinos_web.zip"):
     files_to_pack = [
         'index.html',
+        'guia-adjudicaciones.html',
+        'especialidades.html',
+        'sobre-el-proyecto.html',
         'privacidad.html',
         'ads.txt',
+        'sitemap.xml',
+        'robots.txt',
         'manifest.json',
         'css/style.css',
         'js/app.js',
