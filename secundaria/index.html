@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Localizador de Interinos Secundaria GVA 2026 - Cortes y Adjudicaciones</title>
+
+  <!-- SEO y Metadatos Oficiales -->
+  <meta name="description" content="Herramienta comunitaria independiente para profesores de Secundaria, FP, EOI y Otros Cuerpos de la Comunitat Valenciana. Consulta de posición depurada, cortes semanales y adjudicaciones.">
+  <meta name="keywords" content="bolsa secundaria gva, interinos secundaria valencia, adjudicaciones continuas secundaria, cortes bolsa secundaria gva, posicion depurada interinos secundaria">
+  <meta name="author" content="Comunidad Docente Secundaria CV">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bolsamaestrosinterinosgva.es/secundaria/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=sec261004">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+
+  <!-- Google tag (gtag.js) - Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM4D94ZE4M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SM4D94ZE4M');
+
+    // Medición de clics en Wood & Print Partners (@woodandprintpartners)
+    document.addEventListener('click', function(e) {
+      var link = e.target && e.target.closest ? e.target.closest('a[href*="woodandprintpartners"]') : null;
+      if (!link) return;
+      var loc = 'otra';
+      if (link.closest('.main-header')) loc = 'cabecera';
+      else if (link.closest('#woodAndPrintPromo')) loc = 'tarjeta_destacada';
+      else if (link.closest('.main-footer')) loc = 'pie_pagina';
+      gtag('event', 'click_woodandprint', {
+        'event_category': 'promocion',
+        'event_label': loc,
+        'ubicacion_boton': loc,
+        'cuerpo': 'secundaria',
+        'destino': 'instagram'
+      });
+    });
+  </script>
+
+  <!-- Google AdSense Oficial -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7842650272336816" crossorigin="anonymous"></script>
+
+  <!-- Datos precargados -->
+  <script src="data/stats_summary.js"></script>
+  <script src="data/interinos_data.js"></script>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Selector de Cuerpo Superior (Primaria vs Secundaria) -->
+    <div style="background:linear-gradient(90deg, #1e293b 0%, #0f172a 100%); color:#ffffff; padding:8px 16px; border-radius:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+      <div style="display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:700;">
+        <span>🏛️ Portal Docente GVA:</span>
+        <div style="display:inline-flex; background:rgba(255,255,255,0.1); border-radius:8px; padding:3px; gap:4px;">
+          <a href="../index.html" style="color:#cbd5e1; text-decoration:none; padding:4px 12px; border-radius:6px; font-weight:600; font-size:0.825rem; transition:all 0.15s ease;">
+            🎒 Infantil y Primaria
+          </a>
+          <span style="background:#4f46e5; color:#ffffff; padding:4px 14px; border-radius:6px; font-weight:800; font-size:0.825rem; box-shadow:0 1px 3px rgba(0,0,0,0.3);">
+            🎓 Secundaria y Otros Cuerpos
+          </span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; font-size:0.825rem;">
+        <span style="color:#94a3b8;">Estás en la sección de <strong>Secundaria, FP y Régimen Especial</strong></span>
+      </div>
+    </div>
+
+    <!-- Navegación Superior de la Sección Secundaria -->
+    <nav class="portal-nav" style="background:#ffffff; border:1px solid var(--slate-200); padding:10px 18px; margin-bottom:16px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:var(--shadow-sm);">
+      <div style="font-weight:800; font-size:1.05rem; color:#4f46e5;">
+        <a href="index.html" style="text-decoration:none; color:inherit;">🎓 Interinos Secundaria GVA</a>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-size:0.875rem; font-weight:600;">
+        <a href="index.html" style="color:#4f46e5; text-decoration:none;">🏠 Buscador de Bolsa</a>
+        <a href="destinos.html" style="color:#0284c7; text-decoration:none; font-weight:700;">🗺️ Destinos e Institutos</a>
+        <a href="guia-secundaria.html" style="color:var(--slate-600); text-decoration:none;">📖 Guía Secundaria</a>
+        <a href="especialidades-secundaria.html" style="color:var(--slate-600); text-decoration:none;">📚 Especialidades</a>
+        <a href="../index.html" style="color:#2563eb; text-decoration:none;">🎒 Ir a Primaria &rarr;</a>
+      </div>
+    </nav>
+
+    <!-- Header Principal -->
+    <header class="main-header">
+      <div class="header-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+          <div class="header-badge" style="margin-bottom:0; background:#ede9fe; color:#5b21b6;">
+            <span class="pulse-dot" style="background-color:#7c3aed;"></span>
+            <span id="headerAdjDate">Adjudicación 01/10/2026 &bull; Secundaria y Otros Cuerpos GVA</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
+            <a href="destinos.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#0284c7; color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(2,132,199,0.25);" title="Ver mapa de institutos y distancias">
+              <span>🗺️</span> Calculador de Destinos
+            </a>
+            <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(220,39,67,0.2);" title="Regalos 3D y grabado láser personalizados para alumnos y profes">
+              <span>🎁</span> Wood & Print (@woodandprintpartners)
+            </a>
+            <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:#fef3c7; color:#92400e; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; border:1px solid #fde68a; font-weight:700; font-size:0.825rem;" title="Ayuda a mantener la web activa">
+              <span>☕</span> Ayuda a mantener la web
+            </a>
+          </div>
+        </div>
+        <h1>🎯 Localizador de Interinos de Secundaria</h1>
+        <p class="subtitle">Consulta tu posición depurada en la bolsa de Secundaria y FP, aspirantes activos por delante, desactivados, no participantes y el número de corte oficial.</p>
+      </div>
+    </header>
+
+    <!-- Barra de Estadísticas Globales -->
+    <section class="global-stats-bar" id="globalStatsBar">
+      <div class="stat-pill">
+        <span class="pill-label">Total en Bolsa:</span>
+        <span class="pill-val" id="globTotalBolsa">42.146</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Convocados hoy:</span>
+        <span class="pill-val" id="globTotalAdj">13.373</span>
+      </div>
+      <div class="stat-pill">
+        <span class="pill-label">Plazas adjudicadas:</span>
+        <span class="pill-val highlight-green" id="globTotalPlazas">282</span>
+      </div>
+      <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes de Secundaria</button>
+      <a href="destinos.html" class="btn-sm" style="background:#0284c7; color:#ffffff; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:0.35rem; border:none;">
+        <span>🗺️</span> Ver Plazas en Mapa
+      </a>
+    </section>
+
+    <!-- Cross Promotion Card: Enlace a Destinos Secundaria -->
+    <aside style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #22c55e; border-radius: 12px; padding: 1.15rem 1.4rem; margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.25rem; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.12);">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="width: 48px; height: 48px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0;">🗺️</div>
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.725rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; background: #16a34a; color: #ffffff; padding: 0.2rem 0.55rem; border-radius: 20px; margin-bottom: 0.35rem;">
+            <span>📍</span> NUEVO: MAPA DE PLAZAS DE SECUNDARIA
+          </div>
+          <div style="font-size: 1.05rem; font-weight: 800; color: #14532d; margin-bottom: 0.25rem;">
+            Calculador de Proximidad a Institutos (IES y CIPFP de la CV)
+          </div>
+          <div style="font-size: 0.85rem; color: #334155; line-height: 1.4;">
+            Consulta en un <strong>mapa interactivo</strong> las vacantes y sustituciones de Secundaria y FP, calcula los <strong>kilómetros y minutos en coche</strong> desde tu municipio y ordénalas para tu solicitud telemática.
+          </div>
+        </div>
+      </div>
+      <a href="destinos.html" style="background: #16a34a; color: #ffffff; padding: 0.75rem 1.35rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 800; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);">
+        <span>📍</span> Abrir Destinos Secundaria &rarr;
+      </a>
+    </aside>
+
+    <!-- Espacio Publicitario Superior (Google AdSense Slot 1) -->
+    <div class="ad-banner-container" id="adTopBanner">
+      <div class="ad-label">PUBLICIDAD</div>
+      <div class="ad-slot-box">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7842650272336816"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <div class="ad-placeholder-text">Espacio Publicitario Google AdSense</div>
+      </div>
+    </div>
+
+    <!-- Sección de Búsqueda -->
+    <section class="search-section card">
+      <div class="search-grid">
+        <div class="search-input-group">
+          <label for="searchInput">
+            <span class="label-icon">🔍</span>
+            <strong>Introduce Nombre o Apellidos:</strong>
+          </label>
+          <div class="input-wrapper">
+            <input type="text" id="searchInput" placeholder="Ej: MARTINEZ LOPEZ, GARCIA, PEREZ..." autocomplete="off">
+            <button id="btnClearSearch" class="btn-clear" title="Limpiar">&times;</button>
+          </div>
+          <div id="autocompleteList" class="autocomplete-dropdown hidden"></div>
+        </div>
+
+        <div class="specialty-selector-group">
+          <label for="specialtySelect">
+            <span class="label-icon">📚</span>
+            <strong>Especialidad de Secundaria / FP:</strong>
+          </label>
+          <div class="select-wrapper">
+            <select id="specialtySelect">
+              <option value="206">206 - MATEMÀTIQUES</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estado Inicial Vacío -->
+    <section class="empty-state-card card" id="emptyStateSection">
+      <div class="empty-icon">🎓</div>
+      <h2>Busca tu nombre o selecciona una especialidad</h2>
+      <p>Escribe tu nombre o apellidos en el buscador superior para calcular al instante tu posición depurada activa en la bolsa de Secundaria y cuántos puestos te separan de una plaza.</p>
+    </section>
+
+    <!-- Sección del Aspirante Seleccionado -->
+    <section class="user-summary-card card hidden" id="userSummarySection">
+      <div class="user-header">
+        <div>
+          <h2 id="userNameBadge">-</h2>
+          <div class="user-badges">
+            <span class="badge badge-primary" id="userSpecBadge">-</span>
+            <span class="badge badge-secondary" id="userServicesBadge">AMB SERVEIS</span>
+            <span class="badge" id="userStatusBadge">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta de Plaza Asignada (si procede) -->
+      <div class="plaza-assigned-card hidden" id="userPlazaCard" style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:16px; margin:16px 0;">
+        <div style="font-weight:800; color:#065f46; font-size:1.1rem; margin-bottom:4px;">
+          🎉 ¡Plaza Adjudicada en esta convocatoria!
+        </div>
+        <div style="color:#1f2937; font-size:0.95rem;">
+          <span id="userPlazaType" style="font-weight:700; color:#059669;">-</span> en <strong id="userPlazaCenter">-</strong>
+        </div>
+        <div style="font-size:0.85rem; color:#4b5563; margin-top:4px;">
+          <span id="userPlazaCode"></span> &bull; <span id="userPlazaJornada"></span>
+        </div>
+      </div>
+
+      <!-- KPIs del Aspirante -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Posición Bruta</div>
+          <div class="kpi-value" id="kpiPosBruta">-</div>
+          <div class="kpi-desc">Orden numérico en la bolsa general</div>
+        </div>
+        <div class="kpi-card highlight-kpi">
+          <div class="kpi-label">Posición Depurada</div>
+          <div class="kpi-value" id="kpiPosDepurada">-</div>
+          <div class="kpi-desc">Docentes activos compitiendo antes de ti</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Plazas Hoy (Esp.)</div>
+          <div class="kpi-value" id="kpiPlazasHoy">-</div>
+          <div class="kpi-desc">Adjudicadas en tu especialidad</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Último Adjudicado</div>
+          <div class="kpi-value" id="kpiUltimoCorte" style="font-size:1.15rem;">-</div>
+          <div class="kpi-desc">Número de bolsa del último con plaza</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Personas por Delante / Detrás -->
+    <main id="aheadSection" class="hidden">
+      <!-- Barra de Distribución -->
+      <div class="dist-card card" id="distCard">
+        <div class="dist-header">
+          <h3>Composición de los aspirantes por delante (<span id="distTotalAhead">-</span> personas)</h3>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-segment seg-adjudicados" id="barAdjudicados" title="Adjudicados"></div>
+          <div class="progress-segment seg-activos" id="barActivos" title="Activos en espera"></div>
+          <div class="progress-segment seg-desactivados" id="barDesactivados" title="Desactivados"></div>
+          <div class="progress-segment seg-no-participat" id="barNoParticipat" title="No participaron"></div>
+          <div class="progress-segment seg-no-convocats" id="barNoConvocats" title="Otros en bolsa"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="legend-item"><span class="dot dot-adjudicados"></span> Adjudicados: <strong id="legendAdjVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-activos"></span> Activos en espera: <strong id="legendActVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-desactivados"></span> Desactivados: <strong id="legendDesVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-no-participat"></span> No participaron: <strong id="legendNoPartVal">0</strong></span>
+          <span class="legend-item"><span class="dot dot-no-convocats"></span> Otros en bolsa: <strong id="legendOtrosVal">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Tabla de Aspirantes -->
+      <div class="table-card card">
+        <div class="table-view-switcher">
+          <button class="view-switch-btn active" id="btnViewAhead">
+            ⬅️ Aspirantes por Delante (<span id="countViewAhead">-</span>)
+          </button>
+          <button class="view-switch-btn" id="btnViewBehind">
+            ➡️ Adjudicados por Detrás (<span id="countViewBehind">-</span>)
+          </button>
+        </div>
+
+        <div class="table-header">
+          <div class="table-title-wrap">
+            <h3 id="tableMainTitle">Listado de aspirantes en la especialidad</h3>
+            <span class="table-subtitle">Orden correlativo y estado en la última adjudicación</span>
+          </div>
+          <div class="table-actions">
+            <div class="table-filter-tabs" id="tableFiltersAhead">
+              <button class="btn-tab active" data-filter="all">Todos</button>
+              <button class="btn-tab" data-filter="activos">Activos</button>
+              <button class="btn-tab" data-filter="desactivados">Desactivados</button>
+              <button class="btn-tab" data-filter="no_participat">No participaron</button>
+              <button class="btn-tab" data-filter="adjudicados">Adjudicados</button>
+            </div>
+            <div class="table-search-box">
+              <input type="text" id="tableSearch" class="input-table-search" placeholder="🔍 Buscar persona, centro o código...">
+              <button id="btnClearTableSearch" class="btn-clear-table-search hidden" title="Limpiar">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="interinos-table" id="aheadTable">
+            <thead>
+              <tr>
+                <th>Puesto Depurado</th>
+                <th>Nº Bolsa</th>
+                <th>Nombre y Apellidos</th>
+                <th>Servicios</th>
+                <th>Estado</th>
+                <th>Destino Asignado</th>
+              </tr>
+            </thead>
+            <tbody id="aheadTableBody">
+              <!-- Filas insertadas dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-pagination">
+          <button id="btnPrevPage" class="btn-sm btn-outline" disabled>&laquo; Anterior</button>
+          <span id="pageInfo">Página 1 de 1</span>
+          <button id="btnNextPage" class="btn-sm btn-outline">Siguiente &raquo;</button>
+        </div>
+      </div>
+
+      <!-- Espacio Publicitario Inferior (Google AdSense Slot 2) -->
+      <div class="ad-banner-container" id="adBottomBanner">
+        <div class="ad-label">PUBLICIDAD</div>
+        <div class="ad-slot-box">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7842650272336816"
+               data-ad-slot="3456789012"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <div class="ad-placeholder-text">Espacio Publicitario Google AdSense</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal: Cortes por Especialidad -->
+    <div id="modalSummary" class="modal-overlay hidden">
+      <div class="modal-card card" style="max-width:850px;">
+        <div class="modal-header">
+          <h2>📊 Resumen de Cortes de Secundaria (01/10/2026)</h2>
+          <button id="btnCloseModal" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body" style="max-height:65vh; overflow-y:auto;">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Especialidad</th>
+                <th>Total Bolsa</th>
+                <th>Plazas</th>
+                <th>Último Adjudicado</th>
+                <th>Nº Corte</th>
+                <th>Desactivados</th>
+              </tr>
+            </thead>
+            <tbody id="modalSummaryBody">
+              <!-- Resumen insertado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Destacada: Wood & Print Partners -->
+    <section class="card wood-promo-card" id="woodAndPrintPromo" style="margin-top:24px;">
+      <div class="wood-promo-header">
+        <span class="wood-badge">🎁 PROYECTO COLABORADOR • HECHO A MANO</span>
+        <span style="font-size:0.8rem; font-weight:700; color:#b45309;">✨ Ideal para docentes, departamentos y centros</span>
+      </div>
+      <div class="wood-title">
+        <span>🪵 Wood & Print Partners</span>
+        <span style="font-size:0.95rem; font-weight:600; color:#92400e;">— Detalles 3D y Grabado Láser Personalizados</span>
+      </div>
+      <p class="wood-desc">
+        ¿Quieres tener un detalle motivador para tus alumnos de ESO, Bachillerato o FP, graduaciones, recuerdos departamentales o bienvenida de curso? En <strong>Wood & Print Partners</strong> diseñamos y fabricamos piezas personalizadas con nombres, logotipos del instituto o dedicatorias especiales.
+      </p>
+
+      <div class="wood-features">
+        <div class="wood-feature-item">
+          <div class="wood-feature-icon">🏷️</div>
+          <div class="wood-feature-text">
+            <strong>Llaveros 3D Personalizados</strong>
+            <span>Con el nombre de cada alumno/a o siglas del departamento en colores y tipografías a elegir.</span>
+          </div>
+        </div>
+
+        <div class="wood-feature-item">
+          <div class="wood-feature-icon">🪵</div>
+          <div class="wood-feature-text">
+            <strong>Grabado Láser en Madera</strong>
+            <span>Marcapáginas, medallas de graduación, diplomas conmemorativos y placas de agradecimiento.</span>
+          </div>
+        </div>
+
+        <div class="wood-feature-item">
+          <div class="wood-feature-icon">🎓</div>
+          <div class="wood-feature-text">
+            <strong>Proyectos para Talleres y Aulas</strong>
+            <span>Trofeos para certámenes escolares, maquetas didácticas y elementos para gamificación de aula.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wood-actions">
+        <div class="wood-note">
+          <span>📦</span> <span>Encargos a medida para clases completas, institutos y centros educativos.</span>
+        </div>
+        <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" class="btn-instagram" title="Visitar perfil de Instagram de Wood & Print Partners">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          <span>Ver catálogo y contactar en Instagram (@woodandprintpartners) &rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" style="margin-top:32px; padding:24px 0; border-top:1px solid var(--slate-200); text-align:center; font-size:0.85rem; color:var(--slate-500);">
+      <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:12px; font-weight:600;">
+        <a href="index.html" style="color:var(--slate-600); text-decoration:none;">Bolsa Secundaria</a>
+        <a href="destinos.html" style="color:var(--slate-600); text-decoration:none;">Destinos e Institutos</a>
+        <a href="guia-secundaria.html" style="color:var(--slate-600); text-decoration:none;">Guía Adjudicaciones</a>
+        <a href="especialidades-secundaria.html" style="color:var(--slate-600); text-decoration:none;">Especialidades</a>
+        <a href="../index.html" style="color:#2563eb; text-decoration:none;">Ir a Primaria</a>
+        <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener" style="color:#e1306c; text-decoration:none;">Instagram @woodandprintpartners</a>
+        <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener" style="color:#d97706; text-decoration:none;">☕ Donar / Colaborar</a>
+      </div>
+      <p>Herramienta informativa y comunitaria independiente desarrollada para el profesorado de la Comunitat Valenciana.</p>
+      <p style="margin-top:4px;">Los datos mostrados provienen de las resoluciones públicas de la Conselleria d'Educació de la Generalitat Valenciana.</p>
+    </footer>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

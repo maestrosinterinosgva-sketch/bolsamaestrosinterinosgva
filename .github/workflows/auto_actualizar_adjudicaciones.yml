@@ -65,7 +65,7 @@ jobs:
         run: |
           git config --global user.name "Bot Adjudicaciones"
           git config --global user.email "bot@interinos.valencia"
-          git add data/ index.html interinos_web.zip
+          git add data/ index.html secundaria/ sitemap.xml guia-adjudicaciones.html especialidades.html sobre-el-proyecto.html
           if git diff --staged --quiet; then
             echo "No hay cambios nuevos que guardar."
           else

@@ -6,5 +6,7 @@ adjudicacion_descargada_auto.pdf
 telegram_*.pdf
 data/telegram_config.json
 data/telegram_last_offset.txt
+**/telegram_config.json
+**/telegram_last_offset.txt
 2*.pdf
 data/pdf_acreditaciones/

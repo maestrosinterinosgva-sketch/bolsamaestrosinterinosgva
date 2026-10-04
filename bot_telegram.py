@@ -147,32 +147,11 @@ def check_telegram_updates():
             if file_name.lower().endswith(".pdf") or "pdf" in mime_type.lower():
                 fn_lower = file_name.lower()
                 
-                # Descartar taxativamente si es un documento de plazas u oferta
-                if any(bad in fn_lower for bad in ["pue_prov", "pue_def", "puesto", "ofert", "llocs_oferits", "convocatoria", "vacante"]):
-                    print(f"[!] PDF descartado (Plazas Ofertadas): {file_name}")
-                    send_telegram_message(
-                        token, chat_id,
-                        f"⚠️ <b>Documento de Plazas Ofertadas detectado:</b> <code>{file_name}</code>\n\n"
-                        f"Este bot solo procesa <b>Adjudicaciones de Maestros</b> con nombres de aspirantes nombrados (archivos <code>lis_mae.pdf</code>).\n\n"
-                        f"Para consultar las plazas ofertadas y calcular distancias a los colegios, utiliza el <b>Calculador de Destinos</b>:\n"
-                        f"👉 https://destinos.bolsamaestrosinterinosgva.es/"
-                    )
-                    continue
-
-                if not ("lis_mae" in fn_lower or "adjudica" in fn_lower or "adj" in fn_lower):
-                    print(f"[!] PDF descartado (No es adjudicación lis_mae): {file_name}")
-                    send_telegram_message(
-                        token, chat_id,
-                        f"⚠️ <b>Archivo no reconocido como Adjudicación:</b> <code>{file_name}</code>\n\n"
-                        f"Para actualizar la bolsa de interinos debes enviar el listado oficial de adjudicaciones de Conselleria (ej: <code>YYMMDD_lis_mae.pdf</code>)."
-                    )
-                    continue
-
-                print(f"[!] PDF de adjudicación recibido desde Telegram: {file_name} (ID: {file_id})")
+                print(f"[!] PDF recibido desde Telegram: {file_name} (ID: {file_id})")
                 send_telegram_message(
                     token, chat_id,
-                    f"⏳ <b>Adjudicación recibida:</b> <code>{file_name}</code>\n"
-                    f"Iniciando descarga y recálculo de la bolsa de interinos..."
+                    f"⏳ <b>Documento recibido:</b> <code>{file_name}</code>\n"
+                    f"Descargando y detectando especialidad/cuerpo..."
                 )
 
                 # 1. Obtener ruta del archivo en Telegram
@@ -196,38 +175,103 @@ def check_telegram_updates():
                     send_telegram_message(token, chat_id, f"❌ Error al descargar el PDF desde Telegram: {e}")
                     continue
 
-                # 3. Ejecutar actualización completa
+                # 3. Determinar tipo de documento (Secundaria vs Primaria vs Puestos)
+                is_secundaria = ("lis_sec" in fn_lower or "secundaria" in fn_lower)
+                is_puestos = any(k in fn_lower for k in ["pue_prov", "pue_def", "puesto", "ofert", "llocs_oferits"])
+                
+                # Comprobación de contenido si el nombre es ambiguo
+                if not is_secundaria and not is_puestos and not ("lis_mae" in fn_lower):
+                    try:
+                        import pymupdf
+                        tchk = pymupdf.open(local_pdf)[0].get_text().upper()
+                        if "LLOCS OFERTATS" in tchk or "PUESTOS OFERTADOS" in tchk:
+                            is_puestos = True
+                        elif "ALTRES COSSOS" in tchk or "SECUNDARI" in tchk:
+                            is_secundaria = True
+                    except Exception:
+                        pass
+
                 try:
-                    sys.argv = ["actualizar_adjudicacion.py", local_pdf]
-                    run_actualizacion()
-                    
-                    # Leer estadísticas
-                    stats_file = "data/stats_summary.json"
-                    fecha = "Reciente"
-                    convocados = 0
-                    plazas = 0
-                    if os.path.exists(stats_file):
-                        with open(stats_file, "r", encoding="utf-8") as sf:
-                            stats = json.load(sf)
-                            fecha = stats.get("fecha_adjudicacion", fecha)
-                            convocados = stats.get("total_adjudicaciones_hoy", 0)
-                            plazas = stats.get("total_plazas_adjudicadas", 0)
+                    if is_secundaria:
+                        print("[*] Procesando actualización de Secundaria...")
+                        import subprocess
+                        # Ejecutar en carpeta secundaria
+                        sub_pdf = os.path.join(os.getcwd(), "secundaria", f"telegram_{file_name}")
+                        try:
+                            import shutil
+                            shutil.copy2(local_pdf, sub_pdf)
+                        except Exception:
+                            pass
+                        subprocess.run([sys.executable, "actualizar_secundaria.py", f"telegram_{file_name}"], cwd="secundaria", check=True)
+                        push_to_github()
 
-                    # Subir a repositorio
-                    push_to_github()
+                        stats_file = "secundaria/data/stats_summary.json"
+                        fec = "Reciente"
+                        plz = 0
+                        if os.path.exists(stats_file):
+                            with open(stats_file, "r", encoding="utf-8") as sf:
+                                st = json.load(sf)
+                                fec = st.get("fecha_adjudicacion", fec)
+                                plz = st.get("total_plazas_adjudicadas", 0)
 
-                    success_msg = (
-                        f"✅ <b>¡Web de Interinos actualizada con éxito!</b>\n\n"
-                        f"📅 <b>Fecha de adjudicación:</b> {fecha}\n"
-                        f"👥 <b>Convocados analizados:</b> {convocados:,}\n"
-                        f"🏫 <b>Plazas adjudicadas:</b> {plazas:,}\n\n"
-                        f"🌐 <b>Ver web online:</b>\n"
-                        f"{web_url}"
-                    )
-                    send_telegram_message(token, chat_id, success_msg)
+                        send_telegram_message(
+                            token, chat_id,
+                            f"🎓 <b>¡Bolsa de Secundaria actualizada con éxito!</b>\n\n"
+                            f"📅 <b>Fecha:</b> {fec}\n"
+                            f"🏫 <b>Plazas asignadas:</b> {plz}\n\n"
+                            f"🌐 <b>Ver online:</b>\n"
+                            f"https://bolsamaestrosinterinosgva.es/secundaria/"
+                        )
+                    elif is_puestos:
+                        print("[*] Procesando puestos ofertados...")
+                        import subprocess
+                        sub_pdf = os.path.join(os.getcwd(), "secundaria", f"telegram_{file_name}")
+                        try:
+                            import shutil
+                            shutil.copy2(local_pdf, sub_pdf)
+                        except Exception:
+                            pass
+                        subprocess.run([sys.executable, "actualizar_secundaria.py", f"telegram_{file_name}"], cwd="secundaria", check=True)
+                        push_to_github()
+
+                        send_telegram_message(
+                            token, chat_id,
+                            f"🗺️ <b>¡Destinos y Puestos actualizados con éxito!</b>\n\n"
+                            f"🌐 <b>Ver mapa de institutos:</b>\n"
+                            f"https://bolsamaestrosinterinosgva.es/secundaria/destinos.html"
+                        )
+                    else:
+                        print("[*] Procesando adjudicación de Maestros (Primaria)...")
+                        sys.argv = ["actualizar_adjudicacion.py", local_pdf]
+                        run_actualizacion()
+                        push_to_github()
+
+                        stats_file = "data/stats_summary.json"
+                        fec = "Reciente"
+                        plz = 0
+                        conv = 0
+                        if os.path.exists(stats_file):
+                            with open(stats_file, "r", encoding="utf-8") as sf:
+                                st = json.load(sf)
+                                fec = st.get("fecha_adjudicacion", fec)
+                                plz = st.get("total_plazas_adjudicadas", 0)
+                                conv = st.get("total_adjudicaciones_hoy", 0)
+
+                        send_telegram_message(
+                            token, chat_id,
+                            f"🎒 <b>¡Bolsa de Maestros Primaria actualizada con éxito!</b>\n\n"
+                            f"📅 <b>Fecha:</b> {fec}\n"
+                            f"👥 <b>Convocados:</b> {conv:,}\n"
+                            f"🏫 <b>Plazas adjudicadas:</b> {plz:,}\n\n"
+                            f"🌐 <b>Ver online:</b>\n"
+                            f"https://bolsamaestrosinterinosgva.es/"
+                        )
+
                     new_pdf_processed = True
                 except Exception as e:
-                    send_telegram_message(token, chat_id, f"❌ Error al procesar los datos de la adjudicación: {e}")
+                    print(f"[-] Error al procesar documento: {e}")
+                    send_telegram_message(token, chat_id, f"❌ Error al procesar el archivo: {e}")
+
 
     # Guardar nuevo offset para no repetir mensajes
     with open(offset_file, "w") as f:
