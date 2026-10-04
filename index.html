@@ -136,108 +136,80 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Selector de Cuerpo Superior (Primaria vs Secundaria) -->
-    <div style="background:linear-gradient(90deg, #1e293b 0%, #0f172a 100%); color:#ffffff; padding:8px 16px; border-radius:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-      <div style="display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:700;">
-        <span>🏛️ Portal Docente GVA:</span>
-        <div style="display:inline-flex; background:rgba(255,255,255,0.1); border-radius:8px; padding:3px; gap:4px;">
-          <span style="background:#2563eb; color:#ffffff; padding:4px 14px; border-radius:6px; font-weight:800; font-size:0.825rem; box-shadow:0 1px 3px rgba(0,0,0,0.3);">
-            🎒 Infantil y Primaria
-          </span>
-          <a href="secundaria/index.html" style="color:#cbd5e1; text-decoration:none; padding:4px 12px; border-radius:6px; font-weight:600; font-size:0.825rem; transition:all 0.15s ease;">
-            🎓 Secundaria y FP &rarr;
-          </a>
-        </div>
+    <!-- Barra Superior Institucional Unificada -->
+    <header class="portal-header-bar">
+      <div class="portal-brand-block">
+        <a href="index.html" class="portal-logo-link">
+          <span class="portal-logo-icon">🏛️</span>
+          <div class="portal-logo-texts">
+            <span class="portal-org-name">Generalitat Valenciana &bull; Conselleria d'Educaci&oacute;</span>
+            <span class="portal-app-title">Localizador de Interinos GVA</span>
+          </div>
+        </a>
+        <span class="portal-stage-badge">Infantil y Primaria</span>
       </div>
-      <div style="display:flex; align-items:center; gap:12px; font-size:0.825rem;">
-        <span style="color:#94a3b8;">Estás en la sección de <strong>Maestros (Infantil y Primaria)</strong></span>
+
+      <nav class="portal-nav-links" aria-label="Navegaci&oacute;n principal">
+        <a href="index.html" class="nav-link active">🏠 Buscador</a>
+        <a href="guia-adjudicaciones.html" class="nav-link">📖 Gu&iacute;a de Cortes</a>
+        <a href="especialidades.html" class="nav-link">🎓 Especialidades</a>
+        <a href="sobre-el-proyecto.html" class="nav-link">ℹ️ Sobre el Proyecto</a>
+        <a id="btnCalculadorDestinos" href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" class="nav-link nav-link-external" title="Calculador de distancias en coche y centros de adjudicaci&oacute;n">
+          <span>🗺️</span> Destinos Colegios
+        </a>
+        <a href="secundaria/index.html" class="nav-link nav-link-switch" title="Cambiar al portal de Secundaria y FP">
+          Secundaria y FP &rarr;
+        </a>
+      </nav>
+    </header>
+
+    <!-- Cabecera Principal Formal -->
+    <div class="main-header">
+      <div class="header-content">
+        <div class="header-badge">
+          <span class="pulse-dot"></span>
+          <span id="headerAdjDate">Adjudicaci&oacute;n 08/09/2026 &bull; Maestros Generalitat Valenciana</span>
+        </div>
+        <h1>Localizador de Interinos</h1>
+        <p class="subtitle">Consulta tu posici&oacute;n depurada, aspirantes convocados por delante, personas desactivadas y estimaci&oacute;n de llamamiento.</p>
       </div>
     </div>
 
-    <!-- Navegación Superior del Portal -->
-    <nav class="portal-nav" style="background:#ffffff; border:1px solid var(--slate-200); padding:10px 18px; margin-bottom:16px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:var(--shadow-sm);">
-      <div style="font-weight:800; font-size:1.05rem; color:var(--primary);">
-        <a href="index.html" style="text-decoration:none; color:inherit;">🎯 Localizador de Interinos GVA</a>
-      </div>
-      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center; font-size:0.875rem; font-weight:600;">
-        <a href="index.html" style="color:var(--primary); text-decoration:none;">🏠 Buscador</a>
-        <a href="guia-adjudicaciones.html" style="color:var(--slate-600); text-decoration:none;">📖 Guía Adjudicaciones</a>
-        <a href="especialidades.html" style="color:var(--slate-600); text-decoration:none;">🎓 Especialidades</a>
-        <a href="secundaria/index.html" style="color:#4f46e5; text-decoration:none; font-weight:700;">🎓 Secundaria y FP</a>
-        <a href="sobre-el-proyecto.html" style="color:var(--slate-600); text-decoration:none;">ℹ️ Sobre el Proyecto</a>
-        <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:none; font-weight:700;">🗺️ Destinos GVA</a>
-      </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="main-header">
-      <div class="header-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-          <div class="header-badge" style="margin-bottom:0;">
-            <span class="pulse-dot"></span>
-            <span id="headerAdjDate">Adjudicación 08/09/2026 &bull; Maestros Generalitat Valenciana</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
-            <a href="secundaria/index.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#4f46e5; color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(79,70,229,0.25);" title="Ver nueva web de Secundaria y FP">
-              <span>🎓</span> Ver Secundaria y FP
-            </a>
-            <a id="btnCalculadorDestinos" href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.35rem; background:#2563eb; color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(37,99,235,0.25);" title="Ver nueva web con mapa y cálculo de distancias por carretera">
-              <span>🗺️</span> Destinos Colegios
-            </a>
-            <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(220,39,67,0.2);" title="Regalos 3D y grabado láser personalizados para alumnos y profes">
-              <span>🎁</span> Wood & Print (@woodandprintpartners)
-            </a>
-            <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:#fef3c7; color:#92400e; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; border:1px solid #fde68a; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(0,0,0,0.06);" title="¿Te ha resultado útil? Ayúdame a mantener la web activa colaborando con los costes">
-              <span>☕</span> Ayuda a mantener la web activa
-            </a>
-          </div>
-        </div>
-        <h1>🎯 Localizador de Interinos</h1>
-        <p class="subtitle">Encuentra tu posición en la bolsa, personas desactivadas, no participantes y cuántos puestos te faltan para ser nombrado/a.</p>
-      </div>
-    </header>
-
-    <!-- Global Stats Bar -->
+    <!-- Barra de Estadísticas Globales Oficiales -->
     <section class="global-stats-bar" id="globalStatsBar">
-      <div class="stat-pill">
-        <span class="pill-label">Total en Bolsa:</span>
-        <span class="pill-val" id="globTotalBolsa">17.329</span>
+      <div class="stats-pills-group">
+        <div class="stat-pill">
+          <span class="pill-label">Total en Bolsa:</span>
+          <span class="pill-val" id="globTotalBolsa">17.329</span>
+        </div>
+        <div class="stat-pill">
+          <span class="pill-label">Convocados hoy:</span>
+          <span class="pill-val" id="globTotalAdj">11.956</span>
+        </div>
+        <div class="stat-pill">
+          <span class="pill-label">Plazas adjudicadas:</span>
+          <span class="pill-val highlight-green" id="globTotalPlazas">1.471</span>
+        </div>
       </div>
-      <div class="stat-pill">
-        <span class="pill-label">Convocados hoy:</span>
-        <span class="pill-val" id="globTotalAdj">11.956</span>
+      <div class="stats-actions-group">
+        <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes</button>
+        <button class="btn-sm btn-device" id="btnDeviceConnect">📱 Abrir en el Móvil</button>
       </div>
-      <div class="stat-pill">
-        <span class="pill-label">Plazas adjudicadas:</span>
-        <span class="pill-val highlight-green" id="globTotalPlazas">1.471</span>
-      </div>
-      <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes</button>
-      <button class="btn-sm btn-device" id="btnDeviceConnect">📱 Abrir en el Móvil</button>
-      <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" class="btn-sm" style="background:#2563eb; color:#ffffff; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:0.35rem; border:none; box-shadow:0 2px 4px rgba(37,99,235,0.25);" title="Calcular qué colegios te pillan más cerca de casa">
-        <span>🗺️</span> Calculador de Destinos
-      </a>
-      <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener noreferrer" class="btn-sm" style="background:#fef3c7; color:#92400e; border:1px solid #fde68a; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;" title="¿Te ha resultado útil? Ayúdame a mantener la web activa colaborando con los costes">
-        <span>☕</span> Mantener web activa
-      </a>
     </section>
 
-    <!-- Cross Promotion Card: Enlace prioritario a la herramienta hermana de Destinos -->
-    <aside style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 1.15rem 1.4rem; margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.25rem; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);">
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <div style="width: 48px; height: 48px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0;">🗺️</div>
-        <div>
-          <div style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.725rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; background: #2563eb; color: #ffffff; padding: 0.2rem 0.55rem; border-radius: 20px; margin-bottom: 0.35rem;">
-            <span>⭐</span> HERRAMIENTA HERMANA RECOMENDADA
-          </div>
-          <div style="font-size: 1.05rem; font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">
-            Calculador de Proximidad y Destinos GVA (Colegios más cercanos)
-          </div>
-          <div style="font-size: 0.85rem; color: #334155; line-height: 1.4;">
-            ¿Vas a pedir plaza esta semana? Consulta en un <strong>mapa interactivo</strong> todas las vacantes y sustituciones, calcula los <strong>kilómetros y minutos en coche</strong> desde tu casa y ordénalas por preferencia personal (con jornada continua/partida).
-          </div>
+    <!-- Tarjeta Informativa: Calculador de Destinos GVA -->
+    <aside class="destinos-callout-card">
+      <div class="destinos-callout-main">
+        <div class="destinos-callout-icon">🗺️</div>
+        <div class="destinos-callout-info">
+          <div class="destinos-callout-badge">HERRAMIENTA COMPLEMENTARIA RECOMENDADA</div>
+          <h2 class="destinos-callout-title">Calculador de Distancias y Destinos GVA (Colegios más cercanos)</h2>
+          <p class="destinos-callout-desc">
+            ¿Vas a pedir plaza esta semana? Consulta en un <strong>mapa interactivo</strong> las vacantes y sustituciones, calcula los <strong>kilómetros y minutos en coche</strong> desde tu casa y ordénalas según tu preferencia y tipo de jornada.
+          </p>
         </div>
       </div>
-      <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" style="background: #2563eb; color: #ffffff; padding: 0.75rem 1.35rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 800; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35); transition: transform 0.15s ease;">
+      <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" class="btn-destinos-action">
         <span>📍</span> Abrir Calculador de Destinos &rarr;
       </a>
     </aside>
@@ -856,12 +828,12 @@
     <footer class="main-footer">
       <p>Desarrollado para docentes interinos &bull; Datos oficiales de la Conselleria d'Educació (Generalitat Valenciana).</p>
       <p class="footer-note">Cálculo basado en las personas activas reales por delante de cada posición en la especialidad seleccionada.</p>
-      <div style="margin: 0.85rem 0; display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; align-items:center;">
-        <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.4rem; font-weight:700; background:#fef3c7; color:#92400e; padding:0.45rem 1.1rem; border-radius:20px; text-decoration:none; border:1px solid #fde68a; font-size:0.85rem; box-shadow:0 2px 4px rgba(0,0,0,0.05);" title="Colabora con el mantenimiento de la web">
-          <span>☕</span> ¿Te ha resultado útil? Ayúdame a mantener la web activa colaborando con los costes
+      <div class="footer-support-links">
+        <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener" class="footer-pill-link" title="Colabora con el mantenimiento de la web">
+          <span>☕</span> Apoyar mantenimiento de la web
         </a>
-        <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.4rem; font-weight:700; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; padding:0.45rem 1.1rem; border-radius:20px; text-decoration:none; font-size:0.85rem; box-shadow:0 2px 4px rgba(220,39,67,0.25);" title="Regalos 3D y grabados personalizados para alumnos">
-          <span>🎁</span> Wood & Print Partners (Regalos para alumnos)
+        <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" class="footer-pill-link" title="Regalos 3D y grabados personalizados para alumnos">
+          <span>🪵</span> Wood & Print Partners (Detalles para alumnos)
         </a>
       </div>
       <div class="footer-legal-links">

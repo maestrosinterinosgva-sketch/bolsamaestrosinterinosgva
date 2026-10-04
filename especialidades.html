@@ -144,39 +144,32 @@
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Selector de Cuerpo Superior (Primaria vs Secundaria) -->
-    <div style="background:linear-gradient(90deg, #1e293b 0%, #0f172a 100%); color:#ffffff; padding:8px 16px; border-radius:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-      <div style="display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:700;">
-        <span>🏛️ Portal Docente GVA:</span>
-        <div style="display:inline-flex; background:rgba(255,255,255,0.1); border-radius:8px; padding:3px; gap:4px;">
-          <span style="background:#2563eb; color:#ffffff; padding:4px 14px; border-radius:6px; font-weight:800; font-size:0.825rem; box-shadow:0 1px 3px rgba(0,0,0,0.3);">
-            🎒 Infantil y Primaria
-          </span>
-          <a href="secundaria/index.html" style="color:#cbd5e1; text-decoration:none; padding:4px 12px; border-radius:6px; font-weight:600; font-size:0.825rem; transition:all 0.15s ease;">
-            🎓 Secundaria y FP &rarr;
-          </a>
-        </div>
+    <!-- Barra Superior Institucional Unificada -->
+    <header class="portal-header-bar">
+      <div class="portal-brand-block">
+        <a href="index.html" class="portal-logo-link">
+          <span class="portal-logo-icon">🏛️</span>
+          <div class="portal-logo-texts">
+            <span class="portal-org-name">Generalitat Valenciana &bull; Conselleria d'Educaci&oacute;</span>
+            <span class="portal-app-title">Localizador de Interinos GVA</span>
+          </div>
+        </a>
+        <span class="portal-stage-badge">Infantil y Primaria</span>
       </div>
-      <div style="display:flex; align-items:center; gap:12px; font-size:0.825rem;">
-        <span style="color:#94a3b8;">Estás en la sección de <strong>Maestros (Infantil y Primaria)</strong></span>
-      </div>
-    </div>
 
-    <!-- Navegación Superior -->
-    <nav class="site-nav">
-      <div style="font-weight: 800; font-size: 1.1rem; color: var(--primary);">
-        <a href="index.html" style="text-decoration:none; color:inherit;">🎯 Localizador de Interinos GVA</a>
-      </div>
-      <div class="site-nav-links">
-        <a href="index.html">🏠 Buscador</a>
-        <a href="guia-adjudicaciones.html">📖 Guía Adjudicaciones</a>
-        <a href="especialidades.html" class="active">🎓 Especialidades</a>
-        <a href="secundaria/index.html" style="color:#4f46e5; font-weight:700;">🎓 Secundaria y FP</a>
-        <a href="sobre-el-proyecto.html">ℹ️ Sobre el Proyecto</a>
-        <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener">🗺️ Destinos</a>
-      </div>
-    </nav>
+      <nav class="portal-nav-links" aria-label="Navegaci&oacute;n principal">
+        <a href="index.html" class="nav-link">🏠 Buscador</a>
+        <a href="guia-adjudicaciones.html" class="nav-link">📖 Gu&iacute;a de Cortes</a>
+        <a href="especialidades.html" class="nav-link active">🎓 Especialidades</a>
+        <a href="sobre-el-proyecto.html" class="nav-link">ℹ️ Sobre el Proyecto</a>
+        <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" class="nav-link nav-link-external" title="Calculador de distancias en coche a colegios">
+          <span>🗺️</span> Destinos Colegios
+        </a>
+        <a href="secundaria/index.html" class="nav-link nav-link-switch" title="Cambiar al portal de Secundaria y FP">
+          Secundaria y FP &rarr;
+        </a>
+      </nav>
+    </header>
 
     <article class="article-container">
       <header class="article-header">
