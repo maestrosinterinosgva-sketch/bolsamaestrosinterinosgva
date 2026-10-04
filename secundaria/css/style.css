@@ -1726,6 +1726,34 @@ input[type="text"]:focus, select:focus {
   .portal-brand-block {
     flex: 1;
     min-width: 0;
+    gap: 8px;
+  }
+
+  .portal-logo-icon {
+    font-size: 1.35rem;
+    flex-shrink: 0;
+  }
+
+  .portal-logo-texts {
+    min-width: 0;
+  }
+
+  .portal-org-name {
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .portal-app-title {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .portal-stage-badge {
+    display: none;
   }
 
   .portal-nav-toggle {
