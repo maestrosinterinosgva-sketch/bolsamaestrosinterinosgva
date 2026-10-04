@@ -122,9 +122,39 @@ body {
   border: 1px solid #bfdbfe;
   font-size: 0.74rem;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 9999px;
-  white-space: nowrap;
+.portal-stage-badge.portal-stage-secundaria {
+  background: #ede9fe;
+  color: #5b21b6;
+  border-color: #ddd6fe;
+}
+
+.portal-nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: var(--slate-100);
+  border: 1px solid var(--slate-300);
+  color: var(--slate-700);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.portal-nav-toggle:hover,
+.portal-nav-toggle.active {
+  background: var(--slate-200);
+  color: var(--slate-900);
+  border-color: var(--slate-400);
+}
+
+.portal-nav-toggle .nav-toggle-icon {
+  font-size: 1.05rem;
+  line-height: 1;
 }
 
 .portal-nav-links {
@@ -1696,8 +1726,77 @@ input[type="text"]:focus, select:focus {
   }
 }
 
+@keyframes portalNavSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Smartphones y pantallas pequeñas (<= 768px) */
 @media (max-width: 768px) {
+  /* Menú de cabecera desplegable en móvil */
+  .portal-header-bar {
+    padding: 10px 14px;
+    align-items: center;
+  }
+
+  .portal-brand-block {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .portal-nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .portal-nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--slate-200);
+    gap: 6px;
+  }
+
+  .portal-nav-links.open {
+    display: flex;
+    animation: portalNavSlideDown 0.18s ease-out;
+  }
+
+  .portal-nav-links .nav-link {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    background: #f8fafc;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    justify-content: flex-start;
+  }
+
+  .portal-nav-links .nav-link:hover,
+  .portal-nav-links .nav-link:active {
+    background: #e2e8f0;
+  }
+
+  .portal-nav-links .nav-link.active {
+    background: var(--primary-light);
+    border-color: #bfdbfe;
+  }
+
+  .portal-nav-links .nav-link-switch {
+    background: #eef2ff !important;
+    border-color: #c7d2fe !important;
+    margin-top: 4px;
+    margin-left: 0;
+  }
+
   .main-header h1 {
     font-size: 1.7rem;
   }

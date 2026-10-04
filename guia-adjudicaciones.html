@@ -163,7 +163,12 @@
         <span class="portal-stage-badge">Infantil y Primaria</span>
       </div>
 
-      <nav class="portal-nav-links" aria-label="Navegaci&oacute;n principal">
+      <button class="portal-nav-toggle" id="portalNavToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <span class="nav-toggle-icon">☰</span>
+        <span class="nav-toggle-text">Menú</span>
+      </button>
+
+      <nav class="portal-nav-links" id="portalNavLinks" aria-label="Navegaci&oacute;n principal">
         <a href="index.html" class="nav-link">🏠 Buscador</a>
         <a href="guia-adjudicaciones.html" class="nav-link active">📖 Gu&iacute;a de Cortes</a>
         <a href="especialidades.html" class="nav-link">🎓 Especialidades</a>
@@ -301,5 +306,34 @@
       </p>
     </footer>
   </div>
+  <script>
+    (function () {
+      var navToggle = document.getElementById("portalNavToggle");
+      var navLinks = document.getElementById("portalNavLinks");
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var isOpen = navLinks.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          navToggle.classList.toggle("active", isOpen);
+          var icon = navToggle.querySelector(".nav-toggle-icon");
+          var text = navToggle.querySelector(".nav-toggle-text");
+          if (icon) icon.textContent = isOpen ? "✕" : "☰";
+          if (text) text.textContent = isOpen ? "Cerrar" : "Menú";
+        });
+        document.addEventListener("click", function (e) {
+          if (navLinks.classList.contains("open") && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.classList.remove("active");
+            var icon = navToggle.querySelector(".nav-toggle-icon");
+            var text = navToggle.querySelector(".nav-toggle-text");
+            if (icon) icon.textContent = "☰";
+            if (text) text.textContent = "Menú";
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

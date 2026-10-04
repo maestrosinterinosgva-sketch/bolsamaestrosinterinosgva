@@ -47,54 +47,47 @@
 </head>
 <body>
 
-  <!-- Selector de Cuerpo Superior -->
-  <div style="background:linear-gradient(90deg, #0f172a 0%, #1e293b 100%); color:#ffffff; padding:8px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-    <div style="display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:700;">
-      <span>🏛️ Portal Docente GVA:</span>
-      <div style="display:inline-flex; background:rgba(255,255,255,0.1); border-radius:8px; padding:3px; gap:4px;">
-        <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" style="color:#cbd5e1; text-decoration:none; padding:4px 12px; border-radius:6px; font-weight:600; font-size:0.825rem;">
-          🎒 Destinos Primaria
+  <div class="app-container" style="max-width:1240px; margin:0 auto; padding:12px 16px;">
+    <!-- Barra Superior Institucional Unificada -->
+    <header class="portal-header-bar">
+      <div class="portal-brand-block">
+        <a href="destinos.html" class="portal-logo-link">
+          <span class="portal-logo-icon">🗺️</span>
+          <div class="portal-logo-texts">
+            <span class="portal-org-name">Generalitat Valenciana &bull; Conselleria d'Educaci&oacute;</span>
+            <span class="portal-app-title">Destinos Secundaria y FP</span>
+          </div>
         </a>
-        <span style="background:#0284c7; color:#ffffff; padding:4px 14px; border-radius:6px; font-weight:800; font-size:0.825rem;">
-          🎓 Destinos Secundaria y FP
-        </span>
-      </div>
-    </div>
-    <div style="font-size:0.825rem; color:#94a3b8;">
-      Calculador de distancia a institutos de la CV
-    </div>
-  </div>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="nav-container" style="max-width:1240px; margin:0 auto; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-      <a href="destinos.html" class="brand" style="text-decoration:none; display:flex; align-items:center; gap:10px; color:inherit;">
-        <div class="brand-icon" style="font-size:1.8rem;">🗺️</div>
-        <div>
-          <div class="brand-title" style="font-weight:800; font-size:1.15rem; color:#0284c7;">Destinos Secundaria y FP</div>
-          <div class="brand-subtitle" style="font-size:0.8rem; color:#64748b;">Institutos, IES, CIPFP y Adjudicación Continua GVA</div>
-        </div>
-      </a>
-
-      <div class="nav-badges" style="display:flex; gap:10px; align-items:center;">
-        <div class="badge-official" id="navAdjudicacionDate" style="background:#e0f2fe; color:#0369a1; padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.85rem;">
-          📅 Adjudicación: 01/10/2026
-        </div>
+        <span class="portal-stage-badge portal-stage-secundaria">Institutos y CIPFP</span>
       </div>
 
-      <div class="nav-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-        <a href="index.html" style="background:#4f46e5; color:#ffffff; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; font-size:0.85rem;">
-          🎯 Localizador Bolsa
+      <button class="portal-nav-toggle" id="portalNavToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <span class="nav-toggle-icon">☰</span>
+        <span class="nav-toggle-text">Menú</span>
+      </button>
+
+      <nav class="portal-nav-links" id="portalNavLinks" aria-label="Navegación principal">
+        <a href="destinos.html" class="nav-link active">🗺️ Mapa Institutos</a>
+        <a href="index.html" class="nav-link">🎯 Bolsa Secundaria</a>
+        <a href="guia-secundaria.html" class="nav-link">📖 Guía Secundaria</a>
+        <a href="especialidades-secundaria.html" class="nav-link">📚 Especialidades</a>
+        <a href="https://destinos.bolsamaestrosinterinosgva.es/" target="_blank" rel="noopener" class="nav-link nav-link-switch" title="Cambiar a Destinos Primaria">
+          🎒 Primaria &rarr;
         </a>
-        <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; padding:6px 14px; border-radius:8px; text-decoration:none; font-weight:700; font-size:0.85rem;">
-          <span>🎁</span> Wood & Print
-        </a>
-        <button class="btn-primary" id="btnOpenFavorites" style="background:#0284c7; color:#ffffff; border:none; padding:6px 14px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer;">
+      </nav>
+    </header>
+
+    <!-- Subbarra de acciones y estado -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+      <div class="badge-official" id="navAdjudicacionDate" style="background:#e0f2fe; color:#0369a1; padding:5px 14px; border-radius:20px; font-weight:700; font-size:0.85rem;">
+        📅 Adjudicación: 01/10/2026
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn-primary" id="btnOpenFavorites" style="background:#0284c7; color:#ffffff; border:none; padding:7px 14px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer;">
           ⭐ Mi Selección (<span id="favCountBadge">0</span>)
         </button>
       </div>
     </div>
-  </header>
 
   <!-- Main Content -->
   <main class="main-content" style="max-width:1240px; margin:0 auto; padding:16px;">
@@ -256,6 +249,37 @@
     </div>
   </div>
 
+  </div>
+
   <script src="js/destinos_app.js"></script>
+  <script>
+    (function () {
+      var navToggle = document.getElementById("portalNavToggle");
+      var navLinks = document.getElementById("portalNavLinks");
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var isOpen = navLinks.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          navToggle.classList.toggle("active", isOpen);
+          var icon = navToggle.querySelector(".nav-toggle-icon");
+          var text = navToggle.querySelector(".nav-toggle-text");
+          if (icon) icon.textContent = isOpen ? "✕" : "☰";
+          if (text) text.textContent = isOpen ? "Cerrar" : "Menú";
+        });
+        document.addEventListener("click", function (e) {
+          if (navLinks.classList.contains("open") && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.classList.remove("active");
+            var icon = navToggle.querySelector(".nav-toggle-icon");
+            var text = navToggle.querySelector(".nav-toggle-text");
+            if (icon) icon.textContent = "☰";
+            if (text) text.textContent = "Menú";
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

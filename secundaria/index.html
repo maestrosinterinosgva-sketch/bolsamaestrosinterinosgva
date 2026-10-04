@@ -56,103 +56,67 @@
 <body>
   <div class="app-container">
 
-    <!-- Selector de Cuerpo Superior (Primaria vs Secundaria) -->
-    <div style="background:linear-gradient(90deg, #1e293b 0%, #0f172a 100%); color:#ffffff; padding:8px 16px; border-radius:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-      <div style="display:flex; align-items:center; gap:8px; font-size:0.875rem; font-weight:700;">
-        <span>🏛️ Portal Docente GVA:</span>
-        <div style="display:inline-flex; background:rgba(255,255,255,0.1); border-radius:8px; padding:3px; gap:4px;">
-          <a href="../index.html" style="color:#cbd5e1; text-decoration:none; padding:4px 12px; border-radius:6px; font-weight:600; font-size:0.825rem; transition:all 0.15s ease;">
-            🎒 Infantil y Primaria
-          </a>
-          <span style="background:#4f46e5; color:#ffffff; padding:4px 14px; border-radius:6px; font-weight:800; font-size:0.825rem; box-shadow:0 1px 3px rgba(0,0,0,0.3);">
-            🎓 Secundaria y Otros Cuerpos
-          </span>
-        </div>
+    <!-- Barra Superior Institucional Unificada -->
+    <header class="portal-header-bar">
+      <div class="portal-brand-block">
+        <a href="index.html" class="portal-logo-link">
+          <span class="portal-logo-icon">🏛️</span>
+          <div class="portal-logo-texts">
+            <span class="portal-org-name">Generalitat Valenciana &bull; Conselleria d'Educaci&oacute;</span>
+            <span class="portal-app-title">Localizador de Interinos Secundaria</span>
+          </div>
+        </a>
+        <span class="portal-stage-badge portal-stage-secundaria">Secundaria y FP</span>
       </div>
-      <div style="display:flex; align-items:center; gap:12px; font-size:0.825rem;">
-        <span style="color:#94a3b8;">Estás en la sección de <strong>Secundaria, FP y Régimen Especial</strong></span>
+
+      <button class="portal-nav-toggle" id="portalNavToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <span class="nav-toggle-icon">☰</span>
+        <span class="nav-toggle-text">Menú</span>
+      </button>
+
+      <nav class="portal-nav-links" id="portalNavLinks" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link active">🏠 Buscador</a>
+        <a href="destinos.html" class="nav-link">🗺️ Destinos Institutos</a>
+        <a href="guia-secundaria.html" class="nav-link">📖 Guía Secundaria</a>
+        <a href="especialidades-secundaria.html" class="nav-link">📚 Especialidades</a>
+        <a href="../index.html" class="nav-link nav-link-switch" title="Cambiar al portal de Infantil y Primaria">
+          🎒 Primaria &rarr;
+        </a>
+      </nav>
+    </header>
+
+    <!-- Cabecera Principal Formal -->
+    <div class="main-header">
+      <div class="header-content">
+        <div class="header-badge" style="background:#ede9fe; color:#5b21b6;">
+          <span class="pulse-dot" style="background-color:#7c3aed;"></span>
+          <span id="headerAdjDate">Adjudicación 01/10/2026 &bull; Secundaria y Otros Cuerpos GVA</span>
+        </div>
+        <h1>Localizador de Interinos de Secundaria</h1>
+        <p class="subtitle">Consulta tu posición depurada en la bolsa de Secundaria y FP, aspirantes activos por delante, desactivados, no participantes y el número de corte oficial.</p>
       </div>
     </div>
 
-    <!-- Navegación Superior de la Sección Secundaria -->
-    <nav class="portal-nav" style="background:#ffffff; border:1px solid var(--slate-200); padding:10px 18px; margin-bottom:16px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:var(--shadow-sm);">
-      <div style="font-weight:800; font-size:1.05rem; color:#4f46e5;">
-        <a href="index.html" style="text-decoration:none; color:inherit;">🎓 Interinos Secundaria GVA</a>
-      </div>
-      <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-size:0.875rem; font-weight:600;">
-        <a href="index.html" style="color:#4f46e5; text-decoration:none;">🏠 Buscador de Bolsa</a>
-        <a href="destinos.html" style="color:#0284c7; text-decoration:none; font-weight:700;">🗺️ Destinos e Institutos</a>
-        <a href="guia-secundaria.html" style="color:var(--slate-600); text-decoration:none;">📖 Guía Secundaria</a>
-        <a href="especialidades-secundaria.html" style="color:var(--slate-600); text-decoration:none;">📚 Especialidades</a>
-        <a href="../index.html" style="color:#2563eb; text-decoration:none;">🎒 Ir a Primaria &rarr;</a>
-      </div>
-    </nav>
-
-    <!-- Header Principal -->
-    <header class="main-header">
-      <div class="header-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-          <div class="header-badge" style="margin-bottom:0; background:#ede9fe; color:#5b21b6;">
-            <span class="pulse-dot" style="background-color:#7c3aed;"></span>
-            <span id="headerAdjDate">Adjudicación 01/10/2026 &bull; Secundaria y Otros Cuerpos GVA</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
-            <a href="destinos.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#0284c7; color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(2,132,199,0.25);" title="Ver mapa de institutos y distancias">
-              <span>🗺️</span> Calculador de Destinos
-            </a>
-            <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.825rem; box-shadow:0 2px 4px rgba(220,39,67,0.2);" title="Regalos 3D y grabado láser personalizados para alumnos y profes">
-              <span>🎁</span> Wood & Print (@woodandprintpartners)
-            </a>
-            <a href="https://ko-fi.com/buscadorinterinos" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; background:#fef3c7; color:#92400e; padding:0.35rem 0.85rem; border-radius:20px; text-decoration:none; border:1px solid #fde68a; font-weight:700; font-size:0.825rem;" title="Ayuda a mantener la web activa">
-              <span>☕</span> Ayuda a mantener la web
-            </a>
-          </div>
-        </div>
-        <h1>🎯 Localizador de Interinos de Secundaria</h1>
-        <p class="subtitle">Consulta tu posición depurada en la bolsa de Secundaria y FP, aspirantes activos por delante, desactivados, no participantes y el número de corte oficial.</p>
-      </div>
-    </header>
-
     <!-- Barra de Estadísticas Globales -->
     <section class="global-stats-bar" id="globalStatsBar">
-      <div class="stat-pill">
-        <span class="pill-label">Total en Bolsa:</span>
-        <span class="pill-val" id="globTotalBolsa">42.146</span>
-      </div>
-      <div class="stat-pill">
-        <span class="pill-label">Convocados hoy:</span>
-        <span class="pill-val" id="globTotalAdj">13.373</span>
-      </div>
-      <div class="stat-pill">
-        <span class="pill-label">Plazas adjudicadas:</span>
-        <span class="pill-val highlight-green" id="globTotalPlazas">282</span>
-      </div>
-      <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes de Secundaria</button>
-      <a href="destinos.html" class="btn-sm" style="background:#0284c7; color:#ffffff; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:0.35rem; border:none;">
-        <span>🗺️</span> Ver Plazas en Mapa
-      </a>
-    </section>
-
-    <!-- Cross Promotion Card: Enlace a Destinos Secundaria -->
-    <aside style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #22c55e; border-radius: 12px; padding: 1.15rem 1.4rem; margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.25rem; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.12);">
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <div style="width: 48px; height: 48px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0;">🗺️</div>
-        <div>
-          <div style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.725rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; background: #16a34a; color: #ffffff; padding: 0.2rem 0.55rem; border-radius: 20px; margin-bottom: 0.35rem;">
-            <span>📍</span> NUEVO: MAPA DE PLAZAS DE SECUNDARIA
-          </div>
-          <div style="font-size: 1.05rem; font-weight: 800; color: #14532d; margin-bottom: 0.25rem;">
-            Calculador de Proximidad a Institutos (IES y CIPFP de la CV)
-          </div>
-          <div style="font-size: 0.85rem; color: #334155; line-height: 1.4;">
-            Consulta en un <strong>mapa interactivo</strong> las vacantes y sustituciones de Secundaria y FP, calcula los <strong>kilómetros y minutos en coche</strong> desde tu municipio y ordénalas para tu solicitud telemática.
-          </div>
+      <div class="stats-pills-group" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <div class="stat-pill">
+          <span class="pill-label">Total en Bolsa:</span>
+          <span class="pill-val" id="globTotalBolsa">42.146</span>
+        </div>
+        <div class="stat-pill">
+          <span class="pill-label">Convocados hoy:</span>
+          <span class="pill-val" id="globTotalAdj">13.373</span>
+        </div>
+        <div class="stat-pill">
+          <span class="pill-label">Plazas adjudicadas:</span>
+          <span class="pill-val highlight-green" id="globTotalPlazas">282</span>
         </div>
       </div>
-      <a href="destinos.html" style="background: #16a34a; color: #ffffff; padding: 0.75rem 1.35rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 800; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);">
-        <span>📍</span> Abrir Destinos Secundaria &rarr;
-      </a>
-    </aside>
+      <div class="stats-actions-group">
+        <button class="btn-sm btn-outline" id="btnVerResumenSpecs">📊 Ver Cortes de Secundaria</button>
+      </div>
+    </section>
 
     <!-- Espacio Publicitario Superior (Google AdSense Slot 1) -->
     <div class="ad-banner-container" id="adTopBanner">
@@ -197,12 +161,22 @@
       </div>
     </section>
 
-    <!-- Estado Inicial Vacío -->
-    <section class="empty-state-card card" id="emptyStateSection">
-      <div class="empty-icon">🎓</div>
-      <h2>Busca tu nombre o selecciona una especialidad</h2>
-      <p>Escribe tu nombre o apellidos en el buscador superior para calcular al instante tu posición depurada activa en la bolsa de Secundaria y cuántos puestos te separan de una plaza.</p>
-    </section>
+    <!-- Tarjeta Informativa: Calculador de Destinos Secundaria (Bajo el buscador) -->
+    <aside class="destinos-callout-card" id="emptyStateSection">
+      <div class="destinos-callout-main">
+        <div class="destinos-callout-icon">🗺️</div>
+        <div class="destinos-callout-info">
+          <div class="destinos-callout-badge">NUEVO: MAPA DE PLAZAS DE SECUNDARIA</div>
+          <h2 class="destinos-callout-title">Calculador de Proximidad a Institutos (IES y CIPFP de la CV)</h2>
+          <p class="destinos-callout-desc">
+            Consulta en un <strong>mapa interactivo</strong> las vacantes y sustituciones de Secundaria y FP, calcula los <strong>kilómetros y minutos en coche</strong> desde tu municipio y ordénalas para tu solicitud telemática.
+          </p>
+        </div>
+      </div>
+      <a href="destinos.html" class="btn-destinos-action">
+        <span>📍</span> Abrir Destinos Secundaria &rarr;
+      </a>
+    </aside>
 
     <!-- Sección del Aspirante Seleccionado -->
     <section class="user-summary-card card hidden" id="userSummarySection">
@@ -445,5 +419,34 @@
   </div>
 
   <script src="js/app.js"></script>
+  <script>
+    (function () {
+      var navToggle = document.getElementById("portalNavToggle");
+      var navLinks = document.getElementById("portalNavLinks");
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var isOpen = navLinks.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          navToggle.classList.toggle("active", isOpen);
+          var icon = navToggle.querySelector(".nav-toggle-icon");
+          var text = navToggle.querySelector(".nav-toggle-text");
+          if (icon) icon.textContent = isOpen ? "✕" : "☰";
+          if (text) text.textContent = isOpen ? "Cerrar" : "Menú";
+        });
+        document.addEventListener("click", function (e) {
+          if (navLinks.classList.contains("open") && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.classList.remove("active");
+            var icon = navToggle.querySelector(".nav-toggle-icon");
+            var text = navToggle.querySelector(".nav-toggle-text");
+            if (icon) icon.textContent = "☰";
+            if (text) text.textContent = "Menú";
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

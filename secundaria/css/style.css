@@ -56,6 +56,245 @@ body {
   padding: 24px 16px;
 }
 
+/* ===================================================
+   BARRA SUPERIOR INSTITUCIONAL UNIFICADA
+   =================================================== */
+.portal-header-bar {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.portal-brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.portal-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.portal-logo-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.portal-logo-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-org-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--slate-500);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.portal-app-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.01em;
+}
+
+.portal-stage-badge {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid #bfdbfe;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.portal-stage-badge.portal-stage-secundaria {
+  background: #ede9fe;
+  color: #5b21b6;
+  border-color: #ddd6fe;
+}
+
+.portal-nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: var(--slate-100);
+  border: 1px solid var(--slate-300);
+  color: var(--slate-700);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.portal-nav-toggle:hover,
+.portal-nav-toggle.active {
+  background: var(--slate-200);
+  color: var(--slate-900);
+  border-color: var(--slate-400);
+}
+
+.portal-nav-toggle .nav-toggle-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.portal-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: var(--slate-600);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-link:hover {
+  color: var(--slate-900);
+  background: var(--slate-100);
+}
+
+.nav-link.active {
+  color: var(--primary);
+  background: var(--primary-light);
+  font-weight: 700;
+}
+
+.nav-link-external {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav-link-switch {
+  background: var(--slate-100);
+  color: var(--slate-800);
+  font-weight: 700;
+  border: 1px solid var(--slate-300);
+  margin-left: 4px;
+}
+
+.nav-link-switch:hover {
+  background: var(--slate-200);
+  color: var(--slate-900);
+}
+
+/* ===================================================
+   TARJETA INFORMATIVA DESTINOS GVA (CALCULADOR)
+   =================================================== */
+.destinos-callout-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.destinos-callout-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.destinos-callout-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--slate-100);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.destinos-callout-info {
+  flex: 1;
+}
+
+.destinos-callout-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.destinos-callout-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 4px;
+}
+
+.destinos-callout-desc {
+  font-size: 0.88rem;
+  color: var(--slate-600);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.btn-destinos-action {
+  background: var(--primary);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-destinos-action:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
 /* Header */
 .main-header {
   margin-bottom: 24px;
@@ -1465,8 +1704,77 @@ input[type="text"]:focus, select:focus {
   }
 }
 
+@keyframes portalNavSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Smartphones y pantallas pequeñas (<= 768px) */
 @media (max-width: 768px) {
+  /* Menú de cabecera desplegable en móvil */
+  .portal-header-bar {
+    padding: 10px 14px;
+    align-items: center;
+  }
+
+  .portal-brand-block {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .portal-nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .portal-nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--slate-200);
+    gap: 6px;
+  }
+
+  .portal-nav-links.open {
+    display: flex;
+    animation: portalNavSlideDown 0.18s ease-out;
+  }
+
+  .portal-nav-links .nav-link {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    background: #f8fafc;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    justify-content: flex-start;
+  }
+
+  .portal-nav-links .nav-link:hover,
+  .portal-nav-links .nav-link:active {
+    background: #e2e8f0;
+  }
+
+  .portal-nav-links .nav-link.active {
+    background: var(--primary-light);
+    border-color: #bfdbfe;
+  }
+
+  .portal-nav-links .nav-link-switch {
+    background: #eef2ff !important;
+    border-color: #c7d2fe !important;
+    margin-top: 4px;
+    margin-left: 0;
+  }
+
   .main-header h1 {
     font-size: 1.7rem;
   }
