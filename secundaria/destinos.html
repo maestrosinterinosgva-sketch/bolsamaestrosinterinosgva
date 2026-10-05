@@ -79,11 +79,11 @@
 
     <!-- Subbarra de acciones y estado -->
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-      <div class="badge-official" id="navAdjudicacionDate" style="background:#e0f2fe; color:#0369a1; padding:5px 14px; border-radius:20px; font-weight:700; font-size:0.85rem;">
+      <div class="badge-official" id="navAdjudicacionDate">
         📅 Adjudicación: 01/10/2026
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <button class="btn-primary" id="btnOpenFavorites" style="background:#0284c7; color:#ffffff; border:none; padding:7px 14px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer;">
+        <button class="btn-fav-toggle" id="btnOpenFavorites">
           ⭐ Mi Selección (<span id="favCountBadge">0</span>)
         </button>
       </div>
@@ -92,75 +92,71 @@
   <!-- Main Content -->
   <main class="main-content" style="max-width:1240px; margin:0 auto; padding:16px;">
 
-    <!-- Cross Promotion Card a Bolsa Secundaria -->
-    <section class="cross-promo-card" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:14px 18px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-      <div>
-        <div style="font-size:0.75rem; font-weight:800; color:#1d4ed8; text-transform:uppercase;">📊 CONSULTA TU POSICIÓN EN LA BOLSA</div>
-        <div style="font-weight:800; font-size:1.05rem; color:#1e3a8a; margin-top:2px;">¿Quieres saber tu número depurado y cortes tras esta adjudicación?</div>
-        <div style="font-size:0.85rem; color:#475569;">Comprueba cuántas personas te faltan para conseguir plaza con el Localizador de Interinos de Secundaria.</div>
+    <!-- Aviso Informativo Bolsa Secundaria -->
+    <aside class="cross-promo-bar">
+      <div class="cross-promo-content">
+        <span class="cross-promo-badge">📊 Bolsa Activa</span>
+        <span>¿Quieres consultar tu posición depurada y cortes de la bolsa? Accede al <a href="index.html" class="cross-promo-link">Localizador de Interinos de Secundaria &rarr;</a></span>
       </div>
-      <a href="index.html" style="background:#2563eb; color:#ffffff; padding:8px 16px; border-radius:8px; text-decoration:none; font-weight:800; font-size:0.875rem;">
-        🎯 Ver Posición en Bolsa &rarr;
-      </a>
-    </section>
+    </aside>
 
     <!-- Hero Card: Origen y Distancia -->
-    <section style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:16px; box-shadow:0 2px 4px rgba(0,0,0,0.04);">
-      <h2 style="font-size:1.15rem; font-weight:800; color:#0f172a; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+    <section class="card" style="padding:18px; margin-bottom:16px;">
+      <h2 style="font-size:1.15rem; font-weight:800; color:var(--slate-900); margin-bottom:6px; display:flex; align-items:center; gap:8px;">
         <span>📍</span> ¿Dónde vives? Ordenamos las plazas por cercanía en coche a tu casa
       </h2>
-      <p style="font-size:0.875rem; color:#64748b; margin-bottom:14px;">
+      <p style="font-size:0.875rem; color:var(--slate-600); margin-bottom:14px;">
         Selecciona tu municipio de origen. Calcularemos los kilómetros reales y tiempo estimado de viaje a cada instituto (IES y CIPFP).
       </p>
 
       <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-        <input list="municipiosList" id="inputMunicipioOrigen" placeholder="Escribe tu municipio (ej: Valencia, Alicante, Elche, Gandia, Castellón...)" style="flex:1; min-width:280px; padding:10px 14px; border:2px solid #cbd5e1; border-radius:8px; font-size:0.95rem; font-weight:600;">
+        <input list="municipiosList" id="inputMunicipioOrigen" class="destinos-filter-input" placeholder="Escribe tu municipio (ej: Valencia, Alicante, Elche, Gandia, Castellón...)" style="flex:1; min-width:280px; padding:9px 12px; font-size:0.95rem; font-weight:600;">
         <datalist id="municipiosList"></datalist>
 
-        <button id="btnSetMunicipio" style="background:#0284c7; color:#ffffff; border:none; padding:10px 20px; border-radius:8px; font-weight:700; cursor:pointer;">
+        <button id="btnSetMunicipio" class="btn-calcular-destinos">
           Calcular Distancias
         </button>
-        <button id="btnClearMunicipio" style="background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1; padding:10px 14px; border-radius:8px; font-weight:600; cursor:pointer; display:none;">
+        <button id="btnClearMunicipio" class="btn-clear-destinos" style="display:none;">
           Quitar Origen
         </button>
       </div>
 
       <!-- Métricas rápidas -->
-      <div style="display:flex; gap:16px; margin-top:14px; padding-top:14px; border-top:1px solid #f1f5f9; flex-wrap:wrap; font-size:0.85rem; color:#475569;">
-        <span>Total plazas: <strong id="statTotalPlazas">632</strong></span>
+      <div style="display:flex; gap:16px; margin-top:14px; padding-top:14px; border-top:1px solid var(--slate-100); flex-wrap:wrap; font-size:0.85rem; color:var(--slate-600);">
+        <span>Total plazas: <strong id="statTotalPlazas" style="color:var(--slate-900);">632</strong></span>
         <span>•</span>
-        <span>Secundaria y FP: <strong id="statSecundariaPlazas" style="color:#0284c7;">311</strong></span>
+        <span>Secundaria y FP: <strong id="statSecundariaPlazas" style="color:var(--primary);">311</strong></span>
         <span>•</span>
-        <span>Vacantes: <strong id="statVacantes" style="color:#059669;">21</strong></span>
+        <span>Vacantes: <strong id="statVacantes" style="color:var(--success);">21</strong></span>
         <span>•</span>
-        <span id="filteredPlazasCount" style="font-weight:700; color:#0f172a;">632 plazas encontradas</span>
+        <span id="filteredPlazasCount" style="font-weight:700; color:var(--slate-900);">632 plazas encontradas</span>
       </div>
     </section>
 
     <!-- Mapa Interactivo Leaflet -->
-    <section style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:16px; box-shadow:0 2px 4px rgba(0,0,0,0.04);">
-      <div style="font-weight:800; font-size:1rem; color:#0f172a; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+    <section class="card" style="padding:14px; margin-bottom:16px;">
+      <div style="font-weight:800; font-size:1rem; color:var(--slate-900); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
         <span>🗺️ Mapa Interactivo de Centros Ofertados</span>
         <div style="font-size:0.8rem; font-weight:600; display:flex; gap:12px;">
-          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:#059669; display:inline-block;"></span> Vacante</span>
-          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:#2563eb; display:inline-block;"></span> Sustitución</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--success); display:inline-block;"></span> Vacante</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:50%; background:var(--primary); display:inline-block;"></span> Sustitución</span>
         </div>
       </div>
-      <div id="destinosMap" style="width:100%; height:400px; border-radius:8px; border:1px solid #e2e8f0;"></div>
+      <div id="destinosMap" style="width:100%; height:400px; border-radius:8px; border:1px solid var(--slate-200);"></div>
     </section>
 
     <!-- Barra de Filtros -->
-    <section style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:14px 18px; margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+    <section class="destinos-filters-bar">
       <div style="flex:1; min-width:200px;">
-        <label style="font-size:0.75rem; font-weight:700; color:#64748b; display:block; margin-bottom:4px;">Especialidad:</label>
-        <select id="filterEspecialidad" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:600;">
+        <label class="destinos-filter-label">Especialidad:</label>
+        <select id="filterEspecialidad" class="destinos-filter-select">
           <option value="">Todas las especialidades</option>
         </select>
       </div>
 
       <div style="width:170px;">
-        <label style="font-size:0.75rem; font-weight:700; color:#64748b; display:block; margin-bottom:4px;">Tipo de Plaza:</label>
-        <select id="filterTipo" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:600;">
+        <label class="destinos-filter-label">Tipo de Plaza:</label>
+        <select id="filterTipo" class="destinos-filter-select">
           <option value="">Todos los tipos</option>
           <option value="VACANTE">Solo Vacantes</option>
           <option value="SUSTITUCIÓN INDETERMINADA">Sustitución Indeterminada</option>
@@ -169,8 +165,8 @@
       </div>
 
       <div style="width:130px;">
-        <label style="font-size:0.75rem; font-weight:700; color:#64748b; display:block; margin-bottom:4px;">Provincia:</label>
-        <select id="filterProvincia" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:600;">
+        <label class="destinos-filter-label">Provincia:</label>
+        <select id="filterProvincia" class="destinos-filter-select">
           <option value="">Todas</option>
           <option value="Alacant">Alicante</option>
           <option value="Castelló">Castellón</option>
@@ -179,8 +175,8 @@
       </div>
 
       <div style="width:170px;">
-        <label style="font-size:0.75rem; font-weight:700; color:#64748b; display:block; margin-bottom:4px;">Cuerpo:</label>
-        <select id="filterCuerpo" style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem; font-weight:600;">
+        <label class="destinos-filter-label">Cuerpo:</label>
+        <select id="filterCuerpo" class="destinos-filter-select">
           <option value="">Todos los cuerpos</option>
           <option value="SECUNDARIA">Secundaria</option>
           <option value="FORMACIÓN PROFESIONAL">FP Singular</option>
@@ -190,8 +186,8 @@
       </div>
 
       <div style="flex:1; min-width:200px;">
-        <label style="font-size:0.75rem; font-weight:700; color:#64748b; display:block; margin-bottom:4px;">Buscar Centro o Municipio:</label>
-        <input type="text" id="inputSearchPlaza" placeholder="🔍 Nombre instituto, código..." style="width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+        <label class="destinos-filter-label">Buscar Centro o Municipio:</label>
+        <input type="text" id="inputSearchPlaza" class="destinos-filter-input" placeholder="🔍 Nombre instituto, código...">
       </div>
     </section>
 
@@ -215,17 +211,17 @@
     </div>
 
     <!-- Promoción Wood & Print Partners -->
-    <section class="card wood-promo-card" id="woodAndPrintPromo" style="margin-top:20px;">
+    <section class="card wood-promo-card" id="woodAndPrintPromo">
       <div class="wood-promo-header">
         <span class="wood-badge">🎁 PROYECTO COLABORADOR • HECHO A MANO</span>
-        <span style="font-size:0.8rem; font-weight:700; color:#b45309;">✨ Ideal para docentes y colegios</span>
+        <span style="font-size:0.8rem; font-weight:600; color:var(--slate-500);">✨ Ideal para docentes y centros</span>
       </div>
       <div class="wood-title">
         <span>🪵 Wood & Print Partners</span>
-        <span style="font-size:0.95rem; font-weight:600; color:#92400e;">— Detalles 3D y Grabado Láser para Alumnos</span>
+        <span style="font-size:0.95rem; font-weight:600; color:var(--slate-600);">— Detalles 3D y Grabado Láser para Alumnos</span>
       </div>
       <p class="wood-desc">
-        En <strong>Wood & Print Partners</strong> fabricamos recuerdos personalizados, marcapáginas de madera, llaveros 3D y placas personalizadas para graduaciones, eventos departamentales y proyectos de aula.
+        En <strong>Wood & Print Partners</strong> fabricamos recuerdos personalizados, marcapáginas de madera, llaveros 3D y placas conmemorativas para graduaciones, eventos departamentales y proyectos de aula.
       </p>
       <div class="wood-actions">
         <a href="https://www.instagram.com/woodandprintpartners/" target="_blank" rel="noopener noreferrer" class="btn-instagram">
