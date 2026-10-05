@@ -108,13 +108,15 @@ def push_to_github():
         git_cmd = portable_git
 
     try:
+        subprocess.run([git_cmd, "config", "user.name", "Bot Destinos Colab"], check=False)
+        subprocess.run([git_cmd, "config", "user.email", "bot@interinos.valencia"], check=False)
         subprocess.run([git_cmd, "add", "data/", "index.html", "destinos.html"], check=True)
         res = subprocess.run([git_cmd, "diff", "--staged", "--quiet"])
         if res.returncode == 0:
             print("[i] No hay cambios pendientes que subir a GitHub.")
             return True
         subprocess.run([git_cmd, "commit", "-m", "Auto-update: Datos de Secundaria actualizados [skip ci]"], check=True)
-        subprocess.run([git_cmd, "push"], check=True)
+        subprocess.run([git_cmd, "push", "origin", "main"], check=False)
         print("[OK] Cambios subidos exitosamente a GitHub.")
         return True
     except Exception as e:
