@@ -56,6 +56,7 @@ SOURCES_TO_CHECK = [
 ]
 
 LAST_PDF_FILE = "data/last_processed_pdf.txt"
+LAST_HISTORY_FILE = "data/processed_history.json"
 
 def get_last_processed_info():
     if os.path.exists(LAST_PDF_FILE):
@@ -66,18 +67,38 @@ def get_last_processed_info():
             return ""
     return ""
 
-def save_last_processed_info(info):
-    os.makedirs(os.path.dirname(LAST_PDF_FILE), exist_ok=True)
+def get_history():
+    if os.path.exists(LAST_HISTORY_FILE):
+        try:
+            with open(LAST_HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    old_info = get_last_processed_info()
+    return {"adjudicacion": old_info, "destinos": ""}
+
+def save_history(history):
+    os.makedirs(os.path.dirname(LAST_HISTORY_FILE), exist_ok=True)
+    with open(LAST_HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(history, f, indent=2)
+    # Mantener compatibilidad con archivo legado
     with open(LAST_PDF_FILE, "w", encoding="utf-8") as f:
-        f.write(info)
+        f.write(history.get("adjudicacion") or history.get("destinos") or "")
 
 def extract_date_tag(url_or_path):
     if not url_or_path:
         return "000000"
-    m = re.search(r'(\d{6})', url_or_path)
+    filename = os.path.basename(urllib.parse.urlparse(url_or_path).path)
+    m = re.search(r'(\d{6})', filename)
     if m:
         return m.group(1)
     return "000000"
+
+def get_pdf_category(url_or_path):
+    name = os.path.basename(urllib.parse.urlparse(url_or_path).path).lower()
+    if "pue_" in name or "plazas" in name or "puestos" in name:
+        return "destinos"
+    return "adjudicacion"
 
 def search_for_new_pdf():
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
@@ -125,12 +146,11 @@ def push_to_github():
 
 def check_and_update():
     print("=" * 64)
-    print(" 🤖 BOT AUTÓNOMO DE COMPROBACIÓN - SECUNDARIA GVA")
+    print(" 🤖 BOT AUTÓNOMO DE COMPROBACIÓN - SECUNDARIA Y DESTINOS GVA")
     print("=" * 64)
 
-    last_pdf = get_last_processed_info()
-    last_tag = extract_date_tag(last_pdf)
-    print(f"[*] Último archivo registrado: {last_pdf or 'Ninguno'} (Fecha: {last_tag})")
+    history = get_history()
+    print(f"[*] Registros previos -> Adjudicación: {history.get('adjudicacion') or 'Ninguno'} | Destinos: {history.get('destinos') or 'Ninguno'}")
     print("[*] Rastreando fuentes oficiales y sindicatos...")
 
     found = search_for_new_pdf()
@@ -138,39 +158,57 @@ def check_and_update():
         print("[i] No se han detectado nuevos enlaces en esta pasada.")
         return False
 
-    unique_candidates = {}
+    # Separar por categoría (adjudicacion vs destinos)
+    best_candidates = {"adjudicacion": None, "destinos": None}
+    best_tags = {"adjudicacion": "000000", "destinos": "000000"}
+
     for src_name, pdf_url in found:
-        if pdf_url not in unique_candidates:
-            unique_candidates[pdf_url] = src_name
-
-    sorted_candidates = sorted(
-        unique_candidates.items(),
-        key=lambda x: extract_date_tag(x[0]),
-        reverse=True
-    )
-
-    for pdf_url, src_name in sorted_candidates:
+        cat = get_pdf_category(pdf_url)
         cand_tag = extract_date_tag(pdf_url)
-        print(f"[*] Candidato detectado ({cand_tag}) en {src_name}: {pdf_url}")
-        if pdf_url == last_pdf:
-            print("[i] El archivo más reciente ya fue procesado. Todo al día.")
-            return False
-        if cand_tag < last_tag:
+        if cand_tag > best_tags[cat]:
+            best_tags[cat] = cand_tag
+            best_candidates[cat] = (pdf_url, src_name, cand_tag)
+
+    any_updated = False
+
+    for cat in ["destinos", "adjudicacion"]:
+        cand = best_candidates[cat]
+        if not cand:
             continue
 
-        print(f"[!] ¡NUEVO ARCHIVO DETECTADO ({cand_tag})! Descargando...")
+        pdf_url, src_name, cand_tag = cand
+        last_url = history.get(cat, "")
+        last_tag = extract_date_tag(last_url)
+
+        cat_title = "DESTINOS / PUESTOS" if cat == "destinos" else "ADJUDICACIÓN DE INTERINOS"
+        print(f"\n[*] Comprobando {cat_title}:")
+        print(f"    - Candidato detectado ({cand_tag}) en {src_name}: {pdf_url}")
+
+        if pdf_url == last_url:
+            print(f"    [i] {cat_title} ya está al día.")
+            continue
+        if cand_tag < last_tag:
+            print(f"    [i] El archivo detectado es más antiguo ({cand_tag} < {last_tag}). Omitiendo.")
+            continue
+
+        print(f"    [!] ¡NUEVO ARCHIVO DE {cat_title} DETECTADO ({cand_tag})! Descargando...")
         try:
-            local_target = f"secundaria_{cand_tag}.pdf"
+            local_target = f"secundaria_{cat}_{cand_tag}.pdf"
             download_pdf_if_url(pdf_url, local_target)
             run_actualizacion(local_target)
-            save_last_processed_info(pdf_url)
-            push_to_github()
-            return True
+            history[cat] = pdf_url
+            any_updated = True
+            print(f"    [OK] {cat_title} procesado exitosamente.")
         except Exception as e:
-            print(f"[-] Error al procesar {pdf_url}: {e}")
-            continue
+            print(f"    [-] Error al procesar {pdf_url}: {e}")
 
-    return False
+    if any_updated:
+        save_history(history)
+        push_to_github()
+        return True
+    else:
+        print("\n[i] Todos los documentos (Destinos y Adjudicaciones) están al día.")
+        return False
 
 if __name__ == "__main__":
     check_and_update()

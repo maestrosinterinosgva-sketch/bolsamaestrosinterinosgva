@@ -100,10 +100,11 @@ def search_for_new_pdf():
 def extract_date_tag(url_or_path):
     if not url_or_path:
         return "000000"
-    m = re.search(r'(\d{6})_lis_mae', url_or_path)
+    filename = os.path.basename(urllib.parse.urlparse(url_or_path).path)
+    m = re.search(r'(\d{6})_lis_mae', filename)
     if m:
         return m.group(1)
-    m2 = re.search(r'(\d{6})', url_or_path)
+    m2 = re.search(r'(\d{6})', filename)
     if m2:
         return m2.group(1)
     return "000000"
