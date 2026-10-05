@@ -2003,41 +2003,44 @@ body {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 12px;
   padding-top: 14px;
-  border-top: 1px solid rgba(245, 158, 11, 0.25);
+  border-top: 1px solid var(--slate-200);
+}
+
+[data-theme="dark"] .wood-actions {
+  border-top-color: var(--border);
 }
 
 .btn-instagram {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  background: var(--slate-900);
   color: #ffffff !important;
-  padding: 10px 22px;
-  border-radius: 30px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  font-weight: 700;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.3);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-weight: 600;
+  font-size: 0.84rem;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .btn-instagram:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(220, 39, 67, 0.4);
+  background: var(--primary);
+  transform: translateY(-1px);
 }
 
 .wood-note {
   font-size: 0.82rem;
-  color: #92400e;
+  color: #57534e;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 [data-theme="dark"] .wood-note {
-  color: #fcd34d;
+  color: var(--text-muted);
 }
 
 /* ===================================================
