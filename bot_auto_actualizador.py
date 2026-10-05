@@ -198,11 +198,17 @@ def push_to_github():
     import subprocess
     git_cmd = r"tools\git\cmd\git.exe"
     if not os.path.exists(git_cmd):
+        git_cmd = "git"
+
+    try:
         subprocess.run([git_cmd, "config", "user.name", "Bot Adjudicaciones"], check=False)
         subprocess.run([git_cmd, "config", "user.email", "bot@interinos.valencia"], check=False)
-        subprocess.run([git_cmd, "add", "index.html", "data/", "secundaria/", "sitemap.xml", "guia-adjudicaciones.html", "especialidades.html", "sobre-el-proyecto.html"], check=True)
+        subprocess.run([git_cmd, "add", "-A"], check=True)
+        res = subprocess.run([git_cmd, "diff", "--staged", "--quiet"])
+        if res.returncode == 0:
+            print("[i] No hay cambios pendientes que subir a GitHub.")
+            return True
         subprocess.run([git_cmd, "commit", "-m", "Auto-update: Actualización publicada por Conselleria GVA"], check=True)
-        subprocess.run([git_cmd, "push", "gitlab", "main"], check=False)
         subprocess.run([git_cmd, "push", "origin", "main"], check=False)
         print("[OK] ¡Cambios subidos con éxito! Estará visible online en ~30 segundos.")
         return True
