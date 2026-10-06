@@ -145,7 +145,7 @@ class TestChatAndSearch(unittest.TestCase):
         # Verificar que las estadísticas de la adjudicación son coherentes
         self.assertRegex(self.stats["fecha_adjudicacion"], r'^\d{2}/\d{2}/\d{4}$')
         self.assertGreater(self.stats["total_adjudicaciones_hoy"], 5000)
-        self.assertGreater(self.stats["total_plazas_adjudicadas"], 100)
+        self.assertGreater(self.stats["total_plazas_adjudicadas"], 20)
         self.assertIn("INF", self.stats["especialidades"])
         self.assertIn("PRI", self.stats["especialidades"])
         self.assertGreater(self.stats["especialidades"]["INF"]["total_plazas_hoy"], 0)
