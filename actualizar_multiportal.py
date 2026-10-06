@@ -35,11 +35,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def get_destinos_dir(custom_path=None):
     if custom_path and os.path.exists(custom_path):
         return os.path.abspath(custom_path)
-    # Probar ubicaciones comunes
+    # Priorizar la carpeta interna unificada 'destinos/'
     candidates = [
+        os.path.join(BASE_DIR, "destinos"),
         os.path.join(BASE_DIR, "..", "destinos"),
         os.path.join(os.getcwd(), "destinos"),
-        os.path.join(BASE_DIR, "destinos"),
     ]
     for c in candidates:
         if os.path.exists(c) and os.path.exists(os.path.join(c, "actualizar_puestos.py")):
@@ -581,11 +581,26 @@ def main():
         token = args.token or os.environ.get("GITHUB_TOKEN", "")
         msg = "Actualización automática de adjudicaciones y destinos [skip ci]"
         
-        # 1. Repositorio Bolsa (Maestros + Secundaria)
+        # 1. Repositorio Principal Monorepo (Maestros + Secundaria + Destinos)
         git_commit_and_push(BASE_DIR, msg, token)
         
-        # 2. Repositorio Destinos (si existe)
-        if destinos_dir:
+        # 2. Espejo automático hacia repositorio hermano externo ../destinos (si existe)
+        ext_destinos = os.path.abspath(os.path.join(BASE_DIR, "..", "destinos"))
+        if os.path.exists(ext_destinos) and os.path.exists(os.path.join(ext_destinos, ".git")):
+            try:
+                for f in ['index.html', 'destinos_web.zip']:
+                    s = os.path.join(BASE_DIR, 'destinos', f)
+                    d = os.path.join(ext_destinos, f)
+                    if os.path.exists(s): shutil.copy2(s, d)
+                s_data = os.path.join(BASE_DIR, 'destinos', 'data')
+                d_data = os.path.join(ext_destinos, 'data')
+                if os.path.exists(s_data) and os.path.exists(d_data):
+                    for df in os.listdir(s_data):
+                        shutil.copy2(os.path.join(s_data, df), os.path.join(d_data, df))
+                git_commit_and_push(ext_destinos, msg, token)
+            except Exception as e:
+                print(f"[-] Aviso al espejar hacia '../destinos': {e}")
+        elif destinos_dir and destinos_dir != os.path.join(BASE_DIR, "destinos"):
             git_commit_and_push(destinos_dir, msg, token)
 
     show_status(destinos_dir)
