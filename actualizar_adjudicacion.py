@@ -71,14 +71,22 @@ def update_zip_package(output_zip="interinos_web.zip"):
                 z.write(rel_path, rel_path)
     print(f"[OK] Paquete web para publicar actualizado: {output_zip} ({os.path.getsize(output_zip)/1024/1024:.2f} MB)")
 
-def main():
+def main(pdf_file=None):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(base_dir)
 
     participants_pdf = "ini_2026_par_pro_int_lis_mae.pdf"
     adjudicaciones_pdf = None
 
-    if len(sys.argv) > 1:
+    if pdf_file:
+        adjudicaciones_pdf = pdf_file.strip().strip('"').strip("'")
+        if adjudicaciones_pdf.startswith("http://") or adjudicaciones_pdf.startswith("https://"):
+            try:
+                adjudicaciones_pdf = download_pdf_if_url(adjudicaciones_pdf)
+            except Exception as e:
+                print(f"[-] Error al descargar el PDF desde la URL: {e}")
+                return
+    elif len(sys.argv) > 1:
         adjudicaciones_pdf = sys.argv[1].strip().strip('"').strip("'")
         if adjudicaciones_pdf.startswith("http://") or adjudicaciones_pdf.startswith("https://"):
             try:

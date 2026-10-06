@@ -1,4 +1,4 @@
-name: Actualización Automática Semanal de Adjudicaciones
+name: Actualización Automática Multiportal de Adjudicaciones
 
 on:
   push:
@@ -7,14 +7,13 @@ on:
       - 'adjudicacion*.pdf'
       - 'telegram_*.pdf'
   schedule:
-    # Martes y Jueves de 07:30 a 12:00 (hora peninsular española)
-    # Ejecuta cada 10 minutos durante la franja oficial de publicación
-    # (05:00 a 11:00 UTC cubre tanto horario de verano UTC+2 como de invierno UTC+1)
-    - cron: '*/10 5-11 * * 2,4'
+    # Martes y Jueves de 07:30 a 14:00 (hora peninsular española)
+    # Ejecuta cada 15 minutos durante la franja oficial de publicación
+    - cron: '*/15 6-12 * * 2,4'
   workflow_dispatch:
     inputs:
       pdf_url:
-        description: 'URL del nuevo PDF de adjudicaciones (opcional si quieres forzar uno específico)'
+        description: 'URL o nombre del nuevo PDF de adjudicaciones (opcional)'
         required: false
         default: ''
 
@@ -31,6 +30,8 @@ jobs:
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -42,19 +43,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install pymupdf
 
-      - name: Ejecutar comprobación del bot (Telegram y Fuentes)
+      - name: Ejecutar actualización multiportal (Maestros, Secundaria y Telegram)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Comprobar si el usuario envió un PDF por Telegram
-          python bot_telegram.py
-
-          # 2. Si se pasa una URL manual o se rastrean las fuentes
           if [ -n "${{ github.event.inputs.pdf_url }}" ]; then
-            python actualizar_adjudicacion.py "${{ github.event.inputs.pdf_url }}"
+            python actualizar_multiportal.py --pdf "${{ github.event.inputs.pdf_url }}" --no-push
           else
-            python bot_auto_actualizador.py
+            python actualizar_multiportal.py --no-push
           fi
 
       - name: Validar integridad de los datos calculados
@@ -65,10 +63,10 @@ jobs:
         run: |
           git config --global user.name "Bot Adjudicaciones"
           git config --global user.email "bot@interinos.valencia"
-          git add data/ index.html secundaria/ sitemap.xml guia-adjudicaciones.html especialidades.html sobre-el-proyecto.html
+          git add data/ index.html secundaria/ sitemap.xml guia-adjudicaciones.html especialidades.html sobre-el-proyecto.html interinos_web.zip
           if git diff --staged --quiet; then
             echo "No hay cambios nuevos que guardar."
           else
-            git commit -m "Actualización automática de adjudicaciones [skip ci]"
+            git commit -m "Actualización automática multiportal de adjudicaciones [skip ci]"
             git push
           fi
