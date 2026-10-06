@@ -1,127 +1,127 @@
 {
-  "fecha_adjudicacion": "01/10/2026",
+  "fecha_adjudicacion": "06/10/2026",
   "total_participantes_bolsa": 17333,
   "total_participantes_bolsa_inicial": 17333,
-  "total_adjudicaciones_hoy": 7192,
-  "total_plazas_adjudicadas": 256,
+  "total_adjudicaciones_hoy": 6959,
+  "total_plazas_adjudicadas": 96,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 4081,
+      "total_convocados_adj": 3980,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 71,
-      "total_adjudicados_general": 116,
-      "total_desactivados": 1109,
+      "total_plazas_hoy": 18,
+      "total_adjudicados_general": 38,
+      "total_desactivados": 1113,
       "total_no_participat": 5,
-      "total_activos_espera": 2851,
+      "total_activos_espera": 2824,
       "ultimo_adjudicado": {
-        "name": "ROVIRA CANDELAS, MARIA JOSE",
-        "adj_order": 3054,
-        "bolsa_num": 12565,
-        "centro": "PERLETA (LA)(03005291)CEIP MESTRE CANALETES"
+        "name": "SILVESTRE MARTINEZ, SARA",
+        "adj_order": 2768,
+        "bolsa_num": 12393,
+        "centro": "CALLOSA DE SEGURA(03003450)CEIP PRIMO DE RIVERA"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
       "total_bolsa_inicial": 10793,
-      "total_convocados_adj": 2962,
+      "total_convocados_adj": 2809,
       "total_bolsa": 10793,
-      "total_plazas_hoy": 83,
-      "total_adjudicados_general": 173,
-      "total_desactivados": 1657,
+      "total_plazas_hoy": 28,
+      "total_adjudicados_general": 72,
+      "total_desactivados": 1651,
       "total_no_participat": 9,
-      "total_activos_espera": 1123,
+      "total_activos_espera": 1077,
       "ultimo_adjudicado": {
-        "name": "LAMA VALERO, NEREA",
-        "adj_order": 6380,
-        "bolsa_num": 16329,
-        "centro": "ALACANT(03011173)CEIP RAMON LLULL"
+        "name": "RUIZ REIG, JORDI",
+        "adj_order": 4897,
+        "bolsa_num": 14854,
+        "centro": "GAVARDA(46004051)GAVARDA"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 810,
+      "total_convocados_adj": 766,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 33,
-      "total_adjudicados_general": 53,
-      "total_desactivados": 433,
+      "total_plazas_hoy": 17,
+      "total_adjudicados_general": 22,
+      "total_desactivados": 431,
       "total_no_participat": 0,
-      "total_activos_espera": 324,
+      "total_activos_espera": 313,
       "ultimo_adjudicado": {
-        "name": "CANDEL MORENO, INMACULADA",
-        "adj_order": 2835,
-        "bolsa_num": 12248,
-        "centro": "TORRENT(46022920)IES VELES E VENTS"
+        "name": "BELINCHON GIMENO, AMOS",
+        "adj_order": 2574,
+        "bolsa_num": 11983,
+        "centro": "MORELLA(12001897)CEIP MARE DE DÉU DE LA VALLIVANA"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 553,
+      "total_convocados_adj": 517,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 29,
-      "total_adjudicados_general": 38,
-      "total_desactivados": 304,
+      "total_plazas_hoy": 13,
+      "total_adjudicados_general": 19,
+      "total_desactivados": 310,
       "total_no_participat": 1,
-      "total_activos_espera": 210,
+      "total_activos_espera": 187,
       "ultimo_adjudicado": {
-        "name": "ALBERT BUENO, MIGUEL",
-        "adj_order": 4601,
-        "bolsa_num": 14272,
-        "centro": "VALÈNCIA(46016245)CEE PÚB. PROFESOR SEBASTIÁN BURGOS"
+        "name": "MARTINEZ ESPINOSA, ALBA",
+        "adj_order": 2583,
+        "bolsa_num": 11999,
+        "centro": "ELX(03004673)CEIP JAUME I"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 617,
+      "total_convocados_adj": 589,
       "total_bolsa": 2065,
-      "total_plazas_hoy": 14,
-      "total_adjudicados_general": 38,
-      "total_desactivados": 276,
+      "total_plazas_hoy": 10,
+      "total_adjudicados_general": 23,
+      "total_desactivados": 278,
       "total_no_participat": 2,
-      "total_activos_espera": 301,
+      "total_activos_espera": 286,
       "ultimo_adjudicado": {
-        "name": "DOMENECH MARIN, ABEL",
-        "adj_order": 5158,
-        "bolsa_num": 14928,
-        "centro": "POLOP(03007881)CEIP SANT ROC"
+        "name": "MARTINEZ MARTINEZ, PAULA",
+        "adj_order": 2414,
+        "bolsa_num": 11584,
+        "centro": "MISLATA(46018278)CEIP L'ALMASSIL"
       }
     },
     "MUS": {
       "name": "Música",
-      "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 266,
-      "total_bolsa": 1019,
-      "total_plazas_hoy": 8,
-      "total_adjudicados_general": 10,
-      "total_desactivados": 186,
+      "total_bolsa_inicial": 1020,
+      "total_convocados_adj": 258,
+      "total_bolsa": 1020,
+      "total_plazas_hoy": 3,
+      "total_adjudicados_general": 8,
+      "total_desactivados": 187,
       "total_no_participat": 1,
-      "total_activos_espera": 69,
+      "total_activos_espera": 62,
       "ultimo_adjudicado": {
-        "name": "RUIZ GONZALEZ, MARIA",
-        "adj_order": 2837,
-        "bolsa_num": 12252,
-        "centro": "VALÈNCIA(46012197)CEIP JAIME BALMES"
+        "name": "CLIMENT SANCHEZ, AMALIA DEL CARMEN",
+        "adj_order": 2664,
+        "bolsa_num": 12179,
+        "centro": "ELX(03004594)CEIP LEÓN FELIPE"
       }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 623,
+      "total_convocados_adj": 592,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 18,
-      "total_adjudicados_general": 35,
-      "total_desactivados": 467,
+      "total_plazas_hoy": 7,
+      "total_adjudicados_general": 15,
+      "total_desactivados": 463,
       "total_no_participat": 3,
-      "total_activos_espera": 118,
+      "total_activos_espera": 111,
       "ultimo_adjudicado": {
-        "name": "CASCALES BERNABEU, ARANTXA",
-        "adj_order": 5149,
-        "bolsa_num": 14918,
-        "centro": "ONIL(03006840)CEIP SANT JAUME"
+        "name": "COGOLLOS TORRES, EVA MARIA",
+        "adj_order": 2653,
+        "bolsa_num": 12129,
+        "centro": "MONTSERRAT(46005703)CEIP EVARISTO CALATAYUD"
       }
     },
     "FRA": {
@@ -130,10 +130,10 @@
       "total_convocados_adj": 27,
       "total_bolsa": 95,
       "total_plazas_hoy": 0,
-      "total_adjudicados_general": 0,
-      "total_desactivados": 22,
+      "total_adjudicados_general": 3,
+      "total_desactivados": 21,
       "total_no_participat": 1,
-      "total_activos_espera": 4,
+      "total_activos_espera": 2,
       "ultimo_adjudicado": null
     }
   }
