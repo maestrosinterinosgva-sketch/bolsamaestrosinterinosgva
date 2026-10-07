@@ -70,19 +70,21 @@ def run_actualizacion(pdf_arg=None):
     local_path = download_pdf_if_url(pdf_arg)
     tipo = detect_pdf_type(local_path)
 
+    sec_dir = os.path.dirname(os.path.abspath(__file__))
+
     if tipo == "adjudicacion":
         print(f"[*] Tipo detectado: LISTADO DE ADJUDICACIÓN DE INTERINOS ({local_path})")
-        ini_file = "ini_2026_par_def_int_lis_sec.pdf"
+        ini_file = os.path.join(sec_dir, "ini_2026_par_def_int_lis_sec.pdf")
         if not os.path.exists(ini_file):
             print(f"[-] Falta el archivo base {ini_file}. Descargándolo de respaldo...")
             url_ini = "https://intersindical.org/stepv/docs/ini_2026_par_def_int_lis_sec.pdf"
             download_pdf_if_url(url_ini, ini_file)
-        stats = parse_bolsa(ini_file, local_path)
+        stats = parse_bolsa(ini_file, local_path, sec_dir)
         print("[OK] Bolsa de Secundaria actualizada exitosamente.")
         return stats
     else:
         print(f"[*] Tipo detectado: LISTADO DE PUESTOS OFERTADOS ({local_path})")
-        plazas, stats = parse_puestos_pdf(local_path, ".")
+        plazas, stats = parse_puestos_pdf(local_path, sec_dir)
         print("[OK] Puestos y Destinos de Secundaria actualizados exitosamente.")
         return stats
 
