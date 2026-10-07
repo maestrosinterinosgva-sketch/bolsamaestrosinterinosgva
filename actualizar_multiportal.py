@@ -234,13 +234,18 @@ def process_pdf_file(pdf_path, destinos_dir=None):
         # 2. Actualizar Primaria Destinos (en repositorio destinosinterinosgva)
         if destinos_dir and os.path.exists(destinos_dir):
             print(f"[+] Actualizando Destinos de Maestros Primaria en '{destinos_dir}'...")
-            sys.path.insert(0, destinos_dir)
-            from actualizar_puestos import main as run_dest_puestos
-            run_dest_puestos(pdf_path)
-            updated_destinos = True
+            old_cwd = os.getcwd()
+            try:
+                sys.path.insert(0, destinos_dir)
+                from actualizar_puestos import main as run_dest_puestos
+                run_dest_puestos(pdf_path)
+                updated_destinos = True
+            finally:
+                os.chdir(old_cwd)
         else:
             print("[!] Aviso: Carpeta 'destinos' no encontrada. Se ha actualizado Secundaria Destinos, pero no Primaria Destinos.")
 
+    os.chdir(BASE_DIR)
     sync_html_fallbacks(destinos_dir)
     return {
         "maestros": updated_maestros,
@@ -561,6 +566,9 @@ def main():
         tg_res = process_telegram_updates(destinos_dir)
         auto_res = run_auto_crawler(destinos_dir)
         had_changes = tg_res or any(auto_res.values())
+
+    # Asegurar que el directorio de trabajo es el directorio base
+    os.chdir(BASE_DIR)
 
     # Validar pruebas unitarias si estamos en bolsa
     print("\n[*] Ejecutando pruebas unitarias de validación...")

@@ -10,3 +10,5 @@ data/telegram_last_offset.txt
 **/telegram_last_offset.txt
 2*.pdf
 data/pdf_acreditaciones/
+*_descargado*.pdf
+*_descargados*.pdf
