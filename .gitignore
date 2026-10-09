@@ -1,14 +1,14 @@
-tools/
+﻿tools/
 __pycache__/
 *.pyc
-adjudicacion_descargada_auto.pdf
 *.tmp
-telegram_*.pdf
 data/telegram_config.json
 data/telegram_last_offset.txt
 **/telegram_config.json
 **/telegram_last_offset.txt
-2*.pdf
 data/pdf_acreditaciones/
-*_descargado*.pdf
-*_descargados*.pdf
+
+# Ignorar todos los PDFs excepto las plantillas base iniciales de referencia
+*.pdf
+!ini_2026_par_pro_int_lis_mae.pdf
+!secundaria/ini_2026_par_def_int_lis_sec.pdf
