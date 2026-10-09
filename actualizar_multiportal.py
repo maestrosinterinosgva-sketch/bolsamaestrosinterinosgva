@@ -532,6 +532,7 @@ def show_status(destinos_dir=None):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Actualizador Multiportal GVA (Bolsa y Destinos)")
+    parser.add_argument("pdf_positional", nargs="?", default="", help="Ruta o URL del PDF (opcional)")
     parser.add_argument("--auto", action="store_true", help="Rastrear automáticamente las fuentes de Conselleria")
     parser.add_argument("--pdf", type=str, default="", help="Ruta o URL del PDF a procesar")
     parser.add_argument("--telegram", action="store_true", help="Comprobar y procesar PDFs recibidos en Telegram")
@@ -548,9 +549,10 @@ def main():
         return
 
     had_changes = False
+    target_pdf = args.pdf or args.pdf_positional
 
-    if args.pdf:
-        process_pdf_file(args.pdf, destinos_dir)
+    if target_pdf:
+        process_pdf_file(target_pdf, destinos_dir)
         had_changes = True
 
     elif args.telegram:
