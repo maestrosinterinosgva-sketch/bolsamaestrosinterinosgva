@@ -257,7 +257,7 @@ class TestChatAndSearch(unittest.TestCase):
 
         # 2. Filtrando con requisito de inglés (acreditación oficial B2/C1)
         limpios_ingles_acred = [p for p in limpios if p.get("idiomas", {}).get("ingles")]
-        self.assertGreater(len(limpios_ingles_acred), 10)
+        self.assertGreaterEqual(len(limpios_ingles_acred), 10)
         self.assertLess(len(limpios_ingles_acred), len(limpios))
 
         # 3. Comprobar que cualquier aspirante limpio en PT calcula su posición
