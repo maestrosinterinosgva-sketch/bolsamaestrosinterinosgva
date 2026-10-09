@@ -78,8 +78,8 @@ def run_actualizacion(pdf_arg=None):
         if not os.path.exists(ini_file):
             print(f"[-] Falta el archivo base {ini_file}. Descargándolo de respaldo...")
             url_ini = "https://intersindical.org/stepv/docs/ini_2026_par_def_int_lis_sec.pdf"
-            download_pdf_if_url(url_ini, ini_file)
-        stats = parse_bolsa(ini_file, local_path, sec_dir)
+        data_dir = os.path.join(sec_dir, "data")
+        stats = parse_bolsa(ini_file, local_path, data_dir)
         print("[OK] Bolsa de Secundaria actualizada exitosamente.")
         return stats
     else:
