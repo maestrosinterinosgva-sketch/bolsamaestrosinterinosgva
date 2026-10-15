@@ -1,127 +1,127 @@
 {
-  "fecha_adjudicacion": "08/10/2026",
-  "total_participantes_bolsa": 17332,
-  "total_participantes_bolsa_inicial": 17332,
-  "total_adjudicaciones_hoy": 6881,
-  "total_plazas_adjudicadas": 122,
+  "fecha_adjudicacion": "15/10/2026",
+  "total_participantes_bolsa": 17333,
+  "total_participantes_bolsa_inicial": 17333,
+  "total_adjudicaciones_hoy": 6820,
+  "total_plazas_adjudicadas": 222,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 3945,
+      "total_convocados_adj": 3928,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 17,
-      "total_adjudicados_general": 38,
-      "total_desactivados": 1068,
+      "total_plazas_hoy": 60,
+      "total_adjudicados_general": 96,
+      "total_desactivados": 1041,
       "total_no_participat": 5,
-      "total_activos_espera": 2834,
+      "total_activos_espera": 2786,
       "ultimo_adjudicado": {
-        "name": "NACHER SEGURA, PAULA",
-        "adj_order": 2821,
-        "bolsa_num": 12566,
-        "centro": "TORREVIEJA(03013923)CEIP ROMUALDO BALLESTER"
+        "name": "LOPEZ GARCIA, MARTA",
+        "adj_order": 2768,
+        "bolsa_num": 12568,
+        "centro": "SENIJA(03008514)CEIP L'ERA"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
       "total_bolsa_inicial": 10793,
-      "total_convocados_adj": 2756,
+      "total_convocados_adj": 2695,
       "total_bolsa": 10793,
-      "total_plazas_hoy": 47,
-      "total_adjudicados_general": 98,
-      "total_desactivados": 1595,
+      "total_plazas_hoy": 61,
+      "total_adjudicados_general": 147,
+      "total_desactivados": 1564,
       "total_no_participat": 9,
-      "total_activos_espera": 1054,
+      "total_activos_espera": 975,
       "ultimo_adjudicado": {
-        "name": "GARCIA GARCIA, PRISCILA",
-        "adj_order": 5764,
-        "bolsa_num": 15977,
-        "centro": "MANISES(46005119)CEIP FÉLIX RODRÍGUEZ DE LA FUENTE"
+        "name": "TORRALBA GARAY, RAQUEL",
+        "adj_order": 5933,
+        "bolsa_num": 16237,
+        "centro": "BENIDORM(03012256)CEIP SERRA GELADA"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 750,
+      "total_convocados_adj": 734,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 24,
-      "total_adjudicados_general": 30,
-      "total_desactivados": 410,
+      "total_plazas_hoy": 40,
+      "total_adjudicados_general": 58,
+      "total_desactivados": 400,
       "total_no_participat": 0,
-      "total_activos_espera": 310,
+      "total_activos_espera": 276,
       "ultimo_adjudicado": {
-        "name": "BARRERA BABILONI, ADRIAN",
-        "adj_order": 2584,
-        "bolsa_num": 12118,
-        "centro": "ALBOCÀSSER(12006305)SECCIÓ DE L'IES LA VALL D'ALBA A ALBOCÀSSER"
+        "name": "VERCHER MARTINEZ, PAU",
+        "adj_order": 2582,
+        "bolsa_num": 12272,
+        "centro": "LLÍBER(03006359)CEIP SANTS COSME I DAMIÀ"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 501,
+      "total_convocados_adj": 488,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 11,
-      "total_adjudicados_general": 20,
-      "total_desactivados": 291,
+      "total_plazas_hoy": 18,
+      "total_adjudicados_general": 27,
+      "total_desactivados": 283,
       "total_no_participat": 1,
-      "total_activos_espera": 189,
+      "total_activos_espera": 177,
       "ultimo_adjudicado": {
-        "name": "TORMO ESPI, DAVID",
-        "adj_order": 2577,
-        "bolsa_num": 12104,
-        "centro": "ELX(03020927)CEIP LES ARRELS"
+        "name": "MEDRANO GONZALEZ, ADRIAN",
+        "adj_order": 2438,
+        "bolsa_num": 11923,
+        "centro": "QUATRETONDA(46003317)CEIP RAFAEL ALTAMIRA"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 572,
+      "total_convocados_adj": 558,
       "total_bolsa": 2065,
-      "total_plazas_hoy": 16,
-      "total_adjudicados_general": 24,
-      "total_desactivados": 272,
+      "total_plazas_hoy": 22,
+      "total_adjudicados_general": 43,
+      "total_desactivados": 264,
       "total_no_participat": 2,
-      "total_activos_espera": 274,
+      "total_activos_espera": 249,
       "ultimo_adjudicado": {
-        "name": "FUENTES ALARCON, JOSE MANUEL",
-        "adj_order": 2473,
-        "bolsa_num": 11902,
-        "centro": "FONTANARS DELS ALFORINS(46003962)CEIP COMTE DE SALVATIERRA DE ALAVA"
+        "name": "BARBERA TORRAS, ANGEL",
+        "adj_order": 3185,
+        "bolsa_num": 13024,
+        "centro": "TERESA DE COFRENTES(46008376)SAN FERNANDO"
       }
     },
     "MUS": {
       "name": "Música",
       "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 255,
+      "total_convocados_adj": 253,
       "total_bolsa": 1019,
-      "total_plazas_hoy": 3,
-      "total_adjudicados_general": 6,
-      "total_desactivados": 176,
+      "total_plazas_hoy": 12,
+      "total_adjudicados_general": 19,
+      "total_desactivados": 174,
       "total_no_participat": 1,
-      "total_activos_espera": 72,
+      "total_activos_espera": 59,
       "ultimo_adjudicado": {
-        "name": "ALIS ALCAÑIZ, DAVID",
-        "adj_order": 2559,
-        "bolsa_num": 12072,
-        "centro": "XIRIVELLA(46003640)CEIP RAMÓN Y CAJAL"
+        "name": "NAVARRO SIRERA, GEMMA",
+        "adj_order": 2573,
+        "bolsa_num": 12246,
+        "centro": "ASPE(03011999)CEIP LA SERRANICA"
       }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 580,
+      "total_convocados_adj": 577,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 4,
-      "total_adjudicados_general": 15,
-      "total_desactivados": 448,
-      "total_no_participat": 3,
-      "total_activos_espera": 114,
+      "total_plazas_hoy": 9,
+      "total_adjudicados_general": 25,
+      "total_desactivados": 438,
+      "total_no_participat": 2,
+      "total_activos_espera": 112,
       "ultimo_adjudicado": {
-        "name": "CAMPELLO BAEZA, SILVIA",
-        "adj_order": 2617,
-        "bolsa_num": 12212,
-        "centro": "ALACANT(03009971)CEIP MORA PUCHOL"
+        "name": "ATIENZAR ARRONIS, CRISTINA LUCIA",
+        "adj_order": 4114,
+        "bolsa_num": 14065,
+        "centro": "ORXETA(03006876)CEIP VICENTE LINO FERRANDIZ"
       }
     },
     "FRA": {
