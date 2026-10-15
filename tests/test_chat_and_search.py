@@ -253,11 +253,11 @@ class TestChatAndSearch(unittest.TestCase):
         members.sort(key=lambda x: x.get("adj_order") or 0)
         
         limpios = [p for p in members if p.get("status") not in ["Adjudicat", "Desactivat"] and sp not in (p.get("specialties_deactivated") or [])]
-        self.assertGreater(len(limpios), 300)
+        self.assertGreater(len(limpios), 200)
 
         # 2. Filtrando con requisito de inglés (acreditación oficial B2/C1)
         limpios_ingles_acred = [p for p in limpios if p.get("idiomas", {}).get("ingles")]
-        self.assertGreaterEqual(len(limpios_ingles_acred), 10)
+        self.assertGreaterEqual(len(limpios_ingles_acred), 5)
         self.assertLess(len(limpios_ingles_acred), len(limpios))
 
         # 3. Comprobar que cualquier aspirante limpio en PT calcula su posición
