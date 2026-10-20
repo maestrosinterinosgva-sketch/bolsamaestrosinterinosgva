@@ -1154,7 +1154,7 @@
     "provincia": "València",
     "localidad": "BURJASSOT",
     "codigo_centro": "46016518",
-    "nombre_centro": "CEIP FERNANDO DE LOS RÍOS 875870 NO Centre singular VACANTE",
+    "nombre_centro": "CEIP FERNANDO DE LOS RÍOS 820723 NO Centre singular VACANTE",
     "jornada": {
       "tipo": "CONTINUA",
       "descripcion": "Jornada Continua (9:00 a 14:00)",
@@ -1190,7 +1190,7 @@
     "provincia": "València",
     "localidad": "BURJASSOT",
     "codigo_centro": "46016518",
-    "nombre_centro": "CEIP FERNANDO DE LOS RÍOS 820723 NO Centre singular VACANTE",
+    "nombre_centro": "CEIP FERNANDO DE LOS RÍOS 875870 NO Centre singular VACANTE",
     "jornada": {
       "tipo": "CONTINUA",
       "descripcion": "Jornada Continua (9:00 a 14:00)",
@@ -3201,7 +3201,7 @@
     "provincia": "València",
     "localidad": "SAGUNT",
     "codigo_centro": "46007761",
-    "nombre_centro": "CEE PÚB. ALBANTA SAGUNT 910596 NO Centre singular. Lloc difícil provisió SUSTITUCIÓN INDETERMINADA",
+    "nombre_centro": "CEE PÚB. ALBANTA SAGUNT 501176 NO Centre singular. Lloc difícil provisió SUSTITUCIÓN INDETERMINADA",
     "jornada": {
       "tipo": "PARTIDA",
       "descripcion": "Jornada Partida (9:00 a 17:00)",
@@ -3234,7 +3234,7 @@
     "provincia": "València",
     "localidad": "SAGUNT",
     "codigo_centro": "46007761",
-    "nombre_centro": "CEE PÚB. ALBANTA SAGUNT 501176 NO Centre singular. Lloc difícil provisió SUSTITUCIÓN INDETERMINADA",
+    "nombre_centro": "CEE PÚB. ALBANTA SAGUNT 910596 NO Centre singular. Lloc difícil provisió SUSTITUCIÓN INDETERMINADA",
     "jornada": {
       "tipo": "PARTIDA",
       "descripcion": "Jornada Partida (9:00 a 17:00)",
@@ -4103,7 +4103,7 @@
     "provincia": "Alacant",
     "localidad": "BENIDORM",
     "codigo_centro": "03012256",
-    "nombre_centro": "CEIP SERRA GELADA 924122 11,5 NO PCT Lectora SUSTITUCIÓN INDETERMINADA",
+    "nombre_centro": "CEIP SERRA GELADA 874559 7,5 NO AT. DOMICILIARIA SUSTITUCIÓN INDETERMINADA",
     "jornada": {
       "tipo": "CONTINUA",
       "descripcion": "Jornada Continua (9:00 a 14:00)",
@@ -4139,7 +4139,7 @@
     "provincia": "Alacant",
     "localidad": "BENIDORM",
     "codigo_centro": "03012256",
-    "nombre_centro": "CEIP SERRA GELADA 874559 7,5 NO AT. DOMICILIARIA SUSTITUCIÓN INDETERMINADA",
+    "nombre_centro": "CEIP SERRA GELADA 924122 11,5 NO PCT Lectora SUSTITUCIÓN INDETERMINADA",
     "jornada": {
       "tipo": "CONTINUA",
       "descripcion": "Jornada Continua (9:00 a 14:00)",
@@ -10822,72 +10822,6 @@
     "especialidad_completa": "265 - ORGANIZACIÓN Y GESTIÓN COMERCIAL",
     "codigo_especialidad": "265",
     "especialidad": "ORGANIZACIÓN Y GESTIÓN COMERCIAL",
-    "provincia": "Alacant",
-    "localidad": "ALACANT",
-    "codigo_centro": "03015038",
-    "nombre_centro": "IES RADIO EXTERIOR 921569 ING-B2. NO SUSTITUCIÓN INDETERMINADA",
-    "jornada": {
-      "tipo": "SECUNDARIA",
-      "descripcion": "Horario IES / Secundaria",
-      "corta": "Horario IES",
-      "raw": []
-    },
-    "jornada_desc": "Jornada Partida (9:00 a 17:00)",
-    "jornada_corta": "Partida 9h-17h",
-    "direccion": "CARRER DEPORTISTA JOSÉ BAÑÓN S/N",
-    "cp": "03540",
-    "comarca": "L'ALACANTÍ",
-    "lat": 38.36481,
-    "lng": -0.421407,
-    "lloc": "",
-    "horas": "COMPLETA",
-    "horas_num": 18.0,
-    "es_completa": true,
-    "req_ling": "",
-    "itinerante": "NO",
-    "observaciones": "",
-    "tipo": "",
-    "centros_compartidos": []
-  },
-  {
-    "numero": 315,
-    "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
-    "especialidad_completa": "265 - ORGANIZACIÓN Y GESTIÓN COMERCIAL",
-    "codigo_especialidad": "265",
-    "especialidad": "ORGANIZACIÓN Y GESTIÓN COMERCIAL",
-    "provincia": "Castelló",
-    "localidad": "ONDA",
-    "codigo_centro": "12005593",
-    "nombre_centro": "IES SERRA D'ESPADÀ 205724 NO SUSTITUCIÓN INDETERMINADA",
-    "jornada": {
-      "tipo": "SECUNDARIA",
-      "descripcion": "Horario IES / Secundaria",
-      "corta": "Horario IES",
-      "raw": []
-    },
-    "jornada_desc": "Jornada Partida (9:00 a 17:00)",
-    "jornada_corta": "Partida 9h-17h",
-    "direccion": "CARRER PADRE ANSELMO COYNE 30",
-    "cp": "12200",
-    "comarca": "LA PLANA BAIXA",
-    "lat": 39.962411,
-    "lng": -0.273966,
-    "lloc": "",
-    "horas": "COMPLETA",
-    "horas_num": 18.0,
-    "es_completa": true,
-    "req_ling": "",
-    "itinerante": "NO",
-    "observaciones": "",
-    "tipo": "",
-    "centros_compartidos": []
-  },
-  {
-    "numero": 316,
-    "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
-    "especialidad_completa": "265 - ORGANIZACIÓN Y GESTIÓN COMERCIAL",
-    "codigo_especialidad": "265",
-    "especialidad": "ORGANIZACIÓN Y GESTIÓN COMERCIAL",
     "provincia": "València",
     "localidad": "GANDIA",
     "codigo_centro": "46015587",
@@ -10916,7 +10850,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 317,
+    "numero": 315,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "271 - PROCESOS SANITARIOS",
     "codigo_especialidad": "271",
@@ -10949,7 +10883,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 318,
+    "numero": 316,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "274 - SISTEMAS ELECTROTÉCNICOS Y AUTOMÁTICOS",
     "codigo_especialidad": "274",
@@ -10982,7 +10916,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 319,
+    "numero": 317,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "276 - ÁMBITO CIÉNTIFICO",
     "codigo_especialidad": "276",
@@ -11015,7 +10949,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 320,
+    "numero": 318,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "277 - ÁMBITO SOCIOLINGÜÍSTICO",
     "codigo_especialidad": "277",
@@ -11048,7 +10982,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 321,
+    "numero": 319,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "297 - FPA COMUNICACIÓN (VALENCIANO)",
     "codigo_especialidad": "297",
@@ -11081,7 +11015,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 322,
+    "numero": 320,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "297 - FPA COMUNICACIÓN (VALENCIANO)",
     "codigo_especialidad": "297",
@@ -11133,7 +11067,7 @@
     ]
   },
   {
-    "numero": 323,
+    "numero": 321,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6B8 - OBOE",
     "codigo_especialidad": "6B8",
@@ -11166,7 +11100,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 324,
+    "numero": 322,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6C2 - PIANO",
     "codigo_especialidad": "6C2",
@@ -11199,7 +11133,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 325,
+    "numero": 323,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6D4 - DANZA CLÁSICA",
     "codigo_especialidad": "6D4",
@@ -11232,7 +11166,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 326,
+    "numero": 324,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6D4 - DANZA CLÁSICA",
     "codigo_especialidad": "6D4",
@@ -11265,40 +11199,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 327,
-    "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
-    "especialidad_completa": "7B1 - DISEÑO GRÁFICO",
-    "codigo_especialidad": "7B1",
-    "especialidad": "DISEÑO GRÁFICO",
-    "provincia": "València",
-    "localidad": "VALÈNCIA",
-    "codigo_centro": "46013232",
-    "nombre_centro": "ESCOLA D'ART I SUPERIOR DE DISSENY DE VALEN798509 NO SUSTITUCIÓN INDETERMINADA",
-    "jornada": {
-      "tipo": "OTROS",
-      "descripcion": "Jornada Ordinaria",
-      "corta": "Ordinaria",
-      "raw": []
-    },
-    "jornada_desc": "Jornada Partida (9:00 a 17:00)",
-    "jornada_corta": "Partida 9h-17h",
-    "direccion": "CARRER PINTOR DOMINGO 20",
-    "cp": "46001",
-    "comarca": "VALENCIA",
-    "lat": 39.474705,
-    "lng": -0.382789,
-    "lloc": "",
-    "horas": "COMPLETA",
-    "horas_num": 23.0,
-    "es_completa": true,
-    "req_ling": "",
-    "itinerante": "NO",
-    "observaciones": "",
-    "tipo": "",
-    "centros_compartidos": []
-  },
-  {
-    "numero": 328,
+    "numero": 325,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7B4 - FOTOGRAFÍA",
     "codigo_especialidad": "7B4",
@@ -11331,7 +11232,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 329,
+    "numero": 326,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7C0 - MEDIOS AUDIOVISUALES",
     "codigo_especialidad": "7C0",
@@ -11364,7 +11265,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 330,
+    "numero": 327,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7C1 - MEDIOS INFORMÁTICOS",
     "codigo_especialidad": "7C1",
@@ -11397,7 +11298,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 331,
+    "numero": 328,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7C2 - ORGANIZACIÓN INDUSTRIAL Y LEGISLACIÓN",
     "codigo_especialidad": "7C2",
@@ -11430,7 +11331,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 332,
+    "numero": 329,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7C2 - ORGANIZACIÓN INDUSTRIAL Y LEGISLACIÓN",
     "codigo_especialidad": "7C2",
@@ -11463,7 +11364,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 333,
+    "numero": 330,
     "cuerpo": "PROFESORES DE ESCUELA OFICIAL DE IDIOMAS",
     "especialidad_completa": "411 - INGLÉS",
     "codigo_especialidad": "411",
@@ -11496,7 +11397,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 334,
+    "numero": 331,
     "cuerpo": "PROFESORES DE ESCUELA OFICIAL DE IDIOMAS",
     "especialidad_completa": "411 - INGLÉS",
     "codigo_especialidad": "411",
