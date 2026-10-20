@@ -444,8 +444,72 @@ def build_combined_dataset(participants, adjudicaciones, fecha_adj="03/09/2026",
     with open(os.path.join(output_dir, "stats_summary.js"), "w", encoding="utf-8") as f:
         f.write("window.STATS_SUMMARY = " + json.dumps(stats_dict, ensure_ascii=False) + ";\n")
 
+    update_historico_cortes(stats_dict, output_dir=output_dir)
+
     print(f"[OK] Archivos generados con éxito en '{output_dir}'.")
     return participants, stats_dict
+
+def update_historico_cortes(stats_dict, output_dir="data"):
+    """
+    Registra automáticamente la adjudicación en el histórico acumulativo de cortes
+    para que la gráfica de evolución temporal siempre esté al día.
+    """
+    historico_json = os.path.join(output_dir, "historico_cortes.json")
+    historico_js = os.path.join(output_dir, "historico_cortes.js")
+    history = []
+    if os.path.exists(historico_json):
+        try:
+            with open(historico_json, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except Exception:
+            history = []
+
+    fecha = stats_dict.get("fecha_adjudicacion")
+    if not fecha:
+        return
+
+    esp_map = {}
+    for esp_code, esp_data in (stats_dict.get("especialidades") or {}).items():
+        ultimo = esp_data.get("ultimo_adjudicado")
+        esp_map[esp_code] = {
+            "plazas": esp_data.get("total_plazas_hoy", 0),
+            "corte_num": ultimo.get("bolsa_num") if ultimo else None,
+            "corte_nombre": ultimo.get("name") if ultimo else None,
+            "activos_espera": esp_data.get("total_activos_espera", 0),
+            "convocados": esp_data.get("total_convocados_adj", 0)
+        }
+
+    new_entry = {
+        "fecha": fecha,
+        "total_plazas": stats_dict.get("total_plazas_adjudicadas", 0),
+        "total_convocados": stats_dict.get("total_adjudicaciones_hoy", 0),
+        "especialidades": esp_map
+    }
+
+    found = False
+    for idx, item in enumerate(history):
+        if item.get("fecha") == fecha:
+            history[idx] = new_entry
+            found = True
+            break
+    if not found:
+        history.append(new_entry)
+
+    def parse_d(f):
+        try:
+            p = f.split("/")
+            return (int(p[2]), int(p[1]), int(p[0]))
+        except Exception:
+            return (0, 0, 0)
+
+    history.sort(key=lambda x: parse_d(x.get("fecha", "")))
+
+    with open(historico_json, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+
+    with open(historico_js, "w", encoding="utf-8") as f:
+        f.write("window.HISTORICO_CORTES = " + json.dumps(history, ensure_ascii=False, indent=2) + ";\n")
+    print(f"[OK] Histórico de cortes actualizado: {len(history)} fechas en '{historico_json}'.")
 
 if __name__ == "__main__":
     p = parse_participants()

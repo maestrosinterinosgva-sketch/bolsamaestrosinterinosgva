@@ -411,6 +411,7 @@ def build_combined_database(specialties_meta, participants_by_spec, fecha_adj, a
     with open(os.path.join(output_dir, "interinos_data.js"), "w", encoding="utf-8") as f:
         f.write("window.INTERINOS_DATA = " + json.dumps(combined_participants, ensure_ascii=False) + ";\n")
         
+    update_historico_cortes(stats_data, output_dir=output_dir)
     print("[OK] Generación de base de datos de Secundaria completada con éxito.")
     return stats_data
 
@@ -426,3 +427,66 @@ if __name__ == "__main__":
     ini_file = sys.argv[1] if len(sys.argv) > 1 else "ini_2026_par_def_int_lis_sec.pdf"
     adj_file = sys.argv[2] if len(sys.argv) > 2 else "261001_lis_sec.pdf"
     main(ini_file, adj_file)
+
+
+def update_historico_cortes(stats_dict, output_dir="data"):
+    historico_json = os.path.join(output_dir, "historico_cortes.json")
+    historico_js = os.path.join(output_dir, "historico_cortes.js")
+    history = []
+    if os.path.exists(historico_json):
+        try:
+            with open(historico_json, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except Exception:
+            history = []
+
+    fecha = stats_dict.get("fecha_adjudicacion")
+    if not fecha:
+        return
+
+    esp_map = {}
+    for esp_code, esp_data in (stats_dict.get("especialidades") or {}).items():
+        ultimo = esp_data.get("ultimo_adjudicado")
+        corte = None
+        if ultimo and ultimo.get("bolsa_num"):
+            corte = ultimo.get("bolsa_num")
+        elif esp_data.get("corte_bolsa_num"):
+            corte = esp_data.get("corte_bolsa_num")
+        esp_map[esp_code] = {
+            "plazas": esp_data.get("total_plazas_hoy", 0),
+            "corte_num": corte,
+            "corte_nombre": ultimo.get("name") if ultimo else None,
+            "activos_espera": esp_data.get("total_activos_espera", 0),
+            "convocados": esp_data.get("total_convocados_adj", 0)
+        }
+
+    new_entry = {
+        "fecha": fecha,
+        "total_plazas": stats_dict.get("total_plazas_adjudicadas", 0),
+        "total_convocados": stats_dict.get("total_adjudicaciones_hoy", 0),
+        "especialidades": esp_map
+    }
+
+    found = False
+    for idx, item in enumerate(history):
+        if item.get("fecha") == fecha:
+            history[idx] = new_entry
+            found = True
+            break
+    if not found:
+        history.append(new_entry)
+
+    def parse_d(f):
+        try:
+            p = f.split("/")
+            return (int(p[2]), int(p[1]), int(p[0]))
+        except Exception:
+            return (0, 0, 0)
+
+    history.sort(key=lambda x: parse_d(x.get("fecha", "")))
+
+    with open(historico_json, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+
+    with open(historico_js, "w", encoding="utf-8") as f:
+        f.write("window.HISTORICO_CORTES = " + json.dumps(history, ensure_ascii=False, indent=2) + ";\n")

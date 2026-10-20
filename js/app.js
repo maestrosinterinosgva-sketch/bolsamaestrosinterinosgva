@@ -1099,6 +1099,7 @@ function renderUserData() {
 }
 
 function renderCutoffInfo(specStats, user) {
+  renderUserEvolution(currentSpecialty, user);
   const specName = SPECIALTY_NAMES[currentSpecialty] || currentSpecialty;
   safeSetText("cutoffSpecName", specName);
 
@@ -1373,3 +1374,414 @@ function openSummaryModal() {
 
   modal.classList.remove("hidden");
 }
+
+
+// ============================================================================
+// Evolución Temporal y Gráfica Histórica de Cortes
+// ============================================================================
+let currentEvoView = 'chart';
+window.currentEvoSeries = [];
+
+function switchEvoView(view) {
+  currentEvoView = view;
+  const btnChart = document.getElementById("btnEvoChart");
+  const btnTable = document.getElementById("btnEvoTable");
+  const chartContainer = document.getElementById("evoChartContainer");
+  const tableContainer = document.getElementById("evoTableContainer");
+
+  if (view === 'chart') {
+    if (btnChart) btnChart.classList.add("active");
+    if (btnTable) btnTable.classList.remove("active");
+    if (chartContainer) chartContainer.classList.remove("hidden");
+    if (tableContainer) tableContainer.classList.add("hidden");
+  } else {
+    if (btnChart) btnChart.classList.remove("active");
+    if (btnTable) btnTable.classList.add("active");
+    if (chartContainer) chartContainer.classList.add("hidden");
+    if (tableContainer) tableContainer.classList.remove("hidden");
+  }
+}
+window.switchEvoView = switchEvoView;
+
+function renderUserEvolution(specCode, user) {
+  const card = document.getElementById("evolutionCard");
+  if (!card) return;
+
+  const historico = window.HISTORICO_CORTES || [];
+  if (!historico || historico.length === 0) {
+    card.style.display = "none";
+    return;
+  }
+  card.style.display = "block";
+
+  const specName = SPECIALTY_NAMES[specCode] || specCode;
+  safeSetText("evoSpecName", specName);
+
+  // 1. Extraer serie temporal para la especialidad ordenada cronológicamente
+  const series = [];
+  historico.forEach(h => {
+    const sp = h.especialidades ? h.especialidades[specCode] : null;
+    series.push({
+      fecha: h.fecha,
+      plazas: sp ? (sp.plazas || 0) : 0,
+      corte_num: sp && sp.corte_num ? sp.corte_num : null,
+      corte_nombre: sp ? sp.corte_nombre : null,
+      activos_espera: sp ? sp.activos_espera : 0,
+      convocados: sp ? sp.convocados : 0
+    });
+  });
+
+  window.currentEvoSeries = series;
+
+  // Puntos con corte numérico válido
+  const validPoints = series.filter(p => p.corte_num !== null && p.corte_num > 0);
+  if (validPoints.length === 0) {
+    safeSetHTML("evoSvgWrap", `<p class="empty-state" style="padding:24px;text-align:center;color:var(--slate-500)">No hay adjudicaciones con plazas registradas en ${specName}.</p>`);
+    safeSetText("evoKpiDistance", "-");
+    safeSetText("evoKpiSpeed", "-");
+    safeSetText("evoKpiMax", "-");
+    safeSetText("evoKpiEstimate", "-");
+    return;
+  }
+
+  const latestPoint = validPoints[validPoints.length - 1];
+  const latestCut = latestPoint.corte_num;
+  const cutsOnly = validPoints.map(p => p.corte_num);
+  const maxCut = Math.max(...cutsOnly);
+  const maxCutPoint = validPoints.find(p => p.corte_num === maxCut);
+
+  // Plazas acumuladas y velocidad media
+  const totalPlazas = series.reduce((sum, p) => sum + (p.plazas || 0), 0);
+  const avgPlazas = Math.round(totalPlazas / Math.max(1, series.length));
+
+  const userBolsa = user?.bolsa_num || null;
+
+  // Actualizar KPIs de progresión
+  if (user && user.status === "Adjudicat") {
+    safeSetHTML("evoKpiDistance", `<span style="color:var(--success)">🎉 Adjudicado/a</span>`);
+    safeSetText("evoKpiDistanceDesc", "Plaza asignada en esta especialidad");
+    safeSetHTML("evoKpiEstimate", `<span style="color:var(--success)">¡En activo!</span>`);
+    safeSetText("evoKpiEstimateDesc", "Destino asignado oficialmente");
+  } else if (userBolsa && latestCut) {
+    const diff = userBolsa - latestCut;
+    if (diff <= 0) {
+      safeSetHTML("evoKpiDistance", `<span style="color:var(--success)">En rango (${diff.toLocaleString()})</span>`);
+      safeSetText("evoKpiDistanceDesc", `Tu puesto #${userBolsa.toLocaleString()} está por delante del corte (#${latestCut.toLocaleString()})`);
+      safeSetHTML("evoKpiEstimate", `<span style="color:var(--success)">Inminente</span>`);
+      safeSetText("evoKpiEstimateDesc", "Dentro del rango de corte de plazas");
+    } else {
+      safeSetText("evoKpiDistance", `+${diff.toLocaleString()} puestos`);
+      safeSetText("evoKpiDistanceDesc", `Hasta el corte actual (#${latestCut.toLocaleString()})`);
+      if (avgPlazas > 0) {
+        const estAdjs = Math.ceil(diff / avgPlazas);
+        const estWeeks = (estAdjs / 2).toFixed(1);
+        safeSetText("evoKpiEstimate", `~${estAdjs} adjudicaciones`);
+        safeSetText("evoKpiEstimateDesc", `Aprox. ${estWeeks} semanas (~${avgPlazas} plazas/adj)`);
+      } else {
+        safeSetText("evoKpiEstimate", "Variable");
+        safeSetText("evoKpiEstimateDesc", "A la espera de nuevas plazas");
+      }
+    }
+  } else {
+    safeSetText("evoKpiDistance", `#${latestCut.toLocaleString()}`);
+    safeSetText("evoKpiDistanceDesc", "Corte oficial de la última adjudicación");
+    safeSetText("evoKpiEstimate", `${totalPlazas.toLocaleString()} plazas`);
+    safeSetText("evoKpiEstimateDesc", "Total adjudicadas en esta especialidad");
+  }
+
+  safeSetText("evoKpiSpeed", `~${avgPlazas} plazas / adj.`);
+  safeSetText("evoKpiSpeedDesc", `Total acumulado: ${totalPlazas} plazas`);
+
+  safeSetText("evoKpiMax", `#${maxCut.toLocaleString()}`);
+  safeSetText("evoKpiMaxDate", maxCutPoint ? `Alcanzado el ${maxCutPoint.fecha}` : "Curso 2026/27");
+
+  // Leyenda de usuario
+  const legendUser = document.getElementById("evoLegendUser");
+  const legendUserPos = document.getElementById("evoLegendUserPos");
+  if (userBolsa) {
+    if (legendUser) legendUser.style.display = "inline-flex";
+    if (legendUserPos) legendUserPos.textContent = `#${userBolsa.toLocaleString()}`;
+  } else {
+    if (legendUser) legendUser.style.display = "none";
+  }
+
+  // 2. Renderizar Gráfica SVG
+  renderEvoSvgChart(series, userBolsa);
+
+  // 3. Renderizar Tabla Histórica
+  renderEvoTable(series, userBolsa);
+}
+window.renderUserEvolution = renderUserEvolution;
+
+function renderEvoSvgChart(series, userBolsa) {
+  const wrap = document.getElementById("evoSvgWrap");
+  if (!wrap) return;
+
+  const valid = series.filter(s => s.corte_num !== null && s.corte_num > 0);
+  if (valid.length === 0) {
+    wrap.innerHTML = '<p class="empty-state">Sin datos de corte suficientes.</p>';
+    return;
+  }
+
+  const svgW = 680;
+  const svgH = 220;
+  const padLeft = 65;
+  const padRight = 35;
+  const padTop = 25;
+  const padBottom = 35;
+  const plotW = svgW - padLeft - padRight;
+  const plotH = svgH - padTop - padBottom;
+
+  // Determinar rango de valores Y
+  const cuts = valid.map(s => s.corte_num);
+  let allVals = [...cuts];
+  if (userBolsa && userBolsa > 0 && userBolsa <= 35000) {
+    allVals.push(userBolsa);
+  }
+
+  let minRaw = Math.min(...allVals);
+  let maxRaw = Math.max(...allVals);
+  if (minRaw === maxRaw) {
+    minRaw -= 500;
+    maxRaw += 500;
+  }
+
+  // Redondear a intervalos limpios (paso de 500 o 1000)
+  const range = maxRaw - minRaw;
+  const step = range > 6000 ? 2000 : (range > 2500 ? 1000 : 500);
+  const minY = Math.max(0, Math.floor((minRaw - step * 0.3) / step) * step);
+  const maxY = Math.ceil((maxRaw + step * 0.4) / step) * step;
+
+  function getY(val) {
+    if (maxY === minY) return padTop + plotH / 2;
+    return padTop + plotH - ((val - minY) / (maxY - minY)) * plotH;
+  }
+
+  function getX(idx) {
+    if (series.length <= 1) return padLeft + plotW / 2;
+    return padLeft + (idx / (series.length - 1)) * plotW;
+  }
+
+  // 1. Líneas de cuadrícula horizontales
+  const numGridLines = Math.min(5, Math.floor((maxY - minY) / step));
+  let gridLinesSvg = "";
+  for (let i = 0; i <= numGridLines; i++) {
+    const val = minY + i * step;
+    if (val > maxY) break;
+    const y = getY(val);
+    gridLinesSvg += `
+      <line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+      <text x="${padLeft - 8}" y="${y + 3.5}" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">#${val.toLocaleString()}</text>
+    `;
+  }
+
+  // 2. Coordenadas de los puntos de corte
+  const points = [];
+  let lastKnownY = null;
+  series.forEach((s, idx) => {
+    const x = getX(idx);
+    if (s.corte_num !== null) {
+      const y = getY(s.corte_num);
+      lastKnownY = y;
+      points.push({ x, y, data: s, origIdx: idx });
+    } else if (lastKnownY !== null) {
+      // Si en esta fecha no hubo plazas, mantener el último corte conocido para la línea
+      points.push({ x, y: lastKnownY, data: s, origIdx: idx, isInterpolated: true });
+    }
+  });
+
+  // Polilínea de corte
+  const polyPointsStr = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+
+  // Área con gradiente debajo de la línea
+  let areaSvg = "";
+  if (points.length > 1) {
+    const firstX = points[0].x.toFixed(1);
+    const lastX = points[points.length - 1].x.toFixed(1);
+    const bottomY = (padTop + plotH).toFixed(1);
+    const areaPointsStr = `${firstX},${bottomY} ${polyPointsStr} ${lastX},${bottomY}`;
+    areaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoGradient)" />`;
+  }
+
+  // 3. Línea del usuario si tiene número de bolsa
+  let userLineSvg = "";
+  if (userBolsa && userBolsa > 0) {
+    const uY = getY(userBolsa);
+    const isInsidePlot = uY >= padTop && uY <= padTop + plotH;
+    const lineY = isInsidePlot ? uY : (uY < padTop ? padTop : padTop + plotH);
+    const isAboveMax = uY < padTop;
+    const isBelowMin = uY > padTop + plotH;
+
+    const labelText = isAboveMax 
+      ? `Tu Bolsa: #${userBolsa.toLocaleString()} (por encima)` 
+      : (isBelowMin ? `Tu Bolsa: #${userBolsa.toLocaleString()} (en rango prioritario)` : `Tu Bolsa: #${userBolsa.toLocaleString()}`);
+
+    const badgeW = 124;
+    const badgeX = padLeft + plotW - badgeW;
+
+    userLineSvg = `
+      <g class="evo-user-reference">
+        <line x1="${padLeft}" y1="${lineY}" x2="${padLeft + plotW}" y2="${lineY}" stroke="#d97706" stroke-width="2.2" stroke-dasharray="6,4" />
+        <rect x="${badgeX}" y="${lineY - 18}" width="${badgeW}" height="18" rx="4" fill="#d97706" />
+        <text x="${badgeX + badgeW / 2}" y="${lineY - 5}" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">${labelText}</text>
+      </g>
+    `;
+  }
+
+  // 4. Eje X con fechas
+  let xAxisSvg = "";
+  series.forEach((s, idx) => {
+    const x = getX(idx);
+    const shortDate = s.fecha.slice(0, 5); // "DD/MM"
+    xAxisSvg += `
+      <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
+      <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="10" font-weight="500" text-anchor="middle">${shortDate}</text>
+    `;
+  });
+
+  // 5. Puntos interactivos (círculos)
+  let dotsSvg = "";
+  points.forEach((p, pIdx) => {
+    const s = p.data;
+    if (s.corte_num === null) return;
+
+    const isReached = userBolsa && s.corte_num >= userBolsa;
+    const dotFill = isReached ? "#10b981" : "#ffffff";
+    const dotStroke = isReached ? "#059669" : "#2563eb";
+
+    dotsSvg += `
+      <g class="evo-point-group" data-idx="${p.origIdx}">
+        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${dotFill}" stroke="${dotStroke}" stroke-width="2.5" />
+        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="16" fill="transparent" style="cursor:pointer"
+          onmouseenter="window.showEvoTooltip(event, ${p.origIdx})"
+          onmousemove="window.moveEvoTooltip(event)"
+          onmouseleave="window.hideEvoTooltip()" />
+      </g>
+    `;
+  });
+
+  // Ensamblar SVG completo
+  wrap.innerHTML = `
+    <svg class="evo-svg" viewBox="0 0 ${svgW} ${svgH}" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="evoGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.32" />
+          <stop offset="85%" stop-color="#3b82f6" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+
+      <!-- Cuadrícula -->
+      ${gridLinesSvg}
+
+      <!-- Eje X -->
+      ${xAxisSvg}
+
+      <!-- Área y Curva de Corte -->
+      ${areaSvg}
+      <polyline points="${polyPointsStr}" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+
+      <!-- Línea de usuario -->
+      ${userLineSvg}
+
+      <!-- Puntos interactivos -->
+      ${dotsSvg}
+    </svg>
+    
+  `;
+}
+
+function renderEvoTable(series, userBolsa) {
+  const tbody = document.getElementById("evoTableBody");
+  if (!tbody) return;
+
+  // Orden cronológico inverso (el más reciente arriba)
+  const rev = [...series].reverse();
+
+  tbody.innerHTML = rev.map(s => {
+    const hasCut = s.corte_num !== null && s.corte_num > 0;
+    const corteBadge = hasCut 
+      ? `<strong class="tag tag-blue">#${s.corte_num.toLocaleString()}</strong>` 
+      : `<span style="color:var(--slate-400)">Sin plazas hoy</span>`;
+    
+    let distBadge = "-";
+    let statusText = "Convocatoria ordinaria";
+
+    if (userBolsa && hasCut) {
+      const diff = userBolsa - s.corte_num;
+      if (diff <= 0) {
+        distBadge = `<span class="tag tag-status status-adjudicat">En rango (${diff.toLocaleString()})</span>`;
+        statusText = "Dentro del rango de corte";
+      } else {
+        distBadge = `<span class="tag" style="background:#eff6ff;color:#1e40af;font-weight:600">+${diff.toLocaleString()} puestos</span>`;
+        statusText = "Por detrás del corte";
+      }
+    }
+
+    const docName = s.corte_nombre ? s.corte_nombre : (hasCut ? "Adjudicado" : "Sin adjudicaciones");
+
+    return `
+      <tr>
+        <td><strong>${s.fecha}</strong></td>
+        <td><span class="tag" style="background:#f1f5f9;color:#334155;font-weight:600">${s.plazas} ${s.plazas === 1 ? 'plaza' : 'plazas'}</span></td>
+        <td>${corteBadge}</td>
+        <td>${docName}</td>
+        <td>${distBadge}</td>
+        <td><span style="font-size:0.8rem;color:var(--slate-600)">${statusText}</span></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+// Tooltips interactivos de la gráfica
+function showEvoTooltip(evt, idx) {
+  const tooltip = document.getElementById("evoTooltip");
+  if (!tooltip) return;
+
+  const series = window.currentEvoSeries || [];
+  const s = series[idx];
+  if (!s) return;
+
+  const userBolsa = currentUser?.bolsa_num || null;
+  let distHtml = "";
+  if (userBolsa && s.corte_num) {
+    const diff = userBolsa - s.corte_num;
+    if (diff <= 0) {
+      distHtml = `<div style="color:#34d399;font-weight:700;margin-top:4px">✓ En rango (${diff.toLocaleString()} puestos)</div>`;
+    } else {
+      distHtml = `<div style="color:#93c5fd;font-weight:600;margin-top:4px">A +${diff.toLocaleString()} puestos de tu número</div>`;
+    }
+  }
+
+  tooltip.innerHTML = `
+    <div style="font-weight:700;margin-bottom:2px">📅 Adjudicación ${s.fecha}</div>
+    <div>Corte de bolsa: <strong>${s.corte_num ? '#' + s.corte_num.toLocaleString() : 'Sin plazas'}</strong></div>
+    ${s.corte_nombre ? `<div style="font-size:0.75rem;color:#cbd5e1">${s.corte_nombre}</div>` : ''}
+    <div style="font-size:0.75rem;color:#94a3b8">Plazas asignadas hoy: <strong>${s.plazas}</strong></div>
+    ${distHtml}
+  `;
+
+  tooltip.classList.remove("hidden");
+  moveEvoTooltip(evt);
+}
+window.showEvoTooltip = showEvoTooltip;
+
+function moveEvoTooltip(evt) {
+  const tooltip = document.getElementById("evoTooltip");
+  const wrap = document.getElementById("evoSvgWrap");
+  if (!tooltip || !wrap) return;
+
+  const rect = wrap.getBoundingClientRect();
+  const x = evt.clientX - rect.left;
+  const y = evt.clientY - rect.top;
+
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
+}
+window.moveEvoTooltip = moveEvoTooltip;
+
+function hideEvoTooltip() {
+  const tooltip = document.getElementById("evoTooltip");
+  if (tooltip) tooltip.classList.add("hidden");
+}
+window.hideEvoTooltip = hideEvoTooltip;

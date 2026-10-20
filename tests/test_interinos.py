@@ -253,5 +253,52 @@ class TestInterinosDataAndMetrics(unittest.TestCase):
             self.assertIn("safeSetText", zip_js)
             self.assertIn("tableSpecName", zip_js)
 
+
+    def test_12_historico_cortes_and_evolution_chart(self):
+        """Verificar la integridad del histórico de cortes y del componente de evolución gráfica"""
+        import zipfile
+        hist_json_path = os.path.join("data", "historico_cortes.json")
+        hist_js_path = os.path.join("data", "historico_cortes.js")
+
+        self.assertTrue(os.path.exists(hist_json_path), "Falta data/historico_cortes.json")
+        self.assertTrue(os.path.exists(hist_js_path), "Falta data/historico_cortes.js")
+
+        with open(hist_json_path, "r", encoding="utf-8") as f:
+            historico = json.load(f)
+
+        self.assertIsInstance(historico, list)
+        self.assertGreaterEqual(len(historico), 10, "El histórico debe contener al menos 10 fechas")
+
+        for item in historico:
+            self.assertIn("fecha", item)
+            self.assertIn("total_plazas", item)
+            self.assertIn("especialidades", item)
+            # Cada fecha debe tener especialidades registradas
+            self.assertIn("PRI", item["especialidades"])
+            self.assertIn("INF", item["especialidades"])
+
+        with open("index.html", encoding="utf-8") as f:
+            html = f.read()
+
+        self.assertIn('id="evolutionCard"', html)
+        self.assertIn('id="btnEvoChart"', html)
+        self.assertIn('id="btnEvoTable"', html)
+        self.assertIn('id="evoSvgWrap"', html)
+        self.assertIn('id="evoTooltip"', html)
+        self.assertIn('data/historico_cortes.js', html)
+
+        with open("js/app.js", encoding="utf-8") as f:
+            js = f.read()
+
+        self.assertIn("renderUserEvolution", js)
+        self.assertIn("renderEvoSvgChart", js)
+        self.assertIn("renderEvoTable", js)
+        self.assertIn("switchEvoView", js)
+
+        with zipfile.ZipFile("interinos_web.zip", "r") as z:
+            names = z.namelist()
+            self.assertIn("data/historico_cortes.js", names)
+            self.assertIn("data/historico_cortes.json", names)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

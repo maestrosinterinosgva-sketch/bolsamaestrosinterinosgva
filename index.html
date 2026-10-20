@@ -479,6 +479,82 @@
         </div>
       </div>
 
+      <!-- User Evolution & Historical Cuts Card -->
+      <div class="evolution-card card" id="evolutionCard">
+        <div class="evolution-header">
+          <div class="evolution-title-wrap">
+            <div class="evolution-title">
+              <span class="icon">📈</span>
+              <h3>Evolución de Cortes y tu Posición en <span id="evoSpecName">-</span></h3>
+            </div>
+            <p class="evolution-subtitle">Progresión temporal de adjudicaciones y distancia histórica a tu número de bolsa a lo largo del curso</p>
+          </div>
+          <div class="evolution-controls">
+            <div class="evolution-view-switcher">
+              <button type="button" class="evo-btn active" id="btnEvoChart" onclick="switchEvoView('chart')">📊 Gráfica</button>
+              <button type="button" class="evo-btn" id="btnEvoTable" onclick="switchEvoView('table')">📋 Histórico</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Mini-Cards -->
+        <div class="evo-kpi-grid">
+          <div class="evo-kpi">
+            <span class="evo-kpi-label">Distancia al corte actual</span>
+            <span class="evo-kpi-val" id="evoKpiDistance">-</span>
+            <span class="evo-kpi-desc" id="evoKpiDistanceDesc">Respecto a la última adjudicación</span>
+          </div>
+          <div class="evo-kpi">
+            <span class="evo-kpi-label">Avance medio por adjudicación</span>
+            <span class="evo-kpi-val" id="evoKpiSpeed">-</span>
+            <span class="evo-kpi-desc" id="evoKpiSpeedDesc">Ritmo en esta especialidad</span>
+          </div>
+          <div class="evo-kpi">
+            <span class="evo-kpi-label">Corte máximo del curso</span>
+            <span class="evo-kpi-val" id="evoKpiMax">-</span>
+            <span class="evo-kpi-desc" id="evoKpiMaxDate">En lo que va de curso</span>
+          </div>
+          <div class="evo-kpi">
+            <span class="evo-kpi-label">Estimación orientativa</span>
+            <span class="evo-kpi-val" id="evoKpiEstimate">-</span>
+            <span class="evo-kpi-desc" id="evoKpiEstimateDesc">Proyección aproximada</span>
+          </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="evo-chart-container" id="evoChartContainer">
+          <div id="evoTooltip" class="evo-tooltip hidden"></div>
+          <div class="evo-svg-wrap" id="evoSvgWrap">
+            <!-- Dynamic responsive SVG Chart injected here -->
+          </div>
+          <div class="evo-legend">
+            <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> Línea de Corte (Nº Bolsa del último adjudicado)</span>
+            <span class="evo-legend-item" id="evoLegendUser"><span class="evo-dot dot-user"></span> Tu posición de bolsa (<strong id="evoLegendUserPos">-</strong>)</span>
+          </div>
+        </div>
+
+        <!-- Table Container (hidden by default) -->
+        <div class="evo-table-container hidden" id="evoTableContainer">
+          <div class="table-responsive">
+            <table class="data-table evo-data-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Plazas</th>
+                  <th>Corte (Nº Bolsa)</th>
+                  <th>Último Adjudicado</th>
+                  <th>Tu Distancia al Corte</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="evoTableBody">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <!-- Distribution Visual Bar -->
       <div class="distribution-card card">
         <div class="dist-header">
@@ -901,9 +977,10 @@
   </div>
 
   <script src="data/network_info.js?v=9"></script>
-  <script src="data/stats_summary.js?v=9"></script>
-  <script src="data/interinos_data.js?v=9"></script>
-  <script src="js/app.js?v=10"></script>
+  <script src="data/stats_summary.js?v=10"></script>
+  <script src="data/historico_cortes.js?v=1"></script>
+  <script src="data/interinos_data.js?v=10"></script>
+  <script src="js/app.js?v=11"></script>
   <script src="js/chat-analytics.js?v=11"></script>
   <script>
     (function () {

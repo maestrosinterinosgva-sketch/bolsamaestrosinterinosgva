@@ -1,0 +1,758 @@
+window.HISTORICO_CORTES = [
+  {
+    "fecha": "08/09/2026",
+    "total_plazas": 1704,
+    "total_convocados": 10483,
+    "especialidades": {
+      "INF": {
+        "plazas": 421,
+        "corte_num": 12471,
+        "corte_nombre": "ZURIAGA DEL PINO, PATRICIA",
+        "activos_espera": 3510,
+        "convocados": 5337
+      },
+      "PRI": {
+        "plazas": 563,
+        "corte_num": 16934,
+        "corte_nombre": "PEDROS RIBERA, PASQUAL",
+        "activos_espera": 2211,
+        "convocados": 5286
+      },
+      "PT": {
+        "plazas": 358,
+        "corte_num": 14879,
+        "corte_nombre": "AGUT PACHES, ALBA",
+        "activos_espera": 740,
+        "convocados": 1703
+      },
+      "AL": {
+        "plazas": 118,
+        "corte_num": 16718,
+        "corte_nombre": "GARRIDO RUANO, MARIA",
+        "activos_espera": 471,
+        "convocados": 1017
+      },
+      "EF": {
+        "plazas": 61,
+        "corte_num": 14791,
+        "corte_nombre": "LOZANO TOMAS, RAUL",
+        "activos_espera": 522,
+        "convocados": 1032
+      },
+      "MUS": {
+        "plazas": 39,
+        "corte_num": 14043,
+        "corte_nombre": "GUIGO ARCE, MERITXELL",
+        "activos_espera": 163,
+        "convocados": 442
+      },
+      "ING": {
+        "plazas": 144,
+        "corte_num": 15774,
+        "corte_nombre": "PEREZ SILES, CARMEN",
+        "activos_espera": 346,
+        "convocados": 1154
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 11,
+        "convocados": 39
+      }
+    }
+  },
+  {
+    "fecha": "10/09/2026",
+    "total_plazas": 451,
+    "total_convocados": 8753,
+    "especialidades": {
+      "INF": {
+        "plazas": 120,
+        "corte_num": 12473,
+        "corte_nombre": "ELICHE LOPEZ DE LA ISIDRA, ALBA",
+        "activos_espera": 3306,
+        "convocados": 4679
+      },
+      "PRI": {
+        "plazas": 137,
+        "corte_num": 14847,
+        "corte_nombre": "RAMON NAVARRO, ALEIX",
+        "activos_espera": 1865,
+        "convocados": 4042
+      },
+      "PT": {
+        "plazas": 75,
+        "corte_num": 15552,
+        "corte_nombre": "SEBASTIA BURGOS, LAURA",
+        "activos_espera": 614,
+        "convocados": 1231
+      },
+      "AL": {
+        "plazas": 40,
+        "corte_num": 14603,
+        "corte_nombre": "JOVER ROIG, CLARA",
+        "activos_espera": 382,
+        "convocados": 800
+      },
+      "EF": {
+        "plazas": 19,
+        "corte_num": 15316,
+        "corte_nombre": "PEREZ GONZALEZ, DANIEL",
+        "activos_espera": 455,
+        "convocados": 828
+      },
+      "MUS": {
+        "plazas": 15,
+        "corte_num": 12255,
+        "corte_nombre": "NICOLAS RUMBAU, FERNANDO",
+        "activos_espera": 133,
+        "convocados": 357
+      },
+      "ING": {
+        "plazas": 45,
+        "corte_num": 12253,
+        "corte_nombre": "MOLLEDO GOMEZ, IRUNE",
+        "activos_espera": 270,
+        "convocados": 875
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 6,
+        "convocados": 33
+      }
+    }
+  },
+  {
+    "fecha": "15/09/2026",
+    "total_plazas": 309,
+    "total_convocados": 8270,
+    "especialidades": {
+      "INF": {
+        "plazas": 92,
+        "corte_num": 12503,
+        "corte_nombre": "ANTON MARTINEZ, MIRIAM",
+        "activos_espera": 3122,
+        "convocados": 4486
+      },
+      "PRI": {
+        "plazas": 100,
+        "corte_num": 16179,
+        "corte_nombre": "BORDES SENDRA, ANA",
+        "activos_espera": 1603,
+        "convocados": 3715
+      },
+      "PT": {
+        "plazas": 53,
+        "corte_num": 12184,
+        "corte_nombre": "BALLESTER ROGER, IVAN",
+        "activos_espera": 508,
+        "convocados": 1107
+      },
+      "AL": {
+        "plazas": 18,
+        "corte_num": 12220,
+        "corte_nombre": "GRANELL BARBERA, JOSE",
+        "activos_espera": 325,
+        "convocados": 728
+      },
+      "EF": {
+        "plazas": 16,
+        "corte_num": 11838,
+        "corte_nombre": "CARBONELL ORTS, LUIS FEDERICO",
+        "activos_espera": 418,
+        "convocados": 765
+      },
+      "MUS": {
+        "plazas": 8,
+        "corte_num": 12174,
+        "corte_nombre": "LORENTE MARTINEZ, ELENA",
+        "activos_espera": 121,
+        "convocados": 330
+      },
+      "ING": {
+        "plazas": 22,
+        "corte_num": 12232,
+        "corte_nombre": "PEÑARROCHA LAFUENTE, ANA",
+        "activos_espera": 224,
+        "convocados": 799
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 5,
+        "convocados": 28
+      }
+    }
+  },
+  {
+    "fecha": "17/09/2026",
+    "total_plazas": 253,
+    "total_convocados": 7959,
+    "especialidades": {
+      "INF": {
+        "plazas": 55,
+        "corte_num": 12502,
+        "corte_nombre": "MARTINEZ RUEDA, ASUNCION",
+        "activos_espera": 3086,
+        "convocados": 4360
+      },
+      "PRI": {
+        "plazas": 80,
+        "corte_num": 14750,
+        "corte_nombre": "AURA SUCH, BORJA ORESTES",
+        "activos_espera": 1509,
+        "convocados": 3506
+      },
+      "PT": {
+        "plazas": 43,
+        "corte_num": 12277,
+        "corte_nombre": "BARRACHINA RODRIGUEZ, ESTER",
+        "activos_espera": 463,
+        "convocados": 1023
+      },
+      "AL": {
+        "plazas": 32,
+        "corte_num": 12834,
+        "corte_nombre": "ANTON FRANCO, MELODY",
+        "activos_espera": 302,
+        "convocados": 681
+      },
+      "EF": {
+        "plazas": 6,
+        "corte_num": 13465,
+        "corte_nombre": "ALMARCHA OSUNA, TAMARA",
+        "activos_espera": 386,
+        "convocados": 729
+      },
+      "MUS": {
+        "plazas": 8,
+        "corte_num": 14924,
+        "corte_nombre": "DE ANTONIO LOPEZ, CARMEN",
+        "activos_espera": 107,
+        "convocados": 317
+      },
+      "ING": {
+        "plazas": 29,
+        "corte_num": 14157,
+        "corte_nombre": "RAVENTOS MERCADE, MIRYAM",
+        "activos_espera": 201,
+        "convocados": 756
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 4,
+        "convocados": 28
+      }
+    }
+  },
+  {
+    "fecha": "22/09/2026",
+    "total_plazas": 239,
+    "total_convocados": 7700,
+    "especialidades": {
+      "INF": {
+        "plazas": 54,
+        "corte_num": 12510,
+        "corte_nombre": "COLLADO VILLAR, SONIA",
+        "activos_espera": 3048,
+        "convocados": 4266
+      },
+      "PRI": {
+        "plazas": 80,
+        "corte_num": 14369,
+        "corte_nombre": "MORGADO RIBES, GERARD",
+        "activos_espera": 1465,
+        "convocados": 3326
+      },
+      "PT": {
+        "plazas": 37,
+        "corte_num": 12268,
+        "corte_nombre": "HERNANDEZ RIZO, PABLO",
+        "activos_espera": 444,
+        "convocados": 949
+      },
+      "AL": {
+        "plazas": 22,
+        "corte_num": 12126,
+        "corte_nombre": "VICENTE MULERO, JUAN CARLOS",
+        "activos_espera": 283,
+        "convocados": 630
+      },
+      "EF": {
+        "plazas": 10,
+        "corte_num": 10923,
+        "corte_nombre": "MAS MARQUEZ, JAVIER",
+        "activos_espera": 373,
+        "convocados": 690
+      },
+      "MUS": {
+        "plazas": 15,
+        "corte_num": 12246,
+        "corte_nombre": "NAVARRO SIRERA, GEMMA",
+        "activos_espera": 96,
+        "convocados": 300
+      },
+      "ING": {
+        "plazas": 21,
+        "corte_num": 12231,
+        "corte_nombre": "MONFORTE CASTRO, ELISA",
+        "activos_espera": 177,
+        "convocados": 705
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 4,
+        "convocados": 27
+      }
+    }
+  },
+  {
+    "fecha": "24/09/2026",
+    "total_plazas": 160,
+    "total_convocados": 7463,
+    "especialidades": {
+      "INF": {
+        "plazas": 49,
+        "corte_num": 12518,
+        "corte_nombre": "LOPEZ MOLINA, AINOHA",
+        "activos_espera": 2968,
+        "convocados": 4181
+      },
+      "PRI": {
+        "plazas": 39,
+        "corte_num": 16337,
+        "corte_nombre": "MALEK VIGIL, LEILA",
+        "activos_espera": 1332,
+        "convocados": 3159
+      },
+      "PT": {
+        "plazas": 29,
+        "corte_num": 14401,
+        "corte_nombre": "LOPEZ GIMENEZ, JUAN CARLOS",
+        "activos_espera": 408,
+        "convocados": 886
+      },
+      "AL": {
+        "plazas": 24,
+        "corte_num": 12110,
+        "corte_nombre": "ORTS FERNANDEZ, IRIS",
+        "activos_espera": 255,
+        "convocados": 595
+      },
+      "EF": {
+        "plazas": 10,
+        "corte_num": 15476,
+        "corte_nombre": "MACIAN PEREZ, JAVIER",
+        "activos_espera": 349,
+        "convocados": 659
+      },
+      "MUS": {
+        "plazas": 2,
+        "corte_num": 9836,
+        "corte_nombre": "GARRIGUES CHORRO, MIREIA",
+        "activos_espera": 84,
+        "convocados": 280
+      },
+      "ING": {
+        "plazas": 7,
+        "corte_num": 12030,
+        "corte_nombre": "BOU JUAN, LORENA",
+        "activos_espera": 158,
+        "convocados": 665
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 5,
+        "convocados": 27
+      }
+    }
+  },
+  {
+    "fecha": "29/09/2026",
+    "total_plazas": 140,
+    "total_convocados": 7319,
+    "especialidades": {
+      "INF": {
+        "plazas": 26,
+        "corte_num": 12523,
+        "corte_nombre": "VERDEJA YERBES, MARIA",
+        "activos_espera": 2946,
+        "convocados": 4116
+      },
+      "PRI": {
+        "plazas": 46,
+        "corte_num": 15097,
+        "corte_nombre": "VALCARCEL RIPOLL, JORGE",
+        "activos_espera": 1265,
+        "convocados": 3054
+      },
+      "PT": {
+        "plazas": 33,
+        "corte_num": 12815,
+        "corte_nombre": "MOLINA MORANT, PAULA",
+        "activos_espera": 373,
+        "convocados": 856
+      },
+      "AL": {
+        "plazas": 8,
+        "corte_num": 11200,
+        "corte_nombre": "MATEO PIQUERAS, SUSANA",
+        "activos_espera": 239,
+        "convocados": 568
+      },
+      "EF": {
+        "plazas": 11,
+        "corte_num": 13539,
+        "corte_nombre": "DONET SANCHIS, LAURA",
+        "activos_espera": 331,
+        "convocados": 639
+      },
+      "MUS": {
+        "plazas": 6,
+        "corte_num": 11551,
+        "corte_nombre": "SOLER BERENGUER, SARA",
+        "activos_espera": 78,
+        "convocados": 276
+      },
+      "ING": {
+        "plazas": 10,
+        "corte_num": 12267,
+        "corte_nombre": "CABEDO MATEU, MIRIAM",
+        "activos_espera": 141,
+        "convocados": 644
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 4,
+        "convocados": 27
+      }
+    }
+  },
+  {
+    "fecha": "01/10/2026",
+    "total_plazas": 256,
+    "total_convocados": 7192,
+    "especialidades": {
+      "INF": {
+        "plazas": 71,
+        "corte_num": 12565,
+        "corte_nombre": "ROVIRA CANDELAS, MARIA JOSE",
+        "activos_espera": 2851,
+        "convocados": 4081
+      },
+      "PRI": {
+        "plazas": 83,
+        "corte_num": 16329,
+        "corte_nombre": "LAMA VALERO, NEREA",
+        "activos_espera": 1123,
+        "convocados": 2962
+      },
+      "PT": {
+        "plazas": 33,
+        "corte_num": 12248,
+        "corte_nombre": "CANDEL MORENO, INMACULADA",
+        "activos_espera": 324,
+        "convocados": 810
+      },
+      "AL": {
+        "plazas": 29,
+        "corte_num": 14272,
+        "corte_nombre": "ALBERT BUENO, MIGUEL",
+        "activos_espera": 210,
+        "convocados": 553
+      },
+      "EF": {
+        "plazas": 14,
+        "corte_num": 14928,
+        "corte_nombre": "DOMENECH MARIN, ABEL",
+        "activos_espera": 301,
+        "convocados": 617
+      },
+      "MUS": {
+        "plazas": 8,
+        "corte_num": 12252,
+        "corte_nombre": "RUIZ GONZALEZ, MARIA",
+        "activos_espera": 69,
+        "convocados": 266
+      },
+      "ING": {
+        "plazas": 18,
+        "corte_num": 14918,
+        "corte_nombre": "CASCALES BERNABEU, ARANTXA",
+        "activos_espera": 118,
+        "convocados": 623
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 4,
+        "convocados": 27
+      }
+    }
+  },
+  {
+    "fecha": "06/10/2026",
+    "total_plazas": 96,
+    "total_convocados": 6959,
+    "especialidades": {
+      "INF": {
+        "plazas": 18,
+        "corte_num": 12393,
+        "corte_nombre": "SILVESTRE MARTINEZ, SARA",
+        "activos_espera": 2824,
+        "convocados": 3980
+      },
+      "PRI": {
+        "plazas": 28,
+        "corte_num": 14854,
+        "corte_nombre": "RUIZ REIG, JORDI",
+        "activos_espera": 1077,
+        "convocados": 2809
+      },
+      "PT": {
+        "plazas": 17,
+        "corte_num": 11983,
+        "corte_nombre": "BELINCHON GIMENO, AMOS",
+        "activos_espera": 313,
+        "convocados": 766
+      },
+      "AL": {
+        "plazas": 13,
+        "corte_num": 11999,
+        "corte_nombre": "MARTINEZ ESPINOSA, ALBA",
+        "activos_espera": 187,
+        "convocados": 517
+      },
+      "EF": {
+        "plazas": 10,
+        "corte_num": 11584,
+        "corte_nombre": "MARTINEZ MARTINEZ, PAULA",
+        "activos_espera": 286,
+        "convocados": 589
+      },
+      "MUS": {
+        "plazas": 3,
+        "corte_num": 12179,
+        "corte_nombre": "CLIMENT SANCHEZ, AMALIA DEL CARMEN",
+        "activos_espera": 62,
+        "convocados": 258
+      },
+      "ING": {
+        "plazas": 7,
+        "corte_num": 12129,
+        "corte_nombre": "COGOLLOS TORRES, EVA MARIA",
+        "activos_espera": 111,
+        "convocados": 592
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 27
+      }
+    }
+  },
+  {
+    "fecha": "08/10/2026",
+    "total_plazas": 122,
+    "total_convocados": 6881,
+    "especialidades": {
+      "INF": {
+        "plazas": 17,
+        "corte_num": 12566,
+        "corte_nombre": "NACHER SEGURA, PAULA",
+        "activos_espera": 2834,
+        "convocados": 3945
+      },
+      "PRI": {
+        "plazas": 47,
+        "corte_num": 15977,
+        "corte_nombre": "GARCIA GARCIA, PRISCILA",
+        "activos_espera": 1054,
+        "convocados": 2756
+      },
+      "PT": {
+        "plazas": 24,
+        "corte_num": 12118,
+        "corte_nombre": "BARRERA BABILONI, ADRIAN",
+        "activos_espera": 310,
+        "convocados": 750
+      },
+      "AL": {
+        "plazas": 11,
+        "corte_num": 12104,
+        "corte_nombre": "TORMO ESPI, DAVID",
+        "activos_espera": 189,
+        "convocados": 501
+      },
+      "EF": {
+        "plazas": 16,
+        "corte_num": 11902,
+        "corte_nombre": "FUENTES ALARCON, JOSE MANUEL",
+        "activos_espera": 274,
+        "convocados": 572
+      },
+      "MUS": {
+        "plazas": 3,
+        "corte_num": 12072,
+        "corte_nombre": "ALIS ALCAÑIZ, DAVID",
+        "activos_espera": 72,
+        "convocados": 255
+      },
+      "ING": {
+        "plazas": 4,
+        "corte_num": 12212,
+        "corte_nombre": "CAMPELLO BAEZA, SILVIA",
+        "activos_espera": 114,
+        "convocados": 580
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 24
+      }
+    }
+  },
+  {
+    "fecha": "15/10/2026",
+    "total_plazas": 222,
+    "total_convocados": 6820,
+    "especialidades": {
+      "INF": {
+        "plazas": 60,
+        "corte_num": 12568,
+        "corte_nombre": "LOPEZ GARCIA, MARTA",
+        "activos_espera": 2786,
+        "convocados": 3928
+      },
+      "PRI": {
+        "plazas": 61,
+        "corte_num": 16237,
+        "corte_nombre": "TORRALBA GARAY, RAQUEL",
+        "activos_espera": 975,
+        "convocados": 2695
+      },
+      "PT": {
+        "plazas": 40,
+        "corte_num": 12272,
+        "corte_nombre": "VERCHER MARTINEZ, PAU",
+        "activos_espera": 276,
+        "convocados": 734
+      },
+      "AL": {
+        "plazas": 18,
+        "corte_num": 11923,
+        "corte_nombre": "MEDRANO GONZALEZ, ADRIAN",
+        "activos_espera": 177,
+        "convocados": 488
+      },
+      "EF": {
+        "plazas": 22,
+        "corte_num": 13024,
+        "corte_nombre": "BARBERA TORRAS, ANGEL",
+        "activos_espera": 249,
+        "convocados": 558
+      },
+      "MUS": {
+        "plazas": 12,
+        "corte_num": 12246,
+        "corte_nombre": "NAVARRO SIRERA, GEMMA",
+        "activos_espera": 59,
+        "convocados": 253
+      },
+      "ING": {
+        "plazas": 9,
+        "corte_num": 14065,
+        "corte_nombre": "ATIENZAR ARRONIS, CRISTINA LUCIA",
+        "activos_espera": 112,
+        "convocados": 577
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 24
+      }
+    }
+  },
+  {
+    "fecha": "20/10/2026",
+    "total_plazas": 151,
+    "total_convocados": 6633,
+    "especialidades": {
+      "INF": {
+        "plazas": 36,
+        "corte_num": 12444,
+        "corte_nombre": "GARCIA VALERO, MARIA LOURDES",
+        "activos_espera": 2737,
+        "convocados": 3845
+      },
+      "PRI": {
+        "plazas": 54,
+        "corte_num": 16957,
+        "corte_nombre": "LLORENS AGUILELLA, ALBERT",
+        "activos_espera": 929,
+        "convocados": 2579
+      },
+      "PT": {
+        "plazas": 17,
+        "corte_num": 11758,
+        "corte_nombre": "MONZON HERRERO, MARIA",
+        "activos_espera": 263,
+        "convocados": 683
+      },
+      "AL": {
+        "plazas": 13,
+        "corte_num": 12099,
+        "corte_nombre": "BENAVENT RICO, RAQUEL",
+        "activos_espera": 170,
+        "convocados": 468
+      },
+      "EF": {
+        "plazas": 5,
+        "corte_num": 11620,
+        "corte_nombre": "CORTES SOLER, INES",
+        "activos_espera": 248,
+        "convocados": 528
+      },
+      "MUS": {
+        "plazas": 11,
+        "corte_num": 12283,
+        "corte_nombre": "GONZALVEZ BERENGUER, LLUNA",
+        "activos_espera": 50,
+        "convocados": 234
+      },
+      "ING": {
+        "plazas": 15,
+        "corte_num": 12275,
+        "corte_nombre": "GRANADOS MOLINA, MARIA DE LA SIERRA",
+        "activos_espera": 101,
+        "convocados": 561
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 23
+      }
+    }
+  }
+];
