@@ -754,5 +754,68 @@ window.HISTORICO_CORTES = [
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "22/10/2026",
+    "total_plazas": 75,
+    "total_convocados": 6499,
+    "especialidades": {
+      "INF": {
+        "plazas": 24,
+        "corte_num": 12451,
+        "corte_nombre": "ALEMANY ALEMANY, ALBA",
+        "activos_espera": 2712,
+        "convocados": 3791
+      },
+      "PRI": {
+        "plazas": 28,
+        "corte_num": 16591,
+        "corte_nombre": "PINEDA LLOPIS, MARIANA",
+        "activos_espera": 871,
+        "convocados": 2485
+      },
+      "PT": {
+        "plazas": 10,
+        "corte_num": 12070,
+        "corte_nombre": "PEREZ GONZALEZ, VERONICA",
+        "activos_espera": 240,
+        "convocados": 656
+      },
+      "AL": {
+        "plazas": 2,
+        "corte_num": 12281,
+        "corte_nombre": "CABANES MARTINEZ, MAR",
+        "activos_espera": 160,
+        "convocados": 448
+      },
+      "EF": {
+        "plazas": 5,
+        "corte_num": 11878,
+        "corte_nombre": "MOMPO TAVARES, ADRIAN",
+        "activos_espera": 236,
+        "convocados": 517
+      },
+      "MUS": {
+        "plazas": 4,
+        "corte_num": null,
+        "corte_nombre": "VILA LORENTE, LAIA",
+        "activos_espera": 43,
+        "convocados": 221
+      },
+      "ING": {
+        "plazas": 2,
+        "corte_num": 9959,
+        "corte_nombre": "CHAQUES SELMA, ANGELA",
+        "activos_espera": 91,
+        "convocados": 537
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 23
+      }
+    }
   }
 ];

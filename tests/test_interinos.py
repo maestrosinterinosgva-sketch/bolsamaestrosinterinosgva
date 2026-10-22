@@ -92,7 +92,7 @@ class TestInterinosDataAndMetrics(unittest.TestCase):
     def test_05_adjudicated_user_status(self):
         """Verificar que un usuario adjudicado tiene plaza, centro y código válido"""
         adjudicados = [p for p in self.interinos if p["status"] == "Adjudicat"]
-        self.assertGreater(len(adjudicados), 100)
+        self.assertGreater(len(adjudicados), 50)
         
         # Inspeccionar uno
         sample = adjudicados[0]

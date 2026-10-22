@@ -1,127 +1,127 @@
 {
-  "fecha_adjudicacion": "20/10/2026",
+  "fecha_adjudicacion": "22/10/2026",
   "total_participantes_bolsa": 17335,
   "total_participantes_bolsa_inicial": 17335,
-  "total_adjudicaciones_hoy": 6633,
-  "total_plazas_adjudicadas": 151,
+  "total_adjudicaciones_hoy": 6499,
+  "total_plazas_adjudicadas": 75,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 3845,
+      "total_convocados_adj": 3791,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 36,
-      "total_adjudicados_general": 65,
-      "total_desactivados": 1038,
+      "total_plazas_hoy": 24,
+      "total_adjudicados_general": 31,
+      "total_desactivados": 1043,
       "total_no_participat": 5,
-      "total_activos_espera": 2737,
+      "total_activos_espera": 2712,
       "ultimo_adjudicado": {
-        "name": "GARCIA VALERO, MARIA LOURDES",
-        "adj_order": 2503,
-        "bolsa_num": 12444,
-        "centro": "FINESTRAT(03018076)CEIP BALCÓ DE FINESTRAT"
+        "name": "ALEMANY ALEMANY, ALBA",
+        "adj_order": 2385,
+        "bolsa_num": 12451,
+        "centro": "BENIDORM(03003000)CEIP LA CALA"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
       "total_bolsa_inicial": 10793,
-      "total_convocados_adj": 2579,
+      "total_convocados_adj": 2485,
       "total_bolsa": 10793,
-      "total_plazas_hoy": 54,
-      "total_adjudicados_general": 110,
-      "total_desactivados": 1531,
+      "total_plazas_hoy": 28,
+      "total_adjudicados_general": 46,
+      "total_desactivados": 1559,
       "total_no_participat": 9,
-      "total_activos_espera": 929,
+      "total_activos_espera": 871,
       "ultimo_adjudicado": {
-        "name": "LLORENS AGUILELLA, ALBERT",
-        "adj_order": 6302,
-        "bolsa_num": 16957,
-        "centro": "ALACANT(03015351)CEIP EL FARO"
+        "name": "PINEDA LLOPIS, MARIANA",
+        "adj_order": 5874,
+        "bolsa_num": 16591,
+        "centro": "BENIDORM(03014381)CEIP ELS TOLLS"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 683,
+      "total_convocados_adj": 656,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 17,
-      "total_adjudicados_general": 31,
-      "total_desactivados": 389,
+      "total_plazas_hoy": 10,
+      "total_adjudicados_general": 13,
+      "total_desactivados": 403,
       "total_no_participat": 0,
-      "total_activos_espera": 263,
+      "total_activos_espera": 240,
       "ultimo_adjudicado": {
-        "name": "MONZON HERRERO, MARIA",
-        "adj_order": 2226,
-        "bolsa_num": 11758,
-        "centro": "ALDAIA(46000894)CEIP JUAN ANTONIO MARTÍNEZ TORRES"
+        "name": "PEREZ GONZALEZ, VERONICA",
+        "adj_order": 2229,
+        "bolsa_num": 12070,
+        "centro": "TORRELLANO(03005355)CEIP ANTONIO MACHADO"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 468,
+      "total_convocados_adj": 448,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 13,
-      "total_adjudicados_general": 22,
-      "total_desactivados": 275,
+      "total_plazas_hoy": 2,
+      "total_adjudicados_general": 6,
+      "total_desactivados": 281,
       "total_no_participat": 1,
-      "total_activos_espera": 170,
+      "total_activos_espera": 160,
       "ultimo_adjudicado": {
-        "name": "BENAVENT RICO, RAQUEL",
-        "adj_order": 2356,
-        "bolsa_num": 12099,
-        "centro": "ELX(03011872)CEIP MIGUEL DE CERVANTES"
+        "name": "CABANES MARTINEZ, MAR",
+        "adj_order": 2296,
+        "bolsa_num": 12281,
+        "centro": "ALCOI(03000308)CEE PÚB. TOMÀS LLÀCER"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 528,
+      "total_convocados_adj": 517,
       "total_bolsa": 2065,
       "total_plazas_hoy": 5,
-      "total_adjudicados_general": 16,
-      "total_desactivados": 262,
+      "total_adjudicados_general": 11,
+      "total_desactivados": 268,
       "total_no_participat": 2,
-      "total_activos_espera": 248,
+      "total_activos_espera": 236,
       "ultimo_adjudicado": {
-        "name": "CORTES SOLER, INES",
-        "adj_order": 2178,
-        "bolsa_num": 11620,
-        "centro": "CASTELLÓ DE LA PLANA(12003705)CEIP GUITARRISTA TÁRREGA"
+        "name": "MOMPO TAVARES, ADRIAN",
+        "adj_order": 2151,
+        "bolsa_num": 11878,
+        "centro": "TERESA DE COFRENTES(46008376)SAN FERNANDO"
       }
     },
     "MUS": {
       "name": "Música",
-      "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 234,
-      "total_bolsa": 1019,
-      "total_plazas_hoy": 11,
-      "total_adjudicados_general": 15,
-      "total_desactivados": 168,
+      "total_bolsa_inicial": 1020,
+      "total_convocados_adj": 221,
+      "total_bolsa": 1020,
+      "total_plazas_hoy": 4,
+      "total_adjudicados_general": 6,
+      "total_desactivados": 171,
       "total_no_participat": 1,
-      "total_activos_espera": 50,
+      "total_activos_espera": 43,
       "ultimo_adjudicado": {
-        "name": "GONZALVEZ BERENGUER, LLUNA",
-        "adj_order": 2417,
-        "bolsa_num": 12283,
-        "centro": "ELX(03004570)CEIP JAIME BALMES"
+        "name": "VILA LORENTE, LAIA",
+        "adj_order": 6499,
+        "bolsa_num": null,
+        "centro": "VALÈNCIA(46016245)CEE PÚB. PROFESOR SEBASTIÁN BURGOS"
       }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 561,
+      "total_convocados_adj": 537,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 15,
-      "total_adjudicados_general": 27,
-      "total_desactivados": 431,
+      "total_plazas_hoy": 2,
+      "total_adjudicados_general": 7,
+      "total_desactivados": 437,
       "total_no_participat": 2,
-      "total_activos_espera": 101,
+      "total_activos_espera": 91,
       "ultimo_adjudicado": {
-        "name": "GRANADOS MOLINA, MARIA DE LA SIERRA",
-        "adj_order": 2413,
-        "bolsa_num": 12275,
-        "centro": "BENISSA(03003267)CEIP PADRE MELCHOR"
+        "name": "CHAQUES SELMA, ANGELA",
+        "adj_order": 1645,
+        "bolsa_num": 9959,
+        "centro": "ALMASSORA(12007516)CEIP SANTA QUITERIA"
       }
     },
     "FRA": {
