@@ -817,5 +817,68 @@ window.HISTORICO_CORTES = [
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "27/10/2026",
+    "total_plazas": 53,
+    "total_convocados": 6456,
+    "especialidades": {
+      "INF": {
+        "plazas": 14,
+        "corte_num": 12509,
+        "corte_nombre": "SANZ PEREZ, RAQUEL",
+        "activos_espera": 2697,
+        "convocados": 3771
+      },
+      "PRI": {
+        "plazas": 12,
+        "corte_num": 11460,
+        "corte_nombre": "FRANCH GARCIA, JORDI JUAN",
+        "activos_espera": 869,
+        "convocados": 2464
+      },
+      "PT": {
+        "plazas": 14,
+        "corte_num": 13568,
+        "corte_nombre": "PUCHADES ALCARAZ, MIREIA",
+        "activos_espera": 243,
+        "convocados": 653
+      },
+      "AL": {
+        "plazas": 7,
+        "corte_num": 11637,
+        "corte_nombre": "MIGUEZ ROIG, PAULA",
+        "activos_espera": 162,
+        "convocados": 449
+      },
+      "EF": {
+        "plazas": 3,
+        "corte_num": 14727,
+        "corte_nombre": "AZNAR VICENTE, VICTOR",
+        "activos_espera": 239,
+        "convocados": 517
+      },
+      "MUS": {
+        "plazas": 1,
+        "corte_num": 8282,
+        "corte_nombre": "BLASCO PEREZ, PAULA",
+        "activos_espera": 45,
+        "convocados": 217
+      },
+      "ING": {
+        "plazas": 2,
+        "corte_num": 11526,
+        "corte_nombre": "SANTO QUILES, MARIA DOLORES",
+        "activos_espera": 93,
+        "convocados": 538
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 23
+      }
+    }
   }
 ];

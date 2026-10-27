@@ -1,8 +1,8 @@
 {
-  "fecha_adjudicacion": "22/10/2026",
-  "total_participantes_bolsa": 42187,
-  "total_adjudicaciones_hoy": 11848,
-  "total_plazas_adjudicadas": 111,
+  "fecha_adjudicacion": "27/10/2026",
+  "total_participantes_bolsa": 42150,
+  "total_adjudicaciones_hoy": 10736,
+  "total_plazas_adjudicadas": 88,
   "total_especialidades": 231,
   "especialidades": {
     "201": {
@@ -11,12 +11,17 @@
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 431,
       "total_convocados_adj": 171,
-      "total_plazas_hoy": 0,
+      "total_plazas_hoy": 2,
       "total_desactivados": 110,
       "total_no_participat": 0,
-      "total_activos_espera": 61,
-      "corte_bolsa_num": 0,
-      "ultimo_adjudicado": null
+      "total_activos_espera": 59,
+      "corte_bolsa_num": 70,
+      "ultimo_adjudicado": {
+        "name": "RIPOLL ROCA, SALVADOR",
+        "adj_order": 70,
+        "bolsa_num": 70,
+        "centro": "SAN ANTONIO DE BENAGÉBER(46029586)IES BENAGÉBER"
+      }
     },
     "202": {
       "code": "202",
@@ -36,35 +41,30 @@
       "name": "LLATÍ",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 266,
-      "total_convocados_adj": 63,
-      "total_plazas_hoy": 1,
+      "total_convocados_adj": 62,
+      "total_plazas_hoy": 0,
       "total_desactivados": 50,
       "total_no_participat": 2,
       "total_activos_espera": 10,
-      "corte_bolsa_num": 25,
-      "ultimo_adjudicado": {
-        "name": "LOPEZ PASTOR, AITANA",
-        "adj_order": 25,
-        "bolsa_num": 25,
-        "centro": "ENGUERA(46020297)IES DE ENGUERA"
-      }
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "204": {
       "code": "204",
       "name": "LLENGUA CASTELLANA I LITERATURA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1303,
-      "total_convocados_adj": 396,
-      "total_plazas_hoy": 6,
+      "total_convocados_adj": 390,
+      "total_plazas_hoy": 3,
       "total_desactivados": 303,
       "total_no_participat": 3,
-      "total_activos_espera": 84,
-      "corte_bolsa_num": 172,
+      "total_activos_espera": 81,
+      "corte_bolsa_num": 213,
       "ultimo_adjudicado": {
-        "name": "ECHENNI LOZANO, SARA",
-        "adj_order": 172,
-        "bolsa_num": 172,
-        "centro": "TORREBLANCA(12005532)IES EL PRAT"
+        "name": "ORDUÑA GRACIA, PAULA",
+        "adj_order": 213,
+        "bolsa_num": 213,
+        "centro": "PILAR DE LA HORADADA(03016985)IES 12 DE OCTUBRE"
       }
     },
     "205": {
@@ -72,17 +72,17 @@
       "name": "GEOGRAFIA I HISTÒRIA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1974,
-      "total_convocados_adj": 1008,
-      "total_plazas_hoy": 10,
-      "total_desactivados": 402,
+      "total_convocados_adj": 998,
+      "total_plazas_hoy": 5,
+      "total_desactivados": 401,
       "total_no_participat": 3,
-      "total_activos_espera": 593,
-      "corte_bolsa_num": 812,
+      "total_activos_espera": 589,
+      "corte_bolsa_num": 159,
       "ultimo_adjudicado": {
-        "name": "BURGUERA MAS, FRANCESCA",
-        "adj_order": 812,
-        "bolsa_num": 812,
-        "centro": "PEGO(03007613)IES ENRIC VALOR"
+        "name": "DE OLIVEIRA MARTI, PATRICIA",
+        "adj_order": 159,
+        "bolsa_num": 159,
+        "centro": "TORREVIEJA(03016596)IES TORREVIGÍA"
       }
     },
     "206": {
@@ -91,16 +91,16 @@
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 2088,
       "total_convocados_adj": 675,
-      "total_plazas_hoy": 4,
-      "total_desactivados": 574,
+      "total_plazas_hoy": 10,
+      "total_desactivados": 573,
       "total_no_participat": 4,
-      "total_activos_espera": 93,
-      "corte_bolsa_num": 194,
+      "total_activos_espera": 88,
+      "corte_bolsa_num": 264,
       "ultimo_adjudicado": {
-        "name": "FERNANDEZ VAREA, JOSE OMAR",
-        "adj_order": 194,
-        "bolsa_num": 194,
-        "centro": "POBLA LLARGA (LA)(46023948)IES PERE D'ESPLUGUES"
+        "name": "GIMENEZ DE LOS GALANES NAVARRO, MARIA ANGELES",
+        "adj_order": 264,
+        "bolsa_num": 264,
+        "centro": "MASSAMAGRELL(46022233)IES DE MASSAMAGRELL"
       }
     },
     "207": {
@@ -108,17 +108,17 @@
       "name": "FÍSICA I QUÍMICA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1442,
-      "total_convocados_adj": 496,
-      "total_plazas_hoy": 3,
-      "total_desactivados": 412,
+      "total_convocados_adj": 495,
+      "total_plazas_hoy": 5,
+      "total_desactivados": 411,
       "total_no_participat": 2,
-      "total_activos_espera": 79,
-      "corte_bolsa_num": 190,
+      "total_activos_espera": 77,
+      "corte_bolsa_num": 146,
       "ultimo_adjudicado": {
-        "name": "DOMINGUEZ BELLOCH, NIEVES",
-        "adj_order": 190,
-        "bolsa_num": 190,
-        "centro": "VALL D'UIXÓ (LA)(12002671)IES BOTÀNIC CAVANILLES"
+        "name": "CORTELL SANCHIS, FRANCISCO JAVIER",
+        "adj_order": 146,
+        "bolsa_num": 146,
+        "centro": "BENIDORM(03012724)IES BERNAT DE SARRIÀ"
       }
     },
     "208": {
@@ -126,17 +126,17 @@
       "name": "BIOLOGIA I GEOLOGIA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1330,
-      "total_convocados_adj": 528,
-      "total_plazas_hoy": 4,
-      "total_desactivados": 360,
+      "total_convocados_adj": 527,
+      "total_plazas_hoy": 3,
+      "total_desactivados": 363,
       "total_no_participat": 3,
-      "total_activos_espera": 161,
-      "corte_bolsa_num": 298,
+      "total_activos_espera": 158,
+      "corte_bolsa_num": 311,
       "ultimo_adjudicado": {
-        "name": "LORENTE GONZALEZ, LUCÍA",
-        "adj_order": 298,
-        "bolsa_num": 298,
-        "centro": "CASTELLÓ DE LA PLANA(12005374)IES JUAN BAUTISTA PORCAR"
+        "name": "CATALA BENAVENT, SEFORA",
+        "adj_order": 311,
+        "bolsa_num": 311,
+        "centro": "TORRELLANO(03015063)IES TORRELLANO"
       }
     },
     "209": {
@@ -144,17 +144,17 @@
       "name": "DIBUIX",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1051,
-      "total_convocados_adj": 487,
-      "total_plazas_hoy": 4,
-      "total_desactivados": 272,
+      "total_convocados_adj": 484,
+      "total_plazas_hoy": 3,
+      "total_desactivados": 273,
       "total_no_participat": 0,
-      "total_activos_espera": 211,
-      "corte_bolsa_num": 204,
+      "total_activos_espera": 208,
+      "corte_bolsa_num": 447,
       "ultimo_adjudicado": {
-        "name": "ALAJARIN MACHO, IRENE",
-        "adj_order": 204,
-        "bolsa_num": 204,
-        "centro": "SUECA(46008108)CEE PÚB. MIQUEL BURGUERA"
+        "name": "VICEDO GINER, MARIA DEL CARMEN",
+        "adj_order": 447,
+        "bolsa_num": 447,
+        "centro": "TORRENT(46016397)IES LA MARXADELLA"
       }
     },
     "210": {
@@ -162,17 +162,17 @@
       "name": "FRANCÉS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 294,
-      "total_convocados_adj": 83,
+      "total_convocados_adj": 82,
       "total_plazas_hoy": 2,
       "total_desactivados": 67,
       "total_no_participat": 0,
-      "total_activos_espera": 14,
-      "corte_bolsa_num": 59,
+      "total_activos_espera": 13,
+      "corte_bolsa_num": 63,
       "ultimo_adjudicado": {
-        "name": "ZAAZA KHALLOUFI, IMANE",
-        "adj_order": 59,
-        "bolsa_num": 59,
-        "centro": "BANYERES DE MARIOLA(03013704)IES PROFESSOR MANUEL BROSETA"
+        "name": "BELTRAN BRU, ASUNCION",
+        "adj_order": 63,
+        "bolsa_num": 63,
+        "centro": "ELX(03010144)IES PEDRO IBARRA RUIZ"
       }
     },
     "211": {
@@ -180,17 +180,17 @@
       "name": "ANGLÉS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1595,
-      "total_convocados_adj": 498,
-      "total_plazas_hoy": 11,
-      "total_desactivados": 305,
+      "total_convocados_adj": 490,
+      "total_plazas_hoy": 10,
+      "total_desactivados": 300,
       "total_no_participat": 1,
-      "total_activos_espera": 181,
-      "corte_bolsa_num": 211,
+      "total_activos_espera": 179,
+      "corte_bolsa_num": 208,
       "ultimo_adjudicado": {
-        "name": "SEMPERE SEMPERE, INES",
-        "adj_order": 211,
-        "bolsa_num": 211,
-        "centro": "ALACANT(03001911)IES ANTONIO JOSÉ CAVANILLES"
+        "name": "MERINO FERRER, JORDI",
+        "adj_order": 208,
+        "bolsa_num": 208,
+        "centro": "VILA JOIOSA (LA)(03009051)IES LA MALLADETA"
       }
     },
     "212": {
@@ -224,17 +224,17 @@
       "name": "MÚSICA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 654,
-      "total_convocados_adj": 238,
-      "total_plazas_hoy": 3,
+      "total_convocados_adj": 235,
+      "total_plazas_hoy": 1,
       "total_desactivados": 195,
       "total_no_participat": 2,
-      "total_activos_espera": 38,
-      "corte_bolsa_num": 97,
+      "total_activos_espera": 37,
+      "corte_bolsa_num": 79,
       "ultimo_adjudicado": {
-        "name": "GARCIA GALLARDO, JUAN ANTONIO",
-        "adj_order": 97,
-        "bolsa_num": 97,
-        "centro": "AGOST(03015531)IES L'ARC D'AGOST"
+        "name": "CRESPO GRAU, JOSE",
+        "adj_order": 79,
+        "bolsa_num": 79,
+        "centro": "NAVARRÉS(46022178)IES LA CANAL DE NAVARRÉS"
       }
     },
     "217": {
@@ -242,17 +242,17 @@
       "name": "EDUCACIÓ FÍSICA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1529,
-      "total_convocados_adj": 810,
-      "total_plazas_hoy": 4,
-      "total_desactivados": 221,
+      "total_convocados_adj": 808,
+      "total_plazas_hoy": 7,
+      "total_desactivados": 225,
       "total_no_participat": 0,
-      "total_activos_espera": 585,
-      "corte_bolsa_num": 735,
+      "total_activos_espera": 576,
+      "corte_bolsa_num": 115,
       "ultimo_adjudicado": {
-        "name": "LOZANO PARA, FERNANDO",
-        "adj_order": 735,
-        "bolsa_num": 735,
-        "centro": "ALBERIC(46000341)CEIP RAFAEL COMENGE"
+        "name": "GARCIA RODRIGUEZ, MIRIAM",
+        "adj_order": 115,
+        "bolsa_num": 115,
+        "centro": "TORREVIEJA(03008630)IES NÚMERO 1 - LIBERTAS"
       }
     },
     "218": {
@@ -260,17 +260,17 @@
       "name": "ORIENTACIÓ EDUCATIVA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 2012,
-      "total_convocados_adj": 481,
-      "total_plazas_hoy": 5,
-      "total_desactivados": 368,
+      "total_convocados_adj": 476,
+      "total_plazas_hoy": 4,
+      "total_desactivados": 366,
       "total_no_participat": 8,
-      "total_activos_espera": 100,
-      "corte_bolsa_num": 481,
+      "total_activos_espera": 98,
+      "corte_bolsa_num": 395,
       "ultimo_adjudicado": {
-        "name": "DIEZ TORMO, MACARENA",
-        "adj_order": 481,
-        "bolsa_num": 481,
-        "centro": "ELX(03005082)IES SIXTO MARCO"
+        "name": "GONZALEZ CADALAS, MARIA CARMEN",
+        "adj_order": 395,
+        "bolsa_num": 395,
+        "centro": "SAGUNT(46007761)CEE PÚB. ALBANTA SAGUNT"
       }
     },
     "219": {
@@ -278,30 +278,35 @@
       "name": "TECNOLOGIA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1887,
-      "total_convocados_adj": 697,
-      "total_plazas_hoy": 0,
-      "total_desactivados": 609,
+      "total_convocados_adj": 696,
+      "total_plazas_hoy": 6,
+      "total_desactivados": 610,
       "total_no_participat": 10,
-      "total_activos_espera": 78,
-      "corte_bolsa_num": 0,
-      "ultimo_adjudicado": null
+      "total_activos_espera": 70,
+      "corte_bolsa_num": 188,
+      "ultimo_adjudicado": {
+        "name": "GIMENEZ DE LOS GALANES NAVARRO, MARIA ANGELES",
+        "adj_order": 188,
+        "bolsa_num": 188,
+        "centro": "MASSAMAGRELL(46022233)IES DE MASSAMAGRELL"
+      }
     },
     "222": {
       "code": "222",
       "name": "FORMACIÓ I ORIENTACIÓ LABORAL",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1108,
-      "total_convocados_adj": 444,
+      "total_convocados_adj": 439,
       "total_plazas_hoy": 4,
       "total_desactivados": 238,
       "total_no_participat": 2,
-      "total_activos_espera": 200,
-      "corte_bolsa_num": 129,
+      "total_activos_espera": 195,
+      "corte_bolsa_num": 140,
       "ultimo_adjudicado": {
-        "name": "MARTIN RODRIGUEZ, JOSEBA ANDONI",
-        "adj_order": 129,
-        "bolsa_num": 129,
-        "centro": "SANT VICENT DEL RASPEIG(03008423)IES SAN VICENTE"
+        "name": "PEREZ GOMEZ, MANUEL",
+        "adj_order": 140,
+        "bolsa_num": 140,
+        "centro": "ALCOI(03012165)CIPFP BATOI"
       }
     },
     "224": {
@@ -310,16 +315,16 @@
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 531,
       "total_convocados_adj": 194,
-      "total_plazas_hoy": 1,
+      "total_plazas_hoy": 2,
       "total_desactivados": 154,
       "total_no_participat": 1,
-      "total_activos_espera": 38,
-      "corte_bolsa_num": 185,
+      "total_activos_espera": 37,
+      "corte_bolsa_num": 175,
       "ultimo_adjudicado": {
-        "name": "GALLEGO GARCIA, FERRAN",
-        "adj_order": 185,
-        "bolsa_num": 185,
-        "centro": "ALGINET(46020421)IES HORT DE FELIU"
+        "name": "CAMPELLO NOGUEROLES, CARLES",
+        "adj_order": 175,
+        "bolsa_num": 175,
+        "centro": "BENIDORM(03010843)IES L'ALMADRAVA"
       }
     },
     "226": {
@@ -327,11 +332,11 @@
       "name": "SISTEMES ELECTRÒNICS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 339,
-      "total_convocados_adj": 127,
+      "total_convocados_adj": 126,
       "total_plazas_hoy": 0,
       "total_desactivados": 114,
       "total_no_participat": 0,
-      "total_activos_espera": 13,
+      "total_activos_espera": 12,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -392,11 +397,11 @@
       "name": "CONSTRUCCIONS CIVILS I EDIFICACIONS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 70,
-      "total_convocados_adj": 15,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 14,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 1,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -418,24 +423,6 @@
       "name": "INTERVENCIÓ SOCIOCOMUNITÀRIA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1119,
-      "total_convocados_adj": 350,
-      "total_plazas_hoy": 3,
-      "total_desactivados": 198,
-      "total_no_participat": 0,
-      "total_activos_espera": 149,
-      "corte_bolsa_num": 60,
-      "ultimo_adjudicado": {
-        "name": "PEREZ RONDA, MARIA ISABEL",
-        "adj_order": 60,
-        "bolsa_num": 60,
-        "centro": "IBI(03006086)IES FRAY IGNACIO BARRACHINA"
-      }
-    },
-    "243": {
-      "code": "243",
-      "name": "HOSTALERIA I TURISME",
-      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
-      "total_bolsa_inicial": 189,
       "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
       "total_desactivados": 0,
@@ -443,6 +430,24 @@
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
+    },
+    "243": {
+      "code": "243",
+      "name": "HOSTALERIA I TURISME",
+      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
+      "total_bolsa_inicial": 189,
+      "total_convocados_adj": 88,
+      "total_plazas_hoy": 2,
+      "total_desactivados": 43,
+      "total_no_participat": 0,
+      "total_activos_espera": 43,
+      "corte_bolsa_num": 23,
+      "ultimo_adjudicado": {
+        "name": "PEREZ SIMO, CONCEPCION NATALIA",
+        "adj_order": 23,
+        "bolsa_num": 23,
+        "centro": "BENIDORM(03015129)IES MEDITERRÀNIA"
+      }
     },
     "245": {
       "code": "245",
@@ -462,17 +467,17 @@
       "name": "INFORMÀTICA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1298,
-      "total_convocados_adj": 437,
-      "total_plazas_hoy": 3,
+      "total_convocados_adj": 433,
+      "total_plazas_hoy": 1,
       "total_desactivados": 359,
-      "total_no_participat": 20,
-      "total_activos_espera": 55,
-      "corte_bolsa_num": 245,
+      "total_no_participat": 21,
+      "total_activos_espera": 52,
+      "corte_bolsa_num": 94,
       "ultimo_adjudicado": {
-        "name": "GORRIZ BELERT, MANUEL",
-        "adj_order": 245,
-        "bolsa_num": 245,
-        "centro": "MONTSERRAT(46023924)IES ALCALANS"
+        "name": "FERNANDEZ GRAU, DAVID",
+        "adj_order": 94,
+        "bolsa_num": 94,
+        "centro": "FONT D'EN CARRÒS (LA)(46029771)SECCIÓ DE L'IES VALL DE LA SAFOR A LA FONT D'EN CARRÓS"
       }
     },
     "256": {
@@ -480,17 +485,17 @@
       "name": "LLENGUA I LITERATURA VALENCIANA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1338,
-      "total_convocados_adj": 366,
-      "total_plazas_hoy": 5,
-      "total_desactivados": 292,
+      "total_convocados_adj": 361,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 291,
       "total_no_participat": 0,
       "total_activos_espera": 69,
-      "corte_bolsa_num": 189,
+      "corte_bolsa_num": 192,
       "ultimo_adjudicado": {
-        "name": "GARCIA COSTA, CLARA",
-        "adj_order": 189,
-        "bolsa_num": 189,
-        "centro": "PATERNA(46022622)IES HENRI MATISSE"
+        "name": "MADRONA PAÑOS, MARIA SOLEDAD",
+        "adj_order": 192,
+        "bolsa_num": 192,
+        "centro": "CATARROJA(46002969)IES BERENGUER DALMAU"
       }
     },
     "261": {
@@ -498,24 +503,6 @@
       "name": "ECONOMIA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 567,
-      "total_convocados_adj": 200,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 171,
-      "total_no_participat": 0,
-      "total_activos_espera": 27,
-      "corte_bolsa_num": 60,
-      "ultimo_adjudicado": {
-        "name": "DE EUGENIO OLIVER, GERMAN",
-        "adj_order": 60,
-        "bolsa_num": 60,
-        "centro": "ONDA(12005593)IES SERRA D'ESPADÀ"
-      }
-    },
-    "263": {
-      "code": "263",
-      "name": "ADMINISTRACIÓ D'EMPRESES",
-      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
-      "total_bolsa_inicial": 781,
       "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
       "total_desactivados": 0,
@@ -523,6 +510,24 @@
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
+    },
+    "263": {
+      "code": "263",
+      "name": "ADMINISTRACIÓ D'EMPRESES",
+      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
+      "total_bolsa_inicial": 781,
+      "total_convocados_adj": 380,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 234,
+      "total_no_participat": 0,
+      "total_activos_espera": 145,
+      "corte_bolsa_num": 34,
+      "ultimo_adjudicado": {
+        "name": "RODRIGUEZ BARRERA, PEDRO LUIS",
+        "adj_order": 34,
+        "bolsa_num": 34,
+        "centro": "VALÈNCIA(46013086)IES ISABEL DE VILLENA"
+      }
     },
     "264": {
       "code": "264",
@@ -542,17 +547,17 @@
       "name": "ORGANITZACIÓ I GESTIÓ COMERCIAL",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1047,
-      "total_convocados_adj": 399,
-      "total_plazas_hoy": 4,
+      "total_convocados_adj": 395,
+      "total_plazas_hoy": 2,
       "total_desactivados": 309,
       "total_no_participat": 4,
-      "total_activos_espera": 82,
-      "corte_bolsa_num": 89,
+      "total_activos_espera": 80,
+      "corte_bolsa_num": 221,
       "ultimo_adjudicado": {
-        "name": "FERNANDEZ LOPEZ, PEDRO MANUEL",
-        "adj_order": 89,
-        "bolsa_num": 89,
-        "centro": "ALACANT(03013819)IES DOCTOR BALMIS"
+        "name": "RODRIGUEZ BARRERA, PEDRO LUIS",
+        "adj_order": 221,
+        "bolsa_num": 221,
+        "centro": "VALÈNCIA(46013086)IES ISABEL DE VILLENA"
       }
     },
     "266": {
@@ -560,18 +565,13 @@
       "name": "ORGANITZACIÓ I PROJECTES DE SISTEMES",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 482,
-      "total_convocados_adj": 180,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 146,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 32,
-      "corte_bolsa_num": 171,
-      "ultimo_adjudicado": {
-        "name": "GALLEGO GARCIA, FERRAN",
-        "adj_order": 171,
-        "bolsa_num": 171,
-        "centro": "ALGINET(46020421)IES HORT DE FELIU"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "268": {
       "code": "268",
@@ -604,17 +604,17 @@
       "name": "PROCESSOS DIAGN. CLÍNIC I PRO. ORTOPR",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 261,
-      "total_convocados_adj": 103,
-      "total_plazas_hoy": 2,
+      "total_convocados_adj": 101,
+      "total_plazas_hoy": 1,
       "total_desactivados": 79,
       "total_no_participat": 0,
-      "total_activos_espera": 22,
-      "corte_bolsa_num": 21,
+      "total_activos_espera": 21,
+      "corte_bolsa_num": 44,
       "ultimo_adjudicado": {
-        "name": "VILA MEJIAS, MAR",
-        "adj_order": 21,
-        "bolsa_num": 21,
-        "centro": "ELX(03009661)CIPFP LA TORRETA"
+        "name": "CODOÑER MONTOYA, ANA MARIA",
+        "adj_order": 44,
+        "bolsa_num": 44,
+        "centro": "CASTELLÓ DE LA PLANA(12005261)IES MATILDE SALVADOR"
       }
     },
     "271": {
@@ -622,18 +622,13 @@
       "name": "PROCESSOS SANITARIS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 369,
-      "total_convocados_adj": 170,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 117,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 52,
-      "corte_bolsa_num": 66,
-      "ultimo_adjudicado": {
-        "name": "LLOPIS MARTI, MARIA",
-        "adj_order": 66,
-        "bolsa_num": 66,
-        "centro": "VALL D'UIXÓ (LA)(12002661)IES HONORI GARCIA"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "272": {
       "code": "272",
@@ -679,36 +674,26 @@
       "name": "INSTAL. I MANT. D'EQUIPS TÈRMICS I DE FLU",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 221,
-      "total_convocados_adj": 65,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 53,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 11,
-      "corte_bolsa_num": 65,
-      "ultimo_adjudicado": {
-        "name": "PEREZ BOIX, BORJA",
-        "adj_order": 65,
-        "bolsa_num": 65,
-        "centro": "CARCAIXENT(46021629)IES ARABISTA RIBERA"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "2A2": {
       "code": "2A2",
       "name": "INSTAL·LACIONS ELECTROTÈCNIQUES",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 383,
-      "total_convocados_adj": 105,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 85,
-      "total_no_participat": 3,
-      "total_activos_espera": 16,
-      "corte_bolsa_num": 54,
-      "ultimo_adjudicado": {
-        "name": "PEREZ BOIX, BORJA",
-        "adj_order": 54,
-        "bolsa_num": 54,
-        "centro": "CARCAIXENT(46021629)IES ARABISTA RIBERA"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "2A4": {
       "code": "2A4",
@@ -741,11 +726,11 @@
       "name": "OFICINA DE PROJECTES DE CONSTRUCCIÓ",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 51,
-      "total_convocados_adj": 12,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 11,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 1,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -793,37 +778,6 @@
       "name": "OPERACIONS I EQUIPS DE PRODUCCIÓ AGR",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 397,
-      "total_convocados_adj": 153,
-      "total_plazas_hoy": 0,
-      "total_desactivados": 134,
-      "total_no_participat": 0,
-      "total_activos_espera": 19,
-      "corte_bolsa_num": 0,
-      "ultimo_adjudicado": null
-    },
-    "2B2": {
-      "code": "2B2",
-      "name": "PROCED. DIAG. CLÍNIC I ORTOPROTÈSIC",
-      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
-      "total_bolsa_inicial": 331,
-      "total_convocados_adj": 143,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 91,
-      "total_no_participat": 0,
-      "total_activos_espera": 50,
-      "corte_bolsa_num": 26,
-      "ultimo_adjudicado": {
-        "name": "VILA MEJIAS, MAR",
-        "adj_order": 26,
-        "bolsa_num": 26,
-        "centro": "ELX(03009661)CIPFP LA TORRETA"
-      }
-    },
-    "2B3": {
-      "code": "2B3",
-      "name": "PROCEDIMENTS SANITARIS I ASSISTENCIAL",
-      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
-      "total_bolsa_inicial": 635,
       "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
       "total_desactivados": 0,
@@ -832,41 +786,67 @@
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
+    "2B2": {
+      "code": "2B2",
+      "name": "PROCED. DIAG. CLÍNIC I ORTOPROTÈSIC",
+      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
+      "total_bolsa_inicial": 331,
+      "total_convocados_adj": 141,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 92,
+      "total_no_participat": 0,
+      "total_activos_espera": 48,
+      "corte_bolsa_num": 32,
+      "ultimo_adjudicado": {
+        "name": "MUÑOZ GARCIA, ALBA",
+        "adj_order": 32,
+        "bolsa_num": 32,
+        "centro": "VALÈNCIA(46013086)IES ISABEL DE VILLENA"
+      }
+    },
+    "2B3": {
+      "code": "2B3",
+      "name": "PROCEDIMENTS SANITARIS I ASSISTENCIAL",
+      "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
+      "total_bolsa_inicial": 635,
+      "total_convocados_adj": 307,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 185,
+      "total_no_participat": 0,
+      "total_activos_espera": 121,
+      "corte_bolsa_num": 59,
+      "ultimo_adjudicado": {
+        "name": "RODES GARCIA, PABLO VICENTE",
+        "adj_order": 59,
+        "bolsa_num": 59,
+        "centro": "ELX(03013881)IES VICTORIA KENT"
+      }
+    },
     "2B4": {
       "code": "2B4",
       "name": "PROCESSOS COMERCIALS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 491,
-      "total_convocados_adj": 177,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 126,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 49,
-      "corte_bolsa_num": 80,
-      "ultimo_adjudicado": {
-        "name": "PALOP PALOP, MARC",
-        "adj_order": 80,
-        "bolsa_num": 80,
-        "centro": "MUSEROS(46022890)SECCIÓ DE L'IES DE MASSAMAGRELL A MUSEROS"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "2B5": {
       "code": "2B5",
       "name": "PROCESSOS DE GESTIÓ ADMINISTRATIVA",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 620,
-      "total_convocados_adj": 209,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 157,
-      "total_no_participat": 1,
-      "total_activos_espera": 49,
-      "corte_bolsa_num": 151,
-      "ultimo_adjudicado": {
-        "name": "CALATAYUD FERRER, JORGE",
-        "adj_order": 151,
-        "bolsa_num": 151,
-        "centro": "VALÈNCIA(46018035)CIPFP MISERICÒRDIA"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "2B6": {
       "code": "2B6",
@@ -886,17 +866,17 @@
       "name": "SERVEIS A LA COMUNITAT",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 1562,
-      "total_convocados_adj": 381,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 218,
+      "total_convocados_adj": 380,
+      "total_plazas_hoy": 3,
+      "total_desactivados": 217,
       "total_no_participat": 3,
-      "total_activos_espera": 158,
-      "corte_bolsa_num": 96,
+      "total_activos_espera": 157,
+      "corte_bolsa_num": 205,
       "ultimo_adjudicado": {
-        "name": "SEBASTIA FRANCES, AMPARO",
-        "adj_order": 96,
-        "bolsa_num": 96,
-        "centro": "ORIHUELA(03007418)CIPFP EL PALMERAL"
+        "name": "MARTI VIDAL, CELIA",
+        "adj_order": 205,
+        "bolsa_num": 205,
+        "centro": "MURO DE ALCOY(03014836)IES SERRA MARIOLA"
       }
     },
     "2B8": {
@@ -904,17 +884,17 @@
       "name": "SISTEMES I APLICACIONS INFORMÀTIQUES",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 714,
-      "total_convocados_adj": 190,
+      "total_convocados_adj": 189,
       "total_plazas_hoy": 1,
-      "total_desactivados": 164,
+      "total_desactivados": 165,
       "total_no_participat": 4,
-      "total_activos_espera": 21,
-      "corte_bolsa_num": 72,
+      "total_activos_espera": 19,
+      "corte_bolsa_num": 84,
       "ultimo_adjudicado": {
-        "name": "MUÑOZ POVEDA, SANTOS",
-        "adj_order": 72,
-        "bolsa_num": 72,
-        "centro": "ALACANT(03012736)IES MARE NOSTRUM"
+        "name": "HERRERO SANTOS, JAVIER",
+        "adj_order": 84,
+        "bolsa_num": 84,
+        "centro": "ASPE(03014800)IES VILLA DE ASPE"
       }
     },
     "2B9": {
@@ -923,23 +903,28 @@
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 128,
       "total_convocados_adj": 49,
-      "total_plazas_hoy": 0,
+      "total_plazas_hoy": 1,
       "total_desactivados": 41,
       "total_no_participat": 0,
-      "total_activos_espera": 8,
-      "corte_bolsa_num": 0,
-      "ultimo_adjudicado": null
+      "total_activos_espera": 7,
+      "corte_bolsa_num": 28,
+      "ultimo_adjudicado": {
+        "name": "VICEDO GINER, MARIA DEL CARMEN",
+        "adj_order": 28,
+        "bolsa_num": 28,
+        "centro": "TORRENT(46016397)IES LA MARXADELLA"
+      }
     },
     "2C1": {
       "code": "2C1",
       "name": "EQUIPS ELECTRÒNICS",
       "cuerpo": "PROFESSORS D'ENSENYAMENT SECUNDARI",
       "total_bolsa_inicial": 236,
-      "total_convocados_adj": 0,
+      "total_convocados_adj": 70,
       "total_plazas_hoy": 0,
-      "total_desactivados": 0,
+      "total_desactivados": 61,
       "total_no_participat": 0,
-      "total_activos_espera": 0,
+      "total_activos_espera": 9,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -961,17 +946,17 @@
       "name": "ESTÈTICA",
       "cuerpo": "PROFESSORS ESPECIALISTES EN SECTORS SINGULARS DE FORMACIÓ PROFESSIONAL",
       "total_bolsa_inicial": 150,
-      "total_convocados_adj": 36,
+      "total_convocados_adj": 35,
       "total_plazas_hoy": 1,
       "total_desactivados": 21,
       "total_no_participat": 0,
-      "total_activos_espera": 14,
-      "corte_bolsa_num": 8,
+      "total_activos_espera": 13,
+      "corte_bolsa_num": 24,
       "ultimo_adjudicado": {
-        "name": "CUENCA VALERO, ANA BELEN",
-        "adj_order": 8,
-        "bolsa_num": 8,
-        "centro": "ALBORAIA(46014893)IES LA PATACONA"
+        "name": "PUCHE SANCHEZ, NATALIA",
+        "adj_order": 24,
+        "bolsa_num": 24,
+        "centro": "MUTXAMEL(03014551)IES MUTXAMEL"
       }
     },
     "3A3": {
@@ -992,17 +977,17 @@
       "name": "MANTENIMENT DE VEHICLES",
       "cuerpo": "PROFESSORS ESPECIALISTES EN SECTORS SINGULARS DE FORMACIÓ PROFESSIONAL",
       "total_bolsa_inicial": 346,
-      "total_convocados_adj": 108,
+      "total_convocados_adj": 106,
       "total_plazas_hoy": 3,
-      "total_desactivados": 84,
+      "total_desactivados": 83,
       "total_no_participat": 2,
-      "total_activos_espera": 19,
-      "corte_bolsa_num": 54,
+      "total_activos_espera": 18,
+      "corte_bolsa_num": 52,
       "ultimo_adjudicado": {
-        "name": "LOPEZ PEREZ, SERGIO",
-        "adj_order": 54,
-        "bolsa_num": 54,
-        "centro": "VALÈNCIA(46023419)CIPFP CIUTAT DE L'APRENENT"
+        "name": "CENTELLES TOMAS, XAVI",
+        "adj_order": 52,
+        "bolsa_num": 52,
+        "centro": "PUERTO (EL)(46007554)CIPFP LA LABORAL"
       }
     },
     "3A5": {
@@ -1011,17 +996,12 @@
       "cuerpo": "PROFESSORS ESPECIALISTES EN SECTORS SINGULARS DE FORMACIÓ PROFESSIONAL",
       "total_bolsa_inicial": 322,
       "total_convocados_adj": 81,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 73,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 74,
       "total_no_participat": 2,
       "total_activos_espera": 5,
-      "corte_bolsa_num": 65,
-      "ultimo_adjudicado": {
-        "name": "PALANCA ROIG, ANA",
-        "adj_order": 65,
-        "bolsa_num": 65,
-        "centro": "BUÑOL(46002179)IES LA HOYA DE BUÑOL"
-      }
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "3A6": {
       "code": "3A6",
@@ -1041,36 +1021,26 @@
       "name": "PERRUQUERIA",
       "cuerpo": "PROFESSORS ESPECIALISTES EN SECTORS SINGULARS DE FORMACIÓ PROFESSIONAL",
       "total_bolsa_inicial": 105,
-      "total_convocados_adj": 23,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 14,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 7,
-      "corte_bolsa_num": 19,
-      "ultimo_adjudicado": {
-        "name": "GARCIA FERNANDEZ, ADORACION",
-        "adj_order": 19,
-        "bolsa_num": 19,
-        "centro": "VILA-REAL(12002889)IES FRANCESC TÀRREGA"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "3A8": {
       "code": "3A8",
       "name": "PRODUCCIÓ D'ARTS GRÀFIQUES",
       "cuerpo": "PROFESSORS ESPECIALISTES EN SECTORS SINGULARS DE FORMACIÓ PROFESSIONAL",
       "total_bolsa_inicial": 117,
-      "total_convocados_adj": 28,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 19,
-      "total_no_participat": 1,
-      "total_activos_espera": 6,
-      "corte_bolsa_num": 23,
-      "ultimo_adjudicado": {
-        "name": "PALANCA ROIG, ANA",
-        "adj_order": 23,
-        "bolsa_num": 23,
-        "centro": "BUÑOL(46002179)IES LA HOYA DE BUÑOL"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "3A9": {
       "code": "3A9",
@@ -1103,11 +1073,11 @@
       "name": "ALEMANY",
       "cuerpo": "PROFESSORS D'ESCOLES D'IDIOMES",
       "total_bolsa_inicial": 79,
-      "total_convocados_adj": 31,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 23,
-      "total_no_participat": 2,
-      "total_activos_espera": 6,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -1168,13 +1138,18 @@
       "name": "FRANCÉS",
       "cuerpo": "PROFESSORS D'ESCOLES D'IDIOMES",
       "total_bolsa_inicial": 178,
-      "total_convocados_adj": 0,
-      "total_plazas_hoy": 0,
-      "total_desactivados": 0,
-      "total_no_participat": 0,
-      "total_activos_espera": 0,
-      "corte_bolsa_num": 0,
-      "ultimo_adjudicado": null
+      "total_convocados_adj": 49,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 37,
+      "total_no_participat": 1,
+      "total_activos_espera": 10,
+      "corte_bolsa_num": 22,
+      "ultimo_adjudicado": {
+        "name": "POLOP FLUIXA, JAUME",
+        "adj_order": 22,
+        "bolsa_num": 22,
+        "centro": "XÀTIVA(46028661)ESCOLA OFICIAL IDIOMES XÀTIVA"
+      }
     },
     "410": {
       "code": "410",
@@ -1194,18 +1169,13 @@
       "name": "ANGLÉS",
       "cuerpo": "PROFESSORS D'ESCOLES D'IDIOMES",
       "total_bolsa_inicial": 459,
-      "total_convocados_adj": 107,
-      "total_plazas_hoy": 2,
-      "total_desactivados": 84,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 21,
-      "corte_bolsa_num": 57,
-      "ultimo_adjudicado": {
-        "name": "DIAZ SANCHEZ, DAVID MANUEL",
-        "adj_order": 57,
-        "bolsa_num": 57,
-        "centro": "ELX(03012359)ESCOLA OFICIAL IDIOMES ELX"
-      }
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "412": {
       "code": "412",
@@ -1277,11 +1247,11 @@
       "name": "VALENCIÀ",
       "cuerpo": "PROFESSORS D'ESCOLES D'IDIOMES",
       "total_bolsa_inicial": 464,
-      "total_convocados_adj": 0,
+      "total_convocados_adj": 107,
       "total_plazas_hoy": 0,
-      "total_desactivados": 0,
-      "total_no_participat": 0,
-      "total_activos_espera": 0,
+      "total_desactivados": 98,
+      "total_no_participat": 2,
+      "total_activos_espera": 7,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -1433,9 +1403,9 @@
       "name": "REPERTORI AMB PIANO PER A VEU",
       "cuerpo": "CATEDRÀTICS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 16,
-      "total_convocados_adj": 0,
+      "total_convocados_adj": 3,
       "total_plazas_hoy": 0,
-      "total_desactivados": 0,
+      "total_desactivados": 3,
       "total_no_participat": 0,
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
@@ -2174,24 +2144,6 @@
       "name": "CANT",
       "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 27,
-      "total_convocados_adj": 46,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 11,
-      "total_no_participat": 16,
-      "total_activos_espera": 18,
-      "corte_bolsa_num": 8,
-      "ultimo_adjudicado": {
-        "name": "BURGOYNE PONT, MARIA EUGENIA",
-        "adj_order": 8,
-        "bolsa_num": 8,
-        "centro": "CASTELLÓ DE LA PLANA(12003857)CONSERVATORI PROFESSIONAL DE MÚSICA MESTRE TÁRREGA"
-      }
-    },
-    "6A3": {
-      "code": "6A3",
-      "name": "CLARINET",
-      "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
-      "total_bolsa_inicial": 48,
       "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
       "total_desactivados": 0,
@@ -2199,6 +2151,24 @@
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
+    },
+    "6A3": {
+      "code": "6A3",
+      "name": "CLARINET",
+      "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
+      "total_bolsa_inicial": 48,
+      "total_convocados_adj": 19,
+      "total_plazas_hoy": 1,
+      "total_desactivados": 17,
+      "total_no_participat": 0,
+      "total_activos_espera": 1,
+      "corte_bolsa_num": 5,
+      "ultimo_adjudicado": {
+        "name": "IBORRA PIQUERES, JORGE",
+        "adj_order": 5,
+        "bolsa_num": 5,
+        "centro": "VALÈNCIA(46021691)CONSERVATORI PROFESSIONAL DE MÚSICA NÚMERO 2"
+      }
     },
     "6A4": {
       "code": "6A4",
@@ -2361,18 +2331,13 @@
       "name": "OBOÉ",
       "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 25,
-      "total_convocados_adj": 6,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 5,
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
       "total_no_participat": 0,
       "total_activos_espera": 0,
-      "corte_bolsa_num": 6,
-      "ultimo_adjudicado": {
-        "name": "RUFINO LATORRE, SONIA",
-        "adj_order": 6,
-        "bolsa_num": 6,
-        "centro": "REQUENA(46019350)CONSERVATORIO PROFESIONAL DE MÚSICA M. PÉREZ SÁNCHEZ"
-      }
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "6B9": {
       "code": "6B9",
@@ -2405,18 +2370,13 @@
       "name": "PERCUSIÓ",
       "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 78,
-      "total_convocados_adj": 54,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 19,
-      "total_no_participat": 3,
-      "total_activos_espera": 31,
-      "corte_bolsa_num": 10,
-      "ultimo_adjudicado": {
-        "name": "SAEZ DE JAUREGUI GONZALEZ, AITOR",
-        "adj_order": 10,
-        "bolsa_num": 10,
-        "centro": "OLIVA(46021782)CONSERVATORI PROFESSIONAL DE MÚSICA JOSEP CLIMENT"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "6C2": {
       "code": "6C2",
@@ -2488,9 +2448,9 @@
       "name": "TUBA",
       "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 29,
-      "total_convocados_adj": 19,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 19,
+      "total_desactivados": 0,
       "total_no_participat": 0,
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
@@ -2527,18 +2487,13 @@
       "name": "VIOLÍ",
       "cuerpo": "PROFESSORS DE MÚSICA I ARTS ESCÈNIQUES",
       "total_bolsa_inicial": 57,
-      "total_convocados_adj": 34,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 20,
-      "total_no_participat": 1,
-      "total_activos_espera": 12,
-      "corte_bolsa_num": 15,
-      "ultimo_adjudicado": {
-        "name": "ROMERO CORELLA, JULIA",
-        "adj_order": 15,
-        "bolsa_num": 15,
-        "centro": "CARCAIXENT(46016877)CONSERVATORI PROFESSIONAL DE MÚSICA MESTRE VERT"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "6D2": {
       "code": "6D2",
@@ -2896,11 +2851,11 @@
       "name": "DIBUIX ARTÍSTIC I COLOR",
       "cuerpo": "PROFESSORS D'ARTS PLÀSTIQUES I DISSENY",
       "total_bolsa_inicial": 85,
-      "total_convocados_adj": 14,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 11,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 3,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -2987,18 +2942,13 @@
       "name": "HISTÒRIA DE L'ART",
       "cuerpo": "PROFESSORS D'ARTS PLÀSTIQUES I DISSENY",
       "total_bolsa_inicial": 58,
-      "total_convocados_adj": 11,
-      "total_plazas_hoy": 1,
-      "total_desactivados": 8,
-      "total_no_participat": 1,
-      "total_activos_espera": 1,
-      "corte_bolsa_num": 3,
-      "ultimo_adjudicado": {
-        "name": "PASCUAL GARCIA, IRENE",
-        "adj_order": 3,
-        "bolsa_num": 3,
-        "centro": "CASTELLÓ DE LA PLANA(12004308)ESCOLA D'ART I SUPERIOR DE DISSENY DE CASTELLÓ DE LA P"
-      }
+      "total_convocados_adj": 0,
+      "total_plazas_hoy": 0,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
+      "corte_bolsa_num": 0,
+      "ultimo_adjudicado": null
     },
     "7B6": {
       "code": "7B6",
@@ -3044,9 +2994,9 @@
       "name": "MITJANS AUDIOVISUALS",
       "cuerpo": "PROFESSORS D'ARTS PLÀSTIQUES I DISSENY",
       "total_bolsa_inicial": 40,
-      "total_convocados_adj": 8,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 8,
+      "total_desactivados": 0,
       "total_no_participat": 0,
       "total_activos_espera": 0,
       "corte_bolsa_num": 0,
@@ -3057,11 +3007,11 @@
       "name": "MITJANS INFORMÀTICS",
       "cuerpo": "PROFESSORS D'ARTS PLÀSTIQUES I DISSENY",
       "total_bolsa_inicial": 62,
-      "total_convocados_adj": 21,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 15,
-      "total_no_participat": 1,
-      "total_activos_espera": 5,
+      "total_desactivados": 0,
+      "total_no_participat": 0,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
@@ -3070,11 +3020,11 @@
       "name": "ORGANITZACIÓ INDUSTRIAL I LEGISLACIÓ",
       "cuerpo": "PROFESSORS D'ARTS PLÀSTIQUES I DISSENY",
       "total_bolsa_inicial": 108,
-      "total_convocados_adj": 27,
+      "total_convocados_adj": 0,
       "total_plazas_hoy": 0,
-      "total_desactivados": 23,
+      "total_desactivados": 0,
       "total_no_participat": 0,
-      "total_activos_espera": 4,
+      "total_activos_espera": 0,
       "corte_bolsa_num": 0,
       "ultimo_adjudicado": null
     },
