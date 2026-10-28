@@ -1,18 +1,17 @@
 {
-  "fecha_adjudicacion": "27/10/2026",
-  "fecha_publicacion": "27/10/2026",
-  "total_plazas": 158,
-  "total_secundaria": 107,
+  "fecha_adjudicacion": "29/10/2026",
+  "fecha_publicacion": "28/10/2026",
+  "total_plazas": 155,
+  "total_secundaria": 93,
   "total_vacantes": 0,
   "total_sustituciones_indet": 0,
   "total_sustituciones_det": 0,
   "total_itinerantes": 0,
   "total_jornada_parcial": 0,
   "cuerpos": {
-    "PROFESORES ESPECIALISTAS EN SECTORES SINGULARES DE FORMACIÓN PROFESIO": 16,
-    "MAESTROS": 51,
+    "MAESTROS": 62,
     "PROFESORES DE ENSEÑANZA SECUNDARIA": 87,
-    "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS": 3,
-    "PROFESORES DE ESCUELA OFICIAL DE IDIOMAS": 1
+    "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS": 4,
+    "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO": 2
   }
 }
