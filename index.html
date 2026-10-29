@@ -488,11 +488,17 @@
               <h3>Evolución de Cortes y tu Posición en <span id="evoSpecName">-</span></h3>
             </div>
             <p class="evolution-subtitle">Progresión temporal de adjudicaciones y distancia histórica a tu número de bolsa a lo largo del curso</p>
+            <div class="evo-user-badges" id="evoUserBadges">
+              <span class="evo-user-badge evo-user-badge-adj" id="evoBadgeAdjWrap">Nº Adjudicación: <strong id="evoValAdj">-</strong></span>
+              <span class="evo-user-badge evo-user-badge-pos" id="evoBadgePosWrap">Puesto en <span id="evoValSpecShort">-</span>: <strong id="evoValPos">-</strong></span>
+              <span class="evo-user-badge evo-user-badge-bolsa" id="evoBadgeBolsaWrap">Bolsa Inicial: <strong id="evoValBolsa">-</strong></span>
+            </div>
           </div>
           <div class="evolution-controls">
             <div class="evolution-view-switcher">
-              <button type="button" class="evo-btn active" id="btnEvoChart" onclick="switchEvoView('chart')">📊 Gráfica</button>
-              <button type="button" class="evo-btn" id="btnEvoTable" onclick="switchEvoView('table')">📋 Histórico</button>
+              <button type="button" class="evo-btn active" id="btnEvoSpec" onclick="switchEvoView('spec')">👤 Mi Puesto en Especialidad</button>
+              <button type="button" class="evo-btn" id="btnEvoChart" onclick="switchEvoView('chart')">🎯 Corte General</button>
+              <button type="button" class="evo-btn" id="btnEvoTable" onclick="switchEvoView('table')">📋 Histórico Completo</button>
             </div>
           </div>
         </div>
@@ -540,10 +546,11 @@
               <thead>
                 <tr>
                   <th>Fecha</th>
-                  <th>Plazas</th>
+                  <th>Tu Puesto en Especialidad</th>
+                  <th>Tu Nº Adjudicación</th>
+                  <th>Avance</th>
                   <th>Corte (Nº Bolsa)</th>
-                  <th>Último Adjudicado</th>
-                  <th>Tu Distancia al Corte</th>
+                  <th>Plazas</th>
                   <th>Estado</th>
                 </tr>
               </thead>

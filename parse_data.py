@@ -422,6 +422,46 @@ def build_combined_dataset(participants, adjudicaciones, fecha_adj="03/09/2026",
 
     total_plazas = sum(sp["total_plazas_hoy"] for sp in specs_stats.values())
 
+    # Preservar o actualizar el histórico acumulativo de posición en la especialidad ("evo")
+    existing_evo = {}
+    old_data_path = os.path.join(output_dir, "interinos_data.json")
+    if os.path.exists(old_data_path):
+        try:
+            with open(old_data_path, "r", encoding="utf-8") as f:
+                old_data = json.load(f)
+                for op in old_data:
+                    if op.get("evo"):
+                        existing_evo[op["name"]] = op["evo"]
+        except Exception:
+            pass
+
+    short_date = fecha_adj[:5] if len(fecha_adj) >= 5 else fecha_adj
+    spec_positions = {}
+    spec_totals = {}
+    for sp in valid_specialties:
+        members = [p for p in adj_only if sp in p.get("specialties", []) and (p.get("adj_order") or p.get("in_adjudicacion"))]
+        members.sort(key=lambda x: x.get("adj_order") or 99999)
+        spec_positions[sp] = {p["name"]: idx + 1 for idx, p in enumerate(members)}
+        spec_totals[sp] = len(members)
+
+    for p in participants:
+        name = p["name"]
+        p_evo = existing_evo.get(name, {})
+        if p.get("in_adjudicacion") or p.get("adj_order"):
+            for sp in p.get("specialties", []):
+                if sp in spec_positions and name in spec_positions[sp]:
+                    if sp not in p_evo:
+                        p_evo[sp] = []
+                    p_evo[sp] = [e for e in p_evo[sp] if e[0] != short_date]
+                    p_evo[sp].append([
+                        short_date,
+                        p.get("adj_order"),
+                        spec_positions[sp][name],
+                        spec_totals[sp],
+                        p.get("status")
+                    ])
+        p["evo"] = p_evo
+
     stats_dict = {
         "fecha_adjudicacion": fecha_adj,
         "total_participantes_bolsa": len(participants),

@@ -300,5 +300,38 @@ class TestInterinosDataAndMetrics(unittest.TestCase):
             self.assertIn("data/historico_cortes.js", names)
             self.assertIn("data/historico_cortes.json", names)
 
+    def test_13_user_specialty_evolution_and_adj_number(self):
+        """Verificar la evolución histórica personal por especialidad y el número de adjudicación"""
+        data_path = os.path.join("data", "interinos_data.json")
+        with open(data_path, "r", encoding="utf-8") as f:
+            interinos = json.load(f)
+
+        pablo = next((p for p in interinos if "HERNANDEZ RIZO" in p.get("name", "")), None)
+        self.assertIsNotNone(pablo, "Pablo Hernández Rizo debe existir en la base")
+        self.assertEqual(pablo.get("adj_order"), 2239, "Pablo debe tener Nº Adjudicación convocada 2239")
+        self.assertIn("evo", pablo, "Pablo debe contener campo de evolución 'evo'")
+        self.assertIn("PT", pablo["evo"], "Pablo debe tener evolución en Pedagogía Terapéutica")
+
+        pt_evo = pablo["evo"]["PT"]
+        self.assertGreaterEqual(len(pt_evo), 8, "Debe tener al menos 8 registros de evolución")
+
+        # Último registro debe corresponder al 29/10 con posición 504
+        latest = pt_evo[-1]
+        self.assertEqual(latest[0], "29/10", "Última fecha debe ser 29/10")
+        self.assertEqual(latest[1], 2239, "Nº de adjudicación de la última debe ser 2239")
+        self.assertEqual(latest[2], 504, "Puesto en PT debe ser 504")
+
+        # Comprobar elementos HTML y JS
+        with open("index.html", encoding="utf-8") as f:
+            html = f.read()
+        self.assertIn('id="evoUserBadges"', html)
+        self.assertIn('id="evoValAdj"', html)
+        self.assertIn('id="btnEvoSpec"', html)
+
+        with open("js/app.js", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("updateEvoKpis", js)
+        self.assertIn("currentEvoPersonalSeries", js)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

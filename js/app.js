@@ -848,6 +848,8 @@ function renderUserData() {
 
   if (userIdx === -1) {
     // El usuario no figura en la adjudicación para esta especialidad
+    window.currentUserSpecPos = null;
+    window.currentUserSpecTotal = specMembers.length;
     safeSetText("userSpecPos", "-");
     safeSetText("userSpecTotal", specMembers.length.toLocaleString());
     safeSetText("kpiPuestosFaltan", "-");
@@ -885,6 +887,8 @@ function renderUserData() {
   }
 
   const userPos = userIdx + 1;
+  window.currentUserSpecPos = userPos;
+  window.currentUserSpecTotal = specMembers.length;
   safeSetText("userSpecPos", userPos.toLocaleString());
   safeSetText("userSpecTotal", specMembers.length.toLocaleString());
 
@@ -1383,60 +1387,90 @@ let currentEvoView = 'chart';
 window.currentEvoSeries = [];
 
 function switchEvoView(view) {
-  currentEvoView = view;
-  const btnChart = document.getElementById("btnEvoChart");
-  const btnTable = document.getElementById("btnEvoTable");
+  window.currentEvoView = view;
   const chartContainer = document.getElementById("evoChartContainer");
   const tableContainer = document.getElementById("evoTableContainer");
+  const btnSpec = document.getElementById("btnEvoSpec");
+  const btnChart = document.getElementById("btnEvoChart");
+  const btnTable = document.getElementById("btnEvoTable");
 
-  if (view === 'chart') {
-    if (btnChart) btnChart.classList.add("active");
-    if (btnTable) btnTable.classList.remove("active");
-    if (chartContainer) chartContainer.classList.remove("hidden");
-    if (tableContainer) tableContainer.classList.add("hidden");
-  } else {
-    if (btnChart) btnChart.classList.remove("active");
+  [btnSpec, btnChart, btnTable].forEach(b => {
+    if (b) b.classList.remove("active");
+  });
+
+  if (view === "table") {
     if (btnTable) btnTable.classList.add("active");
     if (chartContainer) chartContainer.classList.add("hidden");
     if (tableContainer) tableContainer.classList.remove("hidden");
+  } else {
+    // view es 'spec' (puesto en especialidad) o 'chart' (corte macro)
+    if (view === "spec") {
+      if (btnSpec) btnSpec.classList.add("active");
+    } else {
+      if (btnChart) btnChart.classList.add("active");
+    }
+    if (tableContainer) tableContainer.classList.add("hidden");
+    if (chartContainer) chartContainer.classList.remove("hidden");
+
+    window.currentEvoMode = view;
+    updateEvoKpis(window.currentEvoMacroSeries, window.currentEvoPersonalSeries, currentUser, view);
+    renderEvoSvgChart(window.currentEvoMacroSeries, window.currentEvoPersonalSeries, currentUser, view);
   }
 }
 window.switchEvoView = switchEvoView;
 
-function renderUserEvolution(specCode, user) {
-  const card = document.getElementById("evolutionCard");
-  if (!card) return;
+function updateEvoKpis(macroSeries, personalSeries, user, mode) {
+  const specCode = currentSpecialty;
+  const specName = SPECIALTY_NAMES[specCode] || specCode;
 
-  const historico = window.HISTORICO_CORTES || [];
-  if (!historico || historico.length === 0) {
-    card.style.display = "none";
+  if (mode === "spec" && personalSeries && personalSeries.length > 0) {
+    const latest = personalSeries[personalSeries.length - 1];
+    const first = personalSeries[0];
+    const prev = personalSeries.length >= 2 ? personalSeries[personalSeries.length - 2] : null;
+
+    // KPI 1: Posición Actual en Especialidad
+    safeSetText("evoKpiDistance", `#${latest.pos.toLocaleString()}`);
+    safeSetText("evoKpiDistanceDesc", `de ${latest.total.toLocaleString()} convocados en ${specName}`);
+
+    // KPI 2: Nº Adjudicación Convocada Hoy
+    const adjNum = latest.adj || (user?.adj_order ? user.adj_order : user?.bolsa_num);
+    safeSetText("evoKpiSpeed", adjNum ? `#${adjNum.toLocaleString()}` : "Convocado/a");
+    safeSetText("evoKpiSpeedDesc", "Tu orden en la convocatoria oficial de hoy");
+
+    // KPI 3: Último Avance
+    if (prev) {
+      const diff = prev.pos - latest.pos;
+      if (diff > 0) {
+        safeSetHTML("evoKpiMax", `<span style="color:var(--success)">▲ +${diff.toLocaleString()} puestos</span>`);
+        safeSetText("evoKpiMaxDate", `Avanzaste desde #${prev.pos} (${prev.fecha})`);
+      } else if (diff === 0) {
+        safeSetHTML("evoKpiMax", `<span style="color:var(--slate-600)">= Mismo puesto</span>`);
+        safeSetText("evoKpiMaxDate", `Puesto mantenido desde ${prev.fecha}`);
+      } else {
+        safeSetHTML("evoKpiMax", `<span style="color:#ef4444">▼ ${diff.toLocaleString()} puestos</span>`);
+        safeSetText("evoKpiMaxDate", `Variación respecto a ${prev.fecha}`);
+      }
+    } else {
+      safeSetText("evoKpiMax", `#${latest.pos.toLocaleString()}`);
+      safeSetText("evoKpiMaxDate", `Fecha: ${latest.fecha}`);
+    }
+
+    // KPI 4: Progreso Acumulado
+    const totalAdvance = first.pos - latest.pos;
+    if (totalAdvance > 0) {
+      const pct = ((totalAdvance / first.pos) * 100).toFixed(0);
+      safeSetHTML("evoKpiEstimate", `<span style="color:var(--success)">+${totalAdvance.toLocaleString()} puestos</span>`);
+      safeSetText("evoKpiEstimateDesc", `Has subido un ${pct}% desde el puesto #${first.pos} (${first.fecha})`);
+    } else {
+      safeSetText("evoKpiEstimate", `Puesto #${latest.pos}`);
+      safeSetText("evoKpiEstimateDesc", `Evolución en ${personalSeries.length} convocatorias`);
+    }
     return;
   }
-  card.style.display = "block";
 
-  const specName = SPECIALTY_NAMES[specCode] || specCode;
-  safeSetText("evoSpecName", specName);
-
-  // 1. Extraer serie temporal para la especialidad ordenada cronológicamente
-  const series = [];
-  historico.forEach(h => {
-    const sp = h.especialidades ? h.especialidades[specCode] : null;
-    series.push({
-      fecha: h.fecha,
-      plazas: sp ? (sp.plazas || 0) : 0,
-      corte_num: sp && sp.corte_num ? sp.corte_num : null,
-      corte_nombre: sp ? sp.corte_nombre : null,
-      activos_espera: sp ? sp.activos_espera : 0,
-      convocados: sp ? sp.convocados : 0
-    });
-  });
-
-  window.currentEvoSeries = series;
-
-  // Puntos con corte numérico válido
-  const validPoints = series.filter(p => p.corte_num !== null && p.corte_num > 0);
+  // Modo Macro (Corte general de bolsa)
+  const validPoints = (macroSeries || []).filter(p => p.corte_num !== null && p.corte_num > 0);
   if (validPoints.length === 0) {
-    safeSetHTML("evoSvgWrap", `<p class="empty-state" style="padding:24px;text-align:center;color:var(--slate-500)">No hay adjudicaciones con plazas registradas en ${specName}.</p>`);
     safeSetText("evoKpiDistance", "-");
     safeSetText("evoKpiSpeed", "-");
     safeSetText("evoKpiMax", "-");
@@ -1450,13 +1484,10 @@ function renderUserEvolution(specCode, user) {
   const maxCut = Math.max(...cutsOnly);
   const maxCutPoint = validPoints.find(p => p.corte_num === maxCut);
 
-  // Plazas acumuladas y velocidad media
-  const totalPlazas = series.reduce((sum, p) => sum + (p.plazas || 0), 0);
-  const avgPlazas = Math.round(totalPlazas / Math.max(1, series.length));
-
+  const totalPlazas = (macroSeries || []).reduce((sum, p) => sum + (p.plazas || 0), 0);
+  const avgPlazas = Math.round(totalPlazas / Math.max(1, (macroSeries || []).length));
   const userBolsa = user?.bolsa_num || null;
 
-  // Actualizar KPIs de progresión
   if (user && user.status === "Adjudicat") {
     safeSetHTML("evoKpiDistance", `<span style="color:var(--success)">🎉 Adjudicado/a</span>`);
     safeSetText("evoKpiDistanceDesc", "Plaza asignada en esta especialidad");
@@ -1494,45 +1525,269 @@ function renderUserEvolution(specCode, user) {
 
   safeSetText("evoKpiMax", `#${maxCut.toLocaleString()}`);
   safeSetText("evoKpiMaxDate", maxCutPoint ? `Alcanzado el ${maxCutPoint.fecha}` : "Curso 2026/27");
+}
 
-  // Leyenda de usuario
-  const legendUser = document.getElementById("evoLegendUser");
-  const legendUserPos = document.getElementById("evoLegendUserPos");
-  if (userBolsa) {
-    if (legendUser) legendUser.style.display = "inline-flex";
-    if (legendUserPos) legendUserPos.textContent = `#${userBolsa.toLocaleString()}`;
-  } else {
-    if (legendUser) legendUser.style.display = "none";
+function renderUserEvolution(specCode, user) {
+  const card = document.getElementById("evolutionCard");
+  if (!card) return;
+
+  const historico = window.HISTORICO_CORTES || [];
+  if (!historico || historico.length === 0) {
+    card.style.display = "none";
+    return;
   }
+  card.style.display = "block";
 
-  // 2. Renderizar Gráfica SVG
-  renderEvoSvgChart(series, userBolsa);
+  const specName = SPECIALTY_NAMES[specCode] || specCode;
+  safeSetText("evoSpecName", specName);
+  safeSetText("evoValSpecShort", specCode);
 
-  // 3. Renderizar Tabla Histórica
-  renderEvoTable(series, userBolsa);
+  // 1. Extraer serie macro de cortes
+  const macroSeries = [];
+  historico.forEach(h => {
+    const sp = h.especialidades ? h.especialidades[specCode] : null;
+    macroSeries.push({
+      fecha: h.fecha,
+      plazas: sp ? (sp.plazas || 0) : 0,
+      corte_num: sp && sp.corte_num ? sp.corte_num : null,
+      corte_nombre: sp ? sp.corte_nombre : null,
+      activos_espera: sp ? sp.activos_espera : 0,
+      convocados: sp ? sp.convocados : 0
+    });
+  });
+  window.currentEvoMacroSeries = macroSeries;
+  window.currentEvoSeries = macroSeries; // retrocompatibilidad
+
+  // 2. Extraer serie personal de evolución en la especialidad
+  let personalSeries = [];
+  if (user && user.evo && user.evo[specCode]) {
+    personalSeries = user.evo[specCode].map(entry => ({
+      fecha: entry[0],
+      adj: entry[1],
+      pos: entry[2],
+      total: entry[3],
+      status: entry[4] || "No adjudicat"
+    }));
+  }
+  window.currentEvoPersonalSeries = personalSeries;
+
+  // 3. User Header Badges
+  const userAdj = user?.adj_order || null;
+  const userPos = (personalSeries.length > 0) ? personalSeries[personalSeries.length - 1].pos : (window.currentUserSpecPos || null);
+  const userTotal = (personalSeries.length > 0) ? personalSeries[personalSeries.length - 1].total : (window.currentUserSpecTotal || null);
+  const userBolsa = user?.bolsa_num || null;
+
+  safeSetText("evoValAdj", userAdj ? `#${userAdj.toLocaleString()}` : (user?.in_adjudicacion ? "Convocado/a" : "No convocado hoy"));
+  safeSetText("evoValPos", userPos ? `#${userPos.toLocaleString()}${userTotal ? ' de ' + userTotal.toLocaleString() : ''}` : "-");
+  safeSetText("evoValBolsa", userBolsa ? `#${userBolsa.toLocaleString()}` : "-");
+
+  // 4. Determinar modo activo:
+  // Si el usuario tiene histórico personal en esta especialidad, preferir 'spec'; si no, 'chart'
+  let activeMode = window.currentEvoMode;
+  if (!activeMode || (activeMode === 'spec' && personalSeries.length === 0)) {
+    activeMode = personalSeries.length > 0 ? 'spec' : 'chart';
+  }
+  window.currentEvoMode = activeMode;
+
+  const btnSpec = document.getElementById("btnEvoSpec");
+  const btnChart = document.getElementById("btnEvoChart");
+  const btnTable = document.getElementById("btnEvoTable");
+  if (btnSpec) btnSpec.classList.toggle("active", activeMode === "spec");
+  if (btnChart) btnChart.classList.toggle("active", activeMode === "chart");
+  if (btnTable) btnTable.classList.toggle("active", activeMode === "table");
+
+  // Actualizar KPIs
+  updateEvoKpis(macroSeries, personalSeries, user, activeMode);
+
+  // Renderizar Gráfica SVG
+  renderEvoSvgChart(macroSeries, personalSeries, user, activeMode);
+
+  // Renderizar Tabla Histórica
+  renderEvoTable(macroSeries, personalSeries, user);
 }
 window.renderUserEvolution = renderUserEvolution;
 
-function renderEvoSvgChart(series, userBolsa) {
+function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
   const wrap = document.getElementById("evoSvgWrap");
   if (!wrap) return;
 
-  const valid = series.filter(s => s.corte_num !== null && s.corte_num > 0);
-  if (valid.length === 0) {
-    wrap.innerHTML = '<p class="empty-state">Sin datos de corte suficientes.</p>';
-    return;
+  const userBolsa = user?.bolsa_num || null;
+  const userAdj = user?.adj_order || null;
+  const specName = SPECIALTY_NAMES[currentSpecialty] || currentSpecialty;
+
+  // Si se pide modo 'spec' pero no hay histórico personal suficiente, conmutar a 'chart'
+  if (mode === "spec" && (!personalSeries || personalSeries.length === 0)) {
+    mode = "chart";
   }
 
   const svgW = 680;
   const svgH = 220;
   const padLeft = 65;
   const padRight = 35;
-  const padTop = 25;
+  const padTop = 30;
   const padBottom = 35;
   const plotW = svgW - padLeft - padRight;
   const plotH = svgH - padTop - padBottom;
 
-  // Determinar rango de valores Y
+  // =========================================================================
+  // MODO 1: EVOLUCIÓN PERSONAL EN LA ESPECIALIDAD (ESCALA INVERTIDA: #1 ARRIBA)
+  // =========================================================================
+  if (mode === "spec") {
+    const series = personalSeries;
+    const positions = series.map(s => s.pos);
+    const minPos = Math.min(...positions);
+    const maxPos = Math.max(...positions);
+
+    const range = maxPos - minPos;
+    const step = range > 800 ? 250 : (range > 400 ? 100 : (range > 150 ? 50 : 25));
+    const topYVal = Math.max(1, Math.floor((minPos - step * 0.3) / step) * step);
+    const bottomYVal = Math.ceil((maxPos + step * 0.4) / step) * step;
+
+    function getY(pos) {
+      if (bottomYVal === topYVal) return padTop + plotH / 2;
+      // topYVal (mejor puesto, más cercano a #1) arriba
+      return padTop + ((pos - topYVal) / (bottomYVal - topYVal)) * plotH;
+    }
+
+    function getX(idx) {
+      if (series.length <= 1) return padLeft + plotW / 2;
+      return padLeft + (idx / (series.length - 1)) * plotW;
+    }
+
+    // 1. Líneas de cuadrícula horizontales
+    const numSteps = Math.min(6, Math.floor((bottomYVal - topYVal) / step));
+    let gridLinesSvg = "";
+    for (let i = 0; i <= numSteps; i++) {
+      const val = topYVal + i * step;
+      if (val > bottomYVal) break;
+      const y = getY(val);
+      gridLinesSvg += `
+        <line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+        <text x="${padLeft - 8}" y="${y + 3.5}" fill="#059669" font-size="10" font-weight="700" text-anchor="end">#${val.toLocaleString()}</text>
+      `;
+    }
+
+    // 2. Coordenadas de los puntos
+    const points = series.map((s, idx) => ({
+      x: getX(idx),
+      y: getY(s.pos),
+      data: s,
+      idx: idx
+    }));
+
+    const polyPointsStr = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+
+    // Área bajo la curva
+    let areaSvg = "";
+    if (points.length > 1) {
+      const firstX = points[0].x.toFixed(1);
+      const lastX = points[points.length - 1].x.toFixed(1);
+      const bottomY = (padTop + plotH).toFixed(1);
+      const areaPointsStr = `${firstX},${bottomY} ${polyPointsStr} ${lastX},${bottomY}`;
+      areaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoSpecGradient)" />`;
+    }
+
+    // 3. Eje X con fechas
+    let xAxisSvg = "";
+    series.forEach((s, idx) => {
+      const x = getX(idx);
+      xAxisSvg += `
+        <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
+        <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="10" font-weight="500" text-anchor="middle">${s.fecha}</text>
+      `;
+    });
+
+    // 4. Puntos interactivos
+    let dotsSvg = "";
+    points.forEach((p, pIdx) => {
+      const s = p.data;
+      const isAdjudicat = s.status === "Adjudicat";
+      const isLast = pIdx === points.length - 1;
+
+      let markerSvg = "";
+      if (isAdjudicat) {
+        markerSvg = `
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="6" fill="#f59e0b" stroke="#047857" stroke-width="2.5" />
+          <text x="${p.x.toFixed(1)}" y="${(p.y - 10).toFixed(1)}" fill="#047857" font-size="9" font-weight="800" text-anchor="middle">🎉 Pl. Obtenida</text>
+        `;
+      } else if (isLast) {
+        markerSvg = `
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="6.5" fill="#10b981" stroke="#047857" stroke-width="2.5" />
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.5" fill="#ffffff" />
+        `;
+      } else {
+        markerSvg = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="#ffffff" stroke="#10b981" stroke-width="2.5" />`;
+      }
+
+      dotsSvg += `
+        <g class="evo-point-group" data-idx="${pIdx}">
+          ${markerSvg}
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="18" fill="transparent" style="cursor:pointer"
+            onmouseenter="window.showEvoTooltip(event, ${pIdx}, 'spec')"
+            onmousemove="window.moveEvoTooltip(event)"
+            onmouseleave="window.hideEvoTooltip()" />
+        </g>
+      `;
+    });
+
+    // 5. Callout destacado en el último punto (HOY)
+    let calloutSvg = "";
+    if (points.length > 0) {
+      const lastP = points[points.length - 1];
+      const badgeW = 200;
+      const badgeH = 22;
+      let bX = lastP.x - badgeW + 8;
+      if (bX < padLeft) bX = lastP.x - badgeW / 2;
+      const bY = Math.max(padTop - 22, lastP.y - 28);
+
+      const adjDisplay = (lastP.data.adj || userAdj) ? `#${(lastP.data.adj || userAdj).toLocaleString()}` : "-";
+      calloutSvg = `
+        <g class="evo-callout-today">
+          <rect x="${bX}" y="${bY}" width="${badgeW}" height="${badgeH}" rx="5" fill="#0f172a" />
+          <polygon points="${lastP.x},${lastP.y - 4} ${lastP.x - 5},${bY + badgeH} ${lastP.x + 5},${bY + badgeH}" fill="#0f172a" />
+          <text x="${bX + badgeW / 2}" y="${bY + 15}" fill="#34d399" font-size="10.5" font-weight="700" text-anchor="middle">
+            📍 Hoy: Puesto #${lastP.data.pos.toLocaleString()} (Nº Adj: ${adjDisplay})
+          </text>
+        </g>
+      `;
+    }
+
+    wrap.innerHTML = `
+      <svg class="evo-svg" viewBox="0 0 ${svgW} ${svgH}" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="evoSpecGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.35" />
+            <stop offset="85%" stop-color="#10b981" stop-opacity="0.05" />
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        ${gridLinesSvg}
+        ${xAxisSvg}
+        ${areaSvg}
+        <polyline points="${polyPointsStr}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        ${dotsSvg}
+        ${calloutSvg}
+      </svg>
+      <div class="evo-legend">
+        <span class="evo-legend-item"><span class="evo-dot dot-spec"></span> Tu Puesto en ${specName} (Meta: Puesto #1)</span>
+        <span class="evo-legend-item"><span class="evo-dot" style="background:#f59e0b;border:2px solid #047857"></span> 🎉 Plaza Adjudicada</span>
+        <span class="evo-legend-item" id="evoLegendUser">
+          <strong style="color:var(--primary)">📋 Nº Adjudicación convocada actual: ${userAdj ? '#' + userAdj.toLocaleString() : '-'}</strong>
+        </span>
+      </div>
+    `;
+    return;
+  }
+
+  // =========================================================================
+  // MODO 2: CORTE GENERAL DE BOLSA (MACRO)
+  // =========================================================================
+  const valid = (macroSeries || []).filter(s => s.corte_num !== null && s.corte_num > 0);
+  if (valid.length === 0) {
+    wrap.innerHTML = '<p class="empty-state">Sin datos de corte suficientes.</p>';
+    return;
+  }
+
   const cuts = valid.map(s => s.corte_num);
   let allVals = [...cuts];
   if (userBolsa && userBolsa > 0 && userBolsa <= 35000) {
@@ -1546,7 +1801,6 @@ function renderEvoSvgChart(series, userBolsa) {
     maxRaw += 500;
   }
 
-  // Redondear a intervalos limpios (paso de 500 o 1000)
   const range = maxRaw - minRaw;
   const step = range > 6000 ? 2000 : (range > 2500 ? 1000 : 500);
   const minY = Math.max(0, Math.floor((minRaw - step * 0.3) / step) * step);
@@ -1558,11 +1812,10 @@ function renderEvoSvgChart(series, userBolsa) {
   }
 
   function getX(idx) {
-    if (series.length <= 1) return padLeft + plotW / 2;
-    return padLeft + (idx / (series.length - 1)) * plotW;
+    if (macroSeries.length <= 1) return padLeft + plotW / 2;
+    return padLeft + (idx / (macroSeries.length - 1)) * plotW;
   }
 
-  // 1. Líneas de cuadrícula horizontales
   const numGridLines = Math.min(5, Math.floor((maxY - minY) / step));
   let gridLinesSvg = "";
   for (let i = 0; i <= numGridLines; i++) {
@@ -1575,25 +1828,21 @@ function renderEvoSvgChart(series, userBolsa) {
     `;
   }
 
-  // 2. Coordenadas de los puntos de corte
   const points = [];
   let lastKnownY = null;
-  series.forEach((s, idx) => {
+  macroSeries.forEach((s, idx) => {
     const x = getX(idx);
     if (s.corte_num !== null) {
       const y = getY(s.corte_num);
       lastKnownY = y;
       points.push({ x, y, data: s, origIdx: idx });
     } else if (lastKnownY !== null) {
-      // Si en esta fecha no hubo plazas, mantener el último corte conocido para la línea
       points.push({ x, y: lastKnownY, data: s, origIdx: idx, isInterpolated: true });
     }
   });
 
-  // Polilínea de corte
   const polyPointsStr = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
 
-  // Área con gradiente debajo de la línea
   let areaSvg = "";
   if (points.length > 1) {
     const firstX = points[0].x.toFixed(1);
@@ -1603,7 +1852,7 @@ function renderEvoSvgChart(series, userBolsa) {
     areaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoGradient)" />`;
   }
 
-  // 3. Línea del usuario si tiene número de bolsa
+  // Línea de referencia del usuario con su Nº de Adjudicación actual
   let userLineSvg = "";
   if (userBolsa && userBolsa > 0) {
     const uY = getY(userBolsa);
@@ -1612,11 +1861,12 @@ function renderEvoSvgChart(series, userBolsa) {
     const isAboveMax = uY < padTop;
     const isBelowMin = uY > padTop + plotH;
 
+    const adjLabel = userAdj ? ` • Nº Adj: #${userAdj.toLocaleString()}` : "";
     const labelText = isAboveMax 
-      ? `Tu Bolsa: #${userBolsa.toLocaleString()} (por encima)` 
-      : (isBelowMin ? `Tu Bolsa: #${userBolsa.toLocaleString()} (en rango prioritario)` : `Tu Bolsa: #${userBolsa.toLocaleString()}`);
+      ? `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel} (por encima)` 
+      : (isBelowMin ? `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel} (en rango prioritario)` : `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel}`);
 
-    const badgeW = 124;
+    const badgeW = userAdj ? 185 : 124;
     const badgeX = padLeft + plotW - badgeW;
 
     userLineSvg = `
@@ -1628,18 +1878,16 @@ function renderEvoSvgChart(series, userBolsa) {
     `;
   }
 
-  // 4. Eje X con fechas
   let xAxisSvg = "";
-  series.forEach((s, idx) => {
+  macroSeries.forEach((s, idx) => {
     const x = getX(idx);
-    const shortDate = s.fecha.slice(0, 5); // "DD/MM"
+    const shortDate = s.fecha.slice(0, 5);
     xAxisSvg += `
       <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
       <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="10" font-weight="500" text-anchor="middle">${shortDate}</text>
     `;
   });
 
-  // 5. Puntos interactivos (círculos)
   let dotsSvg = "";
   points.forEach((p, pIdx) => {
     const s = p.data;
@@ -1653,14 +1901,15 @@ function renderEvoSvgChart(series, userBolsa) {
       <g class="evo-point-group" data-idx="${p.origIdx}">
         <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${dotFill}" stroke="${dotStroke}" stroke-width="2.5" />
         <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="16" fill="transparent" style="cursor:pointer"
-          onmouseenter="window.showEvoTooltip(event, ${p.origIdx})"
+          onmouseenter="window.showEvoTooltip(event, ${p.origIdx}, 'chart')"
           onmousemove="window.moveEvoTooltip(event)"
           onmouseleave="window.hideEvoTooltip()" />
       </g>
     `;
   });
 
-  // Ensamblar SVG completo
+  const legendAdjText = userAdj ? ` • Nº Adjudicación actual: #${userAdj.toLocaleString()}` : "";
+
   wrap.innerHTML = `
     <svg class="evo-svg" viewBox="0 0 ${svgW} ${svgH}" preserveAspectRatio="xMidYMid meet">
       <defs>
@@ -1670,96 +1919,155 @@ function renderEvoSvgChart(series, userBolsa) {
           <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
         </linearGradient>
       </defs>
-
-      <!-- Cuadrícula -->
       ${gridLinesSvg}
-
-      <!-- Eje X -->
       ${xAxisSvg}
-
-      <!-- Área y Curva de Corte -->
       ${areaSvg}
       <polyline points="${polyPointsStr}" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
-
-      <!-- Línea de usuario -->
       ${userLineSvg}
-
-      <!-- Puntos interactivos -->
       ${dotsSvg}
     </svg>
-    
+    <div class="evo-legend">
+      <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> Línea de Corte (Nº Bolsa del último adjudicado)</span>
+      <span class="evo-legend-item" id="evoLegendUser"><span class="evo-dot dot-user"></span> Tu posición de bolsa (<strong id="evoLegendUserPos">#${userBolsa ? userBolsa.toLocaleString() : '-'}${legendAdjText}</strong>)</span>
+    </div>
   `;
 }
 
-function renderEvoTable(series, userBolsa) {
+function renderEvoTable(macroSeries, personalSeries, user) {
   const tbody = document.getElementById("evoTableBody");
   if (!tbody) return;
 
-  // Orden cronológico inverso (el más reciente arriba)
-  const rev = [...series].reverse();
+  const revMacro = [...(macroSeries || [])].reverse();
+  const personalMap = {};
+  (personalSeries || []).forEach(p => {
+    personalMap[p.fecha] = p;
+  });
 
-  tbody.innerHTML = rev.map(s => {
-    const hasCut = s.corte_num !== null && s.corte_num > 0;
-    const corteBadge = hasCut 
-      ? `<strong class="tag tag-blue">#${s.corte_num.toLocaleString()}</strong>` 
-      : `<span style="color:var(--slate-400)">Sin plazas hoy</span>`;
-    
-    let distBadge = "-";
-    let statusText = "Convocatoria ordinaria";
+  tbody.innerHTML = revMacro.map((s, idx) => {
+    const shortDate = s.fecha.slice(0, 5);
+    const pers = personalMap[shortDate] || null;
 
-    if (userBolsa && hasCut) {
-      const diff = userBolsa - s.corte_num;
-      if (diff <= 0) {
-        distBadge = `<span class="tag tag-status status-adjudicat">En rango (${diff.toLocaleString()})</span>`;
-        statusText = "Dentro del rango de corte";
-      } else {
-        distBadge = `<span class="tag" style="background:#eff6ff;color:#1e40af;font-weight:600">+${diff.toLocaleString()} puestos</span>`;
-        statusText = "Por detrás del corte";
+    // 1. Puesto en especialidad
+    let posBadge = `<span style="color:var(--slate-400)">-</span>`;
+    if (pers && pers.pos) {
+      posBadge = `<strong class="tag tag-blue">#${pers.pos.toLocaleString()}</strong> <small style="color:var(--slate-500);font-weight:600">de ${pers.total ? pers.total.toLocaleString() : '-'}</small>`;
+    }
+
+    // 2. Nº Adjudicación convocada
+    let adjBadge = `<span style="color:var(--slate-400)">-</span>`;
+    if (pers && pers.adj) {
+      adjBadge = `<span class="tag" style="background:#eff6ff;color:#1e40af;font-weight:700">#${pers.adj.toLocaleString()}</span>`;
+    }
+
+    // 3. Avance respecto a la anterior
+    let advanceBadge = `<span style="color:var(--slate-400)">-</span>`;
+    if (pers && personalSeries) {
+      const persIdx = personalSeries.findIndex(p => p.fecha === shortDate);
+      if (persIdx > 0) {
+        const prevPers = personalSeries[persIdx - 1];
+        const diff = prevPers.pos - pers.pos;
+        if (diff > 0) {
+          advanceBadge = `<span class="badge-advance advance-positive">▲ +${diff.toLocaleString()} puestos</span>`;
+        } else if (diff === 0) {
+          advanceBadge = `<span class="badge-advance advance-neutral">= Sin cambios</span>`;
+        } else {
+          advanceBadge = `<span class="badge-advance advance-negative">▼ ${diff.toLocaleString()} puestos</span>`;
+        }
       }
     }
 
-    const docName = s.corte_nombre ? s.corte_nombre : (hasCut ? "Adjudicado" : "Sin adjudicaciones");
+    // 4. Corte de bolsa
+    const hasCut = s.corte_num !== null && s.corte_num > 0;
+    const corteBadge = hasCut 
+      ? `<strong class="tag" style="background:#f1f5f9;color:#334155;font-weight:700">#${s.corte_num.toLocaleString()}</strong>` 
+      : `<span style="color:var(--slate-400)">Sin plazas hoy</span>`;
+
+    // 5. Estado
+    let statusBadge = `<span style="font-size:0.8rem;color:var(--slate-600)">Convocatoria</span>`;
+    if (pers && pers.status) {
+      if (pers.status === "Adjudicat") {
+        statusBadge = `<span class="tag tag-status status-adjudicat">🎉 Adjudicat</span>`;
+      } else if (pers.status === "Desactivat") {
+        statusBadge = `<span class="tag tag-status status-desactivat">Desactivat</span>`;
+      } else {
+        statusBadge = `<span class="tag tag-status status-no-adjudicat">${pers.status}</span>`;
+      }
+    }
 
     return `
       <tr>
         <td><strong>${s.fecha}</strong></td>
-        <td><span class="tag" style="background:#f1f5f9;color:#334155;font-weight:600">${s.plazas} ${s.plazas === 1 ? 'plaza' : 'plazas'}</span></td>
+        <td>${posBadge}</td>
+        <td>${adjBadge}</td>
+        <td>${advanceBadge}</td>
         <td>${corteBadge}</td>
-        <td>${docName}</td>
-        <td>${distBadge}</td>
-        <td><span style="font-size:0.8rem;color:var(--slate-600)">${statusText}</span></td>
+        <td><span class="tag" style="background:#f8fafc;color:#475569;font-weight:600">${s.plazas} ${s.plazas === 1 ? 'plaza' : 'plazas'}</span></td>
+        <td>${statusBadge}</td>
       </tr>
     `;
   }).join("");
 }
 
 // Tooltips interactivos de la gráfica
-function showEvoTooltip(evt, idx) {
+function showEvoTooltip(evt, idx, mode) {
   const tooltip = document.getElementById("evoTooltip");
   if (!tooltip) return;
 
-  const series = window.currentEvoSeries || [];
-  const s = series[idx];
-  if (!s) return;
+  const specCode = currentSpecialty;
+  const specName = SPECIALTY_NAMES[specCode] || specCode;
 
-  const userBolsa = currentUser?.bolsa_num || null;
-  let distHtml = "";
-  if (userBolsa && s.corte_num) {
-    const diff = userBolsa - s.corte_num;
-    if (diff <= 0) {
-      distHtml = `<div style="color:#34d399;font-weight:700;margin-top:4px">✓ En rango (${diff.toLocaleString()} puestos)</div>`;
-    } else {
-      distHtml = `<div style="color:#93c5fd;font-weight:600;margin-top:4px">A +${diff.toLocaleString()} puestos de tu número</div>`;
+  if (mode === "spec") {
+    const series = window.currentEvoPersonalSeries || [];
+    const p = series[idx];
+    if (!p) return;
+
+    let advanceHtml = "";
+    if (idx > 0) {
+      const prev = series[idx - 1];
+      const diff = prev.pos - p.pos;
+      if (diff > 0) {
+        advanceHtml = `<div style="color:#34d399;font-weight:700;margin-top:4px">▲ Subiste +${diff.toLocaleString()} puestos respecto al ${prev.fecha} (#${prev.pos})</div>`;
+      } else if (diff === 0) {
+        advanceHtml = `<div style="color:#94a3b8;font-size:0.75rem;margin-top:4px">= Mismo puesto que el ${prev.fecha}</div>`;
+      } else {
+        advanceHtml = `<div style="color:#f87171;font-size:0.75rem;margin-top:4px">▼ Variación de ${diff.toLocaleString()} puestos respecto al ${prev.fecha}</div>`;
+      }
     }
-  }
 
-  tooltip.innerHTML = `
-    <div style="font-weight:700;margin-bottom:2px">📅 Adjudicación ${s.fecha}</div>
-    <div>Corte de bolsa: <strong>${s.corte_num ? '#' + s.corte_num.toLocaleString() : 'Sin plazas'}</strong></div>
-    ${s.corte_nombre ? `<div style="font-size:0.75rem;color:#cbd5e1">${s.corte_nombre}</div>` : ''}
-    <div style="font-size:0.75rem;color:#94a3b8">Plazas asignadas hoy: <strong>${s.plazas}</strong></div>
-    ${distHtml}
-  `;
+    const adjText = p.adj ? ` • Nº Convocatoria: #${p.adj.toLocaleString()}` : "";
+    tooltip.innerHTML = `
+      <div style="font-weight:700;margin-bottom:3px">📅 Adjudicación ${p.fecha}</div>
+      <div style="color:#6ee7b7;font-weight:700;font-size:0.9rem">Puesto #${p.pos.toLocaleString()} <small style="color:#cbd5e1">de ${p.total ? p.total.toLocaleString() : '-'} en ${specName}</small></div>
+      <div style="font-size:0.75rem;color:#93c5fd;margin-top:2px">Nº Adjudicación: <strong>${p.adj ? '#' + p.adj.toLocaleString() : '-'}</strong></div>
+      <div style="font-size:0.75rem;color:#94a3b8">Estado: <strong>${p.status}</strong></div>
+      ${advanceHtml}
+    `;
+  } else {
+    const series = window.currentEvoMacroSeries || window.currentEvoSeries || [];
+    const s = series[idx];
+    if (!s) return;
+
+    const userBolsa = currentUser?.bolsa_num || null;
+    const userAdj = currentUser?.adj_order || null;
+    let distHtml = "";
+    if (userBolsa && s.corte_num) {
+      const diff = userBolsa - s.corte_num;
+      if (diff <= 0) {
+        distHtml = `<div style="color:#34d399;font-weight:700;margin-top:4px">✓ En rango (${diff.toLocaleString()} puestos)</div>`;
+      } else {
+        distHtml = `<div style="color:#93c5fd;font-weight:600;margin-top:4px">A +${diff.toLocaleString()} puestos de tu bolsa</div>`;
+      }
+    }
+
+    tooltip.innerHTML = `
+      <div style="font-weight:700;margin-bottom:2px">📅 Adjudicación ${s.fecha}</div>
+      <div>Corte de bolsa: <strong>${s.corte_num ? '#' + s.corte_num.toLocaleString() : 'Sin plazas'}</strong></div>
+      ${s.corte_nombre ? `<div style="font-size:0.75rem;color:#cbd5e1">${s.corte_nombre}</div>` : ''}
+      <div style="font-size:0.75rem;color:#94a3b8">Plazas asignadas hoy: <strong>${s.plazas}</strong></div>
+      ${userAdj ? `<div style="font-size:0.75rem;color:#bfdbfe">Tu Nº Adjudicación convocada: <strong>#${userAdj.toLocaleString()}</strong></div>` : ''}
+      ${distHtml}
+    `;
+  }
 
   tooltip.classList.remove("hidden");
   moveEvoTooltip(evt);

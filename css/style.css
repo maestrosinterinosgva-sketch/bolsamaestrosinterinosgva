@@ -3363,3 +3363,67 @@ input[type="text"]:focus, select:focus {
     align-self: flex-start;
   }
 }
+
+
+/* User badges in evolution header */
+.evo-user-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.evo-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-200);
+}
+.evo-user-badge strong {
+  font-weight: 800;
+}
+.evo-user-badge-adj {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+.evo-user-badge-pos {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.evo-user-badge-bolsa {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+.dot-spec {
+  background: #10b981;
+  border: 2px solid #059669;
+}
+.badge-advance {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.advance-positive {
+  background: #dcfce7;
+  color: #15803d;
+}
+.advance-neutral {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.advance-negative {
+  background: #fee2e2;
+  color: #b91c1c;
+}
