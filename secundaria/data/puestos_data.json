@@ -2788,39 +2788,6 @@
     "especialidad_completa": "201 - FILOSOFÍA",
     "codigo_especialidad": "201",
     "especialidad": "FILOSOFÍA",
-    "provincia": "Castelló",
-    "localidad": "CASTELLÓ DE LA PLANA",
-    "codigo_centro": "12004205",
-    "nombre_centro": "IES VICENT CASTELL I DOMÉNECH 876531 NO SUSTITUCIÓN INDETERMINADA",
-    "jornada": {
-      "tipo": "SECUNDARIA",
-      "descripcion": "Horario IES / Secundaria",
-      "corta": "Horario IES",
-      "raw": []
-    },
-    "jornada_desc": "Jornada Partida (9:00 a 17:00)",
-    "jornada_corta": "Partida 9h-17h",
-    "direccion": "CARRER ILLA BALEATO 18",
-    "cp": "12006",
-    "comarca": "LA PLANA ALTA",
-    "lat": 39.975188,
-    "lng": -0.053065,
-    "lloc": "",
-    "horas": "COMPLETA",
-    "horas_num": 18.0,
-    "es_completa": true,
-    "req_ling": "",
-    "itinerante": "NO",
-    "observaciones": "",
-    "tipo": "",
-    "centros_compartidos": []
-  },
-  {
-    "numero": 80,
-    "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
-    "especialidad_completa": "201 - FILOSOFÍA",
-    "codigo_especialidad": "201",
-    "especialidad": "FILOSOFÍA",
     "provincia": "València",
     "localidad": "JALANCE",
     "codigo_centro": "46022154",
@@ -2849,7 +2816,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 81,
+    "numero": 80,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "204 - LENGUA CASTELLANA Y LITERATURA",
     "codigo_especialidad": "204",
@@ -2882,7 +2849,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 82,
+    "numero": 81,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "204 - LENGUA CASTELLANA Y LITERATURA",
     "codigo_especialidad": "204",
@@ -2915,7 +2882,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 83,
+    "numero": 82,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "204 - LENGUA CASTELLANA Y LITERATURA",
     "codigo_especialidad": "204",
@@ -2948,7 +2915,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 84,
+    "numero": 83,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "205 - GEOGRAFÍA E HISTORIA",
     "codigo_especialidad": "205",
@@ -2981,7 +2948,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 85,
+    "numero": 84,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "206 - MATEMÁTICAS",
     "codigo_especialidad": "206",
@@ -3014,7 +2981,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 86,
+    "numero": 85,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "206 - MATEMÁTICAS",
     "codigo_especialidad": "206",
@@ -3047,7 +3014,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 87,
+    "numero": 86,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "206 - MATEMÁTICAS",
     "codigo_especialidad": "206",
@@ -3080,7 +3047,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 88,
+    "numero": 87,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "206 - MATEMÁTICAS",
     "codigo_especialidad": "206",
@@ -3113,7 +3080,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 89,
+    "numero": 88,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "206 - MATEMÁTICAS",
     "codigo_especialidad": "206",
@@ -3146,7 +3113,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 90,
+    "numero": 89,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "207 - FÍSICA Y QUÍMICA",
     "codigo_especialidad": "207",
@@ -3179,7 +3146,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 91,
+    "numero": 90,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "207 - FÍSICA Y QUÍMICA",
     "codigo_especialidad": "207",
@@ -3212,7 +3179,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 92,
+    "numero": 91,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "208 - BIOLOGÍA Y GEOLOGÍA",
     "codigo_especialidad": "208",
@@ -3245,7 +3212,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 93,
+    "numero": 92,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "208 - BIOLOGÍA Y GEOLOGÍA",
     "codigo_especialidad": "208",
@@ -3278,7 +3245,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 94,
+    "numero": 93,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "208 - BIOLOGÍA Y GEOLOGÍA",
     "codigo_especialidad": "208",
@@ -3311,7 +3278,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 95,
+    "numero": 94,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "208 - BIOLOGÍA Y GEOLOGÍA",
     "codigo_especialidad": "208",
@@ -3344,7 +3311,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 96,
+    "numero": 95,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "209 - DIBUJO",
     "codigo_especialidad": "209",
@@ -3377,7 +3344,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 97,
+    "numero": 96,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "210 - FRANCÉS",
     "codigo_especialidad": "210",
@@ -3410,7 +3377,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 98,
+    "numero": 97,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "210 - FRANCÉS",
     "codigo_especialidad": "210",
@@ -3443,7 +3410,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 99,
+    "numero": 98,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "211 - INGLÉS",
     "codigo_especialidad": "211",
@@ -3476,7 +3443,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 100,
+    "numero": 99,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "211 - INGLÉS",
     "codigo_especialidad": "211",
@@ -3509,7 +3476,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 101,
+    "numero": 100,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "211 - INGLÉS",
     "codigo_especialidad": "211",
@@ -3542,7 +3509,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 102,
+    "numero": 101,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "211 - INGLÉS",
     "codigo_especialidad": "211",
@@ -3575,7 +3542,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 103,
+    "numero": 102,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "212 - ALEMÁN",
     "codigo_especialidad": "212",
@@ -3608,7 +3575,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 104,
+    "numero": 103,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "216 - MÚSICA",
     "codigo_especialidad": "216",
@@ -3641,7 +3608,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 105,
+    "numero": 104,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "216 - MÚSICA",
     "codigo_especialidad": "216",
@@ -3674,7 +3641,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 106,
+    "numero": 105,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "217 - EDUCACIÓN FÍSICA",
     "codigo_especialidad": "217",
@@ -3707,7 +3674,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 107,
+    "numero": 106,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "217 - EDUCACIÓN FÍSICA",
     "codigo_especialidad": "217",
@@ -3740,7 +3707,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 108,
+    "numero": 107,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "218 - ORIENTACIÓN EDUCATIVA",
     "codigo_especialidad": "218",
@@ -3773,7 +3740,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 109,
+    "numero": 108,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "218 - ORIENTACIÓN EDUCATIVA",
     "codigo_especialidad": "218",
@@ -3809,7 +3776,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 110,
+    "numero": 109,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "219 - TECNOLOGÍA",
     "codigo_especialidad": "219",
@@ -3842,7 +3809,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 111,
+    "numero": 110,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "222 - FORMACIÓN Y ORIENTACIÓN LABORAL",
     "codigo_especialidad": "222",
@@ -3875,7 +3842,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 112,
+    "numero": 111,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "222 - FORMACIÓN Y ORIENTACIÓN LABORAL",
     "codigo_especialidad": "222",
@@ -3908,7 +3875,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 113,
+    "numero": 112,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "224 - ORGANIZACIÓN Y PROYECTOS DE FABRICACIÓN MECÁNICA",
     "codigo_especialidad": "224",
@@ -3941,7 +3908,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 114,
+    "numero": 113,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "226 - SISTEMAS ELECTRÓNICOS",
     "codigo_especialidad": "226",
@@ -3974,7 +3941,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 115,
+    "numero": 114,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "227 - ORGANIZACIÓN Y PROCESOS DE MANTO. DE VEHÍCULOS",
     "codigo_especialidad": "227",
@@ -4007,7 +3974,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 116,
+    "numero": 115,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "236 - ASESORÍA Y PROCESOS DE IMAGEN PERSONAL",
     "codigo_especialidad": "236",
@@ -4040,7 +4007,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 117,
+    "numero": 116,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "236 - ASESORÍA Y PROCESOS DE IMAGEN PERSONAL",
     "codigo_especialidad": "236",
@@ -4073,7 +4040,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 118,
+    "numero": 117,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "236 - ASESORÍA Y PROCESOS DE IMAGEN PERSONAL",
     "codigo_especialidad": "236",
@@ -4106,7 +4073,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 119,
+    "numero": 118,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "240 - NAVEGACIÓN E INSTALACIONES MARINAS",
     "codigo_especialidad": "240",
@@ -4139,7 +4106,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 120,
+    "numero": 119,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "242 - INTERVENCIÓN SOCIOCOMUNITARIA",
     "codigo_especialidad": "242",
@@ -4172,7 +4139,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 121,
+    "numero": 120,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4200,7 +4167,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 122,
+    "numero": 121,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4233,7 +4200,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 123,
+    "numero": 122,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4266,7 +4233,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 124,
+    "numero": 123,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4299,7 +4266,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 125,
+    "numero": 124,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4332,7 +4299,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 126,
+    "numero": 125,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "254 - INFORMÁTICA",
     "codigo_especialidad": "254",
@@ -4365,7 +4332,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 127,
+    "numero": 126,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "256 - LENGUA Y LITERATURA VALENCIANA",
     "codigo_especialidad": "256",
@@ -4398,7 +4365,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 128,
+    "numero": 127,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "256 - LENGUA Y LITERATURA VALENCIANA",
     "codigo_especialidad": "256",
@@ -4431,7 +4398,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 129,
+    "numero": 128,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "256 - LENGUA Y LITERATURA VALENCIANA",
     "codigo_especialidad": "256",
@@ -4464,7 +4431,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 130,
+    "numero": 129,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "256 - LENGUA Y LITERATURA VALENCIANA",
     "codigo_especialidad": "256",
@@ -4497,7 +4464,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 131,
+    "numero": 130,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "256 - LENGUA Y LITERATURA VALENCIANA",
     "codigo_especialidad": "256",
@@ -4530,7 +4497,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 132,
+    "numero": 131,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "261 - ECONOMÍA",
     "codigo_especialidad": "261",
@@ -4563,7 +4530,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 133,
+    "numero": 132,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "261 - ECONOMÍA",
     "codigo_especialidad": "261",
@@ -4615,7 +4582,7 @@
     ]
   },
   {
-    "numero": 134,
+    "numero": 133,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "261 - ECONOMÍA",
     "codigo_especialidad": "261",
@@ -4648,7 +4615,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 135,
+    "numero": 134,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "261 - ECONOMÍA",
     "codigo_especialidad": "261",
@@ -4681,7 +4648,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 136,
+    "numero": 135,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "270 - PROCESOS DIAGNOST. CLÍNICO Y PRO. ORTOPROTÉSICOS",
     "codigo_especialidad": "270",
@@ -4714,7 +4681,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 137,
+    "numero": 136,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "271 - PROCESOS SANITARIOS",
     "codigo_especialidad": "271",
@@ -4747,40 +4714,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 138,
-    "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
-    "especialidad_completa": "271 - PROCESOS SANITARIOS",
-    "codigo_especialidad": "271",
-    "especialidad": "PROCESOS SANITARIOS",
-    "provincia": "Alacant",
-    "localidad": "ALACANT",
-    "codigo_centro": "03002007",
-    "nombre_centro": "CIPFP POLITÈCNIC MARÍTIM PESQUER DEL MEDIT 921785 NO Graduado en Enfermería o Medicina VACANTE",
-    "jornada": {
-      "tipo": "SECUNDARIA",
-      "descripcion": "Horario IES / Secundaria",
-      "corta": "Horario IES",
-      "raw": []
-    },
-    "jornada_desc": "Jornada Partida (9:00 a 17:00)",
-    "jornada_corta": "Partida 9h-17h",
-    "direccion": "CARRER MUELLE PESQUERO S/N",
-    "cp": "03001",
-    "comarca": "L'ALACANTÍ",
-    "lat": 38.337078,
-    "lng": -0.486649,
-    "lloc": "",
-    "horas": "COMPLETA",
-    "horas_num": 18.0,
-    "es_completa": true,
-    "req_ling": "",
-    "itinerante": "NO",
-    "observaciones": "",
-    "tipo": "",
-    "centros_compartidos": []
-  },
-  {
-    "numero": 139,
+    "numero": 137,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "271 - PROCESOS SANITARIOS",
     "codigo_especialidad": "271",
@@ -4813,7 +4747,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 140,
+    "numero": 138,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "274 - SISTEMAS ELECTROTÉCNICOS Y AUTOMÁTICOS",
     "codigo_especialidad": "274",
@@ -4846,7 +4780,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 141,
+    "numero": 139,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "275 - CULTURA CLÁSICA",
     "codigo_especialidad": "275",
@@ -4879,7 +4813,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 142,
+    "numero": 140,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "275 - CULTURA CLÁSICA",
     "codigo_especialidad": "275",
@@ -4912,7 +4846,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 143,
+    "numero": 141,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "275 - CULTURA CLÁSICA",
     "codigo_especialidad": "275",
@@ -4945,7 +4879,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 144,
+    "numero": 142,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "276 - ÁMBITO CIÉNTIFICO",
     "codigo_especialidad": "276",
@@ -4978,7 +4912,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 145,
+    "numero": 143,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "276 - ÁMBITO CIÉNTIFICO",
     "codigo_especialidad": "276",
@@ -5011,7 +4945,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 146,
+    "numero": 144,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "277 - ÁMBITO SOCIOLINGÜÍSTICO",
     "codigo_especialidad": "277",
@@ -5044,7 +4978,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 147,
+    "numero": 145,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "277 - ÁMBITO SOCIOLINGÜÍSTICO",
     "codigo_especialidad": "277",
@@ -5077,7 +5011,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 148,
+    "numero": 146,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "277 - ÁMBITO SOCIOLINGÜÍSTICO",
     "codigo_especialidad": "277",
@@ -5110,7 +5044,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 149,
+    "numero": 147,
     "cuerpo": "PROFESORES DE ENSEÑANZA SECUNDARIA",
     "especialidad_completa": "277 - ÁMBITO SOCIOLINGÜÍSTICO",
     "codigo_especialidad": "277",
@@ -5143,7 +5077,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 150,
+    "numero": 148,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6C5 - TROMBÓN",
     "codigo_especialidad": "6C5",
@@ -5176,7 +5110,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 151,
+    "numero": 149,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6F8 - LENGUAJE MUSICAL",
     "codigo_especialidad": "6F8",
@@ -5209,7 +5143,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 152,
+    "numero": 150,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6F8 - LENGUAJE MUSICAL",
     "codigo_especialidad": "6F8",
@@ -5242,7 +5176,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 153,
+    "numero": 151,
     "cuerpo": "PROFESORES DE MÚSICA Y ARTES ESCÉNICAS",
     "especialidad_completa": "6F8 - LENGUAJE MUSICAL",
     "codigo_especialidad": "6F8",
@@ -5275,7 +5209,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 154,
+    "numero": 152,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7B8 - MATERIALES Y TECNOLOGÍA: DISEÑO",
     "codigo_especialidad": "7B8",
@@ -5308,7 +5242,7 @@
     "centros_compartidos": []
   },
   {
-    "numero": 155,
+    "numero": 153,
     "cuerpo": "PROFESORES DE ARTES PLÁSTICAS Y DISEÑO",
     "especialidad_completa": "7C4 - VOLUMEN",
     "codigo_especialidad": "7C4",

@@ -880,5 +880,68 @@
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "29/10/2026",
+    "total_plazas": 53,
+    "total_convocados": 6430,
+    "especialidades": {
+      "INF": {
+        "plazas": 19,
+        "corte_num": 12527,
+        "corte_nombre": "GUIJARRO ZARZO, AROA",
+        "activos_espera": 2685,
+        "convocados": 3762
+      },
+      "PRI": {
+        "plazas": 20,
+        "corte_num": 14871,
+        "corte_nombre": "VALERO VIDAL, ADRIANA",
+        "activos_espera": 858,
+        "convocados": 2449
+      },
+      "PT": {
+        "plazas": 6,
+        "corte_num": 12120,
+        "corte_nombre": "MARI PARDO, LUIS FRANCISCO",
+        "activos_espera": 237,
+        "convocados": 644
+      },
+      "AL": {
+        "plazas": 4,
+        "corte_num": 11984,
+        "corte_nombre": "GARCIA PASTOR, OSCAR",
+        "activos_espera": 152,
+        "convocados": 441
+      },
+      "EF": {
+        "plazas": 2,
+        "corte_num": 7660,
+        "corte_nombre": "BELDA VIDAL, FERRAN JOSEP",
+        "activos_espera": 233,
+        "convocados": 508
+      },
+      "MUS": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 42,
+        "convocados": 217
+      },
+      "ING": {
+        "plazas": 2,
+        "corte_num": 12170,
+        "corte_nombre": "SANTACRUZ PAJARES, PALOMA",
+        "activos_espera": 92,
+        "convocados": 531
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 23
+      }
+    }
   }
 ]
