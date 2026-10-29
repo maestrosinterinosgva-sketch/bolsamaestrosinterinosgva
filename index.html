@@ -496,9 +496,10 @@
           </div>
           <div class="evolution-controls">
             <div class="evolution-view-switcher">
-              <button type="button" class="evo-btn active" id="btnEvoSpec" onclick="switchEvoView('spec')">👤 Mi Puesto en Especialidad</button>
-              <button type="button" class="evo-btn" id="btnEvoChart" onclick="switchEvoView('chart')">🎯 Corte General</button>
-              <button type="button" class="evo-btn" id="btnEvoTable" onclick="switchEvoView('table')">📋 Histórico Completo</button>
+              <button type="button" class="evo-btn active" id="btnEvoCombined" onclick="switchEvoView('combined')">📊 Vista Combinada</button>
+              <button type="button" class="evo-btn" id="btnEvoChart" onclick="switchEvoView('chart')">🎯 Corte de Bolsa (Línea Azul)</button>
+              <button type="button" class="evo-btn" id="btnEvoSpec" onclick="switchEvoView('spec')">👤 Mi Puesto (Línea Verde)</button>
+              <button type="button" class="evo-btn" id="btnEvoTable" onclick="switchEvoView('table')">📋 Histórico en Tabla</button>
             </div>
           </div>
         </div>
@@ -533,10 +534,7 @@
           <div class="evo-svg-wrap" id="evoSvgWrap">
             <!-- Dynamic responsive SVG Chart injected here -->
           </div>
-          <div class="evo-legend">
-            <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> Línea de Corte (Nº Bolsa del último adjudicado)</span>
-            <span class="evo-legend-item" id="evoLegendUser"><span class="evo-dot dot-user"></span> Tu posición de bolsa (<strong id="evoLegendUserPos">-</strong>)</span>
-          </div>
+
         </div>
 
         <!-- Table Container (hidden by default) -->

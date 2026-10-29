@@ -1390,11 +1390,12 @@ function switchEvoView(view) {
   window.currentEvoView = view;
   const chartContainer = document.getElementById("evoChartContainer");
   const tableContainer = document.getElementById("evoTableContainer");
-  const btnSpec = document.getElementById("btnEvoSpec");
+  const btnCombined = document.getElementById("btnEvoCombined");
   const btnChart = document.getElementById("btnEvoChart");
+  const btnSpec = document.getElementById("btnEvoSpec");
   const btnTable = document.getElementById("btnEvoTable");
 
-  [btnSpec, btnChart, btnTable].forEach(b => {
+  [btnCombined, btnChart, btnSpec, btnTable].forEach(b => {
     if (b) b.classList.remove("active");
   });
 
@@ -1403,12 +1404,11 @@ function switchEvoView(view) {
     if (chartContainer) chartContainer.classList.add("hidden");
     if (tableContainer) tableContainer.classList.remove("hidden");
   } else {
-    // view es 'spec' (puesto en especialidad) o 'chart' (corte macro)
-    if (view === "spec") {
-      if (btnSpec) btnSpec.classList.add("active");
-    } else {
-      if (btnChart) btnChart.classList.add("active");
-    }
+    // view es 'combined', 'chart' o 'spec'
+    if (view === "combined" && btnCombined) btnCombined.classList.add("active");
+    if (view === "chart" && btnChart) btnChart.classList.add("active");
+    if (view === "spec" && btnSpec) btnSpec.classList.add("active");
+
     if (tableContainer) tableContainer.classList.add("hidden");
     if (chartContainer) chartContainer.classList.remove("hidden");
 
@@ -1423,7 +1423,8 @@ function updateEvoKpis(macroSeries, personalSeries, user, mode) {
   const specCode = currentSpecialty;
   const specName = SPECIALTY_NAMES[specCode] || specCode;
 
-  if (mode === "spec" && personalSeries && personalSeries.length > 0) {
+  // Si hay datos personales de evolución, mostrar KPIs enfocados en su progreso y adjudicación
+  if (personalSeries && personalSeries.length > 0 && mode !== "chart") {
     const latest = personalSeries[personalSeries.length - 1];
     const first = personalSeries[0];
     const prev = personalSeries.length >= 2 ? personalSeries[personalSeries.length - 2] : null;
@@ -1460,7 +1461,7 @@ function updateEvoKpis(macroSeries, personalSeries, user, mode) {
     if (totalAdvance > 0) {
       const pct = ((totalAdvance / first.pos) * 100).toFixed(0);
       safeSetHTML("evoKpiEstimate", `<span style="color:var(--success)">+${totalAdvance.toLocaleString()} puestos</span>`);
-      safeSetText("evoKpiEstimateDesc", `Has subido un ${pct}% desde el puesto #${first.pos} (${first.fecha})`);
+      safeSetText("evoKpiEstimateDesc", `Has subido un ${pct}% desde el inicio (#${first.pos} el ${first.fecha})`);
     } else {
       safeSetText("evoKpiEstimate", `Puesto #${latest.pos}`);
       safeSetText("evoKpiEstimateDesc", `Evolución en ${personalSeries.length} convocatorias`);
@@ -1468,7 +1469,7 @@ function updateEvoKpis(macroSeries, personalSeries, user, mode) {
     return;
   }
 
-  // Modo Macro (Corte general de bolsa)
+  // Modo Macro (Solo Corte general)
   const validPoints = (macroSeries || []).filter(p => p.corte_num !== null && p.corte_num > 0);
   if (validPoints.length === 0) {
     safeSetText("evoKpiDistance", "-");
@@ -1522,7 +1523,6 @@ function updateEvoKpis(macroSeries, personalSeries, user, mode) {
 
   safeSetText("evoKpiSpeed", `~${avgPlazas} plazas / adj.`);
   safeSetText("evoKpiSpeedDesc", `Total acumulado: ${totalPlazas} plazas`);
-
   safeSetText("evoKpiMax", `#${maxCut.toLocaleString()}`);
   safeSetText("evoKpiMaxDate", maxCutPoint ? `Alcanzado el ${maxCutPoint.fecha}` : "Curso 2026/27");
 }
@@ -1582,18 +1582,20 @@ function renderUserEvolution(specCode, user) {
   safeSetText("evoValBolsa", userBolsa ? `#${userBolsa.toLocaleString()}` : "-");
 
   // 4. Determinar modo activo:
-  // Si el usuario tiene histórico personal en esta especialidad, preferir 'spec'; si no, 'chart'
+  // Por defecto 'combined' si hay datos personales (muestra la Línea Azul Y la Línea Verde juntas)
   let activeMode = window.currentEvoMode;
-  if (!activeMode || (activeMode === 'spec' && personalSeries.length === 0)) {
-    activeMode = personalSeries.length > 0 ? 'spec' : 'chart';
+  if (!activeMode || (activeMode === 'combined' && personalSeries.length === 0)) {
+    activeMode = (personalSeries.length > 0) ? 'combined' : 'chart';
   }
   window.currentEvoMode = activeMode;
 
-  const btnSpec = document.getElementById("btnEvoSpec");
+  const btnCombined = document.getElementById("btnEvoCombined");
   const btnChart = document.getElementById("btnEvoChart");
+  const btnSpec = document.getElementById("btnEvoSpec");
   const btnTable = document.getElementById("btnEvoTable");
-  if (btnSpec) btnSpec.classList.toggle("active", activeMode === "spec");
+  if (btnCombined) btnCombined.classList.toggle("active", activeMode === "combined");
   if (btnChart) btnChart.classList.toggle("active", activeMode === "chart");
+  if (btnSpec) btnSpec.classList.toggle("active", activeMode === "spec");
   if (btnTable) btnTable.classList.toggle("active", activeMode === "table");
 
   // Actualizar KPIs
@@ -1615,94 +1617,222 @@ function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
   const userAdj = user?.adj_order || null;
   const specName = SPECIALTY_NAMES[currentSpecialty] || currentSpecialty;
 
-  // Si se pide modo 'spec' pero no hay histórico personal suficiente, conmutar a 'chart'
-  if (mode === "spec" && (!personalSeries || personalSeries.length === 0)) {
+  if (mode === "combined" && (!personalSeries || personalSeries.length === 0)) {
     mode = "chart";
   }
 
-  const svgW = 680;
-  const svgH = 220;
-  const padLeft = 65;
-  const padRight = 35;
-  const padTop = 30;
+  const svgW = 700;
+  const svgH = 240;
+  const padLeft = 68;
+  const padRight = (mode === "combined" || mode === "spec") ? 64 : 35;
+  const padTop = 32;
   const padBottom = 35;
   const plotW = svgW - padLeft - padRight;
   const plotH = svgH - padTop - padBottom;
 
-  // =========================================================================
-  // MODO 1: EVOLUCIÓN PERSONAL EN LA ESPECIALIDAD (ESCALA INVERTIDA: #1 ARRIBA)
-  // =========================================================================
-  if (mode === "spec") {
-    const series = personalSeries;
-    const positions = series.map(s => s.pos);
-    const minPos = Math.min(...positions);
-    const maxPos = Math.max(...positions);
+  const allDates = (macroSeries || []).map(s => s.fecha.slice(0, 5));
 
-    const range = maxPos - minPos;
-    const step = range > 800 ? 250 : (range > 400 ? 100 : (range > 150 ? 50 : 25));
-    const topYVal = Math.max(1, Math.floor((minPos - step * 0.3) / step) * step);
-    const bottomYVal = Math.ceil((maxPos + step * 0.4) / step) * step;
+  function getXForDate(dateStr) {
+    const s = dateStr.slice(0, 5);
+    const idx = allDates.indexOf(s);
+    if (idx === -1 || allDates.length <= 1) return padLeft + plotW / 2;
+    return padLeft + (idx / (allDates.length - 1)) * plotW;
+  }
 
-    function getY(pos) {
-      if (bottomYVal === topYVal) return padTop + plotH / 2;
-      // topYVal (mejor puesto, más cercano a #1) arriba
-      return padTop + ((pos - topYVal) / (bottomYVal - topYVal)) * plotH;
+  // -------------------------------------------------------------------------
+  // CÁLCULO DE ESCALA MACRO (CORTE DE BOLSA - LÍNEA AZUL)
+  // -------------------------------------------------------------------------
+  const validMacro = (macroSeries || []).filter(s => s.corte_num !== null && s.corte_num > 0);
+  const cuts = validMacro.map(s => s.corte_num);
+  let allMacroVals = [...cuts];
+  if (userBolsa && userBolsa > 0 && userBolsa <= 35000) {
+    allMacroVals.push(userBolsa);
+  }
+  let minMacroRaw = allMacroVals.length > 0 ? Math.min(...allMacroVals) : 10000;
+  let maxMacroRaw = allMacroVals.length > 0 ? Math.max(...allMacroVals) : 16000;
+  if (minMacroRaw === maxMacroRaw) {
+    minMacroRaw -= 500;
+    maxMacroRaw += 500;
+  }
+  const macroRange = maxMacroRaw - minMacroRaw;
+  const macroStep = macroRange > 6000 ? 2000 : (macroRange > 2500 ? 1000 : 500);
+  const minMacroY = Math.max(0, Math.floor((minMacroRaw - macroStep * 0.3) / macroStep) * macroStep);
+  const maxMacroY = Math.ceil((maxMacroRaw + macroStep * 0.4) / macroStep) * macroStep;
+
+  function getYMacro(val) {
+    if (maxMacroY === minMacroY) return padTop + plotH / 2;
+    return padTop + plotH - ((val - minMacroY) / (maxMacroY - minMacroY)) * plotH;
+  }
+
+  // -------------------------------------------------------------------------
+  // CÁLCULO DE ESCALA PERSONAL (PUESTO EN ESPECIALIDAD - LÍNEA VERDE, ESCALA INVERTIDA: #1 ARRIBA)
+  // -------------------------------------------------------------------------
+  let hasPersonal = personalSeries && personalSeries.length > 0;
+  let minPos = 1, maxPos = 1000, topPosVal = 1, bottomPosVal = 1000, posStep = 250;
+  if (hasPersonal) {
+    const positions = personalSeries.map(p => p.pos);
+    minPos = Math.min(...positions);
+    maxPos = Math.max(...positions);
+    const posRange = maxPos - minPos;
+    posStep = posRange > 800 ? 250 : (posRange > 400 ? 100 : (posRange > 150 ? 50 : 25));
+    topPosVal = Math.max(1, Math.floor((minPos - posStep * 0.3) / posStep) * posStep);
+    bottomPosVal = Math.ceil((maxPos + posStep * 0.4) / posStep) * posStep;
+  }
+
+  function getYPersonal(pos) {
+    if (bottomPosVal === topPosVal) return padTop + plotH / 2;
+    return padTop + ((pos - topPosVal) / (bottomPosVal - topPosVal)) * plotH;
+  }
+
+  // -------------------------------------------------------------------------
+  // 1. CUADRÍCULA Y EJES Y
+  // -------------------------------------------------------------------------
+  const numGridLines = Math.min(5, Math.floor((maxMacroY - minMacroY) / macroStep));
+  let gridLinesSvg = "";
+  for (let i = 0; i <= numGridLines; i++) {
+    const val = minMacroY + i * macroStep;
+    if (val > maxMacroY) break;
+    const y = getYMacro(val);
+
+    // Eje izquierdo azul (Corte de Bolsa)
+    let leftAxisLabel = `<text x="${padLeft - 8}" y="${y + 3.5}" fill="#1e40af" font-size="9.5" font-weight="700" text-anchor="end">#${val.toLocaleString()}</text>`;
+
+    // Eje derecho verde (Puesto en especialidad en vista combinada)
+    let rightAxisLabel = "";
+    if (mode === "combined" && hasPersonal) {
+      const posVal = Math.round(topPosVal + (i / numGridLines) * (bottomPosVal - topPosVal));
+      rightAxisLabel = `<text x="${padLeft + plotW + 8}" y="${y + 3.5}" fill="#059669" font-size="9.5" font-weight="700" text-anchor="start">#${posVal.toLocaleString()}</text>`;
     }
 
-    function getX(idx) {
-      if (series.length <= 1) return padLeft + plotW / 2;
-      return padLeft + (idx / (series.length - 1)) * plotW;
-    }
+    gridLinesSvg += `
+      <line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+      ${leftAxisLabel}
+      ${rightAxisLabel}
+    `;
+  }
 
-    // 1. Líneas de cuadrícula horizontales
-    const numSteps = Math.min(6, Math.floor((bottomYVal - topYVal) / step));
-    let gridLinesSvg = "";
-    for (let i = 0; i <= numSteps; i++) {
-      const val = topYVal + i * step;
-      if (val > bottomYVal) break;
-      const y = getY(val);
+  // Si es modo 'spec' exclusivo, poner labels de puesto en la izquierda
+  if (mode === "spec" && hasPersonal) {
+    gridLinesSvg = "";
+    const numSpecLines = Math.min(6, Math.floor((bottomPosVal - topPosVal) / posStep));
+    for (let i = 0; i <= numSpecLines; i++) {
+      const val = topPosVal + i * posStep;
+      if (val > bottomPosVal) break;
+      const y = getYPersonal(val);
       gridLinesSvg += `
         <line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
         <text x="${padLeft - 8}" y="${y + 3.5}" fill="#059669" font-size="10" font-weight="700" text-anchor="end">#${val.toLocaleString()}</text>
       `;
     }
+  }
 
-    // 2. Coordenadas de los puntos
-    const points = series.map((s, idx) => ({
-      x: getX(idx),
-      y: getY(s.pos),
+  // -------------------------------------------------------------------------
+  // 2. EJE X CON FECHAS
+  // -------------------------------------------------------------------------
+  let xAxisSvg = "";
+  allDates.forEach((d, idx) => {
+    const x = padLeft + (idx / (allDates.length - 1)) * plotW;
+    xAxisSvg += `
+      <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
+      <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="9.5" font-weight="500" text-anchor="middle">${d}</text>
+    `;
+  });
+
+  // -------------------------------------------------------------------------
+  // 3. LÍNEA AZUL DE CORTE DE BOLSA (SIEMPRE EN 'combined' Y 'chart')
+  // -------------------------------------------------------------------------
+  let blueCutLineSvg = "";
+  let blueDotsSvg = "";
+  if (mode === "combined" || mode === "chart") {
+    const macroPoints = [];
+    let lastKnownY = null;
+    (macroSeries || []).forEach((s, idx) => {
+      const x = padLeft + (idx / (allDates.length - 1)) * plotW;
+      if (s.corte_num !== null && s.corte_num > 0) {
+        const y = getYMacro(s.corte_num);
+        lastKnownY = y;
+        macroPoints.push({ x, y, data: s, origIdx: idx });
+      } else if (lastKnownY !== null) {
+        macroPoints.push({ x, y: lastKnownY, data: s, origIdx: idx, isInterpolated: true });
+      }
+    });
+
+    const macroPolyPointsStr = macroPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+
+    let macroAreaSvg = "";
+    if (macroPoints.length > 1) {
+      const firstX = macroPoints[0].x.toFixed(1);
+      const lastX = macroPoints[macroPoints.length - 1].x.toFixed(1);
+      const bottomY = (padTop + plotH).toFixed(1);
+      const areaPointsStr = `${firstX},${bottomY} ${macroPolyPointsStr} ${lastX},${bottomY}`;
+      macroAreaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoBlueGradient)" />`;
+    }
+
+    macroPoints.forEach(p => {
+      if (p.data.corte_num === null) return;
+      const isReached = userBolsa && p.data.corte_num >= userBolsa;
+      const dotFill = isReached ? "#10b981" : "#ffffff";
+      const dotStroke = isReached ? "#059669" : "#2563eb";
+
+      blueDotsSvg += `
+        <g class="evo-point-group-blue" data-idx="${p.origIdx}">
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${dotFill}" stroke="${dotStroke}" stroke-width="2.5" />
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="16" fill="transparent" style="cursor:pointer"
+            onmouseenter="window.showEvoTooltip(event, ${p.origIdx}, 'chart')"
+            onmousemove="window.moveEvoTooltip(event)"
+            onmouseleave="window.hideEvoTooltip()" />
+        </g>
+      `;
+    });
+
+    blueCutLineSvg = `
+      ${macroAreaSvg}
+      <polyline points="${macroPolyPointsStr}" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+    `;
+  }
+
+  // -------------------------------------------------------------------------
+  // 4. LÍNEA NARANJA DE REFERENCIA DE TU BOLSA INICIAL
+  // -------------------------------------------------------------------------
+  let userBolsaLineSvg = "";
+  if (userBolsa && userBolsa > 0 && (mode === "combined" || mode === "chart")) {
+    const uY = getYMacro(userBolsa);
+    const isInsidePlot = uY >= padTop && uY <= padTop + plotH;
+    const lineY = isInsidePlot ? uY : (uY < padTop ? padTop : padTop + plotH);
+    const adjLabel = userAdj ? ` • Nº Adj: #${userAdj.toLocaleString()}` : "";
+    const badgeW = userAdj ? 180 : 124;
+    const badgeX = padLeft + plotW - badgeW;
+
+    userBolsaLineSvg = `
+      <g class="evo-user-reference">
+        <line x1="${padLeft}" y1="${lineY}" x2="${padLeft + plotW}" y2="${lineY}" stroke="#d97706" stroke-width="2.2" stroke-dasharray="6,4" />
+        <rect x="${badgeX}" y="${lineY - 18}" width="${badgeW}" height="18" rx="4" fill="#d97706" />
+        <text x="${badgeX + badgeW / 2}" y="${lineY - 5}" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel}</text>
+      </g>
+    `;
+  }
+
+  // -------------------------------------------------------------------------
+  // 5. LÍNEA VERDE DE EVOLUCIÓN PERSONAL EN LA ESPECIALIDAD (EN 'combined' Y 'spec')
+  // -------------------------------------------------------------------------
+  let greenLineSvg = "";
+  let greenDotsSvg = "";
+  let calloutSvg = "";
+
+  if (hasPersonal && (mode === "combined" || mode === "spec")) {
+    const personalPoints = personalSeries.map((s, idx) => ({
+      x: getXForDate(s.fecha),
+      y: getYPersonal(s.pos),
       data: s,
       idx: idx
     }));
 
-    const polyPointsStr = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+    const persPolyPointsStr = personalPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
 
-    // Área bajo la curva
-    let areaSvg = "";
-    if (points.length > 1) {
-      const firstX = points[0].x.toFixed(1);
-      const lastX = points[points.length - 1].x.toFixed(1);
-      const bottomY = (padTop + plotH).toFixed(1);
-      const areaPointsStr = `${firstX},${bottomY} ${polyPointsStr} ${lastX},${bottomY}`;
-      areaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoSpecGradient)" />`;
-    }
-
-    // 3. Eje X con fechas
-    let xAxisSvg = "";
-    series.forEach((s, idx) => {
-      const x = getX(idx);
-      xAxisSvg += `
-        <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
-        <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="10" font-weight="500" text-anchor="middle">${s.fecha}</text>
-      `;
-    });
-
-    // 4. Puntos interactivos
-    let dotsSvg = "";
-    points.forEach((p, pIdx) => {
+    personalPoints.forEach((p, pIdx) => {
       const s = p.data;
       const isAdjudicat = s.status === "Adjudicat";
-      const isLast = pIdx === points.length - 1;
+      const isLast = pIdx === personalPoints.length - 1;
 
       let markerSvg = "";
       if (isAdjudicat) {
@@ -1719,8 +1849,8 @@ function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
         markerSvg = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="#ffffff" stroke="#10b981" stroke-width="2.5" />`;
       }
 
-      dotsSvg += `
-        <g class="evo-point-group" data-idx="${pIdx}">
+      greenDotsSvg += `
+        <g class="evo-point-group-green" data-idx="${pIdx}">
           ${markerSvg}
           <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="18" fill="transparent" style="cursor:pointer"
             onmouseenter="window.showEvoTooltip(event, ${pIdx}, 'spec')"
@@ -1730,15 +1860,14 @@ function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
       `;
     });
 
-    // 5. Callout destacado en el último punto (HOY)
-    let calloutSvg = "";
-    if (points.length > 0) {
-      const lastP = points[points.length - 1];
-      const badgeW = 200;
+    // Chincheta flotante destacada en el último punto (HOY)
+    if (personalPoints.length > 0) {
+      const lastP = personalPoints[personalPoints.length - 1];
+      const badgeW = 205;
       const badgeH = 22;
       let bX = lastP.x - badgeW + 8;
       if (bX < padLeft) bX = lastP.x - badgeW / 2;
-      const bY = Math.max(padTop - 22, lastP.y - 28);
+      const bY = Math.max(padTop - 24, lastP.y - 28);
 
       const adjDisplay = (lastP.data.adj || userAdj) ? `#${(lastP.data.adj || userAdj).toLocaleString()}` : "-";
       calloutSvg = `
@@ -1752,168 +1881,46 @@ function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
       `;
     }
 
-    wrap.innerHTML = `
-      <svg class="evo-svg" viewBox="0 0 ${svgW} ${svgH}" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="evoSpecGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#10b981" stop-opacity="0.35" />
-            <stop offset="85%" stop-color="#10b981" stop-opacity="0.05" />
-            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-        ${gridLinesSvg}
-        ${xAxisSvg}
-        ${areaSvg}
-        <polyline points="${polyPointsStr}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-        ${dotsSvg}
-        ${calloutSvg}
-      </svg>
+    greenLineSvg = `
+      <polyline points="${persPolyPointsStr}" fill="none" stroke="#10b981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+    `;
+  }
+
+  // -------------------------------------------------------------------------
+  // 6. LEYENDA DINÁMICA SEGÚN MODO
+  // -------------------------------------------------------------------------
+  let legendHtml = "";
+  if (mode === "combined") {
+    legendHtml = `
       <div class="evo-legend">
-        <span class="evo-legend-item"><span class="evo-dot dot-spec"></span> Tu Puesto en ${specName} (Meta: Puesto #1)</span>
-        <span class="evo-legend-item"><span class="evo-dot" style="background:#f59e0b;border:2px solid #047857"></span> 🎉 Plaza Adjudicada</span>
-        <span class="evo-legend-item" id="evoLegendUser">
-          <strong style="color:var(--primary)">📋 Nº Adjudicación convocada actual: ${userAdj ? '#' + userAdj.toLocaleString() : '-'}</strong>
-        </span>
+        <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> <strong>Línea de Corte Oficial</strong> (Eje izq. azul)</span>
+        <span class="evo-legend-item"><span class="evo-dot dot-spec"></span> <strong>Tu Puesto en ${specName}</strong> (Eje der. verde)</span>
+        <span class="evo-legend-item"><span class="evo-dot dot-user"></span> Tu Bolsa (#${userBolsa ? userBolsa.toLocaleString() : '-'})</span>
+        <span class="evo-legend-item"><strong style="color:var(--primary)">📋 Nº Adjudicación convocada actual: ${userAdj ? '#' + userAdj.toLocaleString() : '-'}</strong></span>
       </div>
     `;
-    return;
-  }
-
-  // =========================================================================
-  // MODO 2: CORTE GENERAL DE BOLSA (MACRO)
-  // =========================================================================
-  const valid = (macroSeries || []).filter(s => s.corte_num !== null && s.corte_num > 0);
-  if (valid.length === 0) {
-    wrap.innerHTML = '<p class="empty-state">Sin datos de corte suficientes.</p>';
-    return;
-  }
-
-  const cuts = valid.map(s => s.corte_num);
-  let allVals = [...cuts];
-  if (userBolsa && userBolsa > 0 && userBolsa <= 35000) {
-    allVals.push(userBolsa);
-  }
-
-  let minRaw = Math.min(...allVals);
-  let maxRaw = Math.max(...allVals);
-  if (minRaw === maxRaw) {
-    minRaw -= 500;
-    maxRaw += 500;
-  }
-
-  const range = maxRaw - minRaw;
-  const step = range > 6000 ? 2000 : (range > 2500 ? 1000 : 500);
-  const minY = Math.max(0, Math.floor((minRaw - step * 0.3) / step) * step);
-  const maxY = Math.ceil((maxRaw + step * 0.4) / step) * step;
-
-  function getY(val) {
-    if (maxY === minY) return padTop + plotH / 2;
-    return padTop + plotH - ((val - minY) / (maxY - minY)) * plotH;
-  }
-
-  function getX(idx) {
-    if (macroSeries.length <= 1) return padLeft + plotW / 2;
-    return padLeft + (idx / (macroSeries.length - 1)) * plotW;
-  }
-
-  const numGridLines = Math.min(5, Math.floor((maxY - minY) / step));
-  let gridLinesSvg = "";
-  for (let i = 0; i <= numGridLines; i++) {
-    const val = minY + i * step;
-    if (val > maxY) break;
-    const y = getY(val);
-    gridLinesSvg += `
-      <line x1="${padLeft}" y1="${y}" x2="${padLeft + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
-      <text x="${padLeft - 8}" y="${y + 3.5}" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">#${val.toLocaleString()}</text>
+  } else if (mode === "chart") {
+    legendHtml = `
+      <div class="evo-legend">
+        <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> <strong>Línea de Corte Oficial</strong> (Nº Bolsa del último adjudicado)</span>
+        <span class="evo-legend-item"><span class="evo-dot dot-user"></span> Tu Bolsa inicial (#${userBolsa ? userBolsa.toLocaleString() : '-'})</span>
+        <span class="evo-legend-item"><strong style="color:var(--primary)">📋 Nº Adjudicación actual: ${userAdj ? '#' + userAdj.toLocaleString() : '-'}</strong></span>
+      </div>
+    `;
+  } else {
+    legendHtml = `
+      <div class="evo-legend">
+        <span class="evo-legend-item"><span class="evo-dot dot-spec"></span> <strong>Tu Puesto en ${specName}</strong> (Meta: Puesto #1)</span>
+        <span class="evo-legend-item"><span class="evo-dot" style="background:#f59e0b;border:2px solid #047857"></span> 🎉 Plaza Adjudicada</span>
+        <span class="evo-legend-item"><strong style="color:var(--primary)">📋 Nº Adjudicación convocada actual: ${userAdj ? '#' + userAdj.toLocaleString() : '-'}</strong></span>
+      </div>
     `;
   }
-
-  const points = [];
-  let lastKnownY = null;
-  macroSeries.forEach((s, idx) => {
-    const x = getX(idx);
-    if (s.corte_num !== null) {
-      const y = getY(s.corte_num);
-      lastKnownY = y;
-      points.push({ x, y, data: s, origIdx: idx });
-    } else if (lastKnownY !== null) {
-      points.push({ x, y: lastKnownY, data: s, origIdx: idx, isInterpolated: true });
-    }
-  });
-
-  const polyPointsStr = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
-
-  let areaSvg = "";
-  if (points.length > 1) {
-    const firstX = points[0].x.toFixed(1);
-    const lastX = points[points.length - 1].x.toFixed(1);
-    const bottomY = (padTop + plotH).toFixed(1);
-    const areaPointsStr = `${firstX},${bottomY} ${polyPointsStr} ${lastX},${bottomY}`;
-    areaSvg = `<polygon points="${areaPointsStr}" fill="url(#evoGradient)" />`;
-  }
-
-  // Línea de referencia del usuario con su Nº de Adjudicación actual
-  let userLineSvg = "";
-  if (userBolsa && userBolsa > 0) {
-    const uY = getY(userBolsa);
-    const isInsidePlot = uY >= padTop && uY <= padTop + plotH;
-    const lineY = isInsidePlot ? uY : (uY < padTop ? padTop : padTop + plotH);
-    const isAboveMax = uY < padTop;
-    const isBelowMin = uY > padTop + plotH;
-
-    const adjLabel = userAdj ? ` • Nº Adj: #${userAdj.toLocaleString()}` : "";
-    const labelText = isAboveMax 
-      ? `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel} (por encima)` 
-      : (isBelowMin ? `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel} (en rango prioritario)` : `Tu Bolsa: #${userBolsa.toLocaleString()}${adjLabel}`);
-
-    const badgeW = userAdj ? 185 : 124;
-    const badgeX = padLeft + plotW - badgeW;
-
-    userLineSvg = `
-      <g class="evo-user-reference">
-        <line x1="${padLeft}" y1="${lineY}" x2="${padLeft + plotW}" y2="${lineY}" stroke="#d97706" stroke-width="2.2" stroke-dasharray="6,4" />
-        <rect x="${badgeX}" y="${lineY - 18}" width="${badgeW}" height="18" rx="4" fill="#d97706" />
-        <text x="${badgeX + badgeW / 2}" y="${lineY - 5}" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">${labelText}</text>
-      </g>
-    `;
-  }
-
-  let xAxisSvg = "";
-  macroSeries.forEach((s, idx) => {
-    const x = getX(idx);
-    const shortDate = s.fecha.slice(0, 5);
-    xAxisSvg += `
-      <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 4}" stroke="#cbd5e1" stroke-width="1" />
-      <text x="${x}" y="${padTop + plotH + 16}" fill="#64748b" font-size="10" font-weight="500" text-anchor="middle">${shortDate}</text>
-    `;
-  });
-
-  let dotsSvg = "";
-  points.forEach((p, pIdx) => {
-    const s = p.data;
-    if (s.corte_num === null) return;
-
-    const isReached = userBolsa && s.corte_num >= userBolsa;
-    const dotFill = isReached ? "#10b981" : "#ffffff";
-    const dotStroke = isReached ? "#059669" : "#2563eb";
-
-    dotsSvg += `
-      <g class="evo-point-group" data-idx="${p.origIdx}">
-        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${dotFill}" stroke="${dotStroke}" stroke-width="2.5" />
-        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="16" fill="transparent" style="cursor:pointer"
-          onmouseenter="window.showEvoTooltip(event, ${p.origIdx}, 'chart')"
-          onmousemove="window.moveEvoTooltip(event)"
-          onmouseleave="window.hideEvoTooltip()" />
-      </g>
-    `;
-  });
-
-  const legendAdjText = userAdj ? ` • Nº Adjudicación actual: #${userAdj.toLocaleString()}` : "";
 
   wrap.innerHTML = `
     <svg class="evo-svg" viewBox="0 0 ${svgW} ${svgH}" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="evoGradient" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="evoBlueGradient" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.32" />
           <stop offset="85%" stop-color="#3b82f6" stop-opacity="0.04" />
           <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
@@ -1921,15 +1928,14 @@ function renderEvoSvgChart(macroSeries, personalSeries, user, mode) {
       </defs>
       ${gridLinesSvg}
       ${xAxisSvg}
-      ${areaSvg}
-      <polyline points="${polyPointsStr}" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
-      ${userLineSvg}
-      ${dotsSvg}
+      ${blueCutLineSvg}
+      ${userBolsaLineSvg}
+      ${greenLineSvg}
+      ${blueDotsSvg}
+      ${greenDotsSvg}
+      ${calloutSvg}
     </svg>
-    <div class="evo-legend">
-      <span class="evo-legend-item"><span class="evo-dot dot-corte"></span> Línea de Corte (Nº Bolsa del último adjudicado)</span>
-      <span class="evo-legend-item" id="evoLegendUser"><span class="evo-dot dot-user"></span> Tu posición de bolsa (<strong id="evoLegendUserPos">#${userBolsa ? userBolsa.toLocaleString() : '-'}${legendAdjText}</strong>)</span>
-    </div>
+    ${legendHtml}
   `;
 }
 
@@ -1947,19 +1953,16 @@ function renderEvoTable(macroSeries, personalSeries, user) {
     const shortDate = s.fecha.slice(0, 5);
     const pers = personalMap[shortDate] || null;
 
-    // 1. Puesto en especialidad
     let posBadge = `<span style="color:var(--slate-400)">-</span>`;
     if (pers && pers.pos) {
       posBadge = `<strong class="tag tag-blue">#${pers.pos.toLocaleString()}</strong> <small style="color:var(--slate-500);font-weight:600">de ${pers.total ? pers.total.toLocaleString() : '-'}</small>`;
     }
 
-    // 2. Nº Adjudicación convocada
     let adjBadge = `<span style="color:var(--slate-400)">-</span>`;
     if (pers && pers.adj) {
       adjBadge = `<span class="tag" style="background:#eff6ff;color:#1e40af;font-weight:700">#${pers.adj.toLocaleString()}</span>`;
     }
 
-    // 3. Avance respecto a la anterior
     let advanceBadge = `<span style="color:var(--slate-400)">-</span>`;
     if (pers && personalSeries) {
       const persIdx = personalSeries.findIndex(p => p.fecha === shortDate);
@@ -1976,13 +1979,11 @@ function renderEvoTable(macroSeries, personalSeries, user) {
       }
     }
 
-    // 4. Corte de bolsa
     const hasCut = s.corte_num !== null && s.corte_num > 0;
     const corteBadge = hasCut 
       ? `<strong class="tag" style="background:#f1f5f9;color:#334155;font-weight:700">#${s.corte_num.toLocaleString()}</strong>` 
       : `<span style="color:var(--slate-400)">Sin plazas hoy</span>`;
 
-    // 5. Estado
     let statusBadge = `<span style="font-size:0.8rem;color:var(--slate-600)">Convocatoria</span>`;
     if (pers && pers.status) {
       if (pers.status === "Adjudicat") {
@@ -2034,7 +2035,6 @@ function showEvoTooltip(evt, idx, mode) {
       }
     }
 
-    const adjText = p.adj ? ` • Nº Convocatoria: #${p.adj.toLocaleString()}` : "";
     tooltip.innerHTML = `
       <div style="font-weight:700;margin-bottom:3px">📅 Adjudicación ${p.fecha}</div>
       <div style="color:#6ee7b7;font-weight:700;font-size:0.9rem">Puesto #${p.pos.toLocaleString()} <small style="color:#cbd5e1">de ${p.total ? p.total.toLocaleString() : '-'} en ${specName}</small></div>
@@ -2061,9 +2061,9 @@ function showEvoTooltip(evt, idx, mode) {
 
     tooltip.innerHTML = `
       <div style="font-weight:700;margin-bottom:2px">📅 Adjudicación ${s.fecha}</div>
-      <div>Corte de bolsa: <strong>${s.corte_num ? '#' + s.corte_num.toLocaleString() : 'Sin plazas'}</strong></div>
+      <div style="color:#93c5fd;font-weight:700">Línea de Corte: <strong>${s.corte_num ? '#' + s.corte_num.toLocaleString() : 'Sin plazas'}</strong></div>
       ${s.corte_nombre ? `<div style="font-size:0.75rem;color:#cbd5e1">${s.corte_nombre}</div>` : ''}
-      <div style="font-size:0.75rem;color:#94a3b8">Plazas asignadas hoy: <strong>${s.plazas}</strong></div>
+      <div style="font-size:0.75rem;color:#94a3b8">Plazas asignadas: <strong>${s.plazas}</strong></div>
       ${userAdj ? `<div style="font-size:0.75rem;color:#bfdbfe">Tu Nº Adjudicación convocada: <strong>#${userAdj.toLocaleString()}</strong></div>` : ''}
       ${distHtml}
     `;
