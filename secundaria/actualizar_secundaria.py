@@ -33,17 +33,19 @@ def download_pdf_if_url(url_or_path, target_filename="secundaria_descargado_auto
 
 def detect_pdf_type(pdf_path):
     name = os.path.basename(pdf_path).lower()
-    if "lis_sec" in name or "adj" in name:
-        return "adjudicacion"
-    if "pue_" in name or "plazas" in name or "puestos" in name:
+    if any(k in name for k in ["pue_", "plazas", "puestos", "destinos", "dificil", "cobertura", "llocs"]):
         return "puestos"
+    if "lis_sec" in name or "adj_int" in name:
+        return "adjudicacion"
+    if "adj" in name and "pue" not in name:
+        return "adjudicacion"
         
     # Inspeccionar primeras páginas
     try:
         import pymupdf
         doc = pymupdf.open(pdf_path)
         first_text = doc[0].get_text().upper()
-        if "LLOCS OFERTATS" in first_text or "PUESTOS OFERTADOS" in first_text:
+        if any(k in first_text for k in ["LLOCS", "PUESTOS", "OFERTATS", "OFERTADOS", "COBERTURA"]):
             return "puestos"
         if "ADJUDICACI" in first_text:
             return "adjudicacion"

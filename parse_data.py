@@ -505,7 +505,9 @@ def update_historico_cortes(stats_dict, output_dir="data"):
             history = []
 
     fecha = stats_dict.get("fecha_adjudicacion")
-    if not fecha:
+    total_plazas = stats_dict.get("total_plazas_adjudicadas", 0)
+    total_convocados = stats_dict.get("total_adjudicaciones_hoy", 0)
+    if not fecha or (total_plazas == 0 and total_convocados == 0):
         return
 
     esp_map = {}

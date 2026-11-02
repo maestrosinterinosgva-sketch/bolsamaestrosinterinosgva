@@ -55,12 +55,16 @@ def detect_pdf_category(filename_or_path):
     """
     name = os.path.basename(filename_or_path).lower()
     
-    # Comprobar por nombre
-    if "pue_prov" in name or "pue_def" in name or "llocs_oferits" in name or "puestos" in name:
+    # Comprobar por nombre prioritario de puestos/destinos
+    if any(k in name for k in ["pue_prov", "pue_def", "llocs_oferits", "puestos", "destinos", "plazas", "dificil", "cobertura", "llocs"]):
         return "puestos"
-    if "lis_sec" in name or "adj_int_sec" in name or "secundaria" in name:
+    if "lis_sec" in name or "adj_int_sec" in name:
         return "secundaria_adj"
-    if "lis_mae" in name or "adj_int_mae" in name or "maestros" in name:
+    if "lis_mae" in name or "adj_int_mae" in name:
+        return "maestros_adj"
+    if "secundaria" in name:
+        return "secundaria_adj"
+    if "maestros" in name:
         return "maestros_adj"
 
     # Si el nombre no es concluyente, inspeccionar el texto de la primera página
@@ -68,7 +72,7 @@ def detect_pdf_category(filename_or_path):
         import pymupdf
         doc = pymupdf.open(filename_or_path)
         first_text = doc[0].get_text().upper()
-        if "LLOCS OFERTATS" in first_text or "PUESTOS OFERTADOS" in first_text:
+        if any(k in first_text for k in ["LLOCS", "PUESTOS", "OFERTATS", "OFERTADOS", "COBERTURA"]):
             return "puestos"
         if "SECUND" in first_text or "0590" in first_text:
             return "secundaria_adj"
