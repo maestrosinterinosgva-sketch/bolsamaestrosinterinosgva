@@ -49,6 +49,16 @@ SOURCES_TO_CHECK = [
         "patterns": [r'href="([^"]*lis_mae[^"]*\.pdf)"']
     },
     {
+        "name": "Portal Convocatoria Telemática GVA (Castellano)",
+        "url": "https://ceice.gva.es/es/web/rrhh-educacion/convocatoria-y-peticion-telematica",
+        "patterns": [r'href="([^"]*lis_mae[^"]*\.pdf)"']
+    },
+    {
+        "name": "Portal Convocatòria Telemàtica GVA (Valencià)",
+        "url": "https://ceice.gva.es/va/web/rrhh-educacion/convocatoria-y-peticion-telematica",
+        "patterns": [r'href="([^"]*lis_mae[^"]*\.pdf)"']
+    },
+    {
         "name": "ANPE Sindicato Docente (Espejo alternativo)",
         "url": "https://anpecomunidadvalenciana.es/interinos",
         "patterns": [r'href="([^"]*(?:openFile\.php\?link=.*lis_mae|lis_mae)[^"]*\.pdf)"']

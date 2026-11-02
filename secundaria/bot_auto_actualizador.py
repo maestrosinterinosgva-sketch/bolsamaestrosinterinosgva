@@ -39,6 +39,22 @@ SOURCES_TO_CHECK = [
         ]
     },
     {
+        "name": "Portal Convocatoria Telemática GVA (Castellano)",
+        "url": "https://ceice.gva.es/es/web/rrhh-educacion/convocatoria-y-peticion-telematica",
+        "patterns": [
+            r'href="([^"]*lis_sec[^"]*\.pdf)"',
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"'
+        ]
+    },
+    {
+        "name": "Portal Convocatòria Telemàtica GVA (Valencià)",
+        "url": "https://ceice.gva.es/va/web/rrhh-educacion/convocatoria-y-peticion-telematica",
+        "patterns": [
+            r'href="([^"]*lis_sec[^"]*\.pdf)"',
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"'
+        ]
+    },
+    {
         "name": "STEPV Sindicato Docente (Guía Adjudicaciones)",
         "url": "https://stepv.intersindical.org/guies/adjudicacions",
         "patterns": [
