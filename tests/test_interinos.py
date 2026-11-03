@@ -308,18 +308,22 @@ class TestInterinosDataAndMetrics(unittest.TestCase):
 
         pablo = next((p for p in interinos if "HERNANDEZ RIZO" in p.get("name", "")), None)
         self.assertIsNotNone(pablo, "Pablo Hernández Rizo debe existir en la base")
-        self.assertEqual(pablo.get("adj_order"), 2239, "Pablo debe tener Nº Adjudicación convocada 2239")
         self.assertIn("evo", pablo, "Pablo debe contener campo de evolución 'evo'")
         self.assertIn("PT", pablo["evo"], "Pablo debe tener evolución en Pedagogía Terapéutica")
 
         pt_evo = pablo["evo"]["PT"]
         self.assertGreaterEqual(len(pt_evo), 8, "Debe tener al menos 8 registros de evolución")
 
-        # Último registro debe corresponder al 29/10 con posición 504
+        # Comprobar que contiene el histórico conocido del 29/10
+        rec_2910 = next((e for e in pt_evo if e[0] == "29/10"), None)
+        self.assertIsNotNone(rec_2910, "Debe contener el registro del 29/10")
+        self.assertEqual(rec_2910[1], 2239, "Nº de adjudicación del 29/10 debe ser 2239")
+        self.assertEqual(rec_2910[2], 504, "Puesto en PT del 29/10 debe ser 504")
+
+        # Último registro debe corresponder a la última adjudicación convocada
         latest = pt_evo[-1]
-        self.assertEqual(latest[0], "29/10", "Última fecha debe ser 29/10")
-        self.assertEqual(latest[1], 2239, "Nº de adjudicación de la última debe ser 2239")
-        self.assertEqual(latest[2], 504, "Puesto en PT debe ser 504")
+        self.assertEqual(pablo.get("adj_order"), latest[1], "Nº Adjudicación convocada debe coincidir con el último registro de evolución")
+        self.assertGreater(latest[2], 0, "Puesto en PT debe ser mayor que 0")
 
         # Comprobar elementos HTML y JS
         with open("index.html", encoding="utf-8") as f:
