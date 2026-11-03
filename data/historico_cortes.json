@@ -943,5 +943,68 @@
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "03/11/2026",
+    "total_plazas": 91,
+    "total_convocados": 6416,
+    "especialidades": {
+      "INF": {
+        "plazas": 24,
+        "corte_num": 12532,
+        "corte_nombre": "GENOVES SERRANO, PAULA",
+        "activos_espera": 2674,
+        "convocados": 3749
+      },
+      "PRI": {
+        "plazas": 28,
+        "corte_num": 13539,
+        "corte_nombre": "DONET SANCHIS, LAURA",
+        "activos_espera": 855,
+        "convocados": 2445
+      },
+      "PT": {
+        "plazas": 13,
+        "corte_num": 12074,
+        "corte_nombre": "MARTI GUIJARRO, AMALIA",
+        "activos_espera": 237,
+        "convocados": 642
+      },
+      "AL": {
+        "plazas": 8,
+        "corte_num": 12114,
+        "corte_nombre": "MARTINEZ MOLINA, LORENA",
+        "activos_espera": 150,
+        "convocados": 439
+      },
+      "EF": {
+        "plazas": 9,
+        "corte_num": 14951,
+        "corte_nombre": "GRAU PIQUERES, CARLES",
+        "activos_espera": 227,
+        "convocados": 510
+      },
+      "MUS": {
+        "plazas": 2,
+        "corte_num": 11977,
+        "corte_nombre": "LLOBELL FAYOS, LAURA",
+        "activos_espera": 47,
+        "convocados": 221
+      },
+      "ING": {
+        "plazas": 7,
+        "corte_num": 13961,
+        "corte_nombre": "ZARAGOZA BALLESTER, PAULA",
+        "activos_espera": 90,
+        "convocados": 532
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 24
+      }
+    }
   }
 ]

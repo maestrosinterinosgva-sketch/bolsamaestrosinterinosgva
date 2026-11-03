@@ -1,134 +1,139 @@
 {
-  "fecha_adjudicacion": "29/10/2026",
-  "total_participantes_bolsa": 17334,
-  "total_participantes_bolsa_inicial": 17334,
-  "total_adjudicaciones_hoy": 6430,
-  "total_plazas_adjudicadas": 53,
+  "fecha_adjudicacion": "03/11/2026",
+  "total_participantes_bolsa": 17336,
+  "total_participantes_bolsa_inicial": 17336,
+  "total_adjudicaciones_hoy": 6416,
+  "total_plazas_adjudicadas": 91,
   "especialidades": {
     "INF": {
       "name": "Educación Infantil",
       "total_bolsa_inicial": 7481,
-      "total_convocados_adj": 3762,
+      "total_convocados_adj": 3749,
       "total_bolsa": 7481,
-      "total_plazas_hoy": 19,
-      "total_adjudicados_general": 26,
-      "total_desactivados": 1046,
+      "total_plazas_hoy": 24,
+      "total_adjudicados_general": 37,
+      "total_desactivados": 1033,
       "total_no_participat": 5,
-      "total_activos_espera": 2685,
+      "total_activos_espera": 2674,
       "ultimo_adjudicado": {
-        "name": "GUIJARRO ZARZO, AROA",
-        "adj_order": 2382,
-        "bolsa_num": 12527,
-        "centro": "IBARSOS (ELS)(12002324)MASIA ELS IBARSOS"
+        "name": "GENOVES SERRANO, PAULA",
+        "adj_order": 2373,
+        "bolsa_num": 12532,
+        "centro": "ORIHUELA(03011239)CEIP MIGUEL HERNÁNDEZ"
       }
     },
     "PRI": {
       "name": "Educación Primaria",
       "total_bolsa_inicial": 10793,
-      "total_convocados_adj": 2449,
+      "total_convocados_adj": 2445,
       "total_bolsa": 10793,
-      "total_plazas_hoy": 20,
-      "total_adjudicados_general": 34,
-      "total_desactivados": 1548,
+      "total_plazas_hoy": 28,
+      "total_adjudicados_general": 63,
+      "total_desactivados": 1518,
       "total_no_participat": 9,
-      "total_activos_espera": 858,
+      "total_activos_espera": 855,
       "ultimo_adjudicado": {
-        "name": "VALERO VIDAL, ADRIANA",
-        "adj_order": 4416,
-        "bolsa_num": 14871,
-        "centro": "ALACANT(03001672)CEP VIRGEN DEL REMEDIO"
+        "name": "DONET SANCHIS, LAURA",
+        "adj_order": 3287,
+        "bolsa_num": 13539,
+        "centro": "VILA JOIOSA (LA)(03009038)CEIP MARE NOSTRUM"
       }
     },
     "PT": {
       "name": "Pedagogía Terapéutica",
       "total_bolsa_inicial": 3452,
-      "total_convocados_adj": 644,
+      "total_convocados_adj": 642,
       "total_bolsa": 3452,
-      "total_plazas_hoy": 6,
-      "total_adjudicados_general": 11,
-      "total_desactivados": 396,
+      "total_plazas_hoy": 13,
+      "total_adjudicados_general": 21,
+      "total_desactivados": 384,
       "total_no_participat": 0,
       "total_activos_espera": 237,
       "ultimo_adjudicado": {
-        "name": "MARI PARDO, LUIS FRANCISCO",
-        "adj_order": 2201,
-        "bolsa_num": 12120,
-        "centro": "ELX(03011884)CEIP JORGE GUILLÉN"
+        "name": "MARTI GUIJARRO, AMALIA",
+        "adj_order": 2171,
+        "bolsa_num": 12074,
+        "centro": "ALACANT(03015324)CEE PÚB. LO MORANT"
       }
     },
     "AL": {
       "name": "Audición y Lenguaje",
       "total_bolsa_inicial": 2263,
-      "total_convocados_adj": 441,
+      "total_convocados_adj": 439,
       "total_bolsa": 2263,
-      "total_plazas_hoy": 4,
-      "total_adjudicados_general": 8,
-      "total_desactivados": 280,
+      "total_plazas_hoy": 8,
+      "total_adjudicados_general": 14,
+      "total_desactivados": 274,
       "total_no_participat": 1,
-      "total_activos_espera": 152,
+      "total_activos_espera": 150,
       "ultimo_adjudicado": {
-        "name": "GARCIA PASTOR, OSCAR",
-        "adj_order": 2143,
-        "bolsa_num": 11984,
-        "centro": "ELX(03011574)CEIP SANCHIS GUARNER"
+        "name": "MARTINEZ MOLINA, LORENA",
+        "adj_order": 2189,
+        "bolsa_num": 12114,
+        "centro": "TALES(12002385)MONTI"
       }
     },
     "EF": {
       "name": "Educación Física",
       "total_bolsa_inicial": 2065,
-      "total_convocados_adj": 508,
+      "total_convocados_adj": 510,
       "total_bolsa": 2065,
-      "total_plazas_hoy": 2,
-      "total_adjudicados_general": 6,
-      "total_desactivados": 267,
+      "total_plazas_hoy": 9,
+      "total_adjudicados_general": 17,
+      "total_desactivados": 264,
       "total_no_participat": 2,
-      "total_activos_espera": 233,
+      "total_activos_espera": 227,
       "ultimo_adjudicado": {
-        "name": "BELDA VIDAL, FERRAN JOSEP",
-        "adj_order": 1252,
-        "bolsa_num": 7660,
-        "centro": "BENEIXAMA(03002792)CEIP DIVINA AURORA"
+        "name": "GRAU PIQUERES, CARLES",
+        "adj_order": 4466,
+        "bolsa_num": 14951,
+        "centro": "VINARÒS(12004001)CEE PÚB. BAIX MAESTRAT"
       }
     },
     "MUS": {
       "name": "Música",
       "total_bolsa_inicial": 1019,
-      "total_convocados_adj": 217,
+      "total_convocados_adj": 221,
       "total_bolsa": 1019,
-      "total_plazas_hoy": 0,
-      "total_adjudicados_general": 1,
-      "total_desactivados": 173,
+      "total_plazas_hoy": 2,
+      "total_adjudicados_general": 4,
+      "total_desactivados": 169,
       "total_no_participat": 1,
-      "total_activos_espera": 42,
-      "ultimo_adjudicado": null
+      "total_activos_espera": 47,
+      "ultimo_adjudicado": {
+        "name": "LLOBELL FAYOS, LAURA",
+        "adj_order": 2133,
+        "bolsa_num": 11977,
+        "centro": "OLIVA(46018281)CEIP ALFADALÍ"
+      }
     },
     "ING": {
       "name": "Lengua Extranjera: Inglés",
       "total_bolsa_inicial": 2484,
-      "total_convocados_adj": 531,
+      "total_convocados_adj": 532,
       "total_bolsa": 2484,
-      "total_plazas_hoy": 2,
-      "total_adjudicados_general": 4,
-      "total_desactivados": 433,
+      "total_plazas_hoy": 7,
+      "total_adjudicados_general": 14,
+      "total_desactivados": 426,
       "total_no_participat": 2,
-      "total_activos_espera": 92,
+      "total_activos_espera": 90,
       "ultimo_adjudicado": {
-        "name": "SANTACRUZ PAJARES, PALOMA",
-        "adj_order": 2212,
-        "bolsa_num": 12170,
-        "centro": "HEREDADES(03002381)CEIP DE ALMORADÍ - HEREDADES"
+        "name": "ZARAGOZA BALLESTER, PAULA",
+        "adj_order": 3648,
+        "bolsa_num": 13961,
+        "centro": "BENICÀSSIM(12000510)CEIP SANTA ÀGUEDA"
       }
     },
     "FRA": {
       "name": "Lengua Extranjera: Francés",
       "total_bolsa_inicial": 95,
-      "total_convocados_adj": 23,
+      "total_convocados_adj": 24,
       "total_bolsa": 95,
       "total_plazas_hoy": 0,
       "total_adjudicados_general": 0,
       "total_desactivados": 20,
       "total_no_participat": 1,
-      "total_activos_espera": 2,
+      "total_activos_espera": 3,
       "ultimo_adjudicado": null
     }
   }
