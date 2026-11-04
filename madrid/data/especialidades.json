@@ -1,0 +1,69 @@
+{
+  "curso": "2026-2027",
+  "cuerpo": "0597 - Maestros",
+  "especialidades": [
+    {
+      "codigo": "031",
+      "nombre": "Educación Infantil",
+      "total": 8879,
+      "bilingues": 3875,
+      "file": "maestros_031.json"
+    },
+    {
+      "codigo": "038",
+      "nombre": "Educación Primaria",
+      "total": 5192,
+      "bilingues": 2247,
+      "file": "maestros_038.json"
+    },
+    {
+      "codigo": "032",
+      "nombre": "Lengua Extranjera: Inglés",
+      "total": 3675,
+      "bilingues": 2458,
+      "file": "maestros_032.json"
+    },
+    {
+      "codigo": "034",
+      "nombre": "Educación Física",
+      "total": 2683,
+      "bilingues": 1343,
+      "file": "maestros_034.json"
+    },
+    {
+      "codigo": "035",
+      "nombre": "Música",
+      "total": 709,
+      "bilingues": 314,
+      "file": "maestros_035.json"
+    },
+    {
+      "codigo": "036",
+      "nombre": "Pedagogía Terapéutica",
+      "total": 3605,
+      "bilingues": 1334,
+      "file": "maestros_036.json"
+    },
+    {
+      "codigo": "037",
+      "nombre": "Audición y Lenguaje",
+      "total": 1341,
+      "bilingues": 487,
+      "file": "maestros_037.json"
+    },
+    {
+      "codigo": "033",
+      "nombre": "Lengua Extranjera: Francés",
+      "total": 58,
+      "bilingues": 26,
+      "file": "maestros_033.json"
+    },
+    {
+      "codigo": "039",
+      "nombre": "Lengua Extranjera: Alemán",
+      "total": 3,
+      "bilingues": 0,
+      "file": "maestros_039.json"
+    }
+  ]
+}

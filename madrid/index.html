@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolsa de Maestros e Interinos Docentes - Comunidad de Madrid</title>
+  <meta name="description" content="Consulta rápida de posiciones, baremo y habilitación bilingüe en la bolsa de interinos del Cuerpo de Maestros de la Comunidad de Madrid.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/madrid.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal -->
+  <header class="header-top">
+    <div class="header-container">
+      <div class="brand-badge">🏛️ Comunidad de Madrid · Educación</div>
+      <h1 class="header-title">Bolsa de Maestros Interinos CAM</h1>
+      <p class="header-subtitle">
+        Consulta oficial e instantánea de la lista de aspirantes a interinidad (Acuerdo de 10 de mayo de 2023) para el curso escolar 2026-2027.
+      </p>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <main class="main-container">
+
+    <!-- Banner informativo de las 5 DATs -->
+    <section class="dat-info-banner">
+      <div>
+        <strong style="color: var(--secondary);">Ámbitos Territoriales de Gestión (DAT):</strong>
+        <p class="dat-info-text">Las adjudicaciones de sustituciones y vacantes en Madrid se gestionan a través de PADI para las 5 direcciones de área:</p>
+      </div>
+      <div class="dat-pills">
+        <span class="dat-pill">DAT Madrid-Capital</span>
+        <span class="dat-pill">DAT Norte (San Sebastián de los Reyes)</span>
+        <span class="dat-pill">DAT Sur (Leganés)</span>
+        <span class="dat-pill">DAT Este (Alcalá de Henares)</span>
+        <span class="dat-pill">DAT Oeste (Collado Villalba)</span>
+      </div>
+    </section>
+
+    <!-- Filtros de búsqueda -->
+    <section class="filter-card">
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="select-especialidad">Especialidad de Maestros</label>
+          <select id="select-especialidad" class="form-control">
+            <option value="">Cargando especialidades...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="search-input">Buscar por DNI o Nombre</label>
+          <div style="position: relative;">
+            <input 
+              type="text" 
+              id="search-input" 
+              class="form-control" 
+              placeholder="Ej: 6190 o Gómez..."
+              autocomplete="off"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-toggles">
+        <label class="toggle-chip" id="chip-bilingue">
+          <input type="checkbox" id="check-bilingue-only">
+          <span>Solo aspirantes con Habilitación Bilingüe</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Cinta de Estadísticas -->
+    <section class="stats-ribbon">
+      <div class="stat-box">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total en Bolsa</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-bilingues" style="color: #059669;">0</div>
+        <div class="stat-label">Habilitados Bilingües</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-visibles" style="color: var(--secondary);">0</div>
+        <div class="stat-label">Coincidencias filtro</div>
+      </div>
+    </section>
+
+    <!-- Tabla de Resultados -->
+    <section class="table-card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 110px;">Nº Orden</th>
+              <th style="width: 140px;">DNI Anonimizado</th>
+              <th>Apellidos y Nombre</th>
+              <th style="width: 140px;">Puntos Totales</th>
+              <th style="width: 160px;">Bolsa Bilingüe</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Rellenado dinámicamente con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination">
+        <button id="btn-prev" class="btn-page" disabled>← Anterior</button>
+        <span id="pagination-info" style="font-size: 0.88rem; font-weight: 600; color: var(--text-muted);">
+          Cargando datos...
+        </span>
+        <button id="btn-next" class="btn-page">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- Pie de página / Fuentes Oficiales -->
+    <footer class="footer-note">
+      <p>
+        Datos oficiales extraídos de las resoluciones definitivas de la Dirección General de Recursos Humanos de la <strong>Consejería de Educación, Ciencia y Universidades de la Comunidad de Madrid</strong>.
+      </p>
+      <p style="margin-top: 4px;">
+        Plataforma comunitaria informativa no vinculante. Convocatorias de sustituciones gestionadas mediante la plataforma oficial <strong>PADI</strong>.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="js/madrid.js"></script>
+</body>
+</html>
