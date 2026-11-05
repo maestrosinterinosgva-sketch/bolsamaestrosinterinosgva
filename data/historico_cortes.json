@@ -1006,5 +1006,68 @@
         "convocados": 24
       }
     }
+  },
+  {
+    "fecha": "05/11/2026",
+    "total_plazas": 116,
+    "total_convocados": 6350,
+    "especialidades": {
+      "INF": {
+        "plazas": 22,
+        "corte_num": 12460,
+        "corte_nombre": "HERNANDEZ MOYA, PATRICIA",
+        "activos_espera": 2632,
+        "convocados": 3724
+      },
+      "PRI": {
+        "plazas": 30,
+        "corte_num": 16566,
+        "corte_nombre": "GIL FERRANDEZ, RUBEN",
+        "activos_espera": 778,
+        "convocados": 2403
+      },
+      "PT": {
+        "plazas": 34,
+        "corte_num": 12279,
+        "corte_nombre": "JIMENEZ LOZANO, PAULA",
+        "activos_espera": 198,
+        "convocados": 627
+      },
+      "AL": {
+        "plazas": 16,
+        "corte_num": 13907,
+        "corte_nombre": "ROS CARTAGENA, NOELIA",
+        "activos_espera": 136,
+        "convocados": 428
+      },
+      "EF": {
+        "plazas": 5,
+        "corte_num": 14829,
+        "corte_nombre": "NAVARRO LOPEZ, RAUL",
+        "activos_espera": 212,
+        "convocados": 496
+      },
+      "MUS": {
+        "plazas": 5,
+        "corte_num": 12162,
+        "corte_nombre": "BALLESTER AGULLO, LYDIA",
+        "activos_espera": 43,
+        "convocados": 218
+      },
+      "ING": {
+        "plazas": 4,
+        "corte_num": 12084,
+        "corte_nombre": "BAÑULS SANTA BARBARA, LORENA",
+        "activos_espera": 77,
+        "convocados": 523
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 24
+      }
+    }
   }
 ]
