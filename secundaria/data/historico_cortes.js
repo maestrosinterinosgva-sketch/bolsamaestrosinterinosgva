@@ -14614,5 +14614,1629 @@ window.HISTORICO_CORTES = [
         "convocados": 0
       }
     }
+  },
+  {
+    "fecha": "05/11/2026",
+    "total_plazas": 110,
+    "total_convocados": 9577,
+    "especialidades": {
+      "201": {
+        "plazas": 1,
+        "corte_num": 34,
+        "corte_nombre": "GOMEZ VALVERDE, MIRIAM",
+        "activos_espera": 56,
+        "convocados": 167
+      },
+      "202": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 21
+      },
+      "203": {
+        "plazas": 1,
+        "corte_num": 29,
+        "corte_nombre": "RUBIO IÑIGUEZ, CRISTINA",
+        "activos_espera": 11,
+        "convocados": 61
+      },
+      "204": {
+        "plazas": 10,
+        "corte_num": 388,
+        "corte_nombre": "AGUT CONTRERAS, ALBERT",
+        "activos_espera": 82,
+        "convocados": 388
+      },
+      "205": {
+        "plazas": 9,
+        "corte_num": 441,
+        "corte_nombre": "LOPEZ SANCHIS, JOSE MARIA",
+        "activos_espera": 583,
+        "convocados": 994
+      },
+      "206": {
+        "plazas": 8,
+        "corte_num": 666,
+        "corte_nombre": "GIL CABRERA, PEDRO PABLO",
+        "activos_espera": 84,
+        "convocados": 666
+      },
+      "207": {
+        "plazas": 10,
+        "corte_num": 201,
+        "corte_nombre": "CARO MARIN, Mª DEL CARMEN",
+        "activos_espera": 75,
+        "convocados": 494
+      },
+      "208": {
+        "plazas": 5,
+        "corte_num": 225,
+        "corte_nombre": "IBORRA PALAU, ANA ISABEL",
+        "activos_espera": 148,
+        "convocados": 518
+      },
+      "209": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "210": {
+        "plazas": 2,
+        "corte_num": 62,
+        "corte_nombre": "BLASCO NEBOT, JOSEP",
+        "activos_espera": 11,
+        "convocados": 80
+      },
+      "211": {
+        "plazas": 12,
+        "corte_num": 264,
+        "corte_nombre": "SANCHEZ MORO, AIDA",
+        "activos_espera": 164,
+        "convocados": 478
+      },
+      "212": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 2,
+        "convocados": 11
+      },
+      "213": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 5,
+        "convocados": 13
+      },
+      "216": {
+        "plazas": 1,
+        "corte_num": 27,
+        "corte_nombre": "PÉREZ HERRERO, MARCOS",
+        "activos_espera": 35,
+        "convocados": 231
+      },
+      "217": {
+        "plazas": 5,
+        "corte_num": 109,
+        "corte_nombre": "RICHART BOSCH, FRANCISCO JAVIER",
+        "activos_espera": 564,
+        "convocados": 792
+      },
+      "218": {
+        "plazas": 5,
+        "corte_num": 406,
+        "corte_nombre": "RAMOS TORMOS, LAURA",
+        "activos_espera": 92,
+        "convocados": 468
+      },
+      "219": {
+        "plazas": 4,
+        "corte_num": 557,
+        "corte_nombre": "ANDREU SIMO, MARIA JOSE",
+        "activos_espera": 68,
+        "convocados": 687
+      },
+      "222": {
+        "plazas": 5,
+        "corte_num": 145,
+        "corte_nombre": "FRACES VERA, RAFAEL",
+        "activos_espera": 189,
+        "convocados": 435
+      },
+      "224": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "226": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "227": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "232": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "236": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 10,
+        "convocados": 42
+      },
+      "237": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "238": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "240": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "242": {
+        "plazas": 2,
+        "corte_num": 285,
+        "corte_nombre": "ALCOY SANCHO, LIDIA MARIA",
+        "activos_espera": 149,
+        "convocados": 348
+      },
+      "243": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "245": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "254": {
+        "plazas": 2,
+        "corte_num": 213,
+        "corte_nombre": "NAVARRO GAYA, JOAN",
+        "activos_espera": 50,
+        "convocados": 429
+      },
+      "256": {
+        "plazas": 8,
+        "corte_num": 354,
+        "corte_nombre": "ROMERO MENARGUES, HERMINIA DEL CARMEN",
+        "activos_espera": 60,
+        "convocados": 354
+      },
+      "261": {
+        "plazas": 2,
+        "corte_num": 50,
+        "corte_nombre": "HEREDIA MARTINEZ, DEBORA",
+        "activos_espera": 21,
+        "convocados": 191
+      },
+      "263": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "264": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "265": {
+        "plazas": 1,
+        "corte_num": 18,
+        "corte_nombre": "LLEDO JORDA, MARIA ANTONIA",
+        "activos_espera": 78,
+        "convocados": 390
+      },
+      "266": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "268": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "269": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "270": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "271": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "272": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "273": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "274": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 14,
+        "convocados": 102
+      },
+      "2A4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2A9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B3": {
+        "plazas": 2,
+        "corte_num": 70,
+        "corte_nombre": "HAROS NOTARIO, NICOLAS EMANUEL",
+        "activos_espera": 123,
+        "convocados": 307
+      },
+      "2B4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B5": {
+        "plazas": 2,
+        "corte_num": 112,
+        "corte_nombre": "LLEDO JORDA, MARIA ANTONIA",
+        "activos_espera": 46,
+        "convocados": 203
+      },
+      "2B6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2B8": {
+        "plazas": 1,
+        "corte_num": 54,
+        "corte_nombre": "SEMPERE NIELFA, MARIA DOLORES",
+        "activos_espera": 19,
+        "convocados": 186
+      },
+      "2B9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "2C1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A5": {
+        "plazas": 1,
+        "corte_num": 17,
+        "corte_nombre": "MARTINEZ ALTUR, MIGUEL ANGEL",
+        "activos_espera": 7,
+        "convocados": 82
+      },
+      "3A6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3A8": {
+        "plazas": 1,
+        "corte_num": 9,
+        "corte_nombre": "MARTINEZ NAVARRO, IVAN",
+        "activos_espera": 5,
+        "convocados": 25
+      },
+      "3A9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "3B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "401": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "402": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "404": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "406": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "407": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "408": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "410": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "411": {
+        "plazas": 3,
+        "corte_num": 61,
+        "corte_nombre": "BLASCO NEBOT, JOSEP",
+        "activos_espera": 14,
+        "convocados": 103
+      },
+      "412": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "413": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "415": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 1,
+        "convocados": 5
+      },
+      "416": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "417": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "418": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "507": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5A9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5B7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5C0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5C1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5C2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5C6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5D9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DB": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DC": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DD": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DF": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DG": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5DH": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5E9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5F9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5G9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5H1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5H4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5K8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5L0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5L6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5L8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5M3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "5N6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6A1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6A2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6A3": {
+        "plazas": 1,
+        "corte_num": 19,
+        "corte_nombre": "SEPO LLUCH, VALERIA",
+        "activos_espera": 1,
+        "convocados": 20
+      },
+      "6A4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6A5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6A6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 1,
+        "convocados": 12
+      },
+      "6A7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 1,
+        "convocados": 7
+      },
+      "6A9": {
+        "plazas": 1,
+        "corte_num": 9,
+        "corte_nombre": "MAS SEMPERE, BEATRIU LLIBERTAT",
+        "activos_espera": 5,
+        "convocados": 24
+      },
+      "6B0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B3": {
+        "plazas": 1,
+        "corte_num": 1,
+        "corte_nombre": "MIFSUD VERCHER, FRANCESC",
+        "activos_espera": 4,
+        "convocados": 9
+      },
+      "6B4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6B9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C1": {
+        "plazas": 1,
+        "corte_num": 8,
+        "corte_nombre": "GREGORI PALOMARES, CARLES",
+        "activos_espera": 32,
+        "convocados": 53
+      },
+      "6C2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C3": {
+        "plazas": 1,
+        "corte_num": 21,
+        "corte_nombre": "MIQUEL RONDA, MARIA VIRTUDES",
+        "activos_espera": 19,
+        "convocados": 47
+      },
+      "6C5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6C9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 10,
+        "convocados": 32
+      },
+      "6D2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6D9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6E8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6F3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6F4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6F8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 8,
+        "convocados": 38
+      },
+      "6G1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6G2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6G3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6G6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6H1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6H2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6H5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6H6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6H7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6J1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6J5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "6J7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7A0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7A6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7A7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7A8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7A9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B0": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B5": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7B8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7C0": {
+        "plazas": 1,
+        "corte_num": 2,
+        "corte_nombre": "VILA DE TORO, PABLO JOSE",
+        "activos_espera": 0,
+        "convocados": 10
+      },
+      "7C1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "7C2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 4,
+        "convocados": 27
+      },
+      "7C4": {
+        "plazas": 1,
+        "corte_num": 18,
+        "corte_nombre": "GOMEZ DE VAL, JULIA",
+        "activos_espera": 9,
+        "convocados": 18
+      },
+      "8A7": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8A8": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8A9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8B1": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8B2": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 9
+      },
+      "8B3": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8B4": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8B6": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      },
+      "8B9": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 0,
+        "convocados": 0
+      }
+    }
   }
 ];
