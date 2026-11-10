@@ -1069,5 +1069,68 @@
         "convocados": 24
       }
     }
+  },
+  {
+    "fecha": "10/11/2026",
+    "total_plazas": 113,
+    "total_convocados": 6269,
+    "especialidades": {
+      "INF": {
+        "plazas": 26,
+        "corte_num": 12618,
+        "corte_nombre": "CABALLERO FALCO, PAULA",
+        "activos_espera": 2593,
+        "convocados": 3694
+      },
+      "PRI": {
+        "plazas": 34,
+        "corte_num": 14469,
+        "corte_nombre": "SOLER CUCARELLA, RAQUEL",
+        "activos_espera": 728,
+        "convocados": 2345
+      },
+      "PT": {
+        "plazas": 24,
+        "corte_num": 14912,
+        "corte_nombre": "CALATAYUD MICO, JUAN MIGUEL",
+        "activos_espera": 172,
+        "convocados": 591
+      },
+      "AL": {
+        "plazas": 9,
+        "corte_num": 14861,
+        "corte_nombre": "SELAM DRIS, SALIHA",
+        "activos_espera": 126,
+        "convocados": 408
+      },
+      "EF": {
+        "plazas": 7,
+        "corte_num": 12820,
+        "corte_nombre": "GARCIA ALIAGA, ALICIA",
+        "activos_espera": 200,
+        "convocados": 484
+      },
+      "MUS": {
+        "plazas": 5,
+        "corte_num": null,
+        "corte_nombre": "IZQUIERDO MUÑOZ, DAVID",
+        "activos_espera": 37,
+        "convocados": 213
+      },
+      "ING": {
+        "plazas": 8,
+        "corte_num": null,
+        "corte_nombre": "APARICIO CAMPILLO, ELVIRA",
+        "activos_espera": 79,
+        "convocados": 523
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 23
+      }
+    }
   }
 ]
