@@ -1132,5 +1132,68 @@ window.HISTORICO_CORTES = [
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "12/11/2026",
+    "total_plazas": 135,
+    "total_convocados": 6180,
+    "especialidades": {
+      "INF": {
+        "plazas": 33,
+        "corte_num": 12631,
+        "corte_nombre": "NOGUERA BERTO, DESAMPARADOS",
+        "activos_espera": 2549,
+        "convocados": 3652
+      },
+      "PRI": {
+        "plazas": 51,
+        "corte_num": 15366,
+        "corte_nombre": "GOMIS CASADO, MARIA JOSE",
+        "activos_espera": 656,
+        "convocados": 2287
+      },
+      "PT": {
+        "plazas": 19,
+        "corte_num": 13501,
+        "corte_nombre": "PIRIS TODOS SANTOS, PAULA",
+        "activos_espera": 148,
+        "convocados": 563
+      },
+      "AL": {
+        "plazas": 11,
+        "corte_num": 12263,
+        "corte_nombre": "MARTÍNEZ JUAN, MARÍA",
+        "activos_espera": 107,
+        "convocados": 397
+      },
+      "EF": {
+        "plazas": 7,
+        "corte_num": 11972,
+        "corte_nombre": "PEREZ GALIANA, MINERVA",
+        "activos_espera": 185,
+        "convocados": 469
+      },
+      "MUS": {
+        "plazas": 3,
+        "corte_num": 13722,
+        "corte_nombre": "SEGURA PEREZ, NOELIA",
+        "activos_espera": 34,
+        "convocados": 207
+      },
+      "ING": {
+        "plazas": 11,
+        "corte_num": null,
+        "corte_nombre": "BLOCH ESCALES, RYAN BENEDICT",
+        "activos_espera": 69,
+        "convocados": 517
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 23
+      }
+    }
   }
 ];
