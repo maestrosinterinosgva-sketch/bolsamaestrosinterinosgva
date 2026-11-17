@@ -20,10 +20,18 @@ if sys.stdout.encoding != 'utf-8':
 
 SOURCES_TO_CHECK = [
     {
+        "name": "Portal de Resoluciones Oficiales GVA",
+        "url": "https://ceice.gva.es/es/web/rrhh-educacion/resolucion",
+        "patterns": [
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"',
+            r'href="([^"]*llocs_oferits[^"]*\.pdf)"'
+        ]
+    },
+    {
         "name": "Convocatoria y Petición Telemática (Castellano)",
         "url": "https://ceice.gva.es/es/web/rrhh-educacion/convocatoria-y-peticion-telematica",
         "patterns": [
-            r'href="([^"]*pue_prov[^"]*\.pdf)"',
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"',
             r'href="([^"]*llocs_oferits[^"]*\.pdf)"'
         ]
     },
@@ -31,8 +39,7 @@ SOURCES_TO_CHECK = [
         "name": "Convocatòria i Petició Telemàtica (Valencià)",
         "url": "https://ceice.gva.es/va/web/rrhh-educacion/convocatoria-y-peticion-telematica",
         "patterns": [
-            r'href="([^"]*pue_prov[^"]*\.pdf)"',
-            r'href="([^"]*pue_def[^"]*\.pdf)"',
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"',
             r'href="([^"]*llocs_oferits[^"]*\.pdf)"'
         ]
     },
@@ -40,8 +47,7 @@ SOURCES_TO_CHECK = [
         "name": "Portal Adjudicaciones Continuas GVA",
         "url": "https://ceice.gva.es/es/web/rrhh-educacion/adjudicaciones-continuas",
         "patterns": [
-            r'href="([^"]*pue_prov[^"]*\.pdf)"',
-            r'href="([^"]*pue_def[^"]*\.pdf)"',
+            r'href="([^"]*pue_(?:prov|def)[^"]*\.pdf)"',
             r'href="([^"]*llocs_oferits[^"]*\.pdf)"'
         ]
     }
@@ -64,15 +70,19 @@ def save_last_processed_info(info):
         f.write(info)
 
 def extract_date_key_from_url(url):
-    # Formato habitual GVA: YYMMDD_pue_prov.pdf (ej: 260908 -> 260908)
-    m = re.search(r'(\d{6})_pue_prov', url, re.IGNORECASE)
+    filename = os.path.basename(url or "")
+    # Formato habitual GVA: YYMMDD_pue_prov.pdf o YYMMDD_pue_def.pdf
+    m = re.search(r'(\d{6})_pue_(?:prov|def)', filename, re.IGNORECASE)
     if m:
         return m.group(1)
-    # Formato alternativo con fecha
-    m2 = re.search(r'(\d{2})(\d{2})(\d{2})', url)
+    # Formato alternativo con fecha en el nombre de archivo
+    m2 = re.search(r'(\d{6})', filename)
     if m2:
-        return m2.group(0)
+        return m2.group(1)
     return "000000"
+
+def candidate_sort_key(url):
+    return (extract_date_key_from_url(url), 1 if "pue_def" in url.lower() else 0)
 
 def search_for_new_pdf():
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
@@ -103,8 +113,8 @@ def search_for_new_pdf():
             seen.add(url)
             unique_candidates.append((src_name, url))
 
-    # Ordenar por fecha en el nombre de archivo descendente para elegir el más reciente
-    unique_candidates.sort(key=lambda item: extract_date_key_from_url(item[1]), reverse=True)
+    # Ordenar por fecha (y prioridad pue_def > pue_prov) descendente para elegir el más reciente
+    unique_candidates.sort(key=lambda item: candidate_sort_key(item[1]), reverse=True)
     return unique_candidates
 
 def check_and_update():
@@ -129,6 +139,9 @@ def check_and_update():
     if newest_url == last_pdf:
         print("[i] Este listado ya está procesado y la web está al día. No se requieren cambios.")
         return False
+    if last_pdf and candidate_sort_key(newest_url) < candidate_sort_key(last_pdf):
+        print("[i] El listado encontrado es anterior o provisional respecto al ya procesado. Omitiendo.")
+        return False
 
     print(f"[!] ¡NUEVO LISTADO DETECTADO! Descargando y actualizando...")
     try:
@@ -137,7 +150,8 @@ def check_and_update():
         run_actualizacion()
         save_last_processed_info(newest_url)
         print("[OK] ¡Actualización completada con éxito!")
-        push_to_github()
+        if os.path.exists(os.path.join(os.path.dirname(__file__), ".git")):
+            push_to_github()
 
         # Notificar por Telegram si está configurado
         try:

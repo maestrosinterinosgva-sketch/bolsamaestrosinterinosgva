@@ -176,13 +176,15 @@ def check_and_update():
 
     # Separar por categoría (adjudicacion vs destinos)
     best_candidates = {"adjudicacion": None, "destinos": None}
-    best_tags = {"adjudicacion": "000000", "destinos": "000000"}
+    best_tags = {"adjudicacion": ("000000", 0), "destinos": ("000000", 0)}
 
     for src_name, pdf_url in found:
         cat = get_pdf_category(pdf_url)
         cand_tag = extract_date_tag(pdf_url)
-        if cand_tag > best_tags[cat]:
-            best_tags[cat] = cand_tag
+        is_def = 1 if "pue_def" in pdf_url.lower() else 0
+        cand_score = (cand_tag, is_def)
+        if cand_score > best_tags[cat]:
+            best_tags[cat] = cand_score
             best_candidates[cat] = (pdf_url, src_name, cand_tag)
 
     any_updated = False

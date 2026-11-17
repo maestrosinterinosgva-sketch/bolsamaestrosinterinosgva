@@ -290,17 +290,22 @@ def run_auto_crawler(destinos_dir=None):
     # 3. Rastreador de Puestos (Primaria Destinos)
     if destinos_dir and os.path.exists(destinos_dir):
         print("\n[3/3] Rastreando Puestos de Primaria (Destinos)...")
+        old_cwd = os.getcwd()
         try:
-            sys.path.insert(0, destinos_dir)
-            import bot_auto_actualizador as bot_dest
-            # Ejecutar con cwd en destinos para consistencia
-            old_cwd = os.getcwd()
+            import importlib.util
+            if destinos_dir not in sys.path:
+                sys.path.insert(0, destinos_dir)
+            bot_dest_path = os.path.join(destinos_dir, "bot_auto_actualizador.py")
+            spec = importlib.util.spec_from_file_location("destinos_bot_auto_actualizador", bot_dest_path)
+            bot_dest = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(bot_dest)
             os.chdir(destinos_dir)
             if bot_dest.check_and_update():
                 results["destinos"] = True
-            os.chdir(old_cwd)
         except Exception as e:
             print(f"[-] Error en rastreo de Destinos Primaria: {e}")
+        finally:
+            os.chdir(old_cwd)
     else:
         print("\n[3/3] Carpeta 'destinos' no encontrada; omitiendo rastreo de Primaria Destinos.")
 
