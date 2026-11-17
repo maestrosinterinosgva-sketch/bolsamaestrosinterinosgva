@@ -53,7 +53,8 @@ SOURCES_TO_CHECK = [
     }
 ]
 
-LAST_PDF_FILE = "data/last_processed_pdf.txt"
+DEST_DIR = os.path.dirname(os.path.abspath(__file__))
+LAST_PDF_FILE = os.path.join(DEST_DIR, "data", "last_processed_pdf.txt")
 
 def get_last_processed_info():
     if os.path.exists(LAST_PDF_FILE):

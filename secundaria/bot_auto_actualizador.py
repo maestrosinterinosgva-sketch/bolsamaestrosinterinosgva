@@ -71,8 +71,9 @@ SOURCES_TO_CHECK = [
     }
 ]
 
-LAST_PDF_FILE = "data/last_processed_pdf.txt"
-LAST_HISTORY_FILE = "data/processed_history.json"
+SEC_DIR = os.path.dirname(os.path.abspath(__file__))
+LAST_PDF_FILE = os.path.join(SEC_DIR, "data", "last_processed_pdf.txt")
+LAST_HISTORY_FILE = os.path.join(SEC_DIR, "data", "processed_history.json")
 
 def get_last_processed_info():
     if os.path.exists(LAST_PDF_FILE):
