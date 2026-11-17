@@ -1195,5 +1195,68 @@
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "17/11/2026",
+    "total_plazas": 100,
+    "total_convocados": 6090,
+    "especialidades": {
+      "INF": {
+        "plazas": 19,
+        "corte_num": 12637,
+        "corte_nombre": "CARBONELL GARCIA, NATALIA",
+        "activos_espera": 2542,
+        "convocados": 3625
+      },
+      "PRI": {
+        "plazas": 30,
+        "corte_num": 14769,
+        "corte_nombre": "HERRAIZ PARDO, SILVIA",
+        "activos_espera": 619,
+        "convocados": 2223
+      },
+      "PT": {
+        "plazas": 28,
+        "corte_num": null,
+        "corte_nombre": "MENCHÉN APARICIO, MARINA",
+        "activos_espera": 120,
+        "convocados": 541
+      },
+      "AL": {
+        "plazas": 9,
+        "corte_num": 11979,
+        "corte_nombre": "ARRIAZU HERRERA, FERNANDO",
+        "activos_espera": 104,
+        "convocados": 385
+      },
+      "EF": {
+        "plazas": 8,
+        "corte_num": 11658,
+        "corte_nombre": "GOMAR TARRASO, DAVID",
+        "activos_espera": 173,
+        "convocados": 456
+      },
+      "MUS": {
+        "plazas": 2,
+        "corte_num": 12214,
+        "corte_nombre": "PART TARRASO, BORJA",
+        "activos_espera": 35,
+        "convocados": 210
+      },
+      "ING": {
+        "plazas": 4,
+        "corte_num": 15451,
+        "corte_nombre": "MAICAS BORDAS, ALBA",
+        "activos_espera": 65,
+        "convocados": 504
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 23
+      }
+    }
   }
 ]
