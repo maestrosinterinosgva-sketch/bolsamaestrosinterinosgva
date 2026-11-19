@@ -1258,5 +1258,68 @@
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "19/11/2026",
+    "total_plazas": 122,
+    "total_convocados": 6028,
+    "especialidades": {
+      "INF": {
+        "plazas": 39,
+        "corte_num": 12676,
+        "corte_nombre": "SANAHUJA MARCO, ADRIANA",
+        "activos_espera": 2523,
+        "convocados": 3606
+      },
+      "PRI": {
+        "plazas": 43,
+        "corte_num": 15507,
+        "corte_nombre": "EGUREN FENOLLOSA, AINHOA",
+        "activos_espera": 600,
+        "convocados": 2177
+      },
+      "PT": {
+        "plazas": 23,
+        "corte_num": 15775,
+        "corte_nombre": "CREUS RUANO, NADIA",
+        "activos_espera": 112,
+        "convocados": 511
+      },
+      "AL": {
+        "plazas": 6,
+        "corte_num": 11927,
+        "corte_nombre": "BORT ROIG, CARME",
+        "activos_espera": 98,
+        "convocados": 376
+      },
+      "EF": {
+        "plazas": 5,
+        "corte_num": 11771,
+        "corte_nombre": "BELMONTE ZAPATA, AURORA",
+        "activos_espera": 170,
+        "convocados": 444
+      },
+      "MUS": {
+        "plazas": 2,
+        "corte_num": 11242,
+        "corte_nombre": "BERMELL CUNYAT, NOELIA",
+        "activos_espera": 36,
+        "convocados": 211
+      },
+      "ING": {
+        "plazas": 4,
+        "corte_num": 12163,
+        "corte_nombre": "TORRES OLIVA, ISMAEL",
+        "activos_espera": 57,
+        "convocados": 498
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 23
+      }
+    }
   }
 ]
