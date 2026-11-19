@@ -161,6 +161,19 @@ def push_to_github():
         print(f"[-] No se pudo sincronizar automáticamente con git: {e}")
         return False
 
+def is_dificil_cobertura_pdf(pdf_path):
+    """Devuelve True si el PDF corresponde a puestos de difícil cobertura y no a adjudicación continua ordinaria."""
+    try:
+        import pymupdf
+        doc = pymupdf.open(pdf_path)
+        if len(doc) > 0:
+            txt = doc[0].get_text().upper()
+            if "DIFÍCIL COBERTURA" in txt or "DIFICIL COBERTURA" in txt:
+                return True
+    except Exception:
+        pass
+    return False
+
 def check_and_update():
     print("=" * 64)
     print(" 🤖 BOT AUTÓNOMO DE COMPROBACIÓN - SECUNDARIA Y DESTINOS GVA")
@@ -175,51 +188,60 @@ def check_and_update():
         print("[i] No se han detectado nuevos enlaces en esta pasada.")
         return False
 
-    # Separar por categoría (adjudicacion vs destinos)
-    best_candidates = {"adjudicacion": None, "destinos": None}
-    best_tags = {"adjudicacion": ("000000", 0), "destinos": ("000000", 0)}
+    # Ordenar candidatos por categoría (adjudicacion vs destinos) de más reciente a más antiguo
+    grouped = {"adjudicacion": [], "destinos": []}
+    seen_urls = set()
 
     for src_name, pdf_url in found:
+        if pdf_url in seen_urls:
+            continue
+        seen_urls.add(pdf_url)
         cat = get_pdf_category(pdf_url)
         cand_tag = extract_date_tag(pdf_url)
         is_def = 1 if "pue_def" in pdf_url.lower() else 0
-        cand_score = (cand_tag, is_def)
-        if cand_score > best_tags[cat]:
-            best_tags[cat] = cand_score
-            best_candidates[cat] = (pdf_url, src_name, cand_tag)
+        # Priorizar fuentes oficiales ceice sobre espejos y pue_def sobre pue_prov
+        is_official = 1 if "ceice.gva.es" in pdf_url.lower() and "416898822" not in pdf_url else 0
+        grouped[cat].append(((cand_tag, is_def, is_official), pdf_url, src_name, cand_tag))
+
+    for cat in grouped:
+        grouped[cat].sort(key=lambda x: x[0], reverse=True)
 
     any_updated = False
 
     for cat in ["destinos", "adjudicacion"]:
-        cand = best_candidates[cat]
-        if not cand:
+        cands = grouped[cat]
+        if not cands:
             continue
 
-        pdf_url, src_name, cand_tag = cand
         last_url = history.get(cat, "")
         last_tag = extract_date_tag(last_url)
-
         cat_title = "DESTINOS / PUESTOS" if cat == "destinos" else "ADJUDICACIÓN DE INTERINOS"
-        print(f"\n[*] Comprobando {cat_title}:")
-        print(f"    - Candidato detectado ({cand_tag}) en {src_name}: {pdf_url}")
 
-        if pdf_url == last_url:
-            print(f"    [i] {cat_title} ya está al día.")
-            continue
-        if cand_tag < last_tag:
-            print(f"    [i] El archivo detectado es más antiguo ({cand_tag} < {last_tag}). Omitiendo.")
-            continue
+        for _, pdf_url, src_name, cand_tag in cands:
+            print(f"\n[*] Comprobando {cat_title}:")
+            print(f"    - Candidato detectado ({cand_tag}) en {src_name}: {pdf_url}")
 
-        print(f"    [!] ¡NUEVO ARCHIVO DE {cat_title} DETECTADO ({cand_tag})! Descargando...")
-        try:
-            local_target = f"secundaria_{cat}_{cand_tag}.pdf"
-            download_pdf_if_url(pdf_url, local_target)
-            run_actualizacion(local_target)
-            history[cat] = pdf_url
-            any_updated = True
-            print(f"    [OK] {cat_title} procesado exitosamente.")
-        except Exception as e:
-            print(f"    [-] Error al procesar {pdf_url}: {e}")
+            if pdf_url == last_url:
+                print(f"    [i] {cat_title} ya está al día.")
+                break
+            if cand_tag < last_tag:
+                print(f"    [i] El archivo detectado es más antiguo ({cand_tag} < {last_tag}). Omitiendo.")
+                break
+
+            print(f"    [!] ¡NUEVO ARCHIVO DE {cat_title} DETECTADO ({cand_tag})! Descargando...")
+            try:
+                local_target = f"secundaria_{cat}_{cand_tag}.pdf"
+                download_pdf_if_url(pdf_url, local_target)
+                if cat == "destinos" and is_dificil_cobertura_pdf(local_target):
+                    print(f"    [i] '{os.path.basename(pdf_url)}' es de Difícil Cobertura (formato distinto). Omitiendo...")
+                    continue
+                run_actualizacion(local_target)
+                history[cat] = pdf_url
+                any_updated = True
+                print(f"    [OK] {cat_title} procesado exitosamente.")
+                break
+            except Exception as e:
+                print(f"    [-] Error al procesar {pdf_url}: {e}")
 
     if any_updated:
         save_history(history)
