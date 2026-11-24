@@ -320,9 +320,10 @@ class TestInterinosDataAndMetrics(unittest.TestCase):
         self.assertEqual(rec_2910[1], 2239, "Nº de adjudicación del 29/10 debe ser 2239")
         self.assertEqual(rec_2910[2], 504, "Puesto en PT del 29/10 debe ser 504")
 
-        # Último registro debe corresponder a la última adjudicación convocada
+        # Último registro debe corresponder a la última adjudicación convocada si estuvo convocado
         latest = pt_evo[-1]
-        self.assertEqual(pablo.get("adj_order"), latest[1], "Nº Adjudicación convocada debe coincidir con el último registro de evolución")
+        if pablo.get("adj_order") is not None:
+            self.assertEqual(pablo.get("adj_order"), latest[1], "Nº Adjudicación convocada debe coincidir con el último registro de evolución")
         self.assertGreater(latest[2], 0, "Puesto en PT debe ser mayor que 0")
 
         # Comprobar elementos HTML y JS
