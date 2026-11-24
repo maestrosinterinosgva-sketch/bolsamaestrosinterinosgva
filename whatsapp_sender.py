@@ -1,91 +1,146 @@
+import argparse
 import os
+import subprocess
 import sys
 import time
 from playwright.sync_api import sync_playwright
 
 PROFILE_DIR = os.path.join(os.path.expanduser("~"), ".whatsapp_automation_profile")
 TARGET_GROUP = "Compis Molones 2026-2027"
-MESSAGE_TEXT = "¡Ya han salido las listas de adjudicaciones de hoy en Conselleria! 🚀 Podéis consultar las listas actualizadas y posiciones aquí: https://bolsamaestrosinterinosgva.es/"
+MESSAGE_TEXT = (
+    "¡Ya han salido las listas de adjudicaciones de hoy en Conselleria! 🚀 "
+    "Podéis consultar las listas actualizadas y posiciones aquí: https://bolsamaestrosinterinosgva.es/"
+)
+CLEAN_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+)
+SEARCH_BOX_SELECTOR = (
+    'div[contenteditable="true"][data-tab="3"], '
+    'div[aria-label="Cuadro de texto de búsqueda"], '
+    'div[aria-label="Search input textbox"], '
+    'div[aria-label="Search"]'
+)
+MESSAGE_BOX_SELECTOR = (
+    'footer div[contenteditable="true"][data-tab="10"], '
+    'div[contenteditable="true"][data-tab="10"], '
+    'div[aria-label="Escribe un mensaje"], '
+    'div[aria-label="Type a message"]'
+)
+
 
 def log_print(msg):
     print(msg, flush=True)
 
+
 def kill_profile_chrome():
-    """Cierra cualquier proceso previo de Chrome usando el perfil de automatización para evitar bloqueos"""
-    import subprocess
+    """Cierra cualquier proceso previo de Chrome usando el perfil de automatización para evitar bloqueos."""
     try:
-        cmd = 'Get-CimInstance Win32_Process -Filter "Name = \'chrome.exe\'" | Where-Object { $_.CommandLine -like "*whatsapp_automation_profile*" } | Stop-Process -Force'
+        cmd = (
+            'Get-CimInstance Win32_Process -Filter "Name = \'chrome.exe\'" '
+            '| Where-Object { $_.CommandLine -like "*whatsapp_automation_profile*" } '
+            '| Stop-Process -Force'
+        )
         subprocess.run(["powershell", "-NoProfile", "-Command", cmd], capture_output=True)
         time.sleep(1)
     except Exception:
         pass
 
-def send_whatsapp_message(group_name=TARGET_GROUP, message=MESSAGE_TEXT, interactive_login=False):
+
+def send_whatsapp_message(
+    group_name=TARGET_GROUP,
+    message=MESSAGE_TEXT,
+    interactive_login=False,
+    check_only=False,
+):
     os.makedirs(PROFILE_DIR, exist_ok=True)
     kill_profile_chrome()
+
+    use_headless = not interactive_login
     with sync_playwright() as p:
-        # Launch Chrome with persistent profile
         context = p.chromium.launch_persistent_context(
             user_data_dir=PROFILE_DIR,
             channel="chrome",
-            headless=False,
-            args=["--start-maximized"]
+            headless=use_headless,
+            user_agent=CLEAN_USER_AGENT,
+            viewport={"width": 1280, "height": 800},
+            args=["--start-maximized"] if not use_headless else [],
         )
-        page = context.pages[0] if context.pages else context.new_page()
-        log_print("[*] Abriendo WhatsApp Web en Chrome...")
-        page.goto("https://web.whatsapp.com")
+        try:
+            page = context.pages[0] if context.pages else context.new_page()
+            log_print(f"[*] Abriendo WhatsApp Web en Chrome ({'visible' if not use_headless else 'headless'})...")
+            page.goto("https://web.whatsapp.com", wait_until="domcontentloaded")
 
-        if interactive_login:
-            log_print("[i] MODO VINCULACIÓN: Escanea el código QR en la ventana de Chrome si no lo has hecho...")
-            # Wait for search box or chat list indicating user is logged in
+            if interactive_login:
+                log_print("[i] MODO VINCULACIÓN: Escanea el código QR en la ventana de Chrome...")
+                try:
+                    page.wait_for_selector(SEARCH_BOX_SELECTOR, timeout=300000)
+                    log_print("[OK] ¡Sesión iniciada con éxito! Esperando 5s a que termine de sincronizar...")
+                    time.sleep(5)
+                    log_print("[OK] Sesión guardada permanentemente en ~/.whatsapp_automation_profile.")
+                    return True
+                except Exception as e:
+                    log_print(f"[-] Tiempo de espera agotado para el inicio de sesión: {e}")
+                    return False
+
+            log_print("[*] Esperando carga de chats de WhatsApp...")
             try:
-                page.wait_for_selector('div[contenteditable="true"][data-tab="3"], div[aria-label="Cuadro de texto de búsqueda"], div[aria-label="Search"]', timeout=180000)
-                log_print("[OK] ¡Sesión iniciada con éxito! La sesión queda guardada.")
-            except Exception as e:
-                log_print(f"[-] Tiempo de espera agotado para el inicio de sesión: {e}")
-            finally:
-                context.close()
-            return
+                search_box = page.wait_for_selector(SEARCH_BOX_SELECTOR, timeout=60000)
+            except Exception:
+                log_print("[-] No se detectó sesión iniciada en WhatsApp Web. Ejecuta 'python whatsapp_sender.py --setup' desde tu terminal.")
+                return False
 
-        log_print("[*] Esperando carga de chats de WhatsApp...")
-        try:
-            # Selector for search box in WhatsApp Web
-            search_box = page.wait_for_selector('div[contenteditable="true"][data-tab="3"], div[aria-label="Cuadro de texto de búsqueda"], div[aria-label="Search"]', timeout=45000)
-        except Exception:
-            log_print("[-] No se detectó sesión iniciada en WhatsApp Web. Es necesario escanear el QR.")
-            context.close()
-            return False
+            if check_only:
+                log_print("[OK] Sesión de WhatsApp Web activa y lista para envíos automáticos en modo headless.")
+                return True
 
-        log_print(f"[*] Buscando grupo '{group_name}'...")
-        search_box.click()
-        search_box.fill("")
-        search_box.type(group_name, delay=100)
-        time.sleep(2)
+            log_print(f"[*] Buscando grupo '{group_name}'...")
+            search_box.click()
+            page.keyboard.press("Control+A")
+            page.keyboard.press("Backspace")
+            page.keyboard.insert_text(group_name)
+            time.sleep(2.5)
 
-        # Look for group in results
-        try:
             group_element = page.wait_for_selector(f'span[title="{group_name}"]', timeout=15000)
             group_element.click()
-            time.sleep(1)
-        except Exception:
-            log_print(f"[-] No se encontró el grupo '{group_name}'. Intentando pulsar Enter en el primer resultado...")
-            page.keyboard.press("Enter")
-            time.sleep(1)
+            time.sleep(1.5)
 
-        log_print("[*] Escribiendo y enviando mensaje...")
-        # Main message input box is data-tab="10" or aria-label="Escribe un mensaje"
-        message_box = page.wait_for_selector('div[contenteditable="true"][data-tab="10"], div[aria-label="Escribe un mensaje"], div[aria-label="Type a message"]', timeout=10000)
-        message_box.click()
-        message_box.fill("")
-        # Type message
-        message_box.type(message, delay=20)
-        time.sleep(0.5)
-        page.keyboard.press("Enter")
-        log_print("[OK] Mensaje enviado a WhatsApp.")
-        time.sleep(3) # Wait for send transmission
-        context.close()
-        return True
+            # Verificar que la cabecera del chat abierto corresponde al grupo objetivo
+            header_match = page.wait_for_selector(f'header span[title="{group_name}"]', timeout=10000)
+            if not header_match:
+                log_print(f"[-] Abortando: no se pudo confirmar que el chat abierto sea '{group_name}'.")
+                return False
+
+            log_print("[*] Escribiendo y enviando mensaje...")
+            message_box = page.wait_for_selector(MESSAGE_BOX_SELECTOR, timeout=10000)
+            message_box.click()
+            page.keyboard.press("Control+A")
+            page.keyboard.press("Backspace")
+            page.keyboard.insert_text(message)
+            time.sleep(0.8)
+            page.keyboard.press("Enter")
+            log_print(f"[OK] Mensaje enviado correctamente a '{group_name}'.")
+            time.sleep(5)
+            return True
+        except Exception as e:
+            log_print(f"[-] Error en automatización de WhatsApp: {e}")
+            return False
+        finally:
+            context.close()
+
 
 if __name__ == "__main__":
-    is_setup = "--setup" in sys.argv
-    send_whatsapp_message(interactive_login=is_setup)
+    parser = argparse.ArgumentParser(description="Automatización de envío a WhatsApp Web")
+    parser.add_argument("--setup", action="store_true", help="Abrir Chrome visible para vincular el QR una vez")
+    parser.add_argument("--check", action="store_true", help="Comprobar si la sesión está activa en modo headless sin enviar")
+    parser.add_argument("--group", default=TARGET_GROUP, help="Nombre exacto del grupo o chat")
+    parser.add_argument("--message", default=MESSAGE_TEXT, help="Mensaje a enviar")
+    args = parser.parse_args()
+
+    ok = send_whatsapp_message(
+        group_name=args.group,
+        message=args.message,
+        interactive_login=args.setup,
+        check_only=args.check,
+    )
+    sys.exit(0 if ok else 1)
