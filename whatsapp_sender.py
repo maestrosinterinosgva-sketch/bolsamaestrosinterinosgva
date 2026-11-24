@@ -16,14 +16,16 @@ CLEAN_USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 )
 SEARCH_BOX_SELECTOR = (
+    'input[data-tab="3"], '
+    '[data-tab="3"][role="textbox"], '
     'div[contenteditable="true"][data-tab="3"], '
+    'input[aria-label="Buscar un chat o iniciar uno nuevo"], '
     'div[aria-label="Cuadro de texto de búsqueda"], '
-    'div[aria-label="Search input textbox"], '
-    'div[aria-label="Search"]'
+    'div[aria-label="Search input textbox"]'
 )
 MESSAGE_BOX_SELECTOR = (
     'footer div[contenteditable="true"][data-tab="10"], '
-    'div[contenteditable="true"][data-tab="10"], '
+    'div[contenteditable="true"][data-tab="10"][role="textbox"], '
     'div[aria-label="Escribe un mensaje"], '
     'div[aria-label="Type a message"]'
 )
@@ -94,25 +96,26 @@ def send_whatsapp_message(
                 log_print("[OK] Sesión de WhatsApp Web activa y lista para envíos automáticos en modo headless.")
                 return True
 
-            log_print(f"[*] Buscando grupo '{group_name}'...")
+            log_print(f"[*] Buscando chat/grupo '{group_name}'...")
             search_box.click()
-            page.keyboard.press("Control+A")
-            page.keyboard.press("Backspace")
-            page.keyboard.insert_text(group_name)
+            search_box.fill(group_name)
             time.sleep(2.5)
 
             group_element = page.wait_for_selector(f'span[title="{group_name}"]', timeout=15000)
             group_element.click()
             time.sleep(1.5)
 
-            # Verificar que la cabecera del chat abierto corresponde al grupo objetivo
-            header_match = page.wait_for_selector(f'header span[title="{group_name}"]', timeout=10000)
-            if not header_match:
+            log_print("[*] Verificando chat abierto y preparando mensaje...")
+            message_box = page.wait_for_selector(MESSAGE_BOX_SELECTOR, timeout=10000)
+            aria_label = (message_box.get_attribute("aria-label") or "").lower()
+            headers_text = " ".join(
+                (h.inner_text() or "") for h in page.query_selector_all("header")
+            ).lower()
+            if group_name.lower() not in aria_label and group_name.lower() not in headers_text:
                 log_print(f"[-] Abortando: no se pudo confirmar que el chat abierto sea '{group_name}'.")
                 return False
 
             log_print("[*] Escribiendo y enviando mensaje...")
-            message_box = page.wait_for_selector(MESSAGE_BOX_SELECTOR, timeout=10000)
             message_box.click()
             page.keyboard.press("Control+A")
             page.keyboard.press("Backspace")
