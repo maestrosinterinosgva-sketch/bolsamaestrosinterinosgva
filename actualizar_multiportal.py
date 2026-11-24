@@ -624,5 +624,14 @@ def main():
 
     show_status(destinos_dir)
 
+    # Si se detectaron y procesaron cambios nuevos, notificar por WhatsApp automáticamente
+    if had_changes:
+        print("\n[*] Enviando notificación automática a WhatsApp...")
+        try:
+            import whatsapp_sender
+            whatsapp_sender.send_whatsapp_message(group_name="Compis Molones 2026-2027")
+        except Exception as e:
+            print(f"[-] Aviso al enviar mensaje de WhatsApp: {e}")
+
 if __name__ == "__main__":
     main()
