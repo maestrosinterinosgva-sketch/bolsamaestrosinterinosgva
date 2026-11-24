@@ -1321,5 +1321,68 @@ window.HISTORICO_CORTES = [
         "convocados": 23
       }
     }
+  },
+  {
+    "fecha": "24/11/2026",
+    "total_plazas": 98,
+    "total_convocados": 5966,
+    "especialidades": {
+      "INF": {
+        "plazas": 19,
+        "corte_num": 12692,
+        "corte_nombre": "ORTS FUENTES, MARIA",
+        "activos_espera": 2513,
+        "convocados": 3588
+      },
+      "PRI": {
+        "plazas": 43,
+        "corte_num": 16122,
+        "corte_nombre": "GOMEZ IVARS, JOSE",
+        "activos_espera": 571,
+        "convocados": 2134
+      },
+      "PT": {
+        "plazas": 14,
+        "corte_num": 14200,
+        "corte_nombre": "MOSCARDO SOLER, AGNES",
+        "activos_espera": 103,
+        "convocados": 499
+      },
+      "AL": {
+        "plazas": 11,
+        "corte_num": 12035,
+        "corte_nombre": "CUADRADO SALVADOR, SERGIO",
+        "activos_espera": 81,
+        "convocados": 359
+      },
+      "EF": {
+        "plazas": 7,
+        "corte_num": 15476,
+        "corte_nombre": "MACIAN PEREZ, JAVIER",
+        "activos_espera": 165,
+        "convocados": 441
+      },
+      "MUS": {
+        "plazas": 2,
+        "corte_num": 13722,
+        "corte_nombre": "SEGURA PEREZ, NOELIA",
+        "activos_espera": 35,
+        "convocados": 206
+      },
+      "ING": {
+        "plazas": 2,
+        "corte_num": 10962,
+        "corte_nombre": "SANCHEZ DE LEON, SANDRA",
+        "activos_espera": 60,
+        "convocados": 494
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 22
+      }
+    }
   }
 ];
