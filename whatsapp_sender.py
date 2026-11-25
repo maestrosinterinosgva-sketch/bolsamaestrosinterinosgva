@@ -120,10 +120,36 @@ def send_whatsapp_message(
             page.keyboard.press("Control+A")
             page.keyboard.press("Backspace")
             page.keyboard.insert_text(message)
-            time.sleep(0.8)
-            page.keyboard.press("Enter")
-            log_print(f"[OK] Mensaje enviado correctamente a '{group_name}'.")
-            time.sleep(5)
+            time.sleep(1.5)
+
+            # Buscar y pulsar el botón Enviar explícito
+            try:
+                send_btn = page.wait_for_selector('button[aria-label="Enviar"], button[data-tab="11"]', timeout=5000)
+                send_btn.click()
+            except Exception:
+                page.keyboard.press("Enter")
+
+            # Esperar a que el mensaje obtenga el check de entrega en el servidor de WhatsApp
+            log_print("[*] Esperando confirmación de entrega (check) en el servidor de WhatsApp...")
+            delivered = False
+            for _ in range(12):
+                time.sleep(2)
+                last_icon = page.evaluate('''() => {
+                    const outMsgs = document.querySelectorAll('.message-out, [data-id*="true_"]');
+                    if (outMsgs.length === 0) return 'none';
+                    const last = outMsgs[outMsgs.length - 1];
+                    const icon = last.querySelector('[data-icon]');
+                    return icon ? icon.getAttribute('data-icon') : 'none';
+                }''')
+                if 'check' in last_icon:
+                    delivered = True
+                    break
+                # Si falló inmediatamente con alerta roja, salir
+                if 'alert' in last_icon:
+                    break
+
+            log_print(f"[OK] Mensaje enviado a '{group_name}' (entregado: {delivered}).")
+            time.sleep(2)
             return True
         except Exception as e:
             log_print(f"[-] Error en automatización de WhatsApp: {e}")
