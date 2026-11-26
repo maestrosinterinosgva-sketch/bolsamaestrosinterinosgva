@@ -1384,5 +1384,68 @@
         "convocados": 22
       }
     }
+  },
+  {
+    "fecha": "26/11/2026",
+    "total_plazas": 112,
+    "total_convocados": 5896,
+    "especialidades": {
+      "INF": {
+        "plazas": 25,
+        "corte_num": 12481,
+        "corte_nombre": "RODRIGUEZ GARCIA, SANDRA",
+        "activos_espera": 2497,
+        "convocados": 3570
+      },
+      "PRI": {
+        "plazas": 42,
+        "corte_num": 16858,
+        "corte_nombre": "ADAM ROIG, ROSA ANA",
+        "activos_espera": 522,
+        "convocados": 2086
+      },
+      "PT": {
+        "plazas": 9,
+        "corte_num": 14747,
+        "corte_nombre": "PLA MARTINEZ, NATALIA",
+        "activos_espera": 92,
+        "convocados": 482
+      },
+      "AL": {
+        "plazas": 13,
+        "corte_num": 12281,
+        "corte_nombre": "CABANES MARTINEZ, MAR",
+        "activos_espera": 67,
+        "convocados": 347
+      },
+      "EF": {
+        "plazas": 11,
+        "corte_num": 15500,
+        "corte_nombre": "CAMPS ESCRIVA, JOSEP",
+        "activos_espera": 152,
+        "convocados": 430
+      },
+      "MUS": {
+        "plazas": 5,
+        "corte_num": 15049,
+        "corte_nombre": "MORENO GARCIA, ELENA",
+        "activos_espera": 32,
+        "convocados": 207
+      },
+      "ING": {
+        "plazas": 7,
+        "corte_num": 12198,
+        "corte_nombre": "RODRIGUEZ RAMIREZ, ANTONIO JOSE",
+        "activos_espera": 57,
+        "convocados": 488
+      },
+      "FRA": {
+        "plazas": 0,
+        "corte_num": null,
+        "corte_nombre": null,
+        "activos_espera": 3,
+        "convocados": 22
+      }
+    }
   }
 ]
