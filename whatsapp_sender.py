@@ -52,6 +52,7 @@ def kill_profile_chrome():
 def send_whatsapp_message(
     group_name=TARGET_GROUP,
     message=MESSAGE_TEXT,
+    document_path=None,
     interactive_login=False,
     check_only=False,
 ):
@@ -105,7 +106,7 @@ def send_whatsapp_message(
             group_element.click()
             time.sleep(1.5)
 
-            log_print("[*] Verificando chat abierto y preparando mensaje...")
+            log_print("[*] Verificando chat abierto y preparando envío...")
             message_box = page.wait_for_selector(MESSAGE_BOX_SELECTOR, timeout=10000)
             aria_label = (message_box.get_attribute("aria-label") or "").lower()
             headers_text = " ".join(
@@ -115,22 +116,43 @@ def send_whatsapp_message(
                 log_print(f"[-] Abortando: no se pudo confirmar que el chat abierto sea '{group_name}'.")
                 return False
 
-            log_print("[*] Escribiendo y enviando mensaje...")
-            message_box.click()
-            page.keyboard.press("Control+A")
-            page.keyboard.press("Backspace")
-            page.keyboard.insert_text(message)
-            time.sleep(1.5)
+            # 1. Enviar mensaje de texto si se especificó
+            if message:
+                log_print("[*] Escribiendo y enviando mensaje de texto...")
+                message_box.click()
+                page.keyboard.press("Control+A")
+                page.keyboard.press("Backspace")
+                page.keyboard.insert_text(message)
+                time.sleep(1.5)
 
-            # Buscar y pulsar el botón Enviar explícito
-            try:
-                send_btn = page.wait_for_selector('button[aria-label="Enviar"], button[data-tab="11"]', timeout=5000)
-                send_btn.click()
-            except Exception:
-                page.keyboard.press("Enter")
+                try:
+                    send_btn = page.wait_for_selector('button[aria-label="Enviar"], button[data-tab="11"]', timeout=5000)
+                    send_btn.click()
+                except Exception:
+                    page.keyboard.press("Enter")
+                time.sleep(2)
 
-            # Esperar a que el mensaje obtenga el check de entrega en el servidor de WhatsApp
-            log_print("[*] Esperando confirmación de entrega (check) en el servidor de WhatsApp...")
+            # 2. Enviar documento adjunto si se especificó
+            if document_path and os.path.exists(document_path):
+                log_print(f"[*] Adjuntando documento: {document_path}...")
+                attach_btn = page.wait_for_selector('button[aria-label="Adjuntar"], [data-icon="plus"], [data-icon="attach-menu-plus"]', timeout=5000)
+                attach_btn.click()
+                time.sleep(1)
+
+                with page.expect_file_chooser(timeout=10000) as fc_info:
+                    doc_btn = page.wait_for_selector('li:has-text("Documento"), div[role="button"]:has-text("Documento"), span:has-text("Documento")', timeout=5000)
+                    doc_btn.click()
+
+                file_chooser = fc_info.value
+                file_chooser.set_files(os.path.abspath(document_path))
+                log_print("[*] Esperando interfaz de envío de documento...")
+                send_doc_btn = page.wait_for_selector('[aria-label*="Enviar"], [data-icon="send"]', timeout=20000)
+                send_doc_btn.click()
+                log_print("[*] Documento enviado, esperando procesamiento de subida...")
+                time.sleep(6)
+
+            # Esperar confirmación de entrega en el servidor
+            log_print("[*] Esperando confirmación en el servidor de WhatsApp...")
             delivered = False
             for _ in range(12):
                 time.sleep(2)
@@ -144,11 +166,10 @@ def send_whatsapp_message(
                 if 'check' in last_icon:
                     delivered = True
                     break
-                # Si falló inmediatamente con alerta roja, salir
                 if 'alert' in last_icon:
                     break
 
-            log_print(f"[OK] Mensaje enviado a '{group_name}' (entregado: {delivered}).")
+            log_print(f"[OK] Envío a '{group_name}' finalizado (entregado: {delivered}).")
             time.sleep(2)
             return True
         except Exception as e:
@@ -164,11 +185,13 @@ if __name__ == "__main__":
     parser.add_argument("--check", action="store_true", help="Comprobar si la sesión está activa en modo headless sin enviar")
     parser.add_argument("--group", default=TARGET_GROUP, help="Nombre exacto del grupo o chat")
     parser.add_argument("--message", default=MESSAGE_TEXT, help="Mensaje a enviar")
+    parser.add_argument("--document", default=None, help="Ruta a un archivo para enviar como documento adjunto")
     args = parser.parse_args()
 
     ok = send_whatsapp_message(
         group_name=args.group,
         message=args.message,
+        document_path=args.document,
         interactive_login=args.setup,
         check_only=args.check,
     )
